@@ -11,29 +11,43 @@
           style = "dark";
         };
 
-      # Settings and plugins
+        # Visuals
+        visuals = {
+          nvim-cursorline.enable = true;
+          fidget-nvim.enable = true;
+          indent-blankline.enable = true;
+          nvim-web-devicons.enable = true;
+        };
+        
+        # Settings and plugins
         globals.mapleader = " ";
         viAlias = false;
         vimAlias = true;
         statusline.lualine.enable = true;
         telescope.enable = true;
-        autocomplete.nvim-cmp.enable = true;
+        autocomplete.blink-cmp.enable = true;
+        projects.project-nvim.enable = true;
+        notify.nvim-notify.enable = true;
+        presence.neocord.enable = true;
         languages = {
-          lsp.enable = true;
+          enableLSP = true;
           enableTreesitter = true;
           # Languages 
           nix.enable = true;
           python.enable = true;
           go.enable = true;
           rust.enable = true;
-      # Options
+        };
+
+        # Options
         options = {
           tabstop = 2;
           softtabstop = 2;
           shiftwidth = 2;
         };
-      # Binds
-        }; 
+
+        # Binds
+        binds.whichKey.enable = true;
       };
     };
   };

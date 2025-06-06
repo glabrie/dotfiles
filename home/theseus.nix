@@ -22,6 +22,7 @@
     element-desktop
     gh
     ghostty
+    kitty
     ncspot
     obsidian
     ranger
