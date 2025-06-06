@@ -108,7 +108,6 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-  self.packages.${pkgs.stdenv.system}.neovim
   fzf
   gcc
   git

@@ -19,13 +19,6 @@
     nvf,
     ...
   } @ inputs: {
-
-    packages."x86_64-linux".default =
-      (nvf.lib.neovimConfiguration {
-        pkgs = nixpkgs.legacyPackages."x86_64-linux";
-	modules = [ ./modules/nvf/nvf-configuration.nix ];
-	}).neovim;
-
     nixosConfigurations.theseus = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       specialArgs = {inherit inputs self;};
@@ -33,6 +26,7 @@
         ./modules/theseus/configuration.nix
 	determinate.nixosModules.default
 	nvf.nixosModules.default
+        ./modules/nvf/nvf-configuration.nix
 	home-manager.nixosModules.home-manager
 	{
 	  home-manager.useGlobalPkgs = true;

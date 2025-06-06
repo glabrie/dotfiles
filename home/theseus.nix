@@ -53,7 +53,7 @@
       gp = "git push";
       ll = "ls -l";
       v = "nvim";
-      update = "sudo nixos-rebuild switch --flake ~/.dotfiles/#default";
+      update = "sudo nixos-rebuild switch --flake ~/.dotfiles";
     };
   };
 }
