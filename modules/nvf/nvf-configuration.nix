@@ -26,11 +26,6 @@
           python.enable = true;
           go.enable = true;
           rust.enable = true;
-        clipboard = {
-          enable = true;
-          registers = "unnamedplus";
-        };
-
       # Options
         options = {
           tabstop = 2;
