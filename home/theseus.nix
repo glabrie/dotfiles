@@ -28,11 +28,11 @@
     ncspot
     obsidian
     ranger
-    rofi
     slack
     tana
     telegram-desktop
     waybar
+    wofi
   ];
 
   programs.home-manager.enable = true;
