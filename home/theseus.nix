@@ -28,6 +28,7 @@
     ncspot
     obsidian
     ranger
+    rofi
     slack
     tana
     telegram-desktop
