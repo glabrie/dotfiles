@@ -37,6 +37,14 @@
 
   programs.neovim.extraLuaPackages = true;
 
+ # nh, because I like my fingies
+  programs.nh = {
+    enable = true;
+    clean.enable = true;
+    clean.extraArgs = "--keep-since 4d --keep 3";
+    flake = "/home/ghil/.dotfiles";
+  };
+
   programs.starship = {
     enable = true;
     enableZshIntegration = true;

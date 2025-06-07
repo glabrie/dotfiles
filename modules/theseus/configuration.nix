@@ -99,15 +99,7 @@
   services.displayManager.autoLogin.enable = true;
   services.displayManager.autoLogin.user = "ghil";
 
-  # nh, because I like my fingies
-  programs.nh = {
-    enable = true;
-    clean.enable = true;
-    clean.extraArgs = "--keep-since 4d --keep 3";
-    flake = "/home/ghil/.dotfiles";
-  };
-
-  # Allow unfree packages
+   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
   # List packages installed in system profile. To search, run:
