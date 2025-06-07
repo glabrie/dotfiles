@@ -3,7 +3,7 @@
 {
   imports = [
     ./kitty.nix
-  ]
+  ];
   # Settings
   home.username = "ghil";
   home.homeDirectory = "/home/ghil";
