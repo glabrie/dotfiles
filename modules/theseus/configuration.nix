@@ -58,6 +58,9 @@
   programs.hyprlock.enable = true;
   environment.sessionVariables.NIXOS_OZONE_WL = "1"; #magic trick for electron apps
 
+  # Enable kanshi for screen management
+  programs.kanshi.enable = true;
+
   # Configure keymap in X11
   services.xserver.xkb = {
     layout = "us";
