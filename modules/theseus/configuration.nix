@@ -97,8 +97,8 @@
   };
 
   # Enable automatic login for the user.
-  services.displayManager.autoLogin.enable = true;
-  services.displayManager.autoLogin.user = "ghil";
+  #  services.displayManager.autoLogin.enable = true;
+  #  services.displayManager.autoLogin.user = "ghil";
 
    # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
