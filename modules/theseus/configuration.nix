@@ -110,6 +110,7 @@
   gcc
   git
   jetbrains-mono
+  nerd-fonts.jetbrains-mono
   kanshi
   zsh
   ];
