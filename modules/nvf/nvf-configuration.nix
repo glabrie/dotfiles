@@ -29,8 +29,8 @@
         projects.project-nvim.enable = true;
         notify.nvim-notify.enable = true;
         presence.neocord.enable = true;
+        lsp.enable = true;
         languages = {
-          enableLSP = true;
           enableTreesitter = true;
           # Languages 
           nix.enable = true;
