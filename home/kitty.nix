@@ -3,7 +3,7 @@
   programs.kitty = lib.mkForce {
     enable = true;
     themeFile = "GruvboxMaterialDarkMedium";
-    shellIntegration.enableZshintegration = true;
+    shellIntegration.enableZshIntegration = true;
     font = {
       name = "JetBrains Mono";
       size = 16;
