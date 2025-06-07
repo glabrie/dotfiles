@@ -25,6 +25,7 @@
     element-desktop
     gh
     ghostty
+    hyprpaper
     ncspot
     obsidian
     ranger
