@@ -53,6 +53,11 @@
   services.displayManager.sddm.enable = true;
   services.desktopManager.plasma6.enable = true;
 
+  # Enable Hyprland
+  programs.hyprland.enable = true;
+  programs.hyprlock.enable = true;
+  environment.sessionVariables.NIXOS_OZONE_WL = "1"; #magic trick for electron apps
+
   # Configure keymap in X11
   services.xserver.xkb = {
     layout = "us";
