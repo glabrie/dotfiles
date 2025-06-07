@@ -1,7 +1,9 @@
 # core home manager config for theseus
 { config, pkgs, inputs, ... }:
 {
-
+  imports = [
+    ./kitty.nix
+  ]
   # Settings
   home.username = "ghil";
   home.homeDirectory = "/home/ghil";
@@ -23,7 +25,6 @@
     element-desktop
     gh
     ghostty
-    kitty
     ncspot
     obsidian
     ranger
