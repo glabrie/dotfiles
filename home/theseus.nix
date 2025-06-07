@@ -19,6 +19,7 @@
     cava
     cliphist
     discord
+    dunst
     element-desktop
     gh
     ghostty
@@ -29,6 +30,7 @@
     slack
     tana
     telegram-desktop
+    waybar
   ];
 
   programs.home-manager.enable = true;
@@ -54,7 +56,7 @@
       gp = "git push";
       ll = "ls -l";
       v = "nvim";
-      update = "sudo nixos-rebuild switch --flake ~/.dotfiles";
+      update = "sudo nixos-rebuild switch --flake /home/ghil/.dotfiles";
     };
   };
 }
