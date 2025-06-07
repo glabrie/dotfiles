@@ -108,6 +108,7 @@
   fzf
   gcc
   git
+  jetbrains-mono
   kanshi
   zsh
   ];
