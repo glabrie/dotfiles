@@ -22,13 +22,11 @@
 
   # Enable networking
   networking.networkmanager.enable = true;
-  services.network-manager-applet.enable = true;
 
   # Enable bluetooth
   hardware.bluetooth.enable = true; 
   hardware.bluetooth.powerOnBoot = true;
   services.blueman.enable = true;
-  services.blueman-applet.enable = true;
 
   # Set your time zone.
   time.timeZone = "America/New_York";

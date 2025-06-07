@@ -35,6 +35,10 @@
     waybar
     wofi
   ];
+  
+  # Applets for bluetooth and network manager
+  services.network-manager-applet.enable = true;
+  services.blueman-applet.enable = true;
 
   programs.home-manager.enable = true;
 
