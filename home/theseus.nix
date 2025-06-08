@@ -27,6 +27,7 @@
     element-desktop
     gh
     ghostty
+    hey-mail
     hyprpaper
     ncspot
     obsidian
