@@ -8,6 +8,7 @@
   home.username = "ghil";
   home.homeDirectory = "/home/ghil";
   home.stateVersion = "25.05";
+  fonts.fontconfig.enable = true;
   home.sessionVariables = {
     EDITOR = "nvim";
   };
@@ -34,6 +35,13 @@
     telegram-desktop
     waybar
     wofi
+
+    # Fonts
+    jetbrains-mono
+    nerd-fonts.jetbrains-mono
+    nerdfonts
+    font-awesome
+    font-awesome_5
   ];
   
   # Applets for bluetooth and network manager
