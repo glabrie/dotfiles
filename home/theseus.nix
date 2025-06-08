@@ -30,11 +30,11 @@
     ncspot
     obsidian
     ranger
+    rofi-wayland
     slack
     tana
     telegram-desktop
     waybar
-    wofi
 
     # Fonts
     jetbrains-mono
