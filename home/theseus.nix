@@ -39,7 +39,6 @@
     # Fonts
     jetbrains-mono
     nerd-fonts.jetbrains-mono
-    nerdfonts
     font-awesome
     font-awesome_5
   ];
