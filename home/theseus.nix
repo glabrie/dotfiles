@@ -1,4 +1,5 @@
 # core home manager config for theseus
+# TODO: modularize, refactor and comment
 { config, pkgs, inputs, ... }:
 {
   imports = [
