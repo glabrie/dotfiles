@@ -71,6 +71,14 @@
   # Zsh is a nice nice shell
   programs.zsh.enable = true;
 
+ # nh, because I like my fingies
+  programs.nh = {
+    enable = true;
+    clean.enable = true;
+    clean.extraArgs = "--keep-since 4d --keep 3";
+    flake = "/home/ghil/.dotfiles";
+  };
+
   # Enable sound with pipewire.
   services.pulseaudio.enable = false;
   security.rtkit.enable = true;
