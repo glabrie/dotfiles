@@ -3,7 +3,6 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
-    determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
     nvf.url = "github:notashelf/nvf";
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -19,7 +18,6 @@
     self, 
     nixpkgs,
     home-manager,
-    determinate,
     nvf,
     stylix,
     ...
@@ -29,7 +27,6 @@
       specialArgs = {inherit inputs self;};
       modules = [
         ./modules/theseus/configuration.nix
-	      determinate.nixosModules.default
 	      nvf.nixosModules.default
         ./modules/nvf/nvf-configuration.nix
         stylix.nixosModules.stylix
