@@ -9,6 +9,10 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    stylix = {
+      url = "github:danth/stylix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { 
@@ -17,6 +21,7 @@
     home-manager,
     determinate,
     nvf,
+    stylix,
     ...
   } @ inputs: {
     nixosConfigurations.theseus = nixpkgs.lib.nixosSystem {
@@ -24,19 +29,20 @@
       specialArgs = {inherit inputs self;};
       modules = [
         ./modules/theseus/configuration.nix
-	determinate.nixosModules.default
-	nvf.nixosModules.default
+	      determinate.nixosModules.default
+	      nvf.nixosModules.default
         ./modules/nvf/nvf-configuration.nix
-	home-manager.nixosModules.home-manager
-	{
-	  home-manager.useGlobalPkgs = true;
-	  home-manager.useUserPackages = true;
-	  home-manager.users.ghil = ./home/theseus.nix;
-	  home-manager.extraSpecialArgs = {
-	    inherit inputs;
-	    system = "x86_64-linux";
-	  };
-	}
+        stylix.nixosModules.stylix
+	      home-manager.nixosModules.home-manager
+	      {
+	        home-manager.useGlobalPkgs = true;
+	        home-manager.useUserPackages = true;
+	        home-manager.users.ghil = ./home/theseus.nix;
+	        home-manager.extraSpecialArgs = {
+	          inherit inputs;
+	          system = "x86_64-linux";
+	        };
+	      }
       ];
     };
   };
