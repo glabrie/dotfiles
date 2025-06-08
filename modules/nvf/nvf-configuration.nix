@@ -25,6 +25,7 @@
         vimAlias = true;
         statusline.lualine.enable = true;
         telescope.enable = true;
+        notes.todo-comments.enable = true;
         notes.todo-comments.mappings.telescope = true;
         autocomplete.blink-cmp.enable = true;
         projects.project-nvim.enable = true;
