@@ -53,6 +53,7 @@
 
   programs.neovim.extraLuaPackages = true;
 
+  programs.vesktop.enable = true;
 
   programs.starship = {
     enable = true;
