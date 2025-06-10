@@ -19,12 +19,12 @@
     # Apps
     atuin
     bottom
-    brave
     cava
     cliphist
     discord
     dunst
     element-desktop
+    firefox
     gh
     ghostty
     hey-mail
