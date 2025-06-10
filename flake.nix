@@ -30,6 +30,7 @@
 	      nvf.nixosModules.default
         ./modules/nvf/nvf-configuration.nix
         stylix.nixosModules.stylix
+        ./modules/greetd/greetd.nix
 	      home-manager.nixosModules.home-manager
 	      {
 	        home-manager.useGlobalPkgs = true;
