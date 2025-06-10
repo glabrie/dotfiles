@@ -18,7 +18,7 @@
   home.packages = with pkgs; [
     # Apps
     atuin
-    bootdevcli
+    bootdev-cli
     bottom
     cava
     cliphist
