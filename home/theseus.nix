@@ -28,6 +28,7 @@
     gh
     ghostty
     hey-mail
+    hyprpolkitagent
     hyprpaper
     ncspot
     obsidian
