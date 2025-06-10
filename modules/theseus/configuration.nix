@@ -48,8 +48,8 @@
 
   # Enable Hyprland
   services.displayManager.sddm.enable = true;
+  services.displayManager.sddm.wayland.enable = true;
   programs.hyprland.enable = true;
-  programs.hyprlock.enable = true;
   environment.sessionVariables.NIXOS_OZONE_WL = "1"; #magic trick for electron apps
 
   # Keymap
