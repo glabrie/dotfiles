@@ -64,7 +64,7 @@
     enable = true;
     settings = {
        profiles.user = {
-        user_id = "ghil_:matrix.org";
+        user_id = "@ghil_:matrix.org";
         };
     };
   };
@@ -86,7 +86,7 @@
       ga = "git add *";
       gc = "git commit --verbose";
       gp = "git push";
-      ll = "ls -l";
+      ll = "eza";
       v = "nvim";
       update = "sudo nixos-rebuild switch --flake /home/ghil/.dotfiles";
     };
