@@ -56,7 +56,7 @@
   # Keymap
   services.xserver.xkb = {
     layout = "us,ca";
-    variant = "fr";
+    variant = ",fr";
     options = "grp:win_space_toggle";
   };
   

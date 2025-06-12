@@ -25,6 +25,7 @@
     discord
     dunst
     element-desktop
+    exa
     firefox
     gh
     ghostty
@@ -59,6 +60,15 @@
 
   programs.vesktop.enable = true;
 
+  programs.iamb = {
+    enable = true;
+    settings = {
+       profiles.user = {
+        user_id = "ghil_:matrix.org";
+        };
+    };
+  };
+    
   programs.starship = {
     enable = true;
     enableZshIntegration = true;
