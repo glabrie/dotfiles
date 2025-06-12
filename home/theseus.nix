@@ -25,7 +25,7 @@
     discord
     dunst
     element-desktop
-    exa
+    eza
     firefox
     gh
     ghostty
