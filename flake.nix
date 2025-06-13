@@ -27,6 +27,7 @@
       specialArgs = {inherit inputs self;};
       modules = [
         ./modules/theseus/configuration.nix
+        ./modules/theseus/graphics.nix
 	      nvf.nixosModules.default
         ./modules/nvf/nvf-configuration.nix
         stylix.nixosModules.stylix
