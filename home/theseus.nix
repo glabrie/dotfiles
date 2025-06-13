@@ -30,6 +30,8 @@
     gh
     ghostty
     hey-mail
+    hypridle
+    hyprlock
     hyprpolkitagent
     hyprpaper
     ncspot
