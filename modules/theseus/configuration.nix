@@ -53,6 +53,13 @@
   programs.hyprland.enable = true;
   environment.sessionVariables.NIXOS_OZONE_WL = "1"; #magic trick for electron apps
 
+  # Steam
+  programs.steam = {
+    enable = true;
+    remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
+    dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+  };
+
   # Keymap
   services.xserver.xkb = {
     layout = "us,ca";
