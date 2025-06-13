@@ -60,9 +60,6 @@
   
   # Add nvidia-offload script for easy launching of applications on the NVIDIA GPU
   environment.systemPackages = with pkgs; [
-    # Tool to inspect graphics card usage
-    nvtop
-    
     # Create a script to easily run programs on the NVIDIA GPU
     (writeShellScriptBin "nvidia-offload" ''
       export __NV_PRIME_RENDER_OFFLOAD=1
