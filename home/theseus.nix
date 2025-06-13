@@ -22,7 +22,7 @@
     bottom
     cava
     cliphist
-    discord
+    discordo
     dunst
     element-desktop
     eza
