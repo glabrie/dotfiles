@@ -30,6 +30,7 @@
     firefox
     gh
     ghostty
+    grim
     hey-mail
     hypridle
     hyprlock
@@ -39,10 +40,13 @@
     obsidian
     ranger
     rofi-wayland
+    satty
     slack
+    slurp
     tana
     telegram-desktop
     waybar
+    wl-clipboard
 
     # Fonts
     jetbrains-mono
