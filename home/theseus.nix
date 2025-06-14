@@ -49,6 +49,7 @@
     telegram-desktop
     waybar
     wl-clipboard
+    yazu
 
     # Fonts
     jetbrains-mono
