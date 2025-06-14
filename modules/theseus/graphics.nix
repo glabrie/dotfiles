@@ -3,10 +3,10 @@
 
 {
   # Enable OpenGL
-  hardware.opengl = {
+  hardware.graphics = {
     enable = true;
 #    driSupport = true;
-    driSupport32Bit = true;  # Needed for Steam and other 32-bit applications
+    enable32Bit = true;  # Needed for Steam and other 32-bit applications
     extraPackages = with pkgs; [
       intel-media-driver  # VAAPI driver for Intel iGPU
       vaapiIntel          # VAAPI for older Intel iGPUs

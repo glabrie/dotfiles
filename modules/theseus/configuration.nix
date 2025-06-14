@@ -28,6 +28,9 @@
   hardware.bluetooth.powerOnBoot = true;
   services.blueman.enable = true;
 
+  # Fix the buffer size
+  nix.settings.download-buffer-size = 524288000;
+
   # Set your time zone.
   time.timeZone = "America/New_York";
 
