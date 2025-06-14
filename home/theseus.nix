@@ -37,6 +37,7 @@
     hyprpolkitagent
     hyprpaper
     hyprshot
+    nchat
     ncspot
     obsidian
     ranger
