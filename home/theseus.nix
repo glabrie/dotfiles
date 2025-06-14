@@ -22,7 +22,7 @@
     bottom
     cava
     cliphist
-    devenv
+    direnv
     discordo
     dunst
     element-desktop
