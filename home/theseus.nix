@@ -22,6 +22,7 @@
     bottom
     cava
     cliphist
+    devenv
     discordo
     dunst
     element-desktop
