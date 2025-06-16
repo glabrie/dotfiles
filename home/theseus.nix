@@ -50,6 +50,7 @@
     waybar
     wl-clipboard
     yazi
+    zellij
 
     # Fonts
     jetbrains-mono
