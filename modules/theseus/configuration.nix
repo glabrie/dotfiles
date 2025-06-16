@@ -62,13 +62,6 @@
     remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
     dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
   };
-
-  # Keymap
-  services.xserver.xkb = {
-    layout = "us,ca";
-    variant = ",fr";
-    options = "grp:win_space_toggle";
-  };
   
   # Enable CUPS to print documents.
   services.printing.enable = true;
