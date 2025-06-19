@@ -21,6 +21,7 @@
     bootdev-cli
     bottom
     cava
+    claude-code
     cliphist
     direnv
     discordo
