@@ -6,7 +6,7 @@
       <img src="https://raw.githubusercontent.com/catppuccin/catppuccin/main/assets/palette/macchiato.png" width="600px" /> <br>
 </h1>
 <p align="center">
-   <img src="https://postimg.cc/JyYCdfsx" width="800px" /> <br>
+   <img src="https://i.postimg.cc/QthNVss2/2025-06-22-071014-hyprshot.png" width="800px" /> <br>
 </p>
 <p align="center">
    Screeenshot last updated <b>2024-03-04</b>
