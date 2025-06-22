@@ -9,7 +9,7 @@
    <img src="https://i.postimg.cc/QthNVss2/2025-06-22-071014-hyprshot.png" width="800px" /> <br>
 </p>
 <p align="center">
-   Screeenshot last updated <b>2024-03-04</b>
+   Screeenshot last updated <b>2025-06-22</b>
 </p>
 
 # Personal Dotfiles
