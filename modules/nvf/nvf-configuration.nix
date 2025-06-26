@@ -25,6 +25,15 @@
         vimAlias = true;
         statusline.lualine.enable = true;
         telescope.enable = true;
+        telescope.setupOpts.defaults.file_ignore_patterns = { [
+          "nodes_modules"
+          "%.git/"
+          "dist/"
+          "build/"
+          "target/"
+          "result/"
+          "__pycache__"
+        ] } 
         notes.todo-comments.enable = true;
         autocomplete.blink-cmp.enable = true;
         projects.project-nvim.enable = true;
