@@ -10,6 +10,7 @@
     claude-code
     cliphist
     direnv
+    discord
     discordo
     dunst
     element-desktop
