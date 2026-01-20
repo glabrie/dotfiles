@@ -3,6 +3,4 @@
   # Services, access to applets
   services.network-manager-applet.enable = true;
   services.blueman-applet.enable = true;
-  services.udisks2.enable = true;
-  services.gvfs.enable = true;
 }

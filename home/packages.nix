@@ -35,6 +35,7 @@
     slurp
     tana
     telegram-desktop
+    thunar
     waybar
     wl-clipboard
     yazi
