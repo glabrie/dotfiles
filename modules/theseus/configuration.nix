@@ -72,6 +72,7 @@
  # Automount USB drives
   services.gvfs.enable = true; 
   services.udisks2.enable = true;
+  services.devmon.enable = true;
 
  # nh, because I like my fingies
   programs.nh = {
