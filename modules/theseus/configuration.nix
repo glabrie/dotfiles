@@ -69,6 +69,10 @@
   # Zsh is a nice nice shell
   programs.zsh.enable = true;
 
+ # Automount USB drives
+  services.gvfs.enable = true; 
+  services.udisks2.enable = true;
+
  # nh, because I like my fingies
   programs.nh = {
     enable = true;
