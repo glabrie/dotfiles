@@ -28,7 +28,7 @@
     ncspot
     obsidian
     ranger
-    rofi-wayland
+    rofi
     satty
     slack
     slurp

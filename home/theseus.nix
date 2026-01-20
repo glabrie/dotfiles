@@ -14,7 +14,7 @@
   # Settings
   home.username = "ghil";
   home.homeDirectory = "/home/ghil";
-  home.stateVersion = "25.05";
+  home.stateVersion = "25.11";
   fonts.fontconfig.enable = true;
   home.sessionVariables = {
     EDITOR = "nvim";
