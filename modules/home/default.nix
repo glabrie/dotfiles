@@ -28,7 +28,6 @@
   # nix ld for when it doesn't work and I need it to work right now
   programs.nix-ld = {
     enable = true;
-    libraries = pkgs.steam-run.fhsenv.args.multiPkgs pkgs;
   };
 
   # Iamb, a TUI matrix client. I prefer it to Element
