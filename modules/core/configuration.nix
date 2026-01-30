@@ -56,6 +56,9 @@
   programs.hyprland.enable = true;
   environment.sessionVariables.NIXOS_OZONE_WL = "1"; #magic trick for electron apps
 
+  # Enable flatpaks
+  services.flatpak.enable = true;
+
   # Steam
   programs.steam = {
     enable = true;

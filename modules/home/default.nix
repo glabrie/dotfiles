@@ -5,7 +5,6 @@
 
 {
   imports = [
-    ./hyprland.nix
     ./kitty.nix
     ./services.nix
     ./packages.nix
