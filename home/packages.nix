@@ -3,7 +3,6 @@
  # Packages without options
   home.packages = with pkgs; [
     # Apps
-    inputs.hytale-launcher.packages.${pkgs.system}.default
     atuin
     bootdev-cli
     bottom
