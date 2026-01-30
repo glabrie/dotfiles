@@ -29,6 +29,7 @@
     nchat
     ncspot
     obsidian
+    python3
     ranger
     rofi
     satty
