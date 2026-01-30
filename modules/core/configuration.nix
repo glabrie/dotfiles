@@ -54,7 +54,6 @@
   services.gnome.gnome-keyring.enable = true;
   security.pam.services.greetd.enableGnomeKeyring = true;
   programs.hyprland.enable = true;
-  programs.hyprland.package = inputs.hyprland.packages."${pkgs.system}".hyprland;
   environment.sessionVariables.NIXOS_OZONE_WL = "1"; #magic trick for electron apps
 
   # Steam

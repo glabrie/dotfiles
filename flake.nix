@@ -2,7 +2,6 @@
   description = "Ghil's very basic flake";
 
   inputs = {
-    hyprland.url = "github:hyprwm/Hyprland";
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
     nvf.url = "github:notashelf/nvf";
     home-manager = {
@@ -16,7 +15,6 @@
   };
 
   outputs = { 
-    hyprland,
     self, 
     nixpkgs,
     home-manager,
