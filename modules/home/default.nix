@@ -25,11 +25,6 @@
   # Neovim
   programs.neovim.extraLuaPackages = true;
 
-  # nix ld for when it doesn't work and I need it to work right now
-  programs.nix-ld = {
-    enable = true;
-  };
-
   # Iamb, a TUI matrix client. I prefer it to Element
   programs.iamb = {
     enable = true;
