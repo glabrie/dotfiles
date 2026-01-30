@@ -29,7 +29,7 @@
         ./modules/core/configuration.nix
         ./modules/hardware/nvidia.nix
 	      nvf.nixosModules.default
-        ./modules/home/nvf-configuration.nix
+        ./modules/home/nvf/nvf-configuration.nix
         stylix.nixosModules.stylix
         ./modules/core/greetd/greetd.nix
 	      home-manager.nixosModules.home-manager
