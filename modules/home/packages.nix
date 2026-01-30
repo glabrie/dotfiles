@@ -3,6 +3,7 @@
  # Packages without options
   home.packages = with pkgs; [
     # Apps
+    p7zip
     atuin
     bootdev-cli
     bottom
