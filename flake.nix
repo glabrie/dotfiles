@@ -16,7 +16,7 @@
   };
 
   outputs = { 
-    hyprland
+    hyprland,
     self, 
     nixpkgs,
     home-manager,
@@ -28,17 +28,17 @@
       system = "x86_64-linux";
       specialArgs = {inherit inputs self;};
       modules = [
-        ./modules/theseus/configuration.nix
-        ./modules/theseus/graphics.nix
+        ./modules/core/configuration.nix
+        ./modules/hardware/nvidia.nix
 	      nvf.nixosModules.default
-        ./modules/nvf/nvf-configuration.nix
+        ./modules/home/nvf-configuration.nix
         stylix.nixosModules.stylix
-        ./modules/greetd/greetd.nix
+        ./modules/core/greetd/greetd.nix
 	      home-manager.nixosModules.home-manager
 	      {
 	        home-manager.useGlobalPkgs = true;
 	        home-manager.useUserPackages = true;
-	        home-manager.users.ghil = ./home/theseus.nix;
+	        home-manager.users.ghil = ./modules/home/default.nix;
 	        home-manager.extraSpecialArgs = {
 	          inherit inputs;
 	          system = "x86_64-linux";

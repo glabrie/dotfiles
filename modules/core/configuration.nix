@@ -5,7 +5,7 @@
 {
   imports =
     [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
+      ~/.dotfiles/modules/hardware/hardware-configuration.nix
     ];
 
   # Enable "experimental" features like flakes
