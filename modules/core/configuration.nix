@@ -66,6 +66,8 @@
       stdenv.cc.cc
       zlib
       glibc
+      mesa
+      libGL
     ];
   };
 
