@@ -9,7 +9,6 @@
     ./services.nix
     ./packages.nix
     ./zsh.nix
-    inputs.noctalia.homeModules.default
   ];
 
   # Settings
