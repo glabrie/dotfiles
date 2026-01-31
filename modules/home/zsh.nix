@@ -13,7 +13,7 @@
       gp = "git push";
       ll = "eza";
       v = "nvim";
-      update = "sudo nixos-rebuild switch --flake /home/ghil/.dotfiles";
+      update = "~/.dotfiles/rebuild.sh";
     };
   };
 }
