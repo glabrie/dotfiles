@@ -1,6 +1,6 @@
 { pkgs, inputs, ... }:
 {
-  home-manager.users.drfoobar = {
+  home-manager.users.ghil = {
     # import the home manager module
     imports = [
       inputs.noctalia.homeModules.default
@@ -53,7 +53,7 @@
         };
         colorSchemes.predefinedScheme = "Monochrome";
         general = {
-          avatarImage = "/home/drfoobar/.face";
+          avatarImage = "/home/ghil/.face";
           radiusRatio = 0.2;
         };
         location = {

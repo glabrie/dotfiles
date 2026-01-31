@@ -9,6 +9,7 @@
     ./services.nix
     ./packages.nix
     ./zsh.nix
+    inputs.noctalia.homeModules.default
   ];
 
   # Settings
@@ -24,6 +25,9 @@
 
   # Neovim
   programs.neovim.extraLuaPackages = true;
+
+  # Noctalia Shell, the shell of the gods
+  programs.noctalia-shell.systemd.enable = true;
 
   # Iamb, a TUI matrix client. I prefer it to Element
   programs.iamb = {

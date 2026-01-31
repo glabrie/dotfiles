@@ -21,15 +21,11 @@
     ghostty
     grim
     hey-mail
-    hypridle
-    hyprlock
     hyprpolkitagent
-    hyprpaper
     hyprshot
     nchat
     ncspot
     obsidian
-    python3
     ranger
     rofi
     satty
