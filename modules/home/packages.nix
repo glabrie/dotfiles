@@ -18,6 +18,7 @@
     element-desktop
     eza
     firefox
+    gearlever
     gh
     ghostty
     grim
