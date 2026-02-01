@@ -4,6 +4,7 @@
   home.packages = with pkgs; [
     # Apps
     p7zip
+    appimage-run
     atuin
     bootdev-cli
     bottom
