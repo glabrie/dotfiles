@@ -4,11 +4,11 @@
   home.packages = with pkgs; [
     # Apps
     p7zip
-    appimage-run
     atuin
     bootdev-cli
     bottom
     cava
+    cider-2
     claude-code
     cliphist
     direnv
@@ -18,7 +18,6 @@
     element-desktop
     eza
     firefox
-    gearlever
     gh
     ghostty
     grim
