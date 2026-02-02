@@ -13,7 +13,7 @@
       gp = "git push";
       ll = "eza";
       v = "nvim";
-      update = "~/.dotfiles/rebuild.sh";
+      update = "$HOME/.dotfiles/rebuild.sh";
     };
   };
 }
