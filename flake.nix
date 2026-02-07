@@ -6,6 +6,8 @@
 
     nvf.url = "github:notashelf/nvf";
 
+    oxicord.url = "github:linuxmobile/oxicord";
+
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -23,27 +25,19 @@
 
   };
 
-  outputs = { 
-    self, 
-    nixpkgs,
-    noctalia,
-    home-manager,
-    nvf,
-    stylix,
-    ...
-  } @ inputs: {
-    nixosConfigurations.theseus = nixpkgs.lib.nixosSystem {
+  outputs = inputs: { 
+    nixosConfigurations.theseus = inputs.nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
-      specialArgs = {inherit inputs self;};
+      specialArgs = {inherit inputs; self = inputs.self;};
       modules = [
         ./modules/core/configuration.nix
-        ./modules/hardware/nvidia.nix
-	      nvf.nixosModules.default
-        ./modules/home/nvf/nvf-configuration.nix
-        stylix.nixosModules.stylix
         ./modules/core/greetd/greetd.nix
+        ./modules/hardware/nvidia.nix
+        ./modules/home/nvf/nvf-configuration.nix
         ./modules/home/noctalia.nix
-	      home-manager.nixosModules.home-manager
+        inputs.nvf.nixosModules.default
+        inputs.stylix.nixosModules.stylix
+	      inputs.home-manager.nixosModules.home-manager
 	      {
 	        home-manager.useGlobalPkgs = true;
 	        home-manager.useUserPackages = true;
