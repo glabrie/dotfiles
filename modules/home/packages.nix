@@ -13,8 +13,6 @@
     cliphist
     direnv
     discord
-    discordo
-    dunst
     element-desktop
     eza
     firefox
@@ -24,18 +22,15 @@
     hey-mail
     hyprpolkitagent
     hyprshot
-    nchat
-    ncspot
     obsidian
     ranger
     rofi
     satty
-    slack
     slurp
     tana
     telegram-desktop
     thunar
-    waybar
+    thunar-archive-plugin
     wl-clipboard
     yazi
     zellij
