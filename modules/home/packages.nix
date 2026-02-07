@@ -19,6 +19,7 @@
     gh
     ghostty
     grim
+    inputs.oxicord.packages.${pkgs.stdenv.hostPlatform.system}.default
     hey-mail
     hyprpolkitagent
     hyprshot
