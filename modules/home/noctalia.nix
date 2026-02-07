@@ -10,22 +10,26 @@
     programs.noctalia-shell = {
       enable = true;
       settings = {
-        # configure noctalia here
+        # Bar options
         bar = {
-          density = "compact";
-          position = "right";
+          barType = "framed";
+          density = "comfortable";
+          position = "left";
           showCapsule = false;
+          backgroundOpacity = 0.6;
+          useSeparateOpacity = true;
+          floating = false;
+          marginVertical = 4;
+          marginHorizontal = 4;
+          frameThickness = 8;
+          frameRadius = 12;
+          outerCorners = true;
+          exclusive = true;
           widgets = {
             left = [
               {
                 id = "ControlCenter";
                 useDistroLogo = true;
-              }
-              {
-                id = "Network";
-              }
-              {
-                id = "Bluetooth";
               }
             ];
             center = [
@@ -42,6 +46,12 @@
                 warningThreshold = 30;
               }
               {
+                id = "Network";
+              }
+              {
+                id = "Bluetooth";
+              }
+              {
                 formatHorizontal = "HH:mm";
                 formatVertical = "HH mm";
                 id = "Clock";
@@ -51,17 +61,42 @@
             ];
           };
         };
-        colorSchemes.predefinedScheme = "Monochrome";
+        colorSchemes = {
+          predefinedScheme = "Gruvbox";
+          darkMode = true;
+        };
         general = {
           avatarImage = "/home/ghil/.face";
           radiusRatio = 0.2;
+          dimmerOpacity = 0.2;
+          showScreenCorners = true;
+          forceBlackScreenCorners = true;
+          enableShadows = true;
+          telemetryEnabled = false;
+          autoStartAuth = false;
+        };
+        ui = {
+          fontDefault = "JetBrains Mono";
+          fontFixed = "monospace";
+          panelBackgroundOpacity = 0.93;
+          boxBorderEnabled = false;
         };
         location = {
-          monthBeforeDay = true;
+          monthBeforeDay = false;
           name = "Quebec, Canada";
+          useFahrenheit = false;
+          firstDayOfWeek = -1;
         };
+        wallpaper = {
+          enabled = true;
+          directory = "$HOME/images/walls";
+        };
+        dock = {
+          enabled = false;
+        };
+
       };
-      # this may also be a string or a path to a JSON file.
+      
     };
   };
 }
