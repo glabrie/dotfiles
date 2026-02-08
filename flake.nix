@@ -28,7 +28,10 @@
   outputs = inputs: { 
     nixosConfigurations.theseus = inputs.nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
-      specialArgs = {inherit inputs; self = inputs.self;};
+      specialArgs = {
+        inherit inputs; 
+        inherit (inputs) self;
+      };
       modules = [
         ./modules/core/configuration.nix
         ./modules/core/greetd/greetd.nix
