@@ -12,8 +12,14 @@
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   # Bootloader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  boot = {
+    extraModulePackages = with config.boot.kernelPackages; [ xpadneo ];
+    extraModprobeConfig = ''
+    options bluetooth disable_ertm=Y
+  '';
+    loader.systemd-boot.enable = true;
+    loader.efi.canTouchEfiVariables = true;
+  };
 
   # Use latest kernel.
   # boot.kernelPackages = pkgs.linuxPackages_latest;
@@ -24,8 +30,17 @@
   networking.networkmanager.enable = true;
 
   # Enable bluetooth
-  hardware.bluetooth.enable = true; 
-  hardware.bluetooth.powerOnBoot = true;
+  hardware.bluetooth = {
+    enable = true;
+    powerOnBoot = true;
+    settings.General = {
+      Privacy = "device";
+      JustWorksRepairing = "always";
+      Class = "0x000100";
+      FastConnectable = true;
+    };
+  };
+
   services.blueman.enable = true;
 
   # Fix the buffer size
@@ -78,6 +93,10 @@
     dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
   };
   
+  # Enable xbox controller support
+  hardware.xpadneo.enable = true;
+  hardware.xone.enable = true;
+
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
@@ -135,7 +154,7 @@
   fzf
   gcc
   git
-  kanshi
+  linuxKernel.packages.linux_zen.xone
   zsh
   ];
 
