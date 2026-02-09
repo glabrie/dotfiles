@@ -13,7 +13,7 @@
       "$mainMod, SPACE, exec, $ipc launcher toggle"
       "$mainMod, S, exec, $ipc controlCenter toggle"
       "$mainMod, comma, exec, $ipc settings toggle"
-      "PRINT, exec, hyprshot -m region"
+      ", PRINT, exec, hyprshot -m region"
 
       # Move focus with mainMod + arrow keys
       "$mainMod, left, movefocus, l"
