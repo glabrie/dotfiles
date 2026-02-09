@@ -6,9 +6,10 @@
 {
   imports = [
     ./kitty.nix
+    ./hyprland/hyprland.nix
     ./noctalia.nix
-    ./services.nix
     ./packages.nix
+    ./services.nix
     ./zsh.nix
   ];
 
