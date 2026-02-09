@@ -6,6 +6,7 @@
 {
   imports = [
     ./kitty.nix
+    ./noctalia.nix
     ./services.nix
     ./packages.nix
     ./zsh.nix

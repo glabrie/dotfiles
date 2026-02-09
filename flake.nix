@@ -37,7 +37,6 @@
         ./modules/core/greetd/greetd.nix
         ./modules/hardware/nvidia.nix
         ./modules/home/nvf/nvf-configuration.nix
-        ./modules/home/noctalia.nix
         inputs.nvf.nixosModules.default
         inputs.stylix.nixosModules.stylix
 	      inputs.home-manager.nixosModules.home-manager
