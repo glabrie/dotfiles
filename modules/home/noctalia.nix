@@ -8,6 +8,7 @@
   # configure options
   programs.noctalia-shell = {
     enable = true;
+    systemd.enable = true;
     settings = {
       # Bar options
       bar = {
