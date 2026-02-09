@@ -12,7 +12,7 @@
     settings = {
       # Bar options
       bar = {
-        barType = "framed";
+        barType = "Framed";
         density = "comfortable";
         position = "left";
         showCapsule = false;
