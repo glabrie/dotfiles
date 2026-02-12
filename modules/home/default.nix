@@ -5,11 +5,13 @@
 
 {
   imports = [
+    inputs.spicetify-nix.homeManagerModules.spicetify
     ./kitty.nix
     ./hyprland/hyprland.nix
     ./noctalia.nix
     ./packages.nix
     ./services.nix
+    ./spotify.nix
     ./zsh.nix
   ];
 
