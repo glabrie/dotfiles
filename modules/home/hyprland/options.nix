@@ -6,6 +6,11 @@
     systemd.enable = true;
     settings = {
 
+      env = [
+        "AQ_NO_MODIFIERS,1"
+        "AQ_DRM_DEVICES,/dev/dri/card1"
+      ];
+
       "$mainMod" = "SUPER";
       "$terminal" = "kitty";
       "$fileManager" = "thunar";

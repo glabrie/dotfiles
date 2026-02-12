@@ -14,15 +14,20 @@
   ];
 
   # Settings
-  home.username = "ghil";
-  home.homeDirectory = "/home/ghil";
-  home.stateVersion = "25.11";
+  home = {
+    username = "ghil";
+    homeDirectory = "/home/ghil";
+    stateVersion = "25.11";
+    sessionVariables = {
+      EDITOR = "nvim";
+      };
+    };
   fonts.fontconfig.enable = true;
-  home.sessionVariables = {
-    EDITOR = "nvim";
-  };
+  
   # Home Manager
-  programs.home-manager.enable = true;
+  programs.home-manager = {
+    enable = true;
+  };
 
   # Neovim
   programs.neovim.extraLuaPackages = true;
@@ -47,5 +52,4 @@
     settings = {
     };
   };
-
 }
