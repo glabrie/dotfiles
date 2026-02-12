@@ -29,6 +29,7 @@
     enable = true;
   };
 
+
   # Neovim
   programs.neovim.extraLuaPackages = true;
 

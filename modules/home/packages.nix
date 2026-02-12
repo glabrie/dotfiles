@@ -28,6 +28,8 @@
     rofi
     satty
     slurp
+    spicetify-cli
+    spotify
     tana
     telegram-desktop
     thunar
