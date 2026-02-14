@@ -5,14 +5,14 @@
 
 {
   imports =
-    [ # Include the results of the hardware scan.
+    [
       ../hardware/hardware-configuration.nix
     ];
 
   # Enable "experimental" features like flakes
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
-  # Bootloader.
+  # Bootloader, kernel version we are pulling and an extra module for the xbox controller
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
     extraModulePackages = with config.boot.kernelPackages; [ xpadneo ];
@@ -23,13 +23,11 @@
     loader.efi.canTouchEfiVariables = true;
   };
 
-  # Use latest kernel.
-  # boot.kernelPackages = pkgs.linuxPackages_latest;
-
-  networking.hostName = "theseus"; # Define your hostname.
-
-  # Enable networking
-  networking.networkmanager.enable = true;
+  # ...networking
+  networking = {
+    hostName = "theseus";
+    networkmanager.enable = true;
+  };
 
   # Enable bluetooth
   hardware.bluetooth = {
@@ -43,6 +41,7 @@
     };
   };
 
+  # Bluetooth applet
   services.blueman.enable = true;
 
   # Fix the buffer size
@@ -65,6 +64,9 @@
     LC_TELEPHONE = "en_US.UTF-8";
     LC_TIME = "en_US.UTF-8";
   };
+
+  services.xserver.xkbOptions = "caps:super";
+  console.useXkbConfig = true;
 
   # Enable Hyprland
   programs.gnupg.agent.enable = true;

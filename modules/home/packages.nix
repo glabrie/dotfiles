@@ -4,11 +4,11 @@
   home.packages = with pkgs; [
     # Apps
     p7zip
+    alacritty # temporary, for niri install
     atuin
     bootdev-cli
     bottom
     cava
-    cider-2
     claude-code
     cliphist
     direnv
