@@ -1,4 +1,5 @@
 # Theseus system config
+# TODO: modularize the main config, separate services, desktops, userspace config
 
 { config, self, pkgs, ... }:
 
