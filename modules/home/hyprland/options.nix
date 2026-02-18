@@ -26,7 +26,7 @@
       # Input
       input = {
         kb_layout = "us,ca";
-        kb_options = "grp:alt_shift_toggle";
+        kb_options = "grp:alt_shift_toggle, caps:super";
 
         follow_mouse = 1;
 

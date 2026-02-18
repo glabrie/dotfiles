@@ -65,9 +65,6 @@
     LC_TIME = "en_US.UTF-8";
   };
 
-  services.xserver.xkbOptions = "ctrl:nocaps";
-  console.useXkbConfig = true;
-
   # Enable Hyprland
   programs.gnupg.agent.enable = true;
   services.gnome.gnome-keyring.enable = true;
