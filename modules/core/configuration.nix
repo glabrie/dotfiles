@@ -65,7 +65,7 @@
     LC_TIME = "en_US.UTF-8";
   };
 
-  services.xserver.xkbOptions = "caps:super";
+  services.xserver.xkbOptions = "ctrl:nocaps";
   console.useXkbConfig = true;
 
   # Enable Hyprland
