@@ -8,6 +8,7 @@
     atuin
     bootdev-cli
     bottom
+    calcurse
     cava
     claude-code
     cliphist
@@ -24,6 +25,9 @@
     hyprpolkitagent
     hyprshot
     obsidian
+    protonmail-bridge
+    protonmail-desktop
+    protonvpn-gui
     ranger
     rofi
     satty
