@@ -4,6 +4,7 @@
   home.packages = with pkgs; [
     # Apps
     p7zip
+    aerc
     alacritty # temporary, for niri install
     atuin
     bottom
@@ -26,6 +27,7 @@
     hyprshot
     obsidian
     protonmail-bridge
+    protonmail-bridge-gui
     protonmail-desktop
     protonvpn-gui
     ranger

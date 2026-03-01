@@ -7,19 +7,18 @@
       "$mainMod, M, exec, command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch exit"
       "$mainMod, E, exec, $fileManager"
       "$mainMod, V, togglefloating,"
-      "$mainMod, R, exec, $menu"
       "$mainMod, P, pseudo, # dwindle"
-      "$mainMod, J, togglesplit, # dwindle"
-      "$mainMod, SPACE, exec, $ipc launcher toggle"
+      "$mainMod, O, togglesplit, # dwindle"
+      "$mainMod, R, exec, $ipc launcher toggle"
       "$mainMod, S, exec, $ipc controlCenter toggle"
       "$mainMod, comma, exec, $ipc settings toggle"
       ", PRINT, exec, hyprshot -m region"
 
       # Move focus with mainMod + arrow keys
-      "$mainMod, left, movefocus, l"
-      "$mainMod, right, movefocus, r"
-      "$mainMod, up, movefocus, u"
-      "$mainMod, down, movefocus, d"
+      "$mainMod, H, movefocus, l"
+      "$mainMod, L, movefocus, r"
+      "$mainMod, K, movefocus, u"
+      "$mainMod, J, movefocus, d"
 
       # Switch workspaces with mainMod + [0-9]
       "$mainMod, 1, workspace, 1"
