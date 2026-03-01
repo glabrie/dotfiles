@@ -30,7 +30,7 @@
     
     # Use the NVidia open source kernel module (for newer cards)
     # Comment this out if you have an older NVIDIA GPU
-    open = true;
+    open = false;
 
     # Apply CachyOS kernel 6.19 patch to NVIDIA latest driver
     package =

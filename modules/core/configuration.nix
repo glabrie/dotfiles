@@ -75,18 +75,6 @@
   # Enable flatpaks
   services.flatpak.enable = true;
 
-  #nix-ld because I really need it to work right now
-  programs.nix-ld = {
-    enable = true;
-    libraries = with pkgs; [
-      stdenv.cc.cc
-      zlib
-      glibc
-      mesa
-      libGL
-    ];
-  };
-
   # Steam
   programs.steam = {
     enable = true;

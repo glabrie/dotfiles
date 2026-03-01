@@ -6,7 +6,6 @@
     p7zip
     alacritty # temporary, for niri install
     atuin
-    bootdev-cli
     bottom
     calcurse
     cava
