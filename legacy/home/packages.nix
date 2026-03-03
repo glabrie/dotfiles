@@ -5,7 +5,7 @@
     # Apps
     p7zip
     aerc
-    alacritty # temporary, for niri install
+    anytype
     atuin
     bottom
     calcurse
