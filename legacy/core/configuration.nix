@@ -1,7 +1,7 @@
 # Theseus system config
 # TODO: modularize the main config, separate services, desktops, userspace config
 
-{ config, self, pkgs, ... }:
+{ config, pkgs, ... }:
 
 {
   imports =
@@ -117,22 +117,6 @@
 
   # Enable touchpad support (enabled default in most desktopManager).
   services.libinput.enable = true;
-
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.ghil = {
-    isNormalUser = true;
-    description = "Guillaume Labrie";
-    extraGroups = [ "networkmanager" "wheel" ];
-    shell = pkgs.zsh;
-    packages = with pkgs; [
-      kdePackages.kate
-    #  thunderbird
-    ];
-  };
-
-  # Enable automatic login for the user.
-  #  services.displayManager.autoLogin.enable = true;
-  #  services.displayManager.autoLogin.user = "ghil";
 
    # Allow unfree packages
   nixpkgs.config.allowUnfree = true;

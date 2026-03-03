@@ -45,6 +45,7 @@
             inherit inputs;
           };
           modules = [
+            inputs.self.modules.nixos.ghil
             ./legacy/core/configuration.nix
             ./legacy/core/greetd/greetd.nix
             ./legacy/hardware/nvidia.nix
