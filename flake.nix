@@ -33,6 +33,7 @@
   outputs = inputs@{ flake-parts, ... }:
     flake-parts.lib.mkFlake { inherit inputs; } ({ inputs, withSystem, ...}: {
       imports = [
+        inputs.flake-parts.flakeModules.modules
         (inputs.import-tree ./modules)
       ];
 
@@ -45,9 +46,9 @@
             inherit inputs;
           };
           modules = [
+            inputs.self.modules.nixos.greetd
             inputs.self.modules.nixos.ghil
             ./legacy/core/configuration.nix
-            ./legacy/core/greetd/greetd.nix
             ./legacy/hardware/nvidia.nix
             ./legacy/home/nvf/nvf-configuration.nix
             inputs.nvf.nixosModules.default
