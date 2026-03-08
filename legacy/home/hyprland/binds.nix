@@ -11,7 +11,7 @@
       "$mainMod, O, togglesplit, # dwindle"
       "$mainMod, R, exec, $ipc launcher toggle"
       "$mainMod, S, exec, $ipc controlCenter toggle"
-      "$mainMod, comma, exec, $ipc settings toggle"
+      "$mainMod, D, exec, $ipc settings toggle"
       ", PRINT, exec, hyprshot -m region"
 
       # Scrolling binds
