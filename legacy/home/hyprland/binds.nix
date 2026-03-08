@@ -14,6 +14,12 @@
       "$mainMod, comma, exec, $ipc settings toggle"
       ", PRINT, exec, hyprshot -m region"
 
+      # Scrolling binds
+      "bind = $mainMod, period, layoutmsg, move +col"
+      "bind = $mainMod, comma, layoutmsg, move -col"
+      "bind = $mainMod SHIFT, period, layoutmsg, swapcol r"
+      "bind = $mainMod SHIFT, comma, layoutmsg, swapcol l"
+ 
       # Move focus with mainMod + arrow keys
       "$mainMod, H, movefocus, l"
       "$mainMod, L, movefocus, r"

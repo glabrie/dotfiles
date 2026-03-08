@@ -62,6 +62,12 @@
         new_status = "master";
       };
 
+      scrolling = {
+        fullscreen_on_one_column = true;
+        column_width = 0.9;
+        direction = "right";
+      };
+
       decoration = {
         rounding = 10;
         rounding_power = 2;
