@@ -10,7 +10,7 @@
           enable = true;
           settings = {
             default_session = {
-              command = "${tuigreet} --time --remember --cmd Hyprland";
+              command = "${tuigreet} --time --remember --cmd 'uwsm start hyprland-uwsm.desktop'";
               user = "greeter";
             };
           };
@@ -31,10 +31,7 @@
           TTYVTDisallocate = true;
         };
 
-        #environment.etc."greetd/environments".text = ''
-        #  Hyprland
-        #  fish
-        #  bash
-        #'';
+        # Let's allow our keyring to work from the start
+        security.pam.services.greetd.enableGnomeKeyring = true;
       };
 }

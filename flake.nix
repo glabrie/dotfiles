@@ -46,10 +46,23 @@
             inherit inputs;
           };
           modules = [
+            ./modules/hosts/theseus/_hardware-configuration.nix
+            inputs.self.modules.nixos.audio
+            inputs.self.modules.nixos.boot
+            inputs.self.modules.nixos.nix
+            inputs.self.modules.nixos.bluetooth
+            inputs.self.modules.nixos.networking
+            inputs.self.modules.nixos.locale
+            inputs.self.modules.nixos.hyprland
+            inputs.self.modules.nixos.gaming
+            inputs.self.modules.nixos.security
+            inputs.self.modules.nixos.touchpad
+            inputs.self.modules.nixos.storage
+            inputs.self.modules.nixos.flatpak
+            inputs.self.modules.nixos.theseus
             inputs.self.modules.nixos.greetd
             inputs.self.modules.nixos.ghil
-            ./legacy/core/configuration.nix
-            ./legacy/hardware/nvidia.nix
+            inputs.self.modules.nixos.nvidia
             ./legacy/home/nvf/nvf-configuration.nix
             inputs.nvf.nixosModules.default
             inputs.home-manager.nixosModules.home-manager

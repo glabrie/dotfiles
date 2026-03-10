@@ -17,6 +17,9 @@
     element-desktop
     eza
     firefox
+    fzf
+    gcc
+    git
     gh
     ghostty
     grim
