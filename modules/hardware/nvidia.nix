@@ -68,6 +68,7 @@
       # Add kernel parameters to improve NVIDIA compatibility and performance
       boot.kernelParams = [
         "nvidia.NVreg_PreserveVideoMemoryAllocations=1"  # Better suspend/resume support
+        "video=eDP-1:d"  # Disable internal display at KMS level (eDP-1 is on Intel/card0, unmanaged by Hyprland)
       ];
 
       # For hybrid graphics - set the default to the integrated GPU for better battery life
