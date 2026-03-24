@@ -1,5 +1,5 @@
 # bluetooth config.
-{ ...}:
+{ inputs, ... }:
 {
   flake.modules.nixos.bluetooth = 
   { ... }:
@@ -17,5 +17,11 @@
     };
     # Bluetooth applet
     services.blueman.enable = true;
+  };
+
+  flake.modules.homeManager.bluetooth =
+  { ... }:
+  {
+    services.blueman-applet.enable = true;
   };
 }
