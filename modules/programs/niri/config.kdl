@@ -160,7 +160,7 @@ binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
 
     // Noctalia binds
-    Mod+D { spawn "qs -c noctalia-shell ipc call launcher toggle"; }
+    Mod+D { spawn-sh "qs -c noctalia-shell ipc call launcher toggle"; }
     
     // Suggested binds for running programs: terminal, app launcher, screen locker.
     Mod+T hotkey-overlay-title="Open a Terminal: kitty" { spawn "kitty"; }
