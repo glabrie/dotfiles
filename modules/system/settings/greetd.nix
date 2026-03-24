@@ -10,7 +10,7 @@
           enable = true;
           settings = {
             default_session = {
-              command = "${tuigreet} --time --remember --cmd 'uwsm start hyprland-uwsm.desktop'";
+              command = "${tuigreet} --time --remember --cmd niri-session";
               user = "greeter";
             };
           };

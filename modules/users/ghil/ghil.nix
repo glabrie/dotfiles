@@ -26,7 +26,7 @@ in
     [
       system-desktop
 
-      hyprland
+      niri
       kitty
       noctalia
     ];

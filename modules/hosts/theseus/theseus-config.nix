@@ -28,6 +28,7 @@
       fonts
       gaming # <- Steam and a few settings
       locale
+      niri
       nvidia # <- The devil itself, Optimus laptop
       security
       boot
