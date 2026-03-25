@@ -13,6 +13,7 @@
         bluetooth
         flatpak
         greetd
+        hyprland
         networking
         storage
       ];

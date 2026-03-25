@@ -76,20 +76,5 @@
         LIBVA_DRIVER_NAME = "iHD"; # Use Intel's media driver for hardware video acceleration
         NIXOS_OZONE_WL = "1";
       };
-
-      # Reduce niri idle VRAM usage from ~1 GiB to ~100 MiB
-      # NVIDIA's buffer pool heuristic doesn't release memory back to the driver;
-      # this application profile disables the reuse ratio for the niri process.
-      environment.etc."nvidia/nvidia-application-profiles-rc.d/50-niri-vram.json".text =
-        builtins.toJSON {
-          rules = [{
-            pattern = { feature = "procname"; matches = "niri"; };
-            profile = "Limit Free Buffer Pool On Wayland Compositors";
-          }];
-          profiles = [{
-            name = "Limit Free Buffer Pool On Wayland Compositors";
-            settings = [{ key = "GLVidHeapReuseRatio"; value = 0; }];
-          }];
-        };
     };
 }
