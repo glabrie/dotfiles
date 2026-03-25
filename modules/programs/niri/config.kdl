@@ -137,6 +137,16 @@ window-rule {
     open-floating true
 }
 
+// Zen Browser: the focus ring color is very visible without CSD.
+// Run `niri msg windows` while Zen is open to confirm the app-id if this doesn't match.
+window-rule {
+    match app-id=r#"^zen$"#
+    focus-ring {
+        active-color "#83a598"
+        inactive-color "#3c3836"
+    }
+}
+
 // Example: block out two password managers from screen capture.
 // (This example rule is commented out with a "/-" in front.)
 /-window-rule {

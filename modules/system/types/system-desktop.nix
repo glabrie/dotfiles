@@ -3,6 +3,8 @@
 {
   flake.modules.nixos.system-desktop =
   {
+    services.dbus.implementation = "broker";
+
     imports = with inputs.self.modules.nixos;
       [
         system-base
@@ -11,7 +13,6 @@
         bluetooth
         flatpak
         greetd
-        hyprland
         networking
         storage
       ];
