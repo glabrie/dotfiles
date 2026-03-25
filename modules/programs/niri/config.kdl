@@ -10,7 +10,7 @@ output "eDP-1" {
 }
 
 output "DP-4" {
-    mode "3440x1440@119.990"
+    mode "3440x1440@119.991"
     scale 1.0
     position x=0 y=0
 }
