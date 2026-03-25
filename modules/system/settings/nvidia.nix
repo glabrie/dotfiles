@@ -27,7 +27,7 @@
         # Enable power management (important for laptops to save battery)
         powerManagement = {
           enable = true;
-          finegrained = true;  # For Turing or newer GPUs
+          finegrained = false;  # Requires Turing (RTX 20xx)+; GTX 1050 is Pascal
         };
         
         # Use the NVidia open source kernel module (for newer cards)
