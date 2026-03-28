@@ -1,0 +1,16 @@
+# Audio config. We are using pipewire mainly because we're not in the stone age anymore.
+{ ... }:
+{
+  flake.modules.nixos.audio =
+  { ... }:
+  {
+    services.pulseaudio.enable = false;
+    security.rtkit.enable = true;
+    services.pipewire = {
+      enable = true;
+      alsa.enable = true;
+      alsa.support32Bit = true;
+      pulse.enable = true;
+    };
+  };
+}
