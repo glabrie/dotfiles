@@ -62,6 +62,10 @@ layout {
         inactive-color "#505050"
     }
 
+    border {
+        off
+    }
+
     shadow {
         on
 
