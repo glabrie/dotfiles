@@ -9,7 +9,7 @@
         paths = [ pkgs.discord ];
         nativeBuildInputs = [ pkgs.makeWrapper ];
         postBuild = ''
-          wrapProgram $out/bin/discord --add-flags "--use-gl=desktop"
+          wrapProgram $out/bin/discord --add-flags "--disable-gpu"
         '';
       })
     ];
