@@ -107,8 +107,12 @@ animations {
 // We're removing the border for Zen, because the no-cmd messes with it
 window-rule {
     match app-id=r#"^zen$"#
-    border { off }
-    focus-ring { off }
+    border {
+      off
+    }
+    focus-ring {
+      off
+    }
     opacity 0.95
 }
 
