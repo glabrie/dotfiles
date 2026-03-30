@@ -89,6 +89,7 @@ layout {
         // You can also change the shadow color and opacity.
         color "#0007"
     }
+}
 
 // Disables the startup keybindings reminder. You can access it with a hotkey, in this config it is mod + shift + /
 hotkey-overlay {
