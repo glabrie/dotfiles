@@ -52,26 +52,14 @@ layout {
     default-column-width { proportion 0.5; }
 
     focus-ring {
-        off
+        // off
 
-        width 4
+        width 2
 
         // Color of the ring on the active monitor.
         active-color "#98971a"
 
         inactive-color "#505050"
-    }
-
-    border {
-        on
-        // on
-        width 2
-        // active-color "#98971a"
-        inactive-color "#282828"
-        urgent-color "#689d6a"
-        active-gradient from="#b8bb26" to="#98971a" angle=45 relative-to="workspace-view"
-        // inactive-gradient from="#505050" to="#808080" angle=45 relative-to="workspace-view" in="srgb-linear"
-        // urgent-gradient from="#800" to="#a33" angle=45
     }
 
     shadow {
@@ -111,6 +99,14 @@ animations {
 }
 
 // Window rules
+
+// We're removing the border for Zen, because the no-cmd messes with it
+window-rule {
+    match app-id=r#"^zen$"#
+    border { off }
+    focus-ring { off }
+    opacity 0.95
+}
 
 window-rule {
     match app-id=r#"firefox$"# title="^Picture-in-Picture$"
