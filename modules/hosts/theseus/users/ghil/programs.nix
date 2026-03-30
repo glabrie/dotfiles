@@ -6,6 +6,7 @@
   {
     imports = with inputs.self.modules.homeManager;
       [
+        discord
         spotify
       ];
 
@@ -13,7 +14,6 @@
     [
       cava
       claude-code
-      discord
       element-desktop
       firefox
       hey-mail
