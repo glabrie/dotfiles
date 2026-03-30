@@ -6,7 +6,6 @@
   {
     imports = with inputs.self.modules.homeManager;
       [
-        discord
         spotify
       ];
 
