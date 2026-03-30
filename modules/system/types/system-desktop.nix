@@ -15,6 +15,7 @@
         greetd
         hyprland
         networking
+        niri
         storage
       ];
   };

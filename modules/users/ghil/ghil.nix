@@ -28,6 +28,7 @@ in
 
       hyprland
       kitty
+      niri
       noctalia
     ];
   home.username = "${username}";

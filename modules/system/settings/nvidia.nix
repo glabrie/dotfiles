@@ -47,10 +47,6 @@
         
         # Enable the nvidia-settings menu
         nvidiaSettings = true;
-        
-        # Enable DRM kernel mode setting
-        # This helps with Wayland compatibility
-        forceFullCompositionPipeline = true;
       };
 
       # Add nvidia-offload script for easy launching of applications on the NVIDIA GPU
@@ -69,7 +65,32 @@
       boot.kernelParams = [
         "nvidia.NVreg_PreserveVideoMemoryAllocations=1"  # Better suspend/resume support
         "video=eDP-1:d"  # Disable internal display at KMS level (eDP-1 is on Intel/card0, unmanaged by Hyprland)
+        "nvidia.NVreg_RegistryDwords=PowerMizerEnable=0x1;PowerMizerDefault=0x1;PowerMizerDefaultAC=0x1;PerfLevelSrc=0x2222" # Power mizer setting to force the clock, for niri.
       ];
+
+      environment.etc."nvidia/nvidia-application-profiles-rc.d/50-niri-vram-fix.json".text =
+      builtins.toJSON {
+        rules = [
+          {
+            pattern = {
+              feature = "procname";
+              matches = "niri";
+            };
+            profile = "Limit Free Buffer Pool On Wayland Compositors";
+          }
+        ];
+        profiles = [
+          {
+            name = "Limit Free Buffer Pool On Wayland Compositors";
+            settings = [
+              {
+                key = "GLVidHeapReuseRatio";
+                value = 0;
+              }
+            ];
+          }
+        ];
+      };
 
       # For hybrid graphics - set the default to the integrated GPU for better battery life
       environment.variables = {

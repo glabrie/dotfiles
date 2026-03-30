@@ -1,9 +1,14 @@
 // niri config - theseus (NVIDIA Optimus, DP-4 external)
 
 debug {
+    render-drm-device "/dev/dri/by-path/pci-0000:01:00.0-render"
+    wait-for-frame-completion-before-queueing
     honor-xdg-activation-with-invalid-serial
 }
 
+environment {
+    ELECTRON_OZONE_PLATFORM_HINT "auto"
+}
 
 output "eDP-1" {
     off

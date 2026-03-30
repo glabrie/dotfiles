@@ -10,7 +10,7 @@
           enable = true;
           settings = {
             default_session = {
-              command = "${tuigreet} --time --remember --cmd 'uwsm start hyprland-uwsm.desktop'";
+              command = "${tuigreet} --time --remember --asterisks --sessions /run/current-system/sw/share/wayland-sessions";
               user = "greeter";
             };
           };
