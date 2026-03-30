@@ -21,7 +21,8 @@
       protonmail-bridge
       protonmail-bridge-gui
       protonmail-desktop
-      protonvpn-gui
+      proton-vpn
+      vesktop
       
       # using flakes:
       inputs.oxicord.packages.${pkgs.stdenv.hostPlatform.system}.default

@@ -59,7 +59,7 @@ layout {
         width 4
 
         // Color of the ring on the active monitor.
-        active-color "#7fc8ff"
+        active-color "#98971a"
 
         inactive-color "#505050"
     }
