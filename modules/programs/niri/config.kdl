@@ -52,7 +52,7 @@ layout {
     default-column-width { proportion 0.5; }
 
     focus-ring {
-        // off
+        off
 
         width 4
 
@@ -60,6 +60,18 @@ layout {
         active-color "#98971a"
 
         inactive-color "#505050"
+    }
+
+    border {
+        on
+        // on
+        width 2
+        // active-color "#98971a"
+        inactive-color "#282828"
+        urgent-color "#689d6a"
+        active-gradient from="#b8bb26" to="#98971a" angle=45 relative-to="workspace-view"
+        // inactive-gradient from="#505050" to="#808080" angle=45 relative-to="workspace-view" in="srgb-linear"
+        // urgent-gradient from="#800" to="#a33" angle=45
     }
 
     shadow {
@@ -78,66 +90,30 @@ layout {
         color "#0007"
     }
 
-    // Struts shrink the area occupied by windows, similarly to layer-shell panels.
-    // You can think of them as a kind of outer gaps. They are set in logical pixels.
-    // Left and right struts will cause the next window to the side to always be visible.
-    // Top and bottom struts will simply add outer gaps in addition to the area occupied by
-    // layer-shell panels and regular gaps.
-    struts {
-        // left 64
-        // right 64
-        // top 64
-        // bottom 64
-    }
+// Disables the startup keybindings reminder. You can access it with a hotkey, in this config it is mod + shift + /
+hotkey-overlay {
+     skip-at-startup
 }
 
-hotkey-overlay {
-    // Uncomment this line to disable the "Important Hotkeys" pop-up at startup.
-    // skip-at-startup
-}
+// Removes decorations 
 
 prefer-no-csd
 
-// You can change the path where screenshots are saved.
-// A ~ at the front will be expanded to the home directory.
-// The path is formatted with strftime(3) to give you the screenshot date and time.
-screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
+// Screenshot settings
 
-// You can also set this to null to disable saving screenshots to disk.
-// screenshot-path null
+screenshot-path "~/images/screenshots from %Y-%m-%d %H-%M-%S.png"
 
-// Animation settings.
-// The wiki explains how to configure individual animations:
-// https://niri-wm.github.io/niri/Configuration:-Animations
+// Animations
 animations {
     // Uncomment to turn off all animations.
     // off
-
-    // Slow down all animations by this factor. Values below 1 speed them up instead.
-    // slowdown 3.0
 }
 
-// Window rules let you adjust behavior for individual windows.
-// Find more information on the wiki:
-// https://niri-wm.github.io/niri/Configuration:-Window-Rules
+// Window rules
 
-// Open the Firefox picture-in-picture player as floating by default.
 window-rule {
-    // This app-id regular expression will work for both:
-    // - host Firefox (app-id is "firefox")
-    // - Flatpak Firefox (app-id is "org.mozilla.firefox")
     match app-id=r#"firefox$"# title="^Picture-in-Picture$"
     open-floating true
-}
-
-// Zen Browser: the focus ring color is very visible without CSD.
-// Run `niri msg windows` while Zen is open to confirm the app-id if this doesn't match.
-window-rule {
-    match app-id=r#"^zen$"#
-    focus-ring {
-        active-color "#83a598"
-        inactive-color "#3c3836"
-    }
 }
 
 window-rule {
