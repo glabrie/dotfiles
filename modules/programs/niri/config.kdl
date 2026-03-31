@@ -104,6 +104,13 @@ animations {
 
 // Window rules
 
+// Fix for Steam's notifications bypassing XDG and coming in the center of the screen o.O
+
+window-rule {
+    match app-id="steam" title=r#"^notificationtoasts_\d+_desktop$"#
+    default-floating-position x=10 y=10 relative-to="bottom-right"
+}
+
 // We're removing the border for Zen, because the no-cmd messes with it
 window-rule {
     match app-id=r#"^zen$"#
