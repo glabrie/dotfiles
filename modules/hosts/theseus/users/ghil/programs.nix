@@ -12,9 +12,9 @@
     home.packages = with pkgs;
     [
       cava
-      claude-code
       element-desktop
       firefox
+      freecad
       hey-mail
       obsidian
       protonmail-bridge

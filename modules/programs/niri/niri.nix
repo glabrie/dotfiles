@@ -1,4 +1,4 @@
-# Niri system config.
+# Niri feature
 { ... }:
 {
   flake.modules.nixos.niri =
@@ -6,8 +6,6 @@
   {
     programs.niri.enable = true;
 
-    # NixOS's niri module sets the portal config (niri → gnome;gtk);
-    # ensure gtk portal is present.
     xdg.portal = {
       enable = true;
       extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
