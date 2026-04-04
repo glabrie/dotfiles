@@ -15,6 +15,7 @@
       gcc
       git
       gh
+      nmap
       yazi
       zellij
     ];
