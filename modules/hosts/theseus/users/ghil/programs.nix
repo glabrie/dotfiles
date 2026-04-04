@@ -11,6 +11,7 @@
 
     home.packages = with pkgs;
     [
+      arp-scan
       cava
       element-desktop
       firefox
