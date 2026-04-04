@@ -23,6 +23,7 @@
       protonmail-desktop
       proton-vpn
       vesktop
+      zed-editor
       
       # using flakes:
       inputs.oxicord.packages.${pkgs.stdenv.hostPlatform.system}.default
