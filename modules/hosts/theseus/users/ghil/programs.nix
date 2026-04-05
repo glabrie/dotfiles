@@ -11,23 +11,27 @@
 
     home.packages = with pkgs;
     [
-      arp-scan
+      bootdev-cli # <- learning backend!
       cava
       element-desktop
       firefox
       freecad
-      hey-mail
+      gimp
+      hey-mail # <- worst email client, but the @hey.com adress is really fun to have. RAH.
       obsidian
+      obs-studio
+      # The proton block, because they can't just have one step. Love them though.
       protonmail-bridge
       protonmail-bridge-gui
       protonmail-desktop
       proton-vpn
-      vesktop
-      zed-editor
+      qbittorrent
+      vesktop # <- Better than Discord at being discord. Still would rather do without discord though.
+      vlc
       
       # using flakes:
-      inputs.oxicord.packages.${pkgs.stdenv.hostPlatform.system}.default
-      inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
+      inputs.oxicord.packages.${pkgs.stdenv.hostPlatform.system}.default # <- Love this TUI for text channels.
+      inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default # <- Browser of choice. SO NICE.
     ];
   };
 }

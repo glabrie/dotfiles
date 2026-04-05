@@ -24,7 +24,6 @@
       ghil
 
       # Settings we need on this config
-      bluetooth
       fonts
       gaming # <- Steam and a few settings
       locale

@@ -25,11 +25,6 @@ in
     imports = with inputs.self.modules.homeManager;
     [
       system-desktop
-
-      hyprland
-      kitty
-      niri
-      noctalia
     ];
   home.username = "${username}";
 

@@ -6,6 +6,7 @@
   {
     environment.systemPackages = with pkgs;
     [
+      arp-scan
       p7zip
       bottom
       cliphist

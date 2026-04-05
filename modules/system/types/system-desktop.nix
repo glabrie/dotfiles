@@ -13,7 +13,6 @@
         bluetooth
         flatpak
         greetd
-        hyprland
         networking
         niri
         storage
@@ -27,7 +26,11 @@
         system-base
 
         bluetooth
+        gtk
+        kitty
         networking
+        niri
+        noctalia
       ];
   };
 }
