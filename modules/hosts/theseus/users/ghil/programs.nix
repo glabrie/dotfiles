@@ -26,8 +26,13 @@
       protonmail-desktop
       proton-vpn
       qbittorrent
+      satty
+      thunar
+      thunar-archive-plugin
       vesktop # <- Better than Discord at being discord. Still would rather do without discord though.
       vlc
+      wl-clipboard
+      xarchiver
       
       # using flakes:
       inputs.oxicord.packages.${pkgs.stdenv.hostPlatform.system}.default # <- Love this TUI for text channels.
