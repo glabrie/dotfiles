@@ -1,4 +1,4 @@
-# We are a home-manager house here son. Kidding, I want to switch to hjem.
+# We are a home-manager house here son. Kidding, I want to switch to hjem. but muh nvf -_-
 { inputs, ... }:
 let
   home-manager-config =
