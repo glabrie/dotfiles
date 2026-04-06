@@ -54,7 +54,22 @@
           notes.orgmode = {
             enable = true;
             treesitter.enable = true;
+            setupOpts = {
+              org_agenda_files = [ "~/org/**/*" ];
+              org_default_notes_file = "~/org/refile.org";
+            };
           };
+
+          luaConfigRC.orgmode-grammar-fix = lib.mkBefore ''
+            do
+              local ok, install = pcall(require, "orgmode.utils.treesitter.install")
+              if ok and install then
+                install.install_grammar = function()
+                  return true
+                end
+              end
+            end
+          '';
 
           # Binds
           binds.whichKey.enable = true;
