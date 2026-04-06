@@ -50,6 +50,8 @@
             shiftwidth = 2;
           };
 
+          # Neorg, a note-taking and organization plugin similar to Org-mode
+          notes.neorg.enable = true;
           # Binds
           binds.whichKey.enable = true;
         };
