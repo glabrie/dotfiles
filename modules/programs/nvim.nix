@@ -62,9 +62,9 @@
 
           luaConfigRC.orgmode-grammar-fix = lib.mkBefore ''
             do
-              local ok, install = pcall(require, "orgmode.utils.treesitter.install")
-              if ok and install then
-                install.install_grammar = function()
+              local ok, orgmode = pcall(require, "orgmode")
+              if ok then
+                orgmode.install_grammar = function()
                   return true
                 end
               end
