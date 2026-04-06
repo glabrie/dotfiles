@@ -60,29 +60,10 @@
             };
           };
 
-          luaConfigRC.orgmode-grammar-fix = lib.mkOrder 100 ''
+          luaConfigRC.orgmode-grammar-fix = lib.mkBefore ''
             do
-              local orig_require = require
-              local patched = false
-              require = function(modname)
-                local mod = orig_require(modname)
-                if modname == "orgmode" and not patched then
-                  patched = true
-                  local orig_setup = mod.setup
-                  mod.setup = function(opts)
-                    -- Replace install_grammar before it runs
-                    local install_mod = orig_require("orgmode.utils.treesitter.install")
-                    if install_mod and install_mod.install then
-                      install_mod.install = function(cb) if cb then cb() end end
-                    end
-                    if install_mod and install_mod.install_grammar then
-                      install_mod.install_grammar = function(cb) if cb then cb() end end
-                    end
-                    return orig_setup(opts)
-                  end
-                end
-                return mod
-              end
+              local config = require("orgmode.config")
+              config.install_grammar = function() return true end
             end
           '';
 
