@@ -63,7 +63,11 @@
           luaConfigRC.orgmode-grammar-fix = lib.mkBefore ''
             do
               local config = require("orgmode.config")
-              config.install_grammar = function() return true end
+              local mt = getmetatable(config)
+              if mt then
+                mt.install_grammar = function() return true end
+                mt.reinstall_grammar = function() return true end
+              end
             end
           '';
 
