@@ -53,23 +53,25 @@
           # Org-mode in neovim!
           notes.orgmode = {
             enable = true;
-            treesitter.enable = true;
+            treesitter.enable = false; # it doesn't work anyway
             setupOpts = {
               org_agenda_files = [ "~/org/**/*" ];
               org_default_notes_file = "~/org/refile.org";
             };
           };
 
-          luaConfigRC.orgmode-grammar-fix = lib.mkBefore ''
-            do
-              local config = require("orgmode.config")
-              local mt = getmetatable(config)
-              if mt then
-                mt.install_grammar = function() return true end
-                mt.reinstall_grammar = function() return true end
-              end
-            end
-          '';
+          treesitter.grammars = [
+            (pkgs.tree-sitter.buildGrammar {
+              language = "org";
+              version = "2.0.2";
+              src = pkgs.fetchFromGitHub {
+                owner = "nvim-orgmode";
+                repo = "tree-sitter-org";
+                rev = "2.0.2";
+                hash = "sha256-tChVcd4YDA9Sec2r/QLhsoNENOTS2Tjr6jsBR1VFHOc=";
+              };
+            })
+          ];
 
           # Binds
           binds.whichKey.enable = true;
