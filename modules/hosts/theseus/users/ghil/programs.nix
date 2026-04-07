@@ -33,6 +33,7 @@
       vlc
       wl-clipboard
       xarchiver
+      yt-dlp
       
       # using flakes:
       inputs.oxicord.packages.${pkgs.stdenv.hostPlatform.system}.default # <- Love this TUI for text channels.

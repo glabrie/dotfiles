@@ -1,5 +1,5 @@
 # Zsh, my shell of choice, with aliases because I care about my fingies
-{ inputs, ... }:
+{ ... }:
 {
   flake.modules.nixos.zsh =
   { ... }:
