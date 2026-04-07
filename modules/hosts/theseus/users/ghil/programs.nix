@@ -19,6 +19,7 @@
       freecad
       gimp
       hey-mail # <- worst email client, but the @hey.com adress is really fun to have. RAH.
+      mpv
       obsidian
       obs-studio
       # The proton block, because they can't just have one step. Love them though.
