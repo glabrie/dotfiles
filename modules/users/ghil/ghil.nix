@@ -11,7 +11,7 @@ in
       isNormalUser = true;
       description = "Guillaume Labrie";
       extraGroups = [ "networkmanager" "wheel" ];
-      shell = pkgs.nushell;
+      shell = pkgs.zsh;
     };
 
     home-manager.users."${username}" = {
