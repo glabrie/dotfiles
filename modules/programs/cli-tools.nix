@@ -17,6 +17,7 @@
       gcc
       git
       gh
+      mpc
       nmap
       shotwell
       yazi
