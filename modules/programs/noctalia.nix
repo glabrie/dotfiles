@@ -69,7 +69,7 @@
           avatarImage = "/home/ghil/.face";
           radiusRatio = 0.2;
           dimmerOpacity = 0.2;
-          showScreenCorners = true;
+          showScreenCorners = false;
           forceBlackScreenCorners = true;
           enableShadows = true;
           telemetryEnabled = false;

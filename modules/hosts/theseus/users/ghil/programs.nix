@@ -14,7 +14,7 @@
       bootdev-cli # <- learning backend!
       cava
       element-desktop
-      emacs
+      emacs-pgtk
       firefox
       freecad
       gimp
