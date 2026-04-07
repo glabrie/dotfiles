@@ -45,7 +45,6 @@
   {
     imports = with inputs.self.modules.homeManager;
     [
-      nushell
       nvim
       starship
       zsh
