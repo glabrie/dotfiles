@@ -12,11 +12,13 @@
       cliphist
       direnv
       eza #best replacement for ls
+      file
       fzf
       gcc
       git
       gh
       nmap
+      shotwell
       yazi
       zellij
     ];
