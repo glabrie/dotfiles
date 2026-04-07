@@ -12,11 +12,11 @@
       settings = {
         # Bar options
         bar = {
-          barType = "framed";
-          density = "comfortable";
-          position = "left";
+          barType = "floating";
+          density = "default";
+          position = "top";
           showCapsule = false;
-          backgroundOpacity = 0.6;
+          backgroundOpacity = 0.8;
           useSeparateOpacity = true;
           floating = false;
           marginVertical = 4;
