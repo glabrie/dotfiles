@@ -113,7 +113,7 @@ window-rule {
 
 window-rule {
   match app-id=r#"spotify$"#
-  opcacity 0.85
+  opacity 0.85
 }
 window-rule {
   // Rounded corners for a modern look.
