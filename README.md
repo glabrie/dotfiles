@@ -7,10 +7,8 @@
    <img src="https://i.postimg.cc/L6t7jFpd/image.png" width="800px" /> <br>
 </p>
 <p align="center">
-   Screeenshot last updated <b>2026-04-08</b>
+   Screenshot last updated <b>2026-04-08</b>
 </p>
-
-# Personal Dotfiles
 
 ## The introduction
 
@@ -27,7 +25,7 @@ Here's what I use in this config, on a daily basis!
 | Shell           | [zsh](https://www.zsh.org/)                                   | I'm switching to nushell soon, but zsh was my favorite                             |
 | Window manager  | [Niri](https://github.com/niri-wm/niri)                       | Because Hyprland switches config more often than I change my mind, and I have adhd |
 | Desktop shell   | [Noctalia](https://github.com/noctalia-dev/noctalia-shell)    | It's beautiful, it's efficient, it makes things so easy.                           |
-| Editor          | [Emacs](https://www.gnu.org/software/emacs/)                  | After years of neovim, I fell into the dark side because evil mode is a thing      |
+| Editor          | [Doom Emacs](https://github.com/doomemacs/doomemacs)          | After years of neovim, I fell into the dark side because evil mode is a thing      |
 | Browser         | [Zen browser](https://zen-browser.app/)                       | It's sleek and beautiful, feels modern, but it's a bit slow still.                 |
 | Music player    | [Spotify + Spicetify](https://spicetify.app/)                 | I'm slowly reverting back to buying music and analog if possible, but meanwhile... |
 
@@ -40,7 +38,7 @@ Here's a quick top down view of the system:
 '-- modules
     |-- hosts            # Building up the hosts, with programs only meant for that particular computer
     |-- nix              # Nix tools
-    |-- programs         # Discrete features
+    |-- programs         # Discrete, self-contained features. Like Niri, or Noctalia.
     |-- system           # Building generic desktops and settings, which are services needed by the desktops
     |-- users            # Yup, you guessed right!
 ```
@@ -67,7 +65,7 @@ Not with this config that's for certain XD. Here's a few links that helped me a 
 | Resource  | [Nix and flakes book](https://nixos-and-flakes.thiscute.world/)                                            | The bible that helped me get Nix and flakes in the beginning         |
 | Resource  | [Doc Steve's dendritic tutorial](https://github.com/Doc-Steve/dendritic-design-with-flake-parts/tree/main) | My config is modeled (lifted really) from this tutorial              |
 | Youtuber  | [Vimjoyer](https://www.youtube.com/@vimjoyer)                                                              | Best youtube channel for nixOS content                               |
-| Community | [Official forums](https://discord.gg/5afXRWw2bq)                                                           | ...Official forums. :P                                               |
+| Community | [Official forums](https://discourse.nixos.org/)                                                           | ...Official forums. :P                                               |
 | Community | [Vimjoyer's discord](https://discord.gg/5afXRWw2bq)                                                        | Best community around                                                |
 | Community | [Nix cult discord](https://discord.gg/NBczpfdcD8)                                                          | Really nice community that's more about helping and broader          |
 
