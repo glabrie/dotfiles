@@ -8,13 +8,22 @@
       enable = true;
       # configFile.source = ./config.nu;
       extraConfig = ''
-        $env.config.show_banner = false
-        $env.config.completions.case_sensitive = false
-        $env.config.completions.quick = true
-        $env.config.completions.partial = true
-        $env.config.completions.algorithm = "fuzzy"
-        $env.config.completions.external.enable = true
-        $env.config.completions.external.max_results = 100
+        $env.config = {
+          show_banner: false,
+          completions: {
+            case_sensitive: false # case-sensitive completions
+            quick: true           # set to false to prevent auto-selecting completions
+            partial: true         # set to false to prevent partial filling of the prompt
+            algorithm: "fuzzy"    # prefix or fuzzy
+            external: {
+              # set to false to prevent nushell looking into $env.PATH to find more suggestions
+              enable: true 
+              # set to lower can improve completion performance at the cost of omitting some options
+              max_results: 100 
+              completer: $multiple_completers
+            }
+          }
+        } 
       '';
    
       shellAliases = {
@@ -27,7 +36,6 @@
         gp = "git push";
         ll = "eza";
         v = "nvim";
-        update = "$env.HOME/.dotfiles/rebuild.sh";
       };
 
     };
