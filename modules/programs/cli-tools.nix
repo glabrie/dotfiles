@@ -10,6 +10,7 @@
       p7zip
       bottom
       cliphist
+      cmake
       direnv
       eza #best replacement for ls
       file
