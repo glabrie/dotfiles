@@ -103,7 +103,6 @@ window-rule {
     focus-ring {
       off
     }
-    opacity 0.95
 }
 
 window-rule {
