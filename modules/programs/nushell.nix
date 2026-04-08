@@ -27,7 +27,6 @@
         gp = "git push";
         ll = "eza";
         v = "nvim";
-        update = "$env.HOME/.dotfiles/rebuild.sh";
       };
 
     };
