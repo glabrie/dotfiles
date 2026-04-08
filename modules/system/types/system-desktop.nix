@@ -26,6 +26,7 @@
         system-base
 
         bluetooth
+        emacs
         gtk
         kitty
         networking

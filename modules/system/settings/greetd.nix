@@ -10,7 +10,7 @@
           enable = true;
           settings = {
             default_session = {
-              command = "${tuigreet} --time --remember --asterisks --sessions /run/current-system/sw/share/wayland-sessions";
+              command = "${tuigreet} --time --remember --asterisks --cmd niri-session";
               user = "greeter";
             };
           };

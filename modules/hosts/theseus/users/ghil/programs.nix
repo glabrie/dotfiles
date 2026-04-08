@@ -13,8 +13,8 @@
     [
       bootdev-cli # <- learning backend!
       cava
+      claude-code
       element-desktop
-      emacs-pgtk
       firefox
       freecad
       gimp
