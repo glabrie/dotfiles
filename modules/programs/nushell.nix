@@ -16,19 +16,11 @@
             partial: true         # set to false to prevent partial filling of the prompt
             algorithm: "fuzzy"    # prefix or fuzzy
             external: {
-              # set to false to prevent nushell looking into $env.PATH to find more suggestions
-              enable: true 
-              # set to lower can improve completion performance at the cost of omitting some options
-              max_results: 100 
-              completer: $multiple_completers
+              enable: true
+              max_results: 100
             }
           }
         } 
-        $env.PATH = ($env.PATH | 
-          split row (char esep) |
-          prepend /home/myuser/.apps |
-          append /usr/bin/env
-        )
       '';
    
       shellAliases = {
@@ -41,7 +33,7 @@
         gp = "git push";
         ll = "eza";
         v = "nvim";
-        update = "$HOME/.dotfiles/rebuild.sh";
+        update = "$env.HOME/.dotfiles/rebuild.sh";
       };
 
     };
