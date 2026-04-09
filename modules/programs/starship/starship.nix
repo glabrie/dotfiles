@@ -1,13 +1,13 @@
 { ... }:
 {
   flake.modules.homeManager.starship =
-  { ... }:
+  { pkgs, ... }:
   {
     programs.starship = {
       enable = true;
       enableZshIntegration = true;
-      settings = {
-      };
+      enableNushellIntegration = true;
+      settings = pkgs.lib.importTOML ./starship.toml;
     };
   };
 }
