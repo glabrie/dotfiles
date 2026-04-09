@@ -6,6 +6,7 @@ debug {
 
 environment {
     ELECTRON_OZONE_PLATFORM_HINT "auto"
+    GTK_THEME "gruvbox-dark-gtk"
 }
 
 output "eDP-1" {

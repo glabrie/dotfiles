@@ -10,5 +10,8 @@
       enable = true;
       package = pkgs.emacs-pgtk.pkgs.withPackages (e: [ e.vterm ]);
     };
+    services.emacs = {
+      enable = true;
+    };
   };
 }
