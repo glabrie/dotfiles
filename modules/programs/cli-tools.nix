@@ -20,6 +20,7 @@
       gh
       mpc
       nmap
+      ripgrep
       shotwell
       yazi
       zellij

@@ -12,7 +12,7 @@
       settings = {
         # Bar options
         bar = {
-          barType = "floating";
+          barType = "framed";
           density = "default";
           position = "top";
           showCapsule = false;
@@ -69,7 +69,7 @@
           avatarImage = "/home/ghil/.face";
           radiusRatio = 0.2;
           dimmerOpacity = 0.2;
-          showScreenCorners = false;
+          showScreenCorners = true;
           forceBlackScreenCorners = true;
           enableShadows = true;
           telemetryEnabled = false;
