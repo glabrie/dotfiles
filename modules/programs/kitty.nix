@@ -8,7 +8,7 @@
       shellIntegration.enableZshIntegration = true;
       font = {
         name = "JetBrains Mono";
-        size = 14;
+        size = 12;
       };
       settings = {
         confirm_os_window_close = 0;
