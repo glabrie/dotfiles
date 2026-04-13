@@ -8,7 +8,10 @@
   {
     programs.emacs = {
       enable = true;
-      package = pkgs.emacs-pgtk.pkgs.withPackages (e: [ e.vterm ]);
+      package = pkgs.emacs-pgtk.pkgs.withPackages (e: [
+        e.vterm
+        e.mu4e
+      ]);
     };
     services.emacs = {
       enable = true;
