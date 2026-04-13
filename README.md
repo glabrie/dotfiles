@@ -4,10 +4,10 @@
       Ghil's NixOS Dotfiles
 </h1>
 <p align="center">
-   <img src="https://i.postimg.cc/L6t7jFpd/image.png" width="800px" /> <br>
+   <img src="https://i.postimg.cc/qq3kF3MQ/image.png" width="800px" /> <br>
 </p>
 <p align="center">
-   Screenshot last updated <b>2026-04-08</b>
+   Screenshot last updated <b>2026-04-13</b>
 </p>
 
 ## The introduction
