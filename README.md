@@ -4,7 +4,7 @@
       Ghil's NixOS Dotfiles
 </h1>
 <p align="center">
-   <img src="https://i.postimg.cc/qq3kF3MQ/image.png" width="800px" /> <br>
+   <img src="https://i.postimg.cc/KcDF1x3m/screenshots-from-2026-04-13-09-00-28.png" width="800px" /> <br>
 </p>
 <p align="center">
    Screenshot last updated <b>2026-04-13</b>
