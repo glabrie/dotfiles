@@ -13,8 +13,10 @@
         e.mu4e
       ]);
     };
-    services.emacs = {
-      enable = true;
+
+    services = {
+      emacs.enable = true;
+      mbsync.enable = true;
     };
   };
 }
