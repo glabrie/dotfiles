@@ -7,7 +7,7 @@
       themeFile = "tokyo_night_storm";
       shellIntegration.enableZshIntegration = true;
       font = {
-        name = "JetBrains Mono";
+        name = "Maple Mono";
         size = 12;
       };
       settings = {

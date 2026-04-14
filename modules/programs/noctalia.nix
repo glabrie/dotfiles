@@ -76,7 +76,7 @@
           autoStartAuth = false;
         };
         ui = {
-          fontDefault = "JetBrains Mono";
+          fontDefault = "Maple Mono";
           fontFixed = "monospace";
           panelBackgroundOpacity = 0.93;
           boxBorderEnabled = false;
