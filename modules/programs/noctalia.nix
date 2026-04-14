@@ -62,7 +62,7 @@
           };
         };
         colorSchemes = {
-          predefinedScheme = "Gruvbox";
+          predefinedScheme = "Tokyo-Night";
           darkMode = true;
         };
         general = {

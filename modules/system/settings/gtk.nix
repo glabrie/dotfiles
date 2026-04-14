@@ -6,8 +6,8 @@
     gtk = {
       enable = true;
       theme = {
-        name = "gruvbox-dark-gtk";
-        package = pkgs.gruvbox-dark-gtk;
+        name = "Tokyonight-Dark";
+        package = pkgs.tokyonight-gtk-theme;
       };
     };
   };
