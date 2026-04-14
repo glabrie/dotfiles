@@ -4,7 +4,7 @@
   {
     programs.kitty = {
       enable = true;
-      themeFile = "tokyo_night_storm";
+      themeFile = "tokyo_night_night";
       shellIntegration.enableZshIntegration = true;
       font = {
         name = "Maple Mono";

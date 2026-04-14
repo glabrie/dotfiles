@@ -33,8 +33,8 @@ palette = 'tokyo_night'
 
 [palettes.tokyo_night]
 color_fg0 = '#c0caf5'
-color_bg1 = '#24283b'
-color_bg3 = '#414868'
+color_bg1 = '#1a1b26'
+color_bg3 = '#292e42'
 color_blue = '#7aa2f7'
 color_aqua = '#7dcfff'
 color_green = '#9ece6a'
@@ -46,7 +46,7 @@ color_bg_dark = '#1a1b26'
 
 [os]
 disabled = false
-style = "bg:color_orange fg:color_bg_dark"
+style = "bg:color_orange fg:color_fg0"
 
 [os.symbols]
 Windows = "󰍲"
@@ -74,12 +74,12 @@ Pop = ""
 
 [username]
 show_always = true
-style_user = "bg:color_orange fg:color_bg_dark"
-style_root = "bg:color_orange fg:color_bg_dark"
+style_user = "bg:color_orange fg:color_fg0"
+style_root = "bg:color_orange fg:color_fg0"
 format = '[ $user ]($style)'
 
 [directory]
-style = "fg:color_bg_dark bg:color_yellow"
+style = "fg:color_fg0 bg:color_yellow"
 format = "[ $path ]($style)"
 truncation_length = 3
 truncation_symbol = "…/"
@@ -94,11 +94,11 @@ truncation_symbol = "…/"
 [git_branch]
 symbol = ""
 style = "bg:color_aqua"
-format = '[[ $symbol $branch ](fg:color_bg_dark bg:color_aqua)]($style)'
+format = '[[ $symbol $branch ](fg:color_fg0 bg:color_aqua)]($style)'
 
 [git_status]
 style = "bg:color_aqua"
-format = '[[($all_status$ahead_behind )](fg:color_bg_dark bg:color_aqua)]($style)'
+format = '[[($all_status$ahead_behind )(fg:color_fg0 bg:color_aqua)]($style)'
 
 [nodejs]
 symbol = ""
