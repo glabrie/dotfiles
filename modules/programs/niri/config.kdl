@@ -116,12 +116,6 @@ window-rule {
     }
 }
 
-// muh transparency
-window-rule {
-  match app-id=r#"spotify$"#
-  opacity 0.85
-}
-
 // General window rules
 window-rule {
   // Rounded corners for a modern look.
@@ -152,11 +146,11 @@ binds {
 
     // Focus binds. I've changed J K to go down and up workspaces instead.
     Mod+H     { focus-column-left; }
-    Mod+J     { focus-workspace-down; }
-    Mod+K     { focus-workspace-up; }
+    Mod+J     { focus-window-down; }
+    Mod+K     { focus-window-up; }
     Mod+L     { focus-column-right; }
-    Mod+U     { focus-window-down; }
-    Mod+I     { focus-window-up; }
+    Mod+U     { focus-workspace-down; }
+    Mod+I     { focus-workspace-up; }
 
     // Movement binds
     Mod+Ctrl+Left  { move-column-left; }
