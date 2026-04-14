@@ -16,7 +16,7 @@
         shuffle
       ];
       theme = spicePkgs.themes.text;
-      colorScheme = "TokyoNight";
+      colorScheme = "TokyoNightStorm";
     };
   };
 }

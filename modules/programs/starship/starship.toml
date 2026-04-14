@@ -33,8 +33,8 @@ palette = 'tokyo_night'
 
 [palettes.tokyo_night]
 color_fg0 = '#c0caf5'
-color_bg1 = '#1a1b26'
-color_bg3 = '#292e42'
+color_bg1 = '#24283b'
+color_bg3 = '#414868'
 color_blue = '#7aa2f7'
 color_aqua = '#7dcfff'
 color_green = '#9ece6a'
