@@ -20,6 +20,7 @@
       git
       gh
       mpc
+      ncdu
       nmap
       ripgrep
       shotwell
