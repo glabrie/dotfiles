@@ -6,10 +6,10 @@
 #+HTML:       Ghil's NixOS Dotfiles
 #+HTML: </h1>
 #+HTML: <p align="center">
-#+HTML:    <img src="https://i.postimg.cc/KcDF1x3m/screenshots-from-2026-04-13-09-00-28.png" width="800px" /> <br>
+#+HTML:    <img src="assets/desktop.png" width="800px" /> <br>
 #+HTML: </p>
 #+HTML: <p align="center">
-#+HTML:    Screenshot last updated <b>2026-04-13</b>
+#+HTML:    Screenshot last updated <b>2026-04-18</b>
 #+HTML: </p>
 
 * The introduction
