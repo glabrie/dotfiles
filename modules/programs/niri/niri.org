@@ -82,7 +82,7 @@ debug {
 Next we'll disable the keybindings overlay that pops up whenever Niri boots up. You can get that magical pop back using ~Mod+Shift+/~ (only in this config). The hotkey is configured a little later with ~show-hotkey-overlay~ in the binds section.
 
 #+begin_src kdl
-hotkey-overlay { skip-at-startup }
+hotkey-overlay { skip-at-startup; }
 #+end_src
 
 We'll remove window decorations, as this config is purely keyboard driven. I use my mouse as little as possible, and I don't need the overhead on most windows. It will come back to bite me in the ass with Zen, but we'll fix that later.

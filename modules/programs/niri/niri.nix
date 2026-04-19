@@ -5,19 +5,19 @@
   {
     programs.niri.enable = true;
 
-    xdg.portal = {
-      enable = true;
-      xdgOpenUsePortal = true;
-      extraPortals = [
-        pkgs.xdg-desktop-portal-gtk
-        pkgs.xdg-desktop-portal-gnome
-      ];
-      config = {
-        common.default = [ "gnome" ];
-      };
-    };
+xdg.portal = {
+  enable = true;
+  xdgOpenUsePortal = true;
+  extraPortals = [
+    pkgs.xdg-desktop-portal-gtk
+    pkgs.xdg-desktop-portal-gnome
+  ];
+  config = {
+    common.default = [ "gnome" ];
+  };
+};
 
-    environment.systemPackages = [ pkgs.xwayland-satellite ];
+environment.systemPackages = [ pkgs.xwayland-satellite ];
 
   };
 }
