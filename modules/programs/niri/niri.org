@@ -37,7 +37,6 @@ Next we'll deal with the xdg portals we need to make wayland work. Portals allow
         common.default = [ "gnome" ];
       };
     };
-
 #+end_src
 
 Finally for the nix file, we'll just declare xwayland-satellite and close it off.
@@ -50,7 +49,6 @@ The xwayland-satellite is used by your compositor to gain access to a rootless x
 }
 #+end_src
 
-** TODO revisit xdg portal implementation :dotfiles:
 
 * Niri configuration
 
@@ -380,3 +378,6 @@ And finally, keybinds to quit niri. But why would you?
     Ctrl+Alt+Delete { quit; }
 }
 #+end_src
+
+* Tasklist
+** TODO revisit xdg portal implementation :dotfiles:

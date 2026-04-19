@@ -1,0 +1,51 @@
+#+title: System rebuild script using nushell
+#+PROPERTY: header-args:nushell :noweb yes :mkdirp yes :tangle rebuild.nu
+
+Simple script for rebuilding the system in one command.
+Self-note: This file will not auto-tangle, and needs to be tangled manually using ~C-c C-v t~
+
+#+begin_src nushell
+#!/usr/bin/env nu
+
+cd ~/.dotfiles
+#+end_src
+
+First we'll add files to git. I will later use Jujitsu, so that step won't be needed anymore.
+
+#+begin_src nushell
+print "/---- Adding files to git ----/ \n"
+git add .
+#+end_src
+
+We then need to tangle the org files. Since I'm converting to a literate config, every file in the config starts life as an org file. Org-mode is a markdown like language native to emacs that has several nifty features for documentation and plain organizing your life around. You can learn more about it [[https://orgmode.org/][here]].
+Tangling is org-mode's way of taking every code block in a file and putting them together in a separate config file of your choosing. Here for example, this document's code block will be "tangled" into ~rebuild.nu~, a useable nushell script in the same directory.
+This means that the org file becomes the sole source of truth, both in documentation and in code.
+
+#+begin_src nushell
+print "/---- Tangling org files ----/"
+glob **/*.org | where ($it | path basename) != "README.org" | each { |f| let eval_str = '(org-babel-tangle-file "' + ($f | str trim) + '")'; emacs --batch -l org --eval $eval_str }
+#+end_src
+
+We'll then rebuild the system with the classic ~nixos-rebuild~ command
+
+#+begin_src nushell
+print "/---- Rebuilding NixOS ----/"
+sudo nixos-rebuild switch --flake $".#(hostname)"
+#+end_src
+
+Next we commit to git and add a commit comment
+
+#+begin_src nushell
+print "/---- Committing to git ----/"
+let default_msg = $"NixOS (date now | format date '%Y-%m-%dT%H:%M:%S%z') Build (hostname) (readlink /nix/var/nix/profiles/system | path basename | split row '-' | get 1)"
+let user_msg = (input $"Commit message \(($default_msg)\): ")
+let commit_msg = if ($user_msg | str trim | is-empty) { $default_msg } else { $"($user_msg)\n($default_msg)" }
+git commit -m $commit_msg
+#+end_src
+
+And finally we push it to the remote, in this case github (But not for long! I have a deep seated hate for Microsoft whose fiery embers have been forged in the early aughts.)
+
+#+begin_src nushell
+print "/---- Pushing to remote ----/"
+git push
+#+end_src

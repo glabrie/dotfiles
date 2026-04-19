@@ -1,0 +1,28 @@
+#+title: Mpd - music player daemon
+#+PROPERTY: header-args:nix :noweb yes :mkdirp yes :tangle mpd.nix
+
+This file tangles into ~mpd.nix~
+
+Very simple module to enable [[https://www.musicpd.org/][MPD]].
+MPD is normally used by TUI or CLI music applications as their backend.
+All I'm doing here is ensuring MPD uses pipewire and pointing it to my music directory.
+
+#+begin_src nix
+{ ... }:
+{
+  flake.modules.homeManager.mpd =
+  { ... }:
+  {
+    services.mpd = {
+      enable = true;
+      musicDirectory = "~/music/";
+      extraConfig = ''
+        audio_output {
+          type "pipewire"
+          name "PipeWire Output"
+        }
+      '';
+    };
+  };
+}
+#+end_src

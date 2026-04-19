@@ -7,7 +7,7 @@ debug {
     honor-xdg-activation-with-invalid-serial
 }
 
-hotkey-overlay { skip-at-startup }
+hotkey-overlay { skip-at-startup; }
 
 prefer-no-csd
 
