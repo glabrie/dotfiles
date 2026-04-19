@@ -1,0 +1,82 @@
+#+OPTIONS: toc:nil broken-links:t
+#+PROPERTY: header-args  :noweb yes :results silent :mkdirp yes
+#+HTML: <h1 align="center">
+#+HTML:    <img src="https://github.com/Frost-Phoenix/nixos-config/blob/main/.github/assets/logo/nixos-logo.png" width="100px" />
+#+HTML:    <br>
+#+HTML:       Ghil's NixOS Dotfiles
+#+HTML: </h1>
+#+HTML: <p align="center">
+#+HTML:    <img src="https://i.postimg.cc/KcDF1x3m/screenshots-from-2026-04-13-09-00-28.png" width="800px" /> <br>
+#+HTML: </p>
+#+HTML: <p align="center">
+#+HTML:    Screenshot last updated <b>2026-04-13</b>
+#+HTML: </p>
+
+* The introduction
+
+Good day! You've stumbled upon my personal playground. I've been tinkering with NixOS and a bunch of other things for a bit, but I'm learning and the process is quite messy, so please don't clone this repository expecting an amazing base config to start. Suggestions are more than welcome though ^_^
+
+* The stack
+
+Here's what I use in this config, on a daily basis!
+
+| Type            | Name                | Notes                                                                              |
+|-----------------+---------------------+------------------------------------------------------------------------------------|
+| Distribution    | [[https://nixos.org/][NixOS]]               | One word: declarative. Perfect distro for me                                       |
+| Dotfile manager | [[https://github.com/nix-community/home-manager][Home-manager]]        | Declare your whole config! Waste of time? maybe? fun? yes!                         |
+| Shell           | [[https://www.zsh.org/][zsh]]                 | I'm switching to nushell soon, but zsh was my favorite                             |
+| Window manager  | [[https://github.com/niri-wm/niri][Niri]]                | Because Hyprland switches config more often than I change my mind, and I have adhd |
+| Desktop shell   | [[https://github.com/noctalia-dev/noctalia-shell][Noctalia]]            | It's beautiful, it's efficient, it makes things so easy.                           |
+| Editor          | [[https://github.com/doomemacs/doomemacs][Doom Emacs]]          | After years of neovim, I fell into the dark side because evil mode is a thing      |
+| Browser         | [[https://zen-browser.app/][Zen browser]]         | It's sleek and beautiful, feels modern, but it's a bit slow still.                 |
+| Music player    | [[https://spicetify.app/][Spotify + Spicetify]] | I'm slowly reverting back to buying music and analog if possible, but meanwhile... |
+
+* Overview
+
+Here's a quick top down view of the system:
+
+#+begin_src text
+.
+'-- modules
+    |-- hosts            # Building up the hosts, with programs only meant for that particular computer
+    |-- nix              # Nix tools
+    |-- programs         # Discrete, self-contained features. Like Niri, or Noctalia.
+    |-- system           # Building generic desktops and settings, which are services needed by the desktops
+    |-- users            # Yup, you guessed right!
+#+end_src
+
+* Dendriwhat now?
+
+My dotfiles are currently modeled after the dendritic pattern, which is a way to organize your system from the bottom up instead of top down, designing discrete "features" (it just means standalone) that are then collected either hierarchically (into system types) or picked up by import-tree. That gives me a very flexible, scalable config that's very neat to play with.
+Basically, we're using [[https://github.com/hercules-ci/flake-parts][Flake-parts]] to separate our config in discrete "modules" that can then be imported automatically by [[https://github.com/vic/import-tree][import-tree]]. That leaves us with a very clean flake and a clean, well-separated config. It also allows, if done right, to scale easily with each new system you bring in the config.
+
+It's definitely the buzzword at the moment, but it's also very cool, so hype wagon it is.
+
+* But you have one computer...
+
+Yeah, but I'm a tinkerer, I love it. Plus, I'll be adding to that fairly soon enough. I want to nixify a lot more than my main laptop :)
+
+* The goal: A literate config. I am not kidding
+
+In the coming days, I'll be switching as much as possible my config to org files (emacs) that will tangle and create the nixos configuration. So...why?
+What's fun about org files is that I can create beautiful, legible documents that will serve me in two ways.
++ Great documentation is a boon for me and the two or three people that will also see this.
+  Sometimes, comments in code don't give me enough freedom to write, as it obscures the code in a sea of uncollapsible comments.
+  Org-mode changes that. It's a bit like markdown, so I can make parts of a file collapsible, with headers, make clickable links to relevant information, etc..
++ Force me to actually document everything I should be documenting so that if I come back to a file a year later, I still know what everything does.
+
+* I'm new to NixOS though, where do I start?
+
+Not with this config that's for certain XD. Here's a few links that helped me a lot when I began this journey. I'll be adding more as I go along!
+
+| Type      | Name                           | Notes                                                                |
+|-----------+--------------------------------+----------------------------------------------------------------------|
+| Resource  | [[https://nixos.org][NixOS website]]                  | You gotta start somewhere, and that somewhere is a download          |
+| Resource  | [[https://search.nixos.org/packages?channel=25.11][nixpkgs]]                        | Search for a package in the repository                               |
+| Resource  | [[https://mynixos.com/][MyNixOS]]                        | same thing as Nixos search, but pretty! ...and searches options too! |
+| Resource  | [[https://nixos-and-flakes.thiscute.world/][Nix and flakes book]]            | The bible that helped me get Nix and flakes in the beginning         |
+| Resource  | [[https://github.com/Doc-Steve/dendritic-design-with-flake-parts/tree/main][Doc Steve's dendritic tutorial]] | My config is modeled (lifted really) from this tutorial              |
+| Youtuber  | [[https://www.youtube.com/@vimjoyer][Vimjoyer]]                       | Best youtube channel for nixOS content                               |
+| Community | [[https://discourse.nixos.org/][Official forums]]                | ...Official forums. :P                                               |
+| Community | [[https://discord.gg/5afXRWw2bq][Vimjoyer's discord]]             | Best community around                                                |
+| Community | [[https://discord.gg/NBczpfdcD8][Nix cult discord]]               | Really nice community that's more about helping and broader          |

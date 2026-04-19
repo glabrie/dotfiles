@@ -12,7 +12,6 @@
       cliphist
       cmake
       direnv
-      eza #best replacement for ls
       fastfetch
       file
       fzf
