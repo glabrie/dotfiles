@@ -5,6 +5,9 @@ cd $(dirname "$0") &&
 printf "== Adding files to git... \n" &&
 git add . &&
 
+printf "== Tangling org files... \n" &&
+find . -name "*.org" ! -name "README.org" -exec emacs --batch -l org --eval '(org-babel-tangle-file "{}")' \; &&
+
 printf "== Building NixOS... \n" &&
 sudo nixos-rebuild switch --flake .#$(hostname) &&
 

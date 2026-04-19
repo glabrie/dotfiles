@@ -1,34 +1,18 @@
-// Config file for Niri, which I did not convert to nix...yet.
-// Off-topic, but KDL comments makes me think of an old gamefaq walkthrough
-
-//-- DEBUG AND ENV RULES --
-
 environment {
     ELECTRON_OZONE_PLATFORM_HINT "auto"
     GTK_THEME "Tokyonight-Dark"
 }
 
-// Fix for noctalia's notifications:
 debug {
     honor-xdg-activation-with-invalid-serial
 }
 
-// Disables the startup keybindings reminder. You can access it with a hotkey, in this config it is mod + shift + /
-hotkey-overlay {
-     skip-at-startup
-}
-
-// Removes decorations
+hotkey-overlay { skip-at-startup }
 
 prefer-no-csd
 
-// Screenshot settings
-
 screenshot-path "~/images/screenshots from %Y-%m-%d %H-%M-%S.png"
 
-//-- MONITORS --
-
-// This one's technically not necessary, because I have it disabled at the kernel level..but still. Never too cautious
 output "eDP-1" {
     off
 }
@@ -39,8 +23,6 @@ output "DP-4" {
     position x=0 y=0
 }
 
-//-- INPUTS --
-
 input {
     keyboard {
         xkb {
@@ -49,7 +31,6 @@ input {
               // I hate caps lock, so now it's actually useful!
               options "grp:win_space_toggle,compose:ralt,caps:super"
         }
-        numlock
     }
 
     touchpad {
@@ -57,33 +38,24 @@ input {
         natural-scroll
     }
 
-    // Uncomment this to make the mouse warp to the center of newly focused windows.
     warp-mouse-to-focus
 }
 
-//-- LAYOUT --
-
 layout {
-
-    // There was a time where that simple setting started online wars.
     gaps 16
 
     center-focused-column "never"
-
     preset-column-widths {
         proportion 0.33333
         proportion 0.66667
     }
-
     default-column-width { proportion 0.5; }
 
     border {
-
         width 2
         active-color "#7aa2f7"
         inactive-color "#292e42"
     }
-
     focus-ring {
         off
     }
@@ -97,54 +69,35 @@ layout {
     }
 }
 
-//-- window rules --
+layer-rule {
+  match namespace="^noctalia-overview*"
+  place-within-backdrop true
+}
 
-// Fix for Steam's notifications bypassing XDG and coming in the center of the screen o.O
 window-rule {
     match app-id="steam" title=r#"^notificationtoasts_\d+_desktop$"#
     default-floating-position x=10 y=10 relative-to="bottom-right"
 }
 
-// We're removing the border for Zen, because the no-cmd messes with it
 window-rule {
-    match app-id=r#"^zen$"#
-    border {
-      off
-    }
-    focus-ring {
-      off
-    }
-}
-
-// General window rules
-window-rule {
-  // Rounded corners for a modern look.
   geometry-corner-radius 20
-  // Clips window contents to the rounded corner boundaries.
   clip-to-geometry true
 }
 
-//-- keybindings --
-// Mod = Super
-
 binds {
-    // General binds
     Mod+Shift+Slash { show-hotkey-overlay; }
     Mod+D { spawn "noctalia-shell" "ipc" "call" "launcher" "toggle"; }
     Mod+T hotkey-overlay-title="Open a Terminal: kitty" { spawn "kitty"; }
     Mod+E hotkey-overlay-title="Open an Emacs window" { spawn "emacsclient" "-c"; }
 
-    // Overview binds
     Mod+O repeat=false { toggle-overview; }
     Mod+Q repeat=false { close-window; }
 
-    // Volume control on the keyboard
     XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.05+ -l 1.0"; }
     XF86AudioLowerVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.05-"; }
     XF86AudioMute        allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"; }
     XF86AudioMicMute     allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"; }
 
-    // Focus binds. I've changed J K to go down and up workspaces instead.
     Mod+H     { focus-column-left; }
     Mod+J     { focus-window-down; }
     Mod+K     { focus-window-up; }
@@ -152,7 +105,6 @@ binds {
     Mod+U     { focus-workspace-down; }
     Mod+I     { focus-workspace-up; }
 
-    // Movement binds
     Mod+Ctrl+Left  { move-column-left; }
     Mod+Ctrl+Down  { move-window-down; }
     Mod+Ctrl+Up    { move-window-up; }
@@ -162,33 +114,11 @@ binds {
     Mod+Ctrl+K     { move-window-up; }
     Mod+Ctrl+L     { move-column-right; }
 
-    Mod+Ctrl+Page_Down { move-column-to-workspace-down; }
-    Mod+Ctrl+Page_Up   { move-column-to-workspace-up; }
-    Mod+Ctrl+U         { move-column-to-workspace-down; }
-    Mod+Ctrl+I         { move-column-to-workspace-up; }
+    Mod+Ctrl+U     { move-column-to-workspace-down; }
+    Mod+Ctrl+I     { move-column-to-workspace-up; }
 
-    Mod+Shift+Page_Down { move-workspace-down; }
-    Mod+Shift+Page_Up   { move-workspace-up; }
-    Mod+Shift+U         { move-workspace-down; }
-    Mod+Shift+I         { move-workspace-up; }
-
-    // Mouse binds
-    Mod+WheelScrollDown      cooldown-ms=150 { focus-workspace-down; }
-    Mod+WheelScrollUp        cooldown-ms=150 { focus-workspace-up; }
-    Mod+Ctrl+WheelScrollDown cooldown-ms=150 { move-column-to-workspace-down; }
-    Mod+Ctrl+WheelScrollUp   cooldown-ms=150 { move-column-to-workspace-up; }
-
-    Mod+WheelScrollRight      { focus-column-right; }
-    Mod+WheelScrollLeft       { focus-column-left; }
-    Mod+Ctrl+WheelScrollRight { move-column-right; }
-    Mod+Ctrl+WheelScrollLeft  { move-column-left; }
-
-    Mod+Shift+WheelScrollDown      { focus-column-right; }
-    Mod+Shift+WheelScrollUp        { focus-column-left; }
-    Mod+Ctrl+Shift+WheelScrollDown { move-column-right; }
-    Mod+Ctrl+Shift+WheelScrollUp   { move-column-left; }
-
-    // Workspace binds
+    Mod+Shift+U    { move-workspace-down; }
+    Mod+Shift+I    { move-workspace-up; }
 
     Mod+1 { focus-workspace 1; }
     Mod+2 { focus-workspace 2; }
@@ -209,11 +139,12 @@ binds {
     Mod+Ctrl+8 { move-column-to-workspace 8; }
     Mod+Ctrl+9 { move-column-to-workspace 9; }
 
-    // Window management binds
     Mod+BracketLeft  { consume-or-expel-window-left; }
     Mod+BracketRight { consume-or-expel-window-right; }
     Mod+Comma  { consume-window-into-column; }
     Mod+Period { expel-window-from-column; }
+    Mod+W { toggle-column-tabbed-display; }
+
     Mod+R { switch-preset-column-width; }
     Mod+Shift+R { switch-preset-window-height; }
     Mod+Ctrl+R { reset-window-height; }
@@ -225,26 +156,18 @@ binds {
     Mod+Ctrl+C { center-visible-columns; }
     Mod+Minus { set-column-width "-5%"; }
     Mod+Equal { set-column-width "+5%"; }
-    // Finer height adjustments when in column with other windows.
     Mod+Shift+Minus { set-window-height "-5%"; }
     Mod+Shift+Equal { set-window-height "+5%"; }
 
-    // Move the focused window between the floating and the tiling layout.
     Mod+V       { toggle-window-floating; }
     Mod+Shift+V { switch-focus-between-floating-and-tiling; }
 
-    // Tabbed mode that I don't really understand the purpose of
-    Mod+W { toggle-column-tabbed-display; }
-
-    // Screenshot binds
     Print { screenshot; }
     Ctrl+Print { screenshot-screen; }
     Alt+Print { screenshot-window; }
 
-    // Escape hatch for remote desktops taking over the keyboard
     Mod+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
 
-    // Quit? Never!
     Mod+Shift+E { quit; }
     Ctrl+Alt+Delete { quit; }
 }

@@ -20,16 +20,16 @@ Good day! You've stumbled upon my personal playground. I've been tinkering with 
 
 Here's what I use in this config, on a daily basis!
 
-| Type            | Name                | Notes                                                                              |
-|-----------------+---------------------+------------------------------------------------------------------------------------|
-| Distribution    | [[https://nixos.org/][NixOS]]               | One word: declarative. Perfect distro for me                                       |
-| Dotfile manager | [[https://github.com/nix-community/home-manager][Home-manager]]        | Declare your whole config! Waste of time? maybe? fun? yes!                         |
-| Shell           | [[https://www.zsh.org/][zsh]]                 | I'm switching to nushell soon, but zsh was my favorite                             |
-| Window manager  | [[https://github.com/niri-wm/niri][Niri]]                | Because Hyprland switches config more often than I change my mind, and I have adhd |
-| Desktop shell   | [[https://github.com/noctalia-dev/noctalia-shell][Noctalia]]            | It's beautiful, it's efficient, it makes things so easy.                           |
-| Editor          | [[https://github.com/doomemacs/doomemacs][Doom Emacs]]          | After years of neovim, I fell into the dark side because evil mode is a thing      |
-| Browser         | [[https://zen-browser.app/][Zen browser]]         | It's sleek and beautiful, feels modern, but it's a bit slow still.                 |
-| Music player    | [[https://spicetify.app/][Spotify + Spicetify]] | I'm slowly reverting back to buying music and analog if possible, but meanwhile... |
+| Type            | Name                | Notes                                                                                                                              |
+|-----------------+---------------------+------------------------------------------------------------------------------------------------------------------------------------|
+| Distribution    | [[https://nixos.org/][NixOS]]               | One word: declarative. Perfect distro for me                                                                                       |
+| Dotfile manager | [[https://github.com/nix-community/home-manager][Home-manager]]        | Declare your whole config! Waste of time? maybe? fun? yes!                                                                         |
+| Shell           | [[https://www.nushell.sh/][nushell]]             | I'm using nushell, because everusing nushell, because everything being data structured is really really cool. Also it's so pretty  |
+| Window manager  | [[https://github.com/niri-wm/niri][Niri]]                | Because Hyprland switches config more often than I change my mind, and I have adhd                                                 |
+| Desktop shell   | [[https://github.com/noctalia-dev/noctalia-shell][Noctalia]]            | It's beautiful, it's efficient, it makes things so easy.                                                                           |
+| Editor          | [[https://github.com/doomemacs/doomemacs][Doom Emacs]]          | After years of neovim, I fell into the dark side because evil mode is a thing                                                      |
+| Browser         | [[https://zen-browser.app/][Zen browser]]         | It's sleek and beautiful, feels modern, but it's a bit slow still                                                                  |
+| Music player    | [[https://spicetify.app/][Spotify + Spicetify]] | I'm slowly reverting back to buying music and analog if possible, but meanwhile...                                                 |
 
 * Overview
 

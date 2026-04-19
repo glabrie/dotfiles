@@ -1,0 +1,382 @@
+#+title: Niri
+#+PROPERTY: header-args:nix :noweb yes :mkdirp yes :tangle niri.nix
+#+PROPERTY: header-args:kdl :noweb yes :mkdirp yes :tangle config.kdl
+
+This file will tangle into ~niri.nix~ (the NixOS module) and ~config.kdl~ (Niri's native config)
+
+* Introduction
+Here we are building up my compositor of choice, Niri.
+Niri is a scrolling window manager, a variant of tiling WMs that present you with an infinite horizontal strip where windows spawn into, arranging workspaces vertically.
+The main advantage of scrolling is the space saved on smaller resolutions, but it's really nice still at any resolution including my ultrawide.
+It's snappy and light with rapid development that doesn't break the config every two months, which is a good bonus, highly recommended!
+
+* Definition of the module
+Let's start! First we'll need to declare the nix module
+
+#+begin_src nix
+{ ... }:
+{
+  flake.modules.nixos.niri =
+  { pkgs, ... }:
+  {
+    programs.niri.enable = true;
+
+#+end_src
+
+Next we'll deal with the xdg portals we need to make wayland work. Portals allow an application to reach past its little sandbox. You need these for example when discord wants to stream or select an image. I'm using both gnome and gtk here, I had some problems at first with using only one. I'll revisit that at a later date.
+
+#+begin_src nix
+    xdg.portal = {
+      enable = true;
+      xdgOpenUsePortal = true;
+      extraPortals = [
+        pkgs.xdg-desktop-portal-gtk
+        pkgs.xdg-desktop-portal-gnome
+      ];
+      config = {
+        common.default = [ "gnome" ];
+      };
+    };
+
+#+end_src
+
+Finally for the nix file, we'll just declare xwayland-satellite and close it off.
+The xwayland-satellite is used by your compositor to gain access to a rootless xwayland instance. That gives your compositor full control of each individual xwayland window.
+
+#+begin_src nix
+    environment.systemPackages = [ pkgs.xwayland-satellite ];
+
+  };
+}
+#+end_src
+
+** TODO revisit xdg portal implementation :dotfiles:
+
+* Niri configuration
+
+The standard Niri config is written in KDL format. You can find out more about KDL [[https://kdl.dev/][here]].
+Completely off-topic, but KDL comments make me think of an old gamefaq walkthrough and I dig that a lot. Sadly we're in org mode here and you won't see one :P
+
+** Debug and env rules
+
+Those are more fixes for various weirdness I encountered when starting to use niri along with a couple of one-liner configurations.
+
+This snippet allows Electron ( -_- ) apps to auto-detect Wayland vs X11 and switch accordingly.
+Then we force a GTK theme, because I had trouble making the GTK theme stick.
+
+#+begin_src kdl
+environment {
+    ELECTRON_OZONE_PLATFORM_HINT "auto"
+    GTK_THEME "Tokyonight-Dark"
+}
+#+end_src
+
+Here is a fix for Noctalia (desktop-shell)'s notifications. When an app's activation request is sent with an invalid serial number, Niri ignores them and won't show them. We're simply telling Niri to show them too.
+
+#+begin_src kdl
+debug {
+    honor-xdg-activation-with-invalid-serial
+}
+#+end_src
+
+Next we'll disable the keybindings overlay that pops up whenever Niri boots up. You can get that magical pop back using ~Mod+Shift+/~ (only in this config). The hotkey is configured a little later with ~show-hotkey-overlay~ in the binds section.
+
+#+begin_src kdl
+hotkey-overlay { skip-at-startup }
+#+end_src
+
+We'll remove window decorations, as this config is purely keyboard driven. I use my mouse as little as possible, and I don't need the overhead on most windows. It will come back to bite me in the ass with Zen, but we'll fix that later.
+
+#+begin_src kdl
+prefer-no-csd
+#+end_src
+
+Niri comes with a screenshot tool, I'm just setting the path for the saved screenshots here:
+
+#+begin_src kdl
+screenshot-path "~/images/screenshots from %Y-%m-%d %H-%M-%S.png"
+#+end_src
+
+** Displays
+
+Niri's display configuration is simple and clear. I'm disabling eDP-1 as I only use that laptop in desktop mode. It's not technically necessary as I have it also disabled at the kernel level, but better be safe than sorry, as I had problems in hyprland with that as well.
+
+#+begin_src kdl
+output "eDP-1" {
+    off
+}
+
+output "DP-4" {
+    mode "3440x1440@119.991"
+    scale 1.0
+    position x=0 y=0
+}
+#+end_src
+
+** Inputs
+
+I'm French Canadian, but I use the US qwerty layout when writing in English and coding, so dual layouts it is! I also hate caps lock, so we'll replace it with something useful, the super key (used as Mod in Niri).
+
+#+begin_src kdl
+input {
+    keyboard {
+        xkb {
+              layout "us,ca"
+              options "grp:win_space_toggle,compose:ralt,caps:super"
+        }
+    }
+#+end_src
+
+I'm also setting up a touchpad for the one time in the year I'm reaching for it instead of the mouse.
+
+#+begin_src kdl
+    touchpad {
+        tap
+        natural-scroll
+    }
+#+end_src
+
+Lastly, I'm setting it so that the mouse cursor warps to the center of the active window I'm switching to. It's a quirky thing to get used to but in tiling and scrolling manager, it's way better.
+
+#+begin_src kdl
+    warp-mouse-to-focus
+}
+#+end_src
+
+** Layout
+
+Rules that let me customize the layout when niri is arranging windows around on the desktop.
+The first rule sets up gaps in between windows for ✨ /*aesthetics*/ ✨. There was a time where that simple setting started online wars.
+
+#+begin_src kdl
+layout {
+    gaps 16
+#+end_src
+
+Column settings. I always want the window to open on the left, not in the center, the other two are just adjusting default widths of them.
+
+#+begin_src kdl
+    center-focused-column "never"
+    preset-column-widths {
+        proportion 0.33333
+        proportion 0.66667
+    }
+    default-column-width { proportion 0.5; }
+#+end_src
+
+Borders and focus-ring setting. Border will draw borders around every windows, with inactive ones getting another color. Focus ring will draw only one border around the active window and the rest will be left unbordered. It's really just a matter of preference.
+
+#+begin_src kdl
+    border {
+        width 2
+        active-color "#7aa2f7"
+        inactive-color "#292e42"
+    }
+    focus-ring {
+        off
+    }
+#+end_src
+
+Do you also want pretty shadows? ✨ /*aesthetics*/ ✨!
+
+#+begin_src kdl
+    shadow {
+        on
+        softness 30
+        spread 5
+        offset x=0 y=5
+        color "#0007"
+    }
+}
+#+end_src
+
+Noctalia can display a pretty blurred version of the wallpaper in overview mode instead of the boring solid color (default to boring grey) it ships with. This is this.
+
+#+begin_src kdl
+layer-rule {
+  match namespace="^noctalia-overview*"
+  place-within-backdrop true
+}
+#+end_src
+
+** Window rules
+
+Rules that let me customize..windows. You guessed it!
+Steam has a tendency to bypass XDG and puts its notifications straight in the center of the screen. This fix gets them where you want them. I choose bottom-right instead of top-right like Noctalia's to differentiate them easily.
+
+#+begin_src kdl
+window-rule {
+    match app-id="steam" title=r#"^notificationtoasts_\d+_desktop$"#
+    default-floating-position x=10 y=10 relative-to="bottom-right"
+}
+#+end_src
+
+Before, this config used a lot of transparency everywhere. I got a bit tired of it and removed it all, but I never know when my ADHD brain will want to go back, so I'm keeping this here. When you put transparency on Zen, instead of showing what's underneath it will show a solid color, the same color as the border.
+That's because niri doesn't draw it as a border around, but a solid block beneath the application. If you ever have problems with it as well, what I did was to just turn that border off for Zen only. This snippet does not currently get tangled because of the aforementioned lack of transparency in this new Tokyo Night config.
+
+#+begin_src kdl :tangle no
+window-rule {
+    match app-id=r#"^zen$"#
+    border {
+      off
+    }
+    focus-ring {
+      off
+    }
+}
+#+end_src
+
+Finally, we'll be rounding those corners for a modern retro look. Nothing makes sense anymore, what is old is new is old again.
+
+#+begin_src kdl
+window-rule {
+  geometry-corner-radius 20
+  clip-to-geometry true
+}
+#+end_src
+
+** Keybindings
+
+The bulk of the config is actually keybindings, which are mostly default.
+First we'll determine a few programs we want to launch with a simple shortcut. Noctalia comes with a launcher which is very practical. My terminal emulator of choice is kitty and I'm often in the terminal using TUI apps like Oxicord instead of discord.
+Last one is emacs, of course.
+
+#+begin_src kdl
+binds {
+    Mod+Shift+Slash { show-hotkey-overlay; }
+    Mod+D { spawn "noctalia-shell" "ipc" "call" "launcher" "toggle"; }
+    Mod+T hotkey-overlay-title="Open a Terminal: kitty" { spawn "kitty"; }
+    Mod+E hotkey-overlay-title="Open an Emacs window" { spawn "emacsclient" "-c"; }
+#+end_src
+
+Overview binds. Most DEs have this, I don't use it very often but it's nice when you lost the plot a bit.
+
+#+begin_src kdl
+    Mod+O repeat=false { toggle-overview; }
+    Mod+Q repeat=false { close-window; }
+#+end_src
+
+Volume control on the keyboard (I have a knob on mine)
+
+#+begin_src kdl
+    XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.05+ -l 1.0"; }
+    XF86AudioLowerVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.05-"; }
+    XF86AudioMute        allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"; }
+    XF86AudioMicMute     allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"; }
+#+end_src
+
+Focus binds, to move around efficiently without the mouse.
+
+#+begin_src kdl
+    Mod+H     { focus-column-left; }
+    Mod+J     { focus-window-down; }
+    Mod+K     { focus-window-up; }
+    Mod+L     { focus-column-right; }
+    Mod+U     { focus-workspace-down; }
+    Mod+I     { focus-workspace-up; }
+#+end_src
+
+You can move windows or columns with much the same binds, adding ~Ctrl~ to the chord. using ~u~ and ~i~ with ~ctrl~, you can shift windows or columns down or up the workspace stack. Finally, using ~Shift~ and ~u~ and ~i~, you can shift the entire workspace up and down the stack.
+
+#+begin_src kdl
+    Mod+Ctrl+Left  { move-column-left; }
+    Mod+Ctrl+Down  { move-window-down; }
+    Mod+Ctrl+Up    { move-window-up; }
+    Mod+Ctrl+Right { move-column-right; }
+    Mod+Ctrl+H     { move-column-left; }
+    Mod+Ctrl+J     { move-window-down; }
+    Mod+Ctrl+K     { move-window-up; }
+    Mod+Ctrl+L     { move-column-right; }
+
+    Mod+Ctrl+U     { move-column-to-workspace-down; }
+    Mod+Ctrl+I     { move-column-to-workspace-up; }
+
+    Mod+Shift+U    { move-workspace-down; }
+    Mod+Shift+I    { move-workspace-up; }
+#+end_src
+
+..But it's often quicker to just specify a workspace to move it to. The first set of binds allows you to zoom to a particular workspace, the second allows you to move a column to a particular workspace.
+
+#+begin_src kdl
+    Mod+1 { focus-workspace 1; }
+    Mod+2 { focus-workspace 2; }
+    Mod+3 { focus-workspace 3; }
+    Mod+4 { focus-workspace 4; }
+    Mod+5 { focus-workspace 5; }
+    Mod+6 { focus-workspace 6; }
+    Mod+7 { focus-workspace 7; }
+    Mod+8 { focus-workspace 8; }
+    Mod+9 { focus-workspace 9; }
+    Mod+Ctrl+1 { move-column-to-workspace 1; }
+    Mod+Ctrl+2 { move-column-to-workspace 2; }
+    Mod+Ctrl+3 { move-column-to-workspace 3; }
+    Mod+Ctrl+4 { move-column-to-workspace 4; }
+    Mod+Ctrl+5 { move-column-to-workspace 5; }
+    Mod+Ctrl+6 { move-column-to-workspace 6; }
+    Mod+Ctrl+7 { move-column-to-workspace 7; }
+    Mod+Ctrl+8 { move-column-to-workspace 8; }
+    Mod+Ctrl+9 { move-column-to-workspace 9; }
+#+end_src
+
+Niri allows you to ~consume~ and ~expel~ windows. It's the two mechanisms that make it possible to have more than one window in a column, stacking them vertically. When you ~consume~ a window, you send it into the stack, ~expelling~ it to restore the window to its own column.
+There is also a tabbed mode, that will take that column of windows and stack them on top of each other instead. You can move into the stack with the same keybinds you would use to focus.
+
+#+begin_src kdl
+    Mod+BracketLeft  { consume-or-expel-window-left; }
+    Mod+BracketRight { consume-or-expel-window-right; }
+    Mod+Comma  { consume-window-into-column; }
+    Mod+Period { expel-window-from-column; }
+    Mod+W { toggle-column-tabbed-display; }
+#+end_src
+
+These binds allow you to change the width of your active column in various ways.
+~R~ here switches to the preset column width (and height, with ~Shift~) that we defined earlier.
+You can maximize and fullscreen a window with ~F~ and maximize while ignoring both gaps and decorations to the edges of the screen with ~M~.
+~C~ if you want to center the column.
+And finally, ~Minus~ and ~Equal~ allow you to fine-tune it.
+My normal workflow would be to have a main window I fine-tune to my desire width, then hit ~Mod+Ctrl+F~ on the other column to let it expand to the edge of the remaining space.
+
+#+begin_src kdl
+    Mod+R { switch-preset-column-width; }
+    Mod+Shift+R { switch-preset-window-height; }
+    Mod+Ctrl+R { reset-window-height; }
+    Mod+F { maximize-column; }
+    Mod+Shift+F { fullscreen-window; }
+    Mod+M { maximize-window-to-edges; }
+    Mod+Ctrl+F { expand-column-to-available-width; }
+    Mod+C { center-column; }
+    Mod+Ctrl+C { center-visible-columns; }
+    Mod+Minus { set-column-width "-5%"; }
+    Mod+Equal { set-column-width "+5%"; }
+    Mod+Shift+Minus { set-window-height "-5%"; }
+    Mod+Shift+Equal { set-window-height "+5%"; }
+#+end_src
+
+Some windows are better when floating, like dialog boxes or friend lists like in Steam. You can toggle this here with ~V~. If it's something you do often, you can make a window-rule to have it floating by default instead.
+
+#+begin_src kdl
+    Mod+V       { toggle-window-floating; }
+    Mod+Shift+V { switch-focus-between-floating-and-tiling; }
+#+end_src
+
+Screenshot utilities, using Niri's internal tool
+
+#+begin_src kdl
+    Print { screenshot; }
+    Ctrl+Print { screenshot-screen; }
+    Alt+Print { screenshot-window; }
+#+end_src
+
+This is an escape hatch for remote desktop utilities taking over the keyboard
+
+#+begin_src kdl
+    Mod+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
+#+end_src
+
+And finally, keybinds to quit niri. But why would you?
+
+#+begin_src kdl
+    Mod+Shift+E { quit; }
+    Ctrl+Alt+Delete { quit; }
+}
+#+end_src
