@@ -1,0 +1,43 @@
+#+title: Starship configuration file
+#+property: header-args:nix :noweb yes :mkdirp yes :tangle starship.nix
+property: header-args:toml :noweb yes :mkdirp yes :tangle starship.toml
+
+This file tangles into ~starship.nix~ and ~starship.toml~
+
+* Introduction
+
+Starship is a cross-platform shell prompt that I've been using for a number of years now. It's fast, fun and customizeable. Plus, you can apply the same config to more than one shell, which is always a good bonus. And of course, it's written in Rust :P
+To learn more about Starship, click [[https://starship.rs/][here]].
+
+* NixOS module
+
+The module itself is very simple. We're declaring, in addition to the program itself, the integration of both zsh AND nushell. I'm using nushell everywhere nowadays except in one specific place, and that's emacs' internal terminal, vterm. I'm looking for a solution to this, but in the meantime, zsh stays.
+
+#+begin_src nix
+{ ... }:
+{
+  flake.modules.homeManager.starship =
+  { pkgs, ... }:
+  {
+    programs.starship = {
+      enable = true;
+      enableZshIntegration = true;
+      enableNushellIntegration = true;
+      settings = pkgs.lib.importTOML ./starship.toml;
+    };
+  };
+}
+#+end_src
+
+* Starship toml configuration file
+
+Starship is configured with the TOML configuration language, which you can find more about [[https://toml.io/en/][here]].
+
+First thing I'm going to do is define the format of the prompt.
+I don't like it overly flashy, but I like some pizzaz for, say it with me, ✨ /aesthetics/ ✨.
+Here's the result:
+[[file:/home/ghil/.dotfiles/assets/starship.png]]
+
+#+begin_src toml
+
+#+end_src

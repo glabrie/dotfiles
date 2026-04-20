@@ -15,6 +15,8 @@
       ]);
     };
 
+    home.packages = [ pkgs.mu ];
+
     services = {
       emacs.enable = true;
       mbsync.enable = true;

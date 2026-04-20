@@ -22,21 +22,21 @@ Tangling is org-mode's way of taking every code block in a file and putting them
 This means that the org file becomes the sole source of truth, both in documentation and in code.
 
 #+begin_src nushell
-print "/---- Tangling org files ----/"
+print "/---- Tangling org files ----/ \n"
 glob **/*.org | where ($it | path basename) != "README.org" | each { |f| let eval_str = '(org-babel-tangle-file "' + ($f | str trim) + '")'; emacs --batch -l org --eval $eval_str }
 #+end_src
 
 We'll then rebuild the system with the classic ~nixos-rebuild~ command
 
 #+begin_src nushell
-print "/---- Rebuilding NixOS ----/"
+print "/---- Rebuilding NixOS ----/ \n"
 sudo nixos-rebuild switch --flake $".#(hostname)"
 #+end_src
 
 Next we commit to git and add a commit comment
 
 #+begin_src nushell
-print "/---- Committing to git ----/"
+print "/---- Committing to git ----/ \n"
 let default_msg = $"NixOS (date now | format date '%Y-%m-%dT%H:%M:%S%z') Build (hostname) (readlink /nix/var/nix/profiles/system | path basename | split row '-' | get 1)"
 let user_msg = (input $"Commit message \(($default_msg)\): ")
 let commit_msg = if ($user_msg | str trim | is-empty) { $default_msg } else { $"($user_msg)\n($default_msg)" }
@@ -46,6 +46,6 @@ git commit -m $commit_msg
 And finally we push it to the remote, in this case github (But not for long! I have a deep seated hate for Microsoft whose fiery embers have been forged in the early aughts.)
 
 #+begin_src nushell
-print "/---- Pushing to remote ----/"
+print "/---- Pushing to remote ----/ \n"
 git push
 #+end_src
