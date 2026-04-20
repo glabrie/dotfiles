@@ -1,6 +1,6 @@
 #+title: Starship configuration file
 #+property: header-args:nix :noweb yes :mkdirp yes :tangle starship.nix
-property: header-args:toml :noweb yes :mkdirp yes :tangle starship.toml
+#+property: header-args:toml :noweb yes :mkdirp yes :tangle starship.toml
 
 This file tangles into ~starship.nix~ and ~starship.toml~
 
@@ -33,11 +33,107 @@ The module itself is very simple. We're declaring, in addition to the program it
 
 Starship is configured with the TOML configuration language, which you can find more about [[https://toml.io/en/][here]].
 
-First thing I'm going to do is define the format of the prompt.
 I don't like it overly flashy, but I like some pizzaz for, say it with me, ✨ /aesthetics/ ✨.
-Here's the result:
-[[file:/home/ghil/.dotfiles/assets/starship.png]]
+I'm using a preset from starship for tokyo-night that I find pretty and unobstructive. I barely modified it, you can find it on the starship website!
+
+First thing I'm establishing is the format, or how it will look at the end of it.
 
 #+begin_src toml
+"$schema" = 'https://starship.rs/config-schema.json'
 
+format = """
+[░▒▓](#a3aed2)\
+[  ](bg:#a3aed2 fg:#090c0c)\
+[](bg:#769ff0 fg:#a3aed2)\
+$directory\
+[](fg:#769ff0 bg:#394260)\
+$git_branch\
+$git_status\
+[](fg:#394260 bg:#212736)\
+$nodejs\
+$rust\
+$golang\
+$python\
+$zig\
+$c\
+$nix\
+[](fg:#212736 bg:#1d2230)\
+$time\
+[ ](fg:#1d2230)\
+\n$character"""
+
+#+end_src
+
+Then we'll configure everything that goes in it, starting with a module to show where you are in the tree.
+
+#+begin_src toml
+[directory]
+style = "fg:#e3e5e5 bg:#769ff0"
+format = "[ $path ]($style)"
+truncation_length = 3
+truncation_symbol = "…/"
+
+[directory.substitutions]
+"documents" = "󰈙 "
+"downloads" = " "
+"music" = " "
+"images" = " "
+#+end_src
+
+Then I'll specify a lot of symbols to correctly tell starship what it should be rendering.
+
+#+begin_src toml
+[git_branch]
+symbol = ""
+style = "bg:#394260"
+format = '[[ $symbol $branch ](fg:#769ff0 bg:#394260)]($style)'
+
+[git_status]
+style = "bg:#394260"
+format = '[[($all_status$ahead_behind )](fg:#769ff0 bg:#394260)]($style)'
+
+[nodejs]
+symbol = ""
+style = "bg:#212736"
+format = '[[ $symbol ($version) ](fg:#769ff0 bg:#212736)]($style)'
+
+[rust]
+symbol = ""
+style = "bg:#212736"
+format = '[[ $symbol ($version) ](fg:#769ff0 bg:#212736)]($style)'
+
+[golang]
+symbol = ""
+style = "bg:#212736"
+format = '[[ $symbol ($version) ](fg:#769ff0 bg:#212736)]($style)'
+
+[php]
+symbol = ""
+style = "bg:#212736"
+format = '[[ $symbol ($version) ](fg:#769ff0 bg:#212736)]($style)'
+
+[nix]
+symbol = "󱄅"
+style = "bg:#212736"
+format = '[[ $symbol ($version) ](fg:#769ff0 bg:#212736)]($style)'
+
+[zig]
+symbol = ""
+style = "bg:#212736"
+format = '[[ $symbol ($version) ](fg:#769ff0 bg:#212736)]($style)'
+
+[c]
+symbol = ""
+style = "bg:#212736"
+format = '[[ $symbol ($version) ](fg:#769ff0 bg:#212736)]($style)'
+#+end_src
+
+And the last module is a simple clock
+
+#+begin_src toml
+[time]
+disabled = false
+time_format = "%R" # Hour:Minute Format
+style = "bg:#1d2230"
+format = '[[  $time ](fg:#a0a9cb bg:#1d2230)]($style)'
 #+end_src
