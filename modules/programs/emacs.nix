@@ -21,5 +21,19 @@
       emacs.enable = true;
       mbsync.enable = true;
     };
+
+    systemd.user.services.protonmail-bridge = {
+      Unit = {
+        Description = "ProtonMail Bridge";
+        After = [ "network-online.target" ];
+      };
+      Service = {
+        ExecStart = "${pkgs.protonmail-bridge}/bin/protonmail-bridge --noninteractive";
+        Restart = "always";
+      };
+      Install = {
+        WantedBy = [ "default.target" ];
+      };
+    };
   };
 }
