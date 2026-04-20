@@ -15,7 +15,7 @@
       ]);
     };
 
-    home.packages = [ pkgs.mu ];
+    home.packages = [ pkgs.mu pkgs.isync ];
 
     services = {
       emacs.enable = true;
