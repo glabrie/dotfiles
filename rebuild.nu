@@ -26,6 +26,7 @@ $timer ++= [{step: "Git commit", time: (timeit { git commit -m $commit_msg })}]
 print "/---- Pushing to remote ----/ \n"
 $timer ++= [{step: "Git push", time: (timeit { git push })}]
 
-print "/---- Summary ----/"
-$timer | table
-print $"System rebuilt in: ($timer | get time | math sum)"
+print "/---- Summary ----/ \n"
+print ($timer | update time { |row| ($row.time / 1ms | math round) * 1ms } | table)
+let total = ($timer | get time | math sum)
+print $"System rebuilt in: (($total / 1ms | math round) * 1ms)"
