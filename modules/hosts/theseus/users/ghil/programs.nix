@@ -18,19 +18,12 @@
       firefox
       freecad
       gimp
-      hey-mail # <- worst email client, but the @hey.com adress is really fun to have. RAH.
       mpv
       obsidian
       obs-studio
-      # The proton block, because they can't just have one step. Love them though.
       protonmail-bridge
-      protonmail-bridge-gui
-      protonmail-desktop
       proton-vpn
       qbittorrent
-      satty
-      thunar
-      thunar-archive-plugin
       vesktop # <- Better than Discord at being discord. Still would rather do without discord though.
       vlc
       wl-clipboard

@@ -1,4 +1,3 @@
-# Zsh, my shell of choice, with aliases because I care about my fingies
 { ... }:
 {
   flake.modules.nixos.zsh =

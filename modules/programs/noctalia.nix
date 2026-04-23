@@ -77,7 +77,7 @@
         };
         ui = {
           fontDefault = "Maple Mono";
-          fontFixed = "monospace";
+          fontFixed = "Maple Mono";
           panelBackgroundOpacity = 0.93;
           boxBorderEnabled = false;
         };

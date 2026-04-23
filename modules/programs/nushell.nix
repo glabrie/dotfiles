@@ -22,10 +22,6 @@
         collect-garbage = "sudo nix-collect-garbage -d";
         dots ="cd ~/.dotfiles/";
         flup = "nix flake update";
-        ga = "git add *";
-        gc = "git commit --verbose";
-        gp = "git push";
-        ll = "eza";
         v = "nvim";
       };
 

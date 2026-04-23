@@ -1,0 +1,173 @@
+#+title: Noctalia configuration file
+#+property: header-args:nix :noweb yes :mkdirp yes :tangle noctalia.nix
+
+This file tangles into ~noctalia.nix~
+
+* Introduction
+
+[[https://noctalia.dev/][Noctalia]] is my desktop shell of choice. It's pretty, customizable, fast, comes with a lot of built-ins that I like. It's written on top of [[https://quickshell.org/][Quickshell]], which has definitely changed the "bar" game since it's been introduced.
+For now, the config is written entirely in a home-manager module. I'll be rewriting the entire config soon to move away from HM, but in the meantime...
+While Noctalia doesn't have in-depth documentation of their HM options, there is this [[https://docs.noctalia.dev/getting-started/nixos/#config-ref][up to date default list]] that you can refer to when doing yours.
+
+* Module definition
+
+Simple definition of a dendritic module, with the added import of Noctalia's options (I'm using the flake, I need to get the options from somewhere.)
+
+#+begin_src nix
+{ inputs, ... }:
+{
+  flake.modules.homeManager.noctalia =
+  { ... }:
+  {
+    imports = [ inputs.noctalia.homeModules.default ];
+    programs.noctalia-shell = {
+      enable = true;
+      systemd.enable = true;
+#+end_src
+
+* Bar settings
+
+** Appearance
+
+On to the settings themselves. Noctalia's flake provide pretty much every option the KDL config file gives me, so I've taken the time to translate it and not have two files.
+These settings gives me a nice transparent top bar that frames the whole desktop.
+
+
+#+begin_src nix
+      settings = {
+        bar = {
+          barType = "framed";
+          density = "default";
+          position = "top";
+          showCapsule = false;
+          backgroundOpacity = 0.9;
+          useSeparateOpacity = true;
+          floating = false;
+          marginVertical = 4;
+          marginHorizontal = 4;
+          frameThickness = 8;
+          frameRadius = 12;
+          outerCorners = true;
+          exclusive = true;
+#+end_src
+
+** Widgets
+
+Noctalia has a number of options for populating the bar, but I'm using pretty much just the basics.
+I'm always leaning toward minimalism as a default.
+Note that currently, there's a bug I'm having where ~barType~ is not always set properly when rebuilding. It will generally be upon waking up again though.
+
+#+begin_src nix
+          widgets = {
+            left = [
+              {
+                id = "ControlCenter";
+                useDistroLogo = true;
+              }
+            ];
+            center = [
+              {
+                hideUnoccupied = false;
+                id = "Workspace";
+                labelMode = "none";
+              }
+            ];
+            right = [
+              {
+                alwaysShowPercentage = false;
+                id = "Battery";
+                warningThreshold = 30;
+              }
+              {
+                id = "Network";
+              }
+              {
+                id = "Bluetooth";
+              }
+              {
+                formatHorizontal = "HH:mm";
+                formatVertical = "HH mm";
+                id = "Clock";
+                useMonospacedFont = true;
+                usePrimaryColor = true;
+              }
+            ];
+          };
+        };
+#+end_src
+
+* Colorscheme
+
+Noctalia comes with a number of preset color schemes that you can set, as well as setting your own colors. You can get a good template for this [[https://docs.noctalia.dev/getting-started/nixos/#theme-colors][here]]. I'm normally very gruvbox, but currently running a Tokyo Night desktop.
+
+#+begin_src nix
+        colorSchemes = {
+          predefinedScheme = "Tokyo-Night";
+          darkMode = true;
+        };
+#+end_src
+
+* General settings
+
+Here I'm defining a few misceleanous things like the avatar, black rounded corners to round off my display's inner border and shadows.
+
+#+begin_src nix
+        general = {
+          avatarImage = "/home/ghil/.face";
+          radiusRatio = 0.2;
+          dimmerOpacity = 0.2;
+          showScreenCorners = true;
+          forceBlackScreenCorners = true;
+          enableShadows = true;
+          telemetryEnabled = false;
+          autoStartAuth = false;
+        };
+#+end_src
+
+* Ui settings
+
+Bit of a catch-all again, here I'm defining my current system-wide font, [[https://github.com/subframe7536/Maple-font][Maple Mono]], which has a whimsycal quality while being legible in every situation.
+
+#+begin_src nix
+        ui = {
+          fontDefault = "Maple Mono";
+          fontFixed = "Maple Mono";
+          panelBackgroundOpacity = 0.93;
+          boxBorderEnabled = false;
+        };
+#+end_src
+
+* Location and weather settings
+
+I'm Canadian, and I have strong opinions on this section. If you're an American reading this, it's not your fault, but you've been raised wrong. Month before day, really? How confusing is that? We have [[https://en.wikipedia.org/wiki/ISO_8601][ISO 8601]] to keep us from the madness of chaotically aligned miscreants who would abuse logic, reason and all that is good in this world in their timekeeping.
+While I'm on my soapbox, metric is also a standard you bunch of heathens should start using.
+Also, for my friends in Europe, it makes no sense why you would start the week on Monday. That's a preference I admit. But still. Miscreants the lot of you as well.
+
+#+begin_src nix
+        location = {
+          monthBeforeDay = false;
+          name = "Quebec, Canada";
+          useFahrenheit = false;
+          firstDayOfWeek = -1;
+        };
+#+end_src
+
+* Wallpaper, dock
+
+We end with defining where you can find the wallpaper and disabling the dock that comes with Noctalia as I don't use docks.
+
+#+begin_src nix
+        wallpaper = {
+          enabled = true;
+          directory = "$HOME/images/walls";
+        };
+        dock = {
+          enabled = false;
+        };
+
+      };
+
+    };
+  };
+}
+#+end_src
