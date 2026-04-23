@@ -20,6 +20,7 @@ Note the ~$timer~ variable in use. I'm using nushell's ~timeit~ command to time 
 #+begin_src nushell
 print "/---- Adding files to git ----/ \n"
 $timer ++= [{step: "git add", time: (timeit { git add . })}]
+print "/---- Files added ----/ \n"
 #+end_src
 
 We then need to tangle the org files. Since I'm converting to a literate config, every file in the config starts life as an org file. Org-mode is a markdown like language native to emacs that has several nifty features for documentation and plain organizing your life around. You can learn more about it [[https://orgmode.org/][here]].
@@ -33,6 +34,7 @@ $timer ++= [{step: "tangle org files", time: (timeit {
        emacs --batch -l org --eval $eval_str
        }
 })}]
+print "/---- Tangle done ----/ \n"
 #+end_src
 
 We'll then rebuild the system with the classic ~nixos-rebuild~ command
@@ -40,6 +42,7 @@ We'll then rebuild the system with the classic ~nixos-rebuild~ command
 #+begin_src nushell
 print "/---- Rebuilding NixOS ----/ \n"
 $timer ++= [{step:"NixOS rebuild", time: (timeit { sudo nixos-rebuild switch --flake $".#(hostname)" })}]
+print "/---- NixOS rebuilt ----/ \n"
 #+end_src
 
 Next we commit to git and add a commit comment
@@ -50,6 +53,7 @@ let default_msg = $"NixOS (date now | format date '%Y-%m-%dT%H:%M:%S%z') Build (
 let user_msg = (input $"Commit message \(($default_msg)\): ")
 let commit_msg = if ($user_msg | str trim | is-empty) { $default_msg } else { $"($user_msg)\n($default_msg)" }
 $timer ++= [{step: "Git commit", time: (timeit { git commit -m $commit_msg })}]
+print "/---- Changes commited to git ----/ \n"
 #+end_src
 
 And finally we push it to the remote, in this case github (But not for long! I have a deep seated hate for Microsoft whose fiery embers have been forged in the early aughts.)
@@ -57,12 +61,13 @@ And finally we push it to the remote, in this case github (But not for long! I h
 #+begin_src nushell
 print "/---- Pushing to remote ----/ \n"
 $timer ++= [{step: "Git push", time: (timeit { git push })}]
+print "/---- Pushed to remote ----/ \n"
 #+end_src
 
 Now that everything is done, It's time for a short summary. We need to round out times to not go into nano and micro seconds.
 
 #+begin_src nushell
-print "/---- Summary ----/ \n"
+print "/---- Summary ----/ \n   "
 print ($timer | update time { |row| ($row.time / 1ms | math round) * 1ms } | table)
 let total = ($timer | get time | math sum)
 print $"System rebuilt in: (($total / 1ms | math round) * 1ms)"
