@@ -1,7 +1,7 @@
 { inputs, ... }:
 {
   flake.modules.homeManager.emacs = { pkgs, ... }: {
-    imports = [ inputs.nix-doom-emacs-unstraightened.homeModule.default ];
+    imports = [ inputs.nix-doom-emacs-unstraightened.homeModule ];
 
     programs.doom-emacs = {
       enable = true;

@@ -11,6 +11,8 @@
 
         ;; Display, themes, fonts
         doom-font (font-spec :family "Maple Mono NF" :size 18)          ;; Font settings, using Maple Mono because it is BEAUTIFUL
+        doom-variable-pitch-font (font-spec :family "Maple Mono NF" :size 18)
+        doom-serif-font          (font-spec :family "Maple Mono NF" :size 18)
         doom-theme 'doom-tokyo-night                                    ;; Theme, I expect to change in three days, like always
         display-line-numbers-type 'relative                             ;; You can take the man from the Vim
 
@@ -46,6 +48,14 @@
       :desc "Capture daily" "n d" #'org-roam-dailies-capture-today
       :desc "Go to daily" "n D" #'org-roam-dailies-goto-today)
 
+(defun +my/org-capture-cleanup-frame ()
+  (when (equal (frame-parameter nil 'name) "org-capture")
+    (delete-frame)))
+
+(add-hook '+doom-dashboard-inhibit-functions
+          (lambda () (equal (frame-parameter nil 'name) "org-capture")))
+(add-hook 'org-capture-after-finalize-hook #'+my/org-capture-cleanup-frame)
+
 (after! mu4e
   (setq mu4e-update-interval 120
         mu4e-change-filenames-when-moving t
@@ -59,3 +69,6 @@
         shr-color-visible-luminance-min 80
         shr-use-colors nil)
   (mu4e-alert-enable-mode-line-display))
+
+;; I'm using Maple Mono, so I really don't need mixed pitch.
+(remove-hook 'text-mode-hook #'mixed-pitch-mode)

@@ -9,6 +9,7 @@
         name = "Tokyonight-Dark";
         package = pkgs.tokyonight-gtk-theme;
       };
+      gtk4.theme = null;
     };
 
     dconf.settings."org/gnome/desktop/interface" = {

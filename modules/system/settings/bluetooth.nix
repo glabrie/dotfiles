@@ -22,6 +22,5 @@
   flake.modules.homeManager.bluetooth =
   { ... }:
   {
-    services.blueman-applet.enable = true;
   };
 }

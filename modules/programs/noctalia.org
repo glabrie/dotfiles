@@ -13,6 +13,8 @@ While Noctalia doesn't have in-depth documentation of their HM options, there is
 
 Simple definition of a dendritic module, with the added import of Noctalia's options (I'm using the flake, I need to get the options from somewhere.)
 
+Small note here, the noctalia systemd service has been deprecated, if you where using it like me, time to switch!
+
 #+begin_src nix
 { inputs, ... }:
 {
@@ -22,7 +24,6 @@ Simple definition of a dendritic module, with the added import of Noctalia's opt
     imports = [ inputs.noctalia.homeModules.default ];
     programs.noctalia-shell = {
       enable = true;
-      systemd.enable = true;
 #+end_src
 
 * Bar settings

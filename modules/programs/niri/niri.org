@@ -55,6 +55,14 @@ The xwayland-satellite is used by your compositor to gain access to a rootless x
 The standard Niri config is written in KDL format. You can find out more about KDL [[https://kdl.dev/][here]].
 Completely off-topic, but KDL comments make me think of an old gamefaq walkthrough and I dig that a lot. Sadly we're in org mode here and you won't see one :P
 
+** Noctalia
+
+Since the systemd service option is now deprecated, we have to start Noctalia from inside niri with this little snippet
+
+#+begin_src kdl
+spawn-at-startup "noctalia-shell"
+#+end_src
+
 ** Debug and env rules
 
 Those are more fixes for various weirdness I encountered when starting to use niri along with a couple of one-liner configurations.

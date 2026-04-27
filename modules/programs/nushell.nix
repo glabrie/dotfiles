@@ -15,6 +15,8 @@
         $env.config.completions.algorithm = "fuzzy"
         $env.config.completions.external.enable = true
         $env.config.completions.external.max_results = 100
+
+        def ll [path?: string = "."] { ls $path | sort-by type name }
       '';
    
       shellAliases = {

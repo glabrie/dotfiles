@@ -21,7 +21,6 @@
         ga = "git add *";
         gc = "git commit --verbose";
         gp = "git push";
-        ll = "eza";
         v = "emacsclient -t";
         update = "$HOME/.dotfiles/rebuild.sh";
       };

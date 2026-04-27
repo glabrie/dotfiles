@@ -1,3 +1,5 @@
+spawn-at-startup "noctalia-shell"
+
 environment {
     ELECTRON_OZONE_PLATFORM_HINT "auto"
     GTK_THEME "Tokyonight-Dark"
