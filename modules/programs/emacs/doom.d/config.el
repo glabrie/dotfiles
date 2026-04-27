@@ -46,7 +46,15 @@
 
 (map! :leader
       :desc "Capture daily" "n d" #'org-roam-dailies-capture-today
-      :desc "Go to daily" "n D" #'org-roam-dailies-goto-today)
+      :desc "Go to daily" "n D" #'org-roam-dailies-goto-today
+      :desc "Org-roam UI graph" "n r g" #'org-roam-ui-mode)
+
+(after! org-roam
+  (require 'org-roam-ui)
+  (setq org-roam-ui-sync-theme t
+        org-roam-ui-follow t
+        org-roam-ui-update-on-save t
+        org-roam-ui-open-on-start t))
 
 (defun +my/org-capture-cleanup-frame ()
   (when (equal (frame-parameter nil 'name) "org-capture")
@@ -67,8 +75,15 @@
         mu4e-view-prefer-html t
         shr-max-image-proportion 0.0
         shr-color-visible-luminance-min 80
-        shr-use-colors nil)
-  (mu4e-alert-enable-mode-line-display))
+        shr-use-colors nil))
 
 ;; I'm using Maple Mono, so I really don't need mixed pitch.
 (remove-hook 'text-mode-hook #'mixed-pitch-mode)
+
+;; Open links in Zen via the system browser (browse-url breaks under daemon mode without explicit config)
+(setq browse-url-browser-function 'browse-url-generic
+      browse-url-generic-program "zen")
+
+;; Use mu4e's built-in modeline; suppress the legacy doom-modeline mu4e segment
+(after! doom-modeline
+  (setq doom-modeline-mu4e nil))
