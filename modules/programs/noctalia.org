@@ -160,7 +160,7 @@ We end with defining where you can find the wallpaper and disabling the dock tha
 #+begin_src nix
         wallpaper = {
           enabled = true;
-          directory = "$HOME/images/walls";
+          directory = "$HOME/images/walls/tokyo";
         };
         dock = {
           enabled = false;
