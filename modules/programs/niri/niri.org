@@ -233,6 +233,16 @@ window-rule {
 }
 #+end_src
 
+This makes my amazing org-mode capture everywhere float, which is very cool
+
+#+begin_src kdl
+window-rule {
+    match app-id="emacs" title="org-capture"
+    open-floating true
+    default-column-width { fixed 600; }
+}
+#+end_src
+
 ** Keybindings
 
 The bulk of the config is actually keybindings, which are mostly default.
@@ -245,6 +255,7 @@ binds {
     Mod+D { spawn "noctalia-shell" "ipc" "call" "launcher" "toggle"; }
     Mod+T hotkey-overlay-title="Open a Terminal: kitty" { spawn "kitty"; }
     Mod+E hotkey-overlay-title="Open an Emacs window" { spawn "emacsclient" "-c"; }
+    Mod+C hotkey-overlay-title="Org-roam daily capture" { spawn "emacsclient" "-c" "-F" "((name . \"org-capture\"))" "-e" "(org-roam-dailies-capture-today)"; }
 #+end_src
 
 Overview binds. Most DEs have this, I don't use it very often but it's nice when you lost the plot a bit.
@@ -342,7 +353,7 @@ My normal workflow would be to have a main window I fine-tune to my desire width
     Mod+Shift+F { fullscreen-window; }
     Mod+M { maximize-window-to-edges; }
     Mod+Ctrl+F { expand-column-to-available-width; }
-    Mod+C { center-column; }
+    Mod+Shift+Period { center-column; }
     Mod+Ctrl+C { center-visible-columns; }
     Mod+Minus { set-column-width "-5%"; }
     Mod+Equal { set-column-width "+5%"; }

@@ -1,27 +1,30 @@
-# Yup, switched to emacs. Was it a good idea? I'll see in 6 to 12 years.
-# If you want to have a terminal in emacs, you need to package it with vterm.
-# We're also using the pgtk version for wayland support (because I wanted transparency. I know.)
-# Next package is mu4e, the emacs email client
-{ ... }:
+{ inputs, ... }:
 {
-  flake.modules.homeManager.emacs =
-  { pkgs, ... }:
-  {
-    programs.emacs = {
+  flake.modules.homeManager.emacs = { pkgs, ... }: {
+    imports = [ inputs.nix-doom-emacs-unstraightened.homeModule.default ];
+
+    programs.doom-emacs = {
       enable = true;
-      package = pkgs.emacs-pgtk.pkgs.withPackages (e: [
-        e.vterm
-        e.mu4e
-      ]);
+      doomDir = ./doom.d;
+      emacs = pkgs.emacs-pgtk;
+      extraPackages = epkgs: [
+        epkgs.vterm
+        epkgs.mu4e
+      ];
     };
 
-    home.packages = [ pkgs.mu pkgs.isync ];
+services = {
+  emacs.enable = true;
+  mbsync.enable = true;
+};
 
-    services = {
-      emacs.enable = true;
-      mbsync.enable = true;
-    };
-
+home.packages = [
+      pkgs.mu
+      pkgs.isync
+      pkgs.hunspell
+      pkgs.hunspellDicts.en_US
+      pkgs.hunspellDicts.fr-any
+    ];
     systemd.user.services.protonmail-bridge = {
       Unit = {
         Description = "ProtonMail Bridge";

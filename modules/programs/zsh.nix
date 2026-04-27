@@ -22,7 +22,7 @@
         gc = "git commit --verbose";
         gp = "git push";
         ll = "eza";
-        v = "nvim";
+        v = "emacsclient -t";
         update = "$HOME/.dotfiles/rebuild.sh";
       };
     };

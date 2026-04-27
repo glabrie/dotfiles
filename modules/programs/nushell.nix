@@ -22,7 +22,7 @@
         collect-garbage = "sudo nix-collect-garbage -d";
         dots ="cd ~/.dotfiles/";
         flup = "nix flake update";
-        v = "nvim";
+        v = "emacsclient -t";
       };
 
     };

@@ -46,7 +46,6 @@
     imports = with inputs.self.modules.homeManager;
     [
       mpd
-      nvim
       starship
       zsh
     ];
@@ -54,7 +53,7 @@
     home.homeDirectory = "/home/${config.home.username}";
     home.stateVersion = "25.11";
     home.sessionVariables = {
-      EDITOR = "nvim";
+      EDITOR = "emacsclient -t";
       };
   };
 }

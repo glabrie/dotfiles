@@ -18,7 +18,6 @@
     import-tree.url = "github:vic/import-tree";
 
     # Program specific flakes
-    nvf.url = "github:notashelf/nvf";
     oxicord.url = "github:linuxmobile/oxicord";
     spicetify-nix.url = "github:Gerg-L/spicetify-nix";
     noctalia = {
@@ -29,5 +28,10 @@
       url = "github:youwen5/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # Emacs, my beloved. Unstraightened to nixify the config.
+      nix-doom-emacs-unstraightened.url = "github:marienz/nix-doom-emacs-unstraightened";
+      nix-doom-emacs-unstraightened.inputs.nixpkgs.follows = "";
+
   };
 }

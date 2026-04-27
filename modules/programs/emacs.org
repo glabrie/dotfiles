@@ -1,0 +1,258 @@
+#+title: Emacs configuration file
+#+property: header-args :noweb yes :mkdirp yes :tangle no
+#+property: header-args:nix :tangle emacs.nix
+
+This file tangles into ~emacs.nix~, ~doom.d/config.el~, ~doom.d/init.el~ and ~doom.d/packages.el.~
+
+I never thought I'd say this, but I completely switched from neovim to emacs, mainly because of [[https://orgmode.org/][Org-mode]]. I would never have switched if I couldn't have my vim keybindings, and those are very well supported via evil-mode, which we can get in [[https://github.com/doomemacs/doomemacs][Doom Emacs]], a ready made distribution of emacs that is optimized and caters to vimers like me. Plus the logo is just cool.
+
+* emacs.nix
+
+**  Module definition and package wrangling
+
+
+Next, we need to nixify it, so we'll use [[https://github.com/marienz/nix-doom-emacs-unstraightened][nix-doom-emacs-unstraightened]] (oof) since it helps us bypass straight.el and manages our packages for us :D
+Since we're using unstraightened (even then it's too long) as a flake with home-manager, we first need to import the module. Then we'll tell it where our Doom config will live (here in a subfolder caller ~doom.d~).
+
+Finally, I'm also adding vterm for terminal support inside emacs and [[https://github.com/emacsmirror/mu4e][mu4e]], an email client inside emacs. Nifty!
+
+#+begin_src nix
+{ inputs, ... }:
+{
+  flake.modules.homeManager.emacs = { pkgs, ... }: {
+    imports = [ inputs.nix-doom-emacs-unstraightened.homeModule ];
+
+    programs.doom-emacs = {
+      enable = true;
+      doomDir = ./doom.d;
+      emacs = pkgs.emacs-pgtk;
+      extraPackages = epkgs: [
+        epkgs.vterm
+        epkgs.mu4e
+      ];
+    };
+#+end_src
+
+** Emacs as a server
+
+One of the understated advantages of emacs is being able to run it as a server and have new frames attach to it automatically. This has several benefits here:
+- Doom Emacs is started just the once, meaning that actually opening an emacs frame (the app) is, wait for it, *Blazingly Fast*.
+- Since the daemon is running in the background, processes like mu4e or the killring (copy-paste) don't have to restart between frames, you just reattach each time. It also means you can have several frames opened that link to the same buffers (Let's say you have one instance and another in the terminal for example).
+- I also use it as a global org-mode capture with a hotkey in niri ( ~Mod+C~ ) that make noting things on the fly a breeeze.
+
+We'll also start mbsync, which is necessary for mu4e.
+
+#+begin_src nix
+    services = {
+      emacs.enable = true;
+      mbsync.enable = true;
+    };
+#+end_src
+
+** Some dependencies and protonmail.
+
+While we're talking about mu4e, here's the other shoe: We need isync and mu, so we're pulling them here, along with hunspell (for spelling in org-mode), and then I'm using protonmail, so I need to set up the protonmail bridge to pipe my email correctly into it.
+
+#+begin_src nix
+    home.packages = [
+      pkgs.mu
+      pkgs.isync
+      pkgs.hunspell
+      pkgs.hunspellDicts.en_US
+      pkgs.hunspellDicts.fr-any
+    ];
+    systemd.user.services.protonmail-bridge = {
+      Unit = {
+        Description = "ProtonMail Bridge";
+        After = [ "network-online.target" ];
+      };
+      Service = {
+        ExecStart = "${pkgs.protonmail-bridge}/bin/protonmail-bridge --noninteractive";
+        Restart = "always";
+      };
+      Install = {
+        WantedBy = [ "default.target" ];
+      };
+    };
+  };
+}
+
+#+end_src
+
+* Doom Config
+
+The Doom config comes in three files, ~init.el~, ~config.el~ and ~packages.el~. I will document a bit later what each does and expand upon them, but for now, here are the three files.
+
+** doom.d/init.el
+:PROPERTIES:
+:header-args:emacs-lisp: :tangle doom.d/init.el
+:END:
+
+#+begin_src emacs-lisp
+(doom! :completion
+       (corfu +orderless)  ; complete with cap(f), cape and a flying feather!
+       vertico           ; the search engine of the future
+
+       :ui
+       doom              ; what makes DOOM look the way it does
+       dashboard         ; a nifty splash screen for Emacs
+       (emoji +unicode)  ; 🙂
+       hl-todo           ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
+       indent-guides     ; highlighted indent columns
+       ligatures         ; ligatures and symbols to make your code pretty again
+       modeline          ; snazzy, Atom-inspired modeline, plus API
+       nav-flash         ; blink cursor line after big motions
+       ophints           ; highlight the region an operation acts on
+       (popup +defaults)   ; tame sudden yet inevitable temporary windows
+       smooth-scroll     ; So smooth you won't believe it's not butter
+       (vc-gutter +pretty) ; vcs diff in the fringe
+       vi-tilde-fringe   ; fringe tildes to mark beyond EOB
+       workspaces        ; tab emulation, persistence & separate workspaces
+
+       :editor
+       (evil +everywhere); come to the dark side, we have cookies
+       file-templates    ; auto-snippets for empty files
+       fold              ; (nigh) universal code folding
+       (format +onsave)  ; automated prettiness
+       multiple-cursors  ; editing in many places at once
+       snippets          ; my elves. They type so I don't have to
+       (whitespace +guess +trim)  ; a butler for your whitespace
+       word-wrap         ; soft wrapping with language-aware indent
+
+       :emacs
+       dired             ; making dired pretty [functional]
+       electric          ; smarter, keyword-based electric-indent
+       tramp             ; remote files at your arthritic fingertips
+       undo              ; persistent, smarter undo for your inevitable mistakes
+
+       :term
+       vterm             ; the best terminal emulation in Emacs
+
+       :checkers
+       syntax              ; tasing you for every semicolon you forget
+       (spell +hunspell) ; tasing you for misspelling mispelling
+
+       :tools
+       direnv
+       editorconfig      ; let someone else argue about tabs vs spaces
+       (eval +overlay)     ; run code, run (also, repls)
+       lookup              ; navigate your code and its documentation
+       (lsp +eglot)      ; M-x vscode
+       magit             ; a git porcelain for Emacs
+       pdf               ; pdf enhancements
+       tree-sitter       ; syntax and parsing, sitting in a tree...
+
+       :os
+       tty               ; improve the terminal Emacs experience
+
+       :lang
+       data              ; config/data formats
+       ;;elixir            ; erlang done right
+       ;;elm               ; care for a cup of TEA?
+       emacs-lisp        ; drown in parentheses
+       (go +lsp)         ; the hipster dialect
+       json              ; At least it ain't XML
+       lua               ; one-based indices? one-based indices
+       markdown          ; writing docs for people to ignore
+       nix               ; I hereby declare "nix geht mehr!"
+       (org +roam2)        ; organize your plain life in plain text
+       graphviz          ; diagrams for confusing yourself even more
+       python            ; beautiful is better than ugly
+       (rust +lsp)       ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
+       sh                ; she sells {ba,z,fi}sh shells on the C xor
+       yaml              ; JSON, but readable
+       zig               ; C, but simpler
+
+       :email
+       (mu4e +org +gmail)
+
+       :app
+       calendar
+       emms
+       erc               ; how neckbeards socialize
+       (rss +org)        ; emacs as an RSS reader
+
+       :config
+       (default +bindings +smartparens))
+#+end_src
+
+** doom.d/config.el
+:PROPERTIES:
+:header-args:emacs-lisp: :tangle doom.d/config.el
+:END:
+
+#+begin_src emacs-lisp
+(setq
+        ;; Directories and shells
+        shell-file-name "/etc/profiles/per-user/ghil/bin/zsh"           ;; Because Nushell in Emacs is hell
+        org-directory "~/org/"                                          ;; Notes directory for org-mode
+        org-roam-directory "~/org/roam"                                 ;; But what about second org-mode?
+        projectile-project-search-path '("~/projects/")                ;; Coding Projects directory
+
+        ;; User ID
+        user-full-name "Guillaume Labrie"                               ;; My..name...
+        user-mail-address "glabrie@proton.me"                           ;; My..email...address...
+
+        ;; Display, themes, fonts
+        doom-font (font-spec :family "Maple Mono NF" :size 18)          ;; Font settings, using Maple Mono because it is BEAUTIFUL
+        doom-theme 'doom-tokyo-night                                    ;; Theme, I expect to change in three days, like always
+        display-line-numbers-type 'relative                             ;; You can take the man from the Vim
+
+        )
+
+(global-display-line-numbers-mode +1)                                   ;; But you can't take the vim from the man
+
+(use-package! org-auto-tangle                                           ;; Auto-tangle, to tangle auto-magically!
+  :hook (org-mode . org-auto-tangle-mode))
+
+;; org-modern configuration
+(after! org
+  (setq org-auto-align-tags nil
+        org-tags-column 0
+        org-catch-invisible-edits 'show-and-error
+        org-special-ctrl-a/e t
+        org-insert-heading-respect-content t
+        org-hide-emphasis-markers t
+        org-pretty-entities t
+        org-ellipsis "…"
+        org-agenda-tags-column 0
+        org-agenda-block-separator ?─
+        org-agenda-time-grid
+        '((daily today require-timed)
+          (800 1000 1200 1400 1600 1800 2000)
+          " ┄┄┄┄┄ " "┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄")
+        org-agenda-current-time-string
+        "◀── now ─────────────────────────────────────────────────")
+;; Let's activate it now
+(global-org-modern-mode))
+
+(map! :leader
+      :desc "Capture daily" "n d" #'org-roam-dailies-capture-today
+      :desc "Go to daily" "n D" #'org-roam-dailies-goto-today)
+
+(after! mu4e
+  (setq mu4e-update-interval 120
+        mu4e-change-filenames-when-moving t
+        mu4e-trash-folder "/Trash"
+        mu4e-sent-folder "/Sent"
+        mu4e-drafts-folder "/Drafts"
+        mu4e-refile-folder "/Archive"
+        mu4e-personal-addresses '("glabrie@proton.me" "ghil@hey.com" "glabrie85@gmail.com")
+        mu4e-view-prefer-html t
+        shr-max-image-proportion 0.0
+        shr-color-visible-luminance-min 80
+        shr-use-colors nil)
+  (mu4e-alert-enable-mode-line-display))
+#+end_src
+
+** doom.d/packages.el
+:PROPERTIES:
+:header-args:emacs-lisp: :tangle doom.d/packages.el
+:END:
+
+#+begin_src emacs-lisp
+(package! kdl-mode)
+(package! org-modern)
+(package! org-auto-tangle)
+(package! mu4e-alert)
+#+end_src

@@ -20,6 +20,7 @@
       gh
       mpc
       ncdu
+      neovim
       nmap
       ripgrep
       shotwell
