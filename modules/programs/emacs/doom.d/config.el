@@ -67,11 +67,8 @@
         mu4e-view-prefer-html t
         shr-max-image-proportion 0.0
         shr-color-visible-luminance-min 80
-        shr-use-colors nil))
+        shr-use-colors nil)
+  (mu4e-alert-enable-mode-line-display))
 
 ;; I'm using Maple Mono, so I really don't need mixed pitch.
 (remove-hook 'text-mode-hook #'mixed-pitch-mode)
-
-;; Open links in Zen via xdg-open (fixes broken browse-url under daemon mode)
-(setq browse-url-browser-function 'browse-url-generic
-      browse-url-generic-program "zen")

@@ -92,7 +92,7 @@ location = {
 
 wallpaper = {
           enabled = true;
-          directory = "$HOME/images/walls";
+          directory = "$HOME/images/walls/tokyo";
         };
         dock = {
           enabled = false;
