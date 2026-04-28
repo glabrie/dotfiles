@@ -235,10 +235,10 @@ window-rule {
 Finally, we'll be rounding those corners for a modern retro look. Nothing makes sense anymore, what is old is new is old again.
 
 #+begin_src kdl
-//window-rule {
-//  geometry-corner-radius 20
-//  clip-to-geometry true
-// }
+window-rule {
+  geometry-corner-radius 10
+  clip-to-geometry true
+ }
 #+end_src
 
 This makes my amazing org-mode capture everywhere float, which is very cool

@@ -42,7 +42,7 @@ warp-mouse-to-focus
 }
 
 layout {
-    gaps 16
+    gaps 12
 
 center-focused-column "never"
 preset-column-widths {
@@ -79,10 +79,10 @@ window-rule {
     default-floating-position x=10 y=10 relative-to="bottom-right"
 }
 
-window-rule {
-  geometry-corner-radius 20
-  clip-to-geometry true
-}
+//window-rule {
+//  geometry-corner-radius 20
+//  clip-to-geometry true
+// }
 
 window-rule {
     match app-id="emacs" title="org-capture"
