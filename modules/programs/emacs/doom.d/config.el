@@ -23,7 +23,7 @@
 (use-package! org-auto-tangle                                           ;; Auto-tangle, to tangle auto-magically!
   :hook (org-mode . org-auto-tangle-mode))
 
-;; org-modern configuration
+;; org-modern configuration + a dirty fix for TODOs in roam not showing up outside in the todo list.
 (after! org
   (setq org-auto-align-tags nil
         org-tags-column 0
@@ -40,7 +40,9 @@
           (800 1000 1200 1400 1600 1800 2000)
           " ┄┄┄┄┄ " "┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄")
         org-agenda-current-time-string
-        "◀── now ─────────────────────────────────────────────────")
+        "◀── now ─────────────────────────────────────────────────"
+        org-agenda-files
+          (directory-files-recursively org-directory "\\.org$"))
 ;; Let's activate it now
 (global-org-modern-mode))
 

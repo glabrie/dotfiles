@@ -156,7 +156,7 @@ The first rule sets up gaps in between windows for ✨ /*aesthetics*/ ✨. There
 
 #+begin_src kdl
 layout {
-    gaps 16
+    gaps 12
 #+end_src
 
 Column settings. I always want the window to open on the left, not in the center, the other two are just adjusting default widths of them.
@@ -235,10 +235,10 @@ window-rule {
 Finally, we'll be rounding those corners for a modern retro look. Nothing makes sense anymore, what is old is new is old again.
 
 #+begin_src kdl
-window-rule {
-  geometry-corner-radius 20
-  clip-to-geometry true
-}
+//window-rule {
+//  geometry-corner-radius 20
+//  clip-to-geometry true
+// }
 #+end_src
 
 This makes my amazing org-mode capture everywhere float, which is very cool
