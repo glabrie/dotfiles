@@ -253,6 +253,12 @@ window-rule {
         blur true
     }
 }
+window-rule {
+    match app-id="kitty"
+    background-effect {
+        blur true
+    }
+}
 #+end_src
 This makes my amazing org-mode capture everywhere float, which is very cool
 
