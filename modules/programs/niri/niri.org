@@ -11,14 +11,15 @@ The main advantage of scrolling is the space saved on smaller resolutions, but i
 It's snappy and light with rapid development that doesn't break the config every two months, which is a good bonus, highly recommended!
 
 * Definition of the module
-Let's start! First we'll need to declare the nix module
+Let's start! First we'll need to declare the nix module, and we're using an overlay to pipe in the niri flake's package for the newer version that adds *blur*. :D
 
 #+begin_src nix
-{ ... }:
+{ inputs, ... }:
 {
   flake.modules.nixos.niri =
   { pkgs, ... }:
   {
+    nixpkgs.overlays = [ inputs.niri.overlays.default ];
     programs.niri.enable = true;
 
 #+end_src
@@ -83,6 +84,14 @@ Here is a fix for Noctalia (desktop-shell)'s notifications. When an app's activa
 debug {
     honor-xdg-activation-with-invalid-serial
 }
+#+end_src
+
+I've had some weirdness with xwayland-satellite trying to switch to an unknown x server (which doesn't exist), so I'm trying a fix here:
+
+#+begin_src kdl
+xwayland-satellite {
+      path "/run/current-system/sw/bin/xwayland-satellite"
+  }
 #+end_src
 
 Next we'll disable the keybindings overlay that pops up whenever Niri boots up. You can get that magical pop back using ~Mod+Shift+/~ (only in this config). The hotkey is configured a little later with ~show-hotkey-overlay~ in the binds section.
@@ -217,18 +226,12 @@ window-rule {
 }
 #+end_src
 
-Before, this config used a lot of transparency everywhere. I got a bit tired of it and removed it all, but I never know when my ADHD brain will want to go back, so I'm keeping this here. When you put transparency on Zen, instead of showing what's underneath it will show a solid color, the same color as the border.
-That's because niri doesn't draw it as a border around, but a solid block beneath the application. If you ever have problems with it as well, what I did was to just turn that border off for Zen only. This snippet does not currently get tangled because of the aforementioned lack of transparency in this new Tokyo Night config.
+Before, I used a lot of transparency  in my config. I got rid of it all! ...and lasted about one week. Zen still has a weird problem with transparency, doesn't mix well with xdg decorations so it will render the border as a full color background for you to sear your eyes on. We're telling it harshly to stop being an ass.
 
-#+begin_src kdl :tangle no
+#+begin_src kdl
 window-rule {
     match app-id=r#"^zen$"#
-    border {
-      off
-    }
-    focus-ring {
-      off
-    }
+    draw-border-with-background false
 }
 #+end_src
 
@@ -236,11 +239,21 @@ Finally, we'll be rounding those corners for a modern retro look. Nothing makes 
 
 #+begin_src kdl
 window-rule {
-  geometry-corner-radius 6.6
+  geometry-corner-radius 6
   clip-to-geometry true
  }
 #+end_src
 
+So about that transparency? Niri now includes blur. Yay! So we're going to put it EVERYWHERE.
+
+#+begin_src kdl
+window-rule {
+    match app-id="emacs"
+    background-effect {
+        blur true
+    }
+}
+#+end_src
 This makes my amazing org-mode capture everywhere float, which is very cool
 
 #+begin_src kdl

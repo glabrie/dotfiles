@@ -37,7 +37,7 @@ These settings gives me a nice transparent top bar that frames the whole desktop
 #+begin_src nix
       settings = {
         bar = {
-          barType = "framed";
+          barType = "floating";
           density = "default";
           position = "top";
           showCapsule = false;

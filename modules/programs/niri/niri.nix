@@ -1,8 +1,9 @@
-{ ... }:
+{ inputs, ... }:
 {
   flake.modules.nixos.niri =
   { pkgs, ... }:
   {
+    nixpkgs.overlays = [ inputs.niri.overlays.default ];
     programs.niri.enable = true;
 
 xdg.portal = {

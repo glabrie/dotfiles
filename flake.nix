@@ -30,8 +30,13 @@
     };
 
     # Emacs, my beloved. Unstraightened to nixify the config.
-      nix-doom-emacs-unstraightened.url = "github:marienz/nix-doom-emacs-unstraightened";
-      nix-doom-emacs-unstraightened.inputs.nixpkgs.follows = "";
+    nix-doom-emacs-unstraightened.url = "github:marienz/nix-doom-emacs-unstraightened";
+    nix-doom-emacs-unstraightened.inputs.nixpkgs.follows = "";
 
+    # Niri flake because I need that BLUR
+    niri = {
+      url = "github:YaLTeR/niri";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 }

@@ -9,6 +9,10 @@ debug {
     honor-xdg-activation-with-invalid-serial
 }
 
+xwayland-satellite {
+      path "/run/current-system/sw/bin/xwayland-satellite"
+  }
+
 hotkey-overlay { skip-at-startup; }
 
 prefer-no-csd
@@ -80,7 +84,7 @@ window-rule {
 }
 
 window-rule {
-  geometry-corner-radius 10
+  geometry-corner-radius 6.6
   clip-to-geometry true
  }
 
