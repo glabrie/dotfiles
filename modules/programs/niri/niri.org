@@ -236,7 +236,7 @@ Finally, we'll be rounding those corners for a modern retro look. Nothing makes 
 
 #+begin_src kdl
 window-rule {
-  geometry-corner-radius 10
+  geometry-corner-radius 6.6
   clip-to-geometry true
  }
 #+end_src
