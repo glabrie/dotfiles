@@ -9,7 +9,7 @@
 
 settings = {
   bar = {
-    barType = "framed";
+    barType = "floating";
     density = "default";
     position = "top";
     showCapsule = false;
