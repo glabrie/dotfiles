@@ -69,7 +69,7 @@ general = {
   avatarImage = "/home/ghil/.face";
   radiusRatio = 0.2;
   dimmerOpacity = 0.2;
-  showScreenCorners = true;
+  showScreenCorners = false;
   forceBlackScreenCorners = true;
   enableShadows = true;
   telemetryEnabled = false;
@@ -79,7 +79,7 @@ general = {
 ui = {
   fontDefault = "Maple Mono";
   fontFixed = "Maple Mono";
-  panelBackgroundOpacity = 0.93;
+  panelBackgroundOpacity = 0.8;
   boxBorderEnabled = false;
 };
 

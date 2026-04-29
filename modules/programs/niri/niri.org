@@ -235,15 +235,6 @@ window-rule {
 }
 #+end_src
 
-Finally, we'll be rounding those corners for a modern retro look. Nothing makes sense anymore, what is old is new is old again.
-
-#+begin_src kdl tangle:no
-window-rule {
-  geometry-corner-radius 6
-  clip-to-geometry true
- }
-#+end_src
-
 So about that transparency? Niri now includes blur. Yay! So we're going to put it EVERYWHERE.
 
 #+begin_src kdl
