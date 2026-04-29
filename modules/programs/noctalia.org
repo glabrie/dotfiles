@@ -41,11 +41,11 @@ These settings gives me a nice transparent top bar that frames the whole desktop
           density = "default";
           position = "top";
           showCapsule = false;
-          backgroundOpacity = 0.9;
+          backgroundOpacity = 0.8;
           useSeparateOpacity = true;
           floating = false;
           marginVertical = 4;
-          marginHorizontal = 4;
+          marginHorizontal = 12;
           frameThickness = 8;
           frameRadius = 12;
           outerCorners = true;

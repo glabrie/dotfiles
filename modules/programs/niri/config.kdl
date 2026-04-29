@@ -89,11 +89,6 @@ window-rule {
 }
 
 window-rule {
-  geometry-corner-radius 6
-  clip-to-geometry true
- }
-
-window-rule {
     match app-id="emacs"
     background-effect {
         blur true
