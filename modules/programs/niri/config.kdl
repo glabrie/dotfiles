@@ -70,20 +70,21 @@ focus-ring {
 }
 
 shadow {
-        on
-        softness 30
-        spread 5
-        offset x=0 y=5
-        color "#0007"
-    }
+    on
+    softness 30
+    spread 5
+    offset x=0 y=5
+    color "#0007"
+}
+
+background-color "transparent"
+
 }
 
 layer-rule {
   match namespace="^noctalia-wallpaper*"
   place-within-backdrop true
 }
-
-background-color "transparent"
 
 window-rule {
     match app-id="steam" title=r#"^notificationtoasts_\d+_desktop$"#

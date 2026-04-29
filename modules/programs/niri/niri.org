@@ -226,7 +226,11 @@ layer-rule {
   place-within-backdrop true
 }
 
-
+overview {
+  workspace-shadow {
+    off
+  }
+}
 #+end_src
 
 
@@ -278,6 +282,7 @@ layer-rule {
   }
 }
 #+end_src
+
 This makes my amazing org-mode capture everywhere float, which is very cool
 
 #+begin_src kdl
