@@ -19,7 +19,7 @@ settings = {
     marginVertical = 4;
     marginHorizontal = 12;
     frameThickness = 8;
-    frameRadius = 0;
+    frameRadius = 12;
     outerCorners = true;
     exclusive = true;
 
@@ -67,7 +67,7 @@ colorSchemes = {
 
 general = {
   avatarImage = "/home/ghil/.face";
-  radiusRatio = 0.2;
+  radiusRatio = 0;
   dimmerOpacity = 0.2;
   showScreenCorners = false;
   forceBlackScreenCorners = true;

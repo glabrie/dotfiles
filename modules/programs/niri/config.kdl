@@ -45,6 +45,11 @@ touchpad {
 warp-mouse-to-focus
 }
 
+workspace "emacs"
+workspace "comms"
+workspace "games"
+workspace "media"
+
 layout {
     gaps 12
 
