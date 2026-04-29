@@ -21,8 +21,8 @@
 (global-display-line-numbers-mode +1)                                   ;; But you can't take the vim from the man
 
 ;; Transparent background so niri's blur shows through
-(add-to-list 'default-frame-alist '(alpha-background . 90))
-(set-frame-parameter nil 'alpha-background 90)
+(add-to-list 'default-frame-alist '(alpha-background . 80))
+(set-frame-parameter nil 'alpha-background 80)
 
 (use-package! org-auto-tangle                                           ;; Auto-tangle, to tangle auto-magically!
   :hook (org-mode . org-auto-tangle-mode))

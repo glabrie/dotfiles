@@ -110,14 +110,14 @@ Noctalia comes with a number of preset color schemes that you can set, as well a
 
 * General settings
 
-Here I'm defining a few misceleanous things like the avatar, black rounded corners to round off my display's inner border and shadows.
+Here I'm defining a few misceleanous things like the avatar.
 
 #+begin_src nix
         general = {
           avatarImage = "/home/ghil/.face";
           radiusRatio = 0.2;
           dimmerOpacity = 0.2;
-          showScreenCorners = true;
+          showScreenCorners = false;
           forceBlackScreenCorners = true;
           enableShadows = true;
           telemetryEnabled = false;
@@ -133,7 +133,7 @@ Bit of a catch-all again, here I'm defining my current system-wide font, [[https
         ui = {
           fontDefault = "Maple Mono";
           fontFixed = "Maple Mono";
-          panelBackgroundOpacity = 0.93;
+          panelBackgroundOpacity = 0.8;
           boxBorderEnabled = false;
         };
 #+end_src

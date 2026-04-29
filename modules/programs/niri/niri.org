@@ -237,7 +237,7 @@ window-rule {
 
 Finally, we'll be rounding those corners for a modern retro look. Nothing makes sense anymore, what is old is new is old again.
 
-#+begin_src kdl
+#+begin_src kdl tangle:no
 window-rule {
   geometry-corner-radius 6
   clip-to-geometry true
