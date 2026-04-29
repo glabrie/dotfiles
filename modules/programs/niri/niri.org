@@ -205,14 +205,18 @@ Do you also want pretty shadows? ✨ /*aesthetics*/ ✨!
 }
 #+end_src
 
-Noctalia can display a pretty blurred version of the wallpaper in overview mode instead of the boring solid color (default to boring grey) it ships with. This is this.
+Noctalia can display a fixed wallpaper across all workspaces and the overview. This is this.
 
 #+begin_src kdl
 layer-rule {
-  match namespace="^noctalia-overview*"
+  match namespace="^noctalia-wallpaper*"
   place-within-backdrop true
 }
+layout {
+  background-color "transparent"
+}
 #+end_src
+
 
 ** Window rules
 
@@ -253,6 +257,13 @@ window-rule {
     background-effect {
         blur true
     }
+}
+
+layer-rule {
+  match namespace="^noctalia-(background|launcher-overlay|dock)-.*$"
+  background-effect {
+    xray false
+  }
 }
 #+end_src
 This makes my amazing org-mode capture everywhere float, which is very cool
