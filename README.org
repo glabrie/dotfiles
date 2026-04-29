@@ -1,15 +1,15 @@
-#+OPTIONS: toc:nil broken-links:t
-#+PROPERTY: header-args  :noweb yes :results silent :mkdirp yes
-#+HTML: <h1 align="center">
-#+HTML:    <br>
-#+HTML:       Ghil's NixOS Dotfiles
-#+HTML: </h1>
-#+HTML: <p align="center">
-#+HTML:    <img src="assets/desktop.png" width="800px" /> <br>
-#+HTML: </p>
-#+HTML: <p align="center">
-#+HTML:    Screenshot last updated <b>2026-04-18</b>
-#+HTML: </p>
+  #+OPTIONS: toc:nil broken-links:t
+  #+PROPERTY: header-args  :noweb yes :results silent :mkdirp yes
+  #+HTML: <div align="center"><pre>
+  #+HTML: ░█▀▀░█░█░▀█▀░█░░░▀░█▀▀░░░█▀▄░█▀█░▀█▀░█▀▀░▀█▀░█░░░█▀▀░█▀▀
+  #+HTML: ░█░█░█▀█░░█░░█░░░░░▀▀█░░░█░█░█░█░░█░░█▀▀░░█░░█░░░█▀▀░▀▀█
+  #+HTML: ░▀▀▀░▀░▀░▀▀▀░▀▀▀░░░▀▀▀░░░▀▀░░▀▀▀░░▀░░▀░░░▀▀▀░▀▀▀░▀▀▀░▀▀▀
+  #+HTML: </pre></div>
+                                                                                                                      
+  #+ATTR_HTML: :width 800px                                                                                           
+  [[./assets/desktop.png]]
+
+  Screenshot last updated *2026-04-18*
 
 * The introduction
 
