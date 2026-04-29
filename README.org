@@ -16,22 +16,29 @@
 
 * The introduction
 
-Good day! You've stumbled upon my personal playground. I've been tinkering with NixOS and a bunch of other things for a bit, but I'm learning and the process is quite messy, so please don't clone this repository expecting an amazing base config to start. Suggestions are more than welcome though ^_^
+Good day to you!
+You've stumbled upon my personal playground.
+
+I've been tinkering my way through various forms of Linux as far back as 2000. But I'm still a newbie to so many things, including programming. For the past two years, I've been on NixOS, learning about Nix and programming in general. I'm still very much learning, the process is quite messy.
+
+Lately, I've been seduced by the dark side, and am now using Doom Emacs full time. I'm currently redoing my whole configuration as a literate config. You can find out more about that below.
+
+I'm always up for more learning, so if you have suggestions, send them my way, I'll be happy ^_^
 
 * The stack
 
 Here's what I use in this config, on a daily basis!
 
-| Type            | Name                | Notes                                                                                                                              |
-|-----------------+---------------------+------------------------------------------------------------------------------------------------------------------------------------|
-| Distribution    | [[https://nixos.org/][NixOS]]               | One word: declarative. Perfect distro for me                                                                                       |
-| Dotfile manager | [[https://github.com/nix-community/home-manager][Home-manager]]        | Declare your whole config! Waste of time? maybe? fun? yes!                                                                         |
-| Shell           | [[https://www.nushell.sh/][nushell]]             | I'm using nushell, because everusing nushell, because everything being data structured is really really cool. Also it's so pretty  |
-| Window manager  | [[https://github.com/niri-wm/niri][Niri]]                | Because Hyprland switches config more often than I change my mind, and I have adhd                                                 |
-| Desktop shell   | [[https://github.com/noctalia-dev/noctalia-shell][Noctalia]]            | It's beautiful, it's efficient, it makes things so easy.                                                                           |
-| Editor          | [[https://github.com/doomemacs/doomemacs][Doom Emacs]]          | After years of neovim, I fell into the dark side because evil mode is a thing                                                      |
-| Browser         | [[https://zen-browser.app/][Zen browser]]         | It's sleek and beautiful, feels modern, but it's a bit slow still                                                                  |
-| Music player    | [[https://spicetify.app/][Spotify + Spicetify]] | I'm slowly reverting back to buying music and analog if possible, but meanwhile...                                                 |
+| Type            | Name                | Notes                                                                                                                  |
+|-----------------+---------------------+------------------------------------------------------------------------------------------------------------------------|
+| Distribution    | [[https://nixos.org/][NixOS]]               | One word: declarative. Perfect distro for me                                                                           |
+| Dotfile manager | [[https://github.com/nix-community/home-manager][Home-manager]]        | Declare your whole config! Waste of time? maybe? fun? yes!                                                             |
+| Shell           | [[https://www.nushell.sh/][nushell]]             | I'm using nushell, because everything being data structured is really really cool. Also it's so pretty                 |
+| Window manager  | [[https://github.com/niri-wm/niri][Niri]]                | Because Hyprland switches config more often than I change my mind, and I have adhd. now with blur.  ✨ /Aesthetics!/ ✨ |
+| Desktop shell   | [[https://github.com/noctalia-dev/noctalia-shell][Noctalia]]            | It's beautiful, it's efficient, it makes things so easy.                                                               |
+| Editor          | [[https://github.com/doomemacs/doomemacs][Doom Emacs]]          | After years of neovim, I fell into the dark side because evil mode is a thing                                          |
+| Browser         | [[https://zen-browser.app/][Zen browser]]         | It's sleek and beautiful, feels modern, but it's a bit slow still                                                      |
+| Music player    | [[https://spicetify.app/][Spotify + Spicetify]] | I'm slowly reverting back to buying music and analog if possible, but meanwhile... Also first step: RMPC is installed. |
 
 * Overview
 
@@ -62,6 +69,7 @@ Yeah, but I'm a tinkerer, I love it. Plus, I'll be adding to that fairly soon en
 
 In the coming days, I'll be switching as much as possible my config to org files (emacs) that will tangle and create the nixos configuration. So...why?
 What's fun about org files is that I can create beautiful, legible documents that will serve me in two ways.
+
 + Great documentation is a boon for me and the two or three people that will also see this.
   Sometimes, comments in code don't give me enough freedom to write, as it obscures the code in a sea of uncollapsible comments.
   Org-mode changes that. It's a bit like markdown, so I can make parts of a file collapsible, with headers, make clickable links to relevant information, etc..
