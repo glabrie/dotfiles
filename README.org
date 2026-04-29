@@ -12,7 +12,7 @@
   #+HTML:   <img src="assets/desktop.png" width="800px" />
   #+HTML: </p>
 
-  #+HTML: <p align="center">Screenshot last updated <b>2026-04-18</b></p>
+  #+HTML: <p align="center">Screenshot last updated <b>2026-04-29</b></p>
 
 * The introduction
 
