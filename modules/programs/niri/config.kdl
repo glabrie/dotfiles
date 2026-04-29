@@ -99,6 +99,12 @@ window-rule {
         blur true
     }
 }
+window-rule {
+    match app-id="kitty"
+    background-effect {
+        blur true
+    }
+}
 
 window-rule {
     match app-id="emacs" title="org-capture"

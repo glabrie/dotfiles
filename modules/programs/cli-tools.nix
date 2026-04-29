@@ -22,6 +22,7 @@
       ncdu
       neovim
       nmap
+      rmpc
       ripgrep
       shotwell
       yazi
