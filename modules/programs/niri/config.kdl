@@ -82,9 +82,8 @@ layer-rule {
   match namespace="^noctalia-wallpaper*"
   place-within-backdrop true
 }
-layout {
-  background-color "transparent"
-}
+
+background-color "transparent"
 
 window-rule {
     match app-id="steam" title=r#"^notificationtoasts_\d+_desktop$"#
