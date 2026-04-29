@@ -25,6 +25,10 @@ Lately, I've been seduced by the dark side, and am now using Doom Emacs full tim
 
 I'm always up for more learning, so if you have suggestions, send them my way, I'll be happy ^_^
 
+* A note on reading this repo
+
+If you want to delve here, I suggest clicking on org files where available. I haven't finished porting everything to literate, but when it is available, it is the most of up to date file with commentary. Until I get tired and just link everything in a sea of README.org everywhere, this will have to do. So org files first!
+
 * The stack
 
 Here's what I use in this config, on a daily basis!
