@@ -19,7 +19,7 @@ settings = {
     marginVertical = 4;
     marginHorizontal = 12;
     frameThickness = 8;
-    frameRadius = 12;
+    frameRadius = 0;
     outerCorners = true;
     exclusive = true;
 

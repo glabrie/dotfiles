@@ -158,6 +158,16 @@ Lastly, I'm setting it so that the mouse cursor warps to the center of the activ
 }
 #+end_src
 
+** Named workspaces
+
+I like having workspaces that are ordered a certain way, I'm weird like that.
+
+#+begin_src kdl
+workspace "emacs"
+workspace "comms"
+workspace "games"
+workspace "media"
+#+end_src
 ** Layout
 
 Rules that let me customize the layout when niri is arranging windows around on the desktop.

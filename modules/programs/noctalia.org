@@ -47,7 +47,7 @@ These settings gives me a nice transparent top bar that frames the whole desktop
           marginVertical = 4;
           marginHorizontal = 12;
           frameThickness = 8;
-          frameRadius = 0;
+          frameRadius = 12;
           outerCorners = true;
           exclusive = true;
 #+end_src
@@ -115,7 +115,7 @@ Here I'm defining a few misceleanous things like the avatar.
 #+begin_src nix
         general = {
           avatarImage = "/home/ghil/.face";
-          radiusRatio = 0.2;
+          radiusRatio = 0;
           dimmerOpacity = 0.2;
           showScreenCorners = false;
           forceBlackScreenCorners = true;
