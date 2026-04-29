@@ -5,11 +5,14 @@
   #+HTML: ░█░█░█▀█░░█░░█░░░░░▀▀█░░░█░█░█░█░░█░░█▀▀░░█░░█░░░█▀▀░▀▀█
   #+HTML: ░▀▀▀░▀░▀░▀▀▀░▀▀▀░░░▀▀▀░░░▀▀░░▀▀▀░░▀░░▀░░░▀▀▀░▀▀▀░▀▀▀░▀▀▀
   #+HTML: </pre></div>
-                                                                                                                      
-  #+ATTR_HTML: :width 800px                                                                                           
-  [[./assets/desktop.png]]
 
-  Screenshot last updated *2026-04-18*
+  #+HTML: <p align="center"><i>You've taken a wrong turn somewhere, and now you're here.</i></p>
+
+  #+HTML: <p align="center">
+  #+HTML:   <img src="assets/desktop.png" width="800px" />
+  #+HTML: </p>
+
+  #+HTML: <p align="center">Screenshot last updated <b>2026-04-18</b></p>
 
 * The introduction
 
