@@ -275,13 +275,6 @@ window-rule {
         blur true
     }
 }
-
-layer-rule {
-  match namespace="^noctalia-(background|launcher-overlay|dock)-.*$"
-  background-effect {
-    xray true
-  }
-}
 #+end_src
 
 This makes my amazing org-mode capture everywhere float, which is very cool

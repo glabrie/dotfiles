@@ -84,7 +84,7 @@
         shr-use-colors nil))
 
 ;; I'm using Maple Mono, so I really don't need mixed pitch.
-(remove-hook 'text-mode-hook #'mixed-pitch-mode)
+;; (remove-hook 'text-mode-hook #'mixed-pitch-mode)
 
 ;; Open links in Zen via the system browser (browse-url breaks under daemon mode without explicit config)
 (setq browse-url-browser-function 'browse-url-generic
