@@ -212,25 +212,26 @@ Do you also want pretty shadows? ✨ /*aesthetics*/ ✨!
         offset x=0 y=5
         color "#0007"
     }
+}
 #+end_src
 
 Noctalia can display a fixed wallpaper across all workspaces and the overview. This is this.
 
-#+begin_src kdl
-background-color "transparent"
+#+begin_src kdl :tangle no
+// background-color "transparent"
 
-}
+// }
 
-layer-rule {
-  match namespace="^noctalia-wallpaper*"
-  place-within-backdrop true
-}
+//layer-rule {
+//  match namespace="^noctalia-wallpaper*"
+//  place-within-backdrop true
+//}
 
-overview {
-  workspace-shadow {
-    off
-  }
-}
+// overview {
+// workspace-shadow {
+//    off
+//  }
+// }
 #+end_src
 
 
