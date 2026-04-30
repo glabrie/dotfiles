@@ -279,7 +279,7 @@ window-rule {
 layer-rule {
   match namespace="^noctalia-(background|launcher-overlay|dock)-.*$"
   background-effect {
-    xray false
+    xray true
   }
 }
 #+end_src

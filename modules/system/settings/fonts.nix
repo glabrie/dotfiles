@@ -5,6 +5,7 @@
   {
     fonts.packages = with pkgs; [
       maple-mono.NF
+      montserrat
       font-awesome
       font-awesome_5
     ];
