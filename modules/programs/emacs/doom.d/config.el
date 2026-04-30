@@ -10,7 +10,7 @@
         user-mail-address "glabrie@proton.me"                           ;; My..email...address...
 
         ;; Display, themes, fonts
-        doom-font (font-spec :family "Montserrat" :size 18)          ;; Font settings, using Maple Mono because it is BEAUTIFUL
+        doom-font (font-spec :family "Maple Mono NF" :size 18)          ;; Font settings, using Maple Mono because it is BEAUTIFUL
         doom-variable-pitch-font (font-spec :family "Montserrat" :size 18)
         doom-serif-font          (font-spec :family "Montserrat" :size 18)
         doom-theme 'doom-tokyo-night                                    ;; Theme, I expect to change in three days, like always
