@@ -261,6 +261,10 @@ Now That we've set up our options, we can configure a lot of Emacs (and Doom) th
           (lambda () (equal (frame-parameter nil 'name) "org-capture")))
 (add-hook 'org-capture-after-finalize-hook #'+my/org-capture-cleanup-frame)
 
+;; Capture buffer takes the full frame instead of splitting — keeps the
+;; dashboard from showing through behind the floating Mod+C frame.
+(setq org-capture-window-setup 'only-window)
+
 (after! mu4e
   (setq mu4e-update-interval 120
         mu4e-change-filenames-when-moving t
