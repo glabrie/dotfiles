@@ -11,7 +11,7 @@
 
         ;; Display, themes, fonts
         doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 18)
-        doom-variable-pitch-font (font-spec :family "Montserrat" :size 18)
+        doom-variable-pitch-font (font-spec :family "Montserrat" :size 20)
         doom-serif-font          (font-spec :family "JetBrainsMono Nerd Font" :size 18)
         doom-theme 'doom-tokyo-night                                    ;; Theme, I expect to change in three days, like always
         display-line-numbers-type 'relative)                             ;; You can take the man from the Vim
@@ -98,6 +98,12 @@
   (custom-set-faces!
    '(highlight-indent-guides-character-face :foreground "#565f89")
    '(highlight-indent-guides-top-character-face :foreground "#7aa2f7")))
+
+;; Don't let mixed-pitch force variable-pitch to match the default face's
+;; height — we want Montserrat slightly larger to compensate for its smaller
+;; x-height vs JetBrains Mono.
+(after! mixed-pitch
+  (setq mixed-pitch-set-height nil))
 
 ;; Open links in Zen via the system browser (browse-url breaks under daemon mode without explicit config)
 (setq browse-url-browser-function 'browse-url-generic

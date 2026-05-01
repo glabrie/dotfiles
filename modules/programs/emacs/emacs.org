@@ -7,6 +7,9 @@ This file tangles into ~emacs.nix~, ~doom.d/config.el~, ~doom.d/init.el~ and ~do
 I never thought I'd say this, but I completely switched from neovim to emacs, mainly because of [[https://orgmode.org/][Org-mode]]. I would never have switched if I couldn't have my vim keybindings, and those are very well supported via evil-mode, which we can get in [[https://github.com/doomemacs/doomemacs][Doom Emacs]], a ready made distribution of emacs that is optimized and caters to vimers like me. Plus the logo is just cool.
 
 * emacs.nix
+
+First we need to to define our nix module.
+
 **  Module definition and package wrangling
 
 
@@ -14,6 +17,8 @@ Next, we need to nixify it, so we'll use [[https://github.com/marienz/nix-doom-e
 Since we're using unstraightened (even then it's too long) as a flake with home-manager, we first need to import the module. Then we'll tell it where our Doom config will live (here in a subfolder caller ~doom.d~).
 
 Finally, I'm also adding vterm for terminal support inside emacs and [[https://github.com/emacsmirror/mu4e][mu4e]], an email client inside emacs. Nifty!
+
+The all-grammars line is a fix for tree-sitter which currently behaves eratically across multiple programs since the author archived it. Each definition is very small, so adding all grammars does not add a lot of overhead.
 
 #+begin_src nix
 { inputs, ... }:
@@ -289,8 +294,23 @@ Now That we've set up our options, we can configure a lot of Emacs (and Doom) th
 ;; Don't let mixed-pitch force variable-pitch to match the default face's
 ;; height — we want Montserrat slightly larger to compensate for its smaller
 ;; x-height vs JetBrains Mono.
+;; Also keep indent-guide faces in fixed-pitch — Montserrat's │ is a narrow
+;; glyph that doesn't fill the cell, which is what made the guides look
+;; transparent inside source blocks.
 (after! mixed-pitch
-  (setq mixed-pitch-set-height nil))
+  (setq mixed-pitch-set-height nil)
+  (pushnew! mixed-pitch-fixed-pitch-faces
+            'highlight-indent-guides-character-face
+            'highlight-indent-guides-top-character-face
+            'highlight-indent-guides-stack-character-face
+            'highlight-indent-guides-even-face
+            'highlight-indent-guides-odd-face
+            'highlight-indent-guides-top-even-face
+            'highlight-indent-guides-top-odd-face))
+
+;; Always-on mixed-pitch in text/org buffers (the :ui zen hook isn't reliably
+;; firing for unknown reasons — wire it explicitly).
+(add-hook 'text-mode-hook #'mixed-pitch-mode)
 
 ;; Open links in Zen via the system browser (browse-url breaks under daemon mode without explicit config)
 (setq browse-url-browser-function 'browse-url-generic
