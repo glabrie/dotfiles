@@ -101,6 +101,7 @@ The init.el serves as an options menu with many possibilities. There are more th
        (emoji +unicode)          ; 🙂
        hl-todo                   ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
        indent-guides             ; highlighted indent columns
+       zen                       ; distraction-free + mixed-pitch (Montserrat for prose)
        ligatures                 ; ligatures and symbols to make your code pretty again
        modeline                  ; snazzy, Atom-inspired modeline, plus API
        nav-flash                 ; blink cursor line after big motions
@@ -275,6 +276,15 @@ Now That we've set up our options, we can configure a lot of Emacs (and Doom) th
 ;; is on and a block's tinted bg is missing.
 (setq jit-lock-defer-time nil
       jit-lock-chunk-size 4096)
+
+;; highlight-indent-guides' character method puts a `display' overlay whose face
+;; doesn't inherit the underlying bg, so under alpha-background the guides look
+;; transparent (showing the wallpaper) inside org-block tint. Brighten the
+;; foreground so the lines remain visible against both bgs.
+(after! highlight-indent-guides
+  (custom-set-faces!
+   '(highlight-indent-guides-character-face :foreground "#565f89")
+   '(highlight-indent-guides-top-character-face :foreground "#7aa2f7")))
 
 ;; Open links in Zen via the system browser (browse-url breaks under daemon mode without explicit config)
 (setq browse-url-browser-function 'browse-url-generic
