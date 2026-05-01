@@ -196,9 +196,9 @@ Now That we've set up our options, we can configure a lot of Emacs (and Doom) th
         user-mail-address "glabrie@proton.me"                           ;; My..email...address...
 
         ;; Display, themes, fonts
-        doom-font (font-spec :family "Maple Mono NF" :size 18)          ;; Font settings, using Maple Mono because it is BEAUTIFUL
-        doom-variable-pitch-font (font-spec :family "Maple Mono NF" :size 18)
-        doom-serif-font          (font-spec :family "Maple Mono NF" :size 18)
+        doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 18)
+        doom-variable-pitch-font (font-spec :family "Montserrat" :size 18)
+        doom-serif-font          (font-spec :family "JetBrainsMono Nerd Font" :size 18)
         doom-theme 'doom-tokyo-night                                    ;; Theme, I expect to change in three days, like always
         display-line-numbers-type 'relative)                             ;; You can take the man from the Vim
 
@@ -268,8 +268,13 @@ Now That we've set up our options, we can configure a lot of Emacs (and Doom) th
         shr-color-visible-luminance-min 80
         shr-use-colors nil))
 
-;; I'm using Maple Mono, so I really don't need mixed pitch.
-;; (remove-hook 'text-mode-hook #'mixed-pitch-mode)
+;; mixed-pitch stays enabled (default) so prose uses Montserrat and code stays mono.
+
+;; Force eager fontification so org source-block faces apply across the whole
+;; block instead of only where the cursor has been — visible when alpha-background
+;; is on and a block's tinted bg is missing.
+(setq jit-lock-defer-time nil
+      jit-lock-chunk-size 4096)
 
 ;; Open links in Zen via the system browser (browse-url breaks under daemon mode without explicit config)
 (setq browse-url-browser-function 'browse-url-generic

@@ -71,7 +71,7 @@
        zig                       ; C, but simpler
 
        :email
-       (mu4e +org +gmail)        ; Email client, requires mu, mpd, and for me, protonmail-bridge.
+       (mu4e +org +mbsync)        ; Email client, requires mu, mpd, and for me, protonmail-bridge.
 
        :app
        calendar                  ; As the name suggests, it is a calendar.

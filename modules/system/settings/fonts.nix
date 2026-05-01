@@ -6,6 +6,7 @@
     fonts.packages = with pkgs; [
       maple-mono.NF
       montserrat
+      nerd-fonts.jetbrains-mono
       font-awesome
       font-awesome_5
     ];
