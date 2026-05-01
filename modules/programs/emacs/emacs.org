@@ -86,7 +86,7 @@ While we're talking about mu4e, here's the other shoe: We need isync and mu, so 
 
 * Doom Config
 
-The Doom config comes in three files, ~init.el~, ~config.el~ and ~packages.el~. I will document a bit later what each does and expand upon them, but for now, here are the three files.
+The Doom config comes in three files, ~init.el~, ~config.el~ and ~packages.el~. They all have their purpose which I'll explain below. Normally, you'd want to either reload the config after each edit of these files (done with ~SPC h r r~) but since we're using ~Unstraightened~,
 
 ** doom.d/init.el
 :PROPERTIES:
@@ -288,8 +288,8 @@ Now That we've set up our options, we can configure a lot of Emacs (and Doom) th
 ;; foreground so the lines remain visible against both bgs.
 (after! highlight-indent-guides
   (custom-set-faces!
-   '(highlight-indent-guides-character-face :foreground "#565f89")
-   '(highlight-indent-guides-top-character-face :foreground "#7aa2f7")))
+   '(highlight-indent-guides-character-face :family "JetBrainsMono Nerd Font" :foreground "#565f89")
+   '(highlight-indent-guides-top-character-face :family "JetBrainsMono Nerd Font" :foreground "#7aa2f7")))
 
 ;; Don't let mixed-pitch force variable-pitch to match the default face's
 ;; height — we want Montserrat slightly larger to compensate for its smaller

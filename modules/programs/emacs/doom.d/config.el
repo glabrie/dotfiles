@@ -102,8 +102,23 @@
 ;; Don't let mixed-pitch force variable-pitch to match the default face's
 ;; height — we want Montserrat slightly larger to compensate for its smaller
 ;; x-height vs JetBrains Mono.
+;; Also keep indent-guide faces in fixed-pitch — Montserrat's │ is a narrow
+;; glyph that doesn't fill the cell, which is what made the guides look
+;; transparent inside source blocks.
 (after! mixed-pitch
-  (setq mixed-pitch-set-height nil))
+  (setq mixed-pitch-set-height nil)
+  (pushnew! mixed-pitch-fixed-pitch-faces
+            'highlight-indent-guides-character-face
+            'highlight-indent-guides-top-character-face
+            'highlight-indent-guides-stack-character-face
+            'highlight-indent-guides-even-face
+            'highlight-indent-guides-odd-face
+            'highlight-indent-guides-top-even-face
+            'highlight-indent-guides-top-odd-face))
+
+;; Always-on mixed-pitch in text/org buffers (the :ui zen hook isn't reliably
+;; firing for unknown reasons — wire it explicitly).
+(add-hook 'text-mode-hook #'mixed-pitch-mode)
 
 ;; Open links in Zen via the system browser (browse-url breaks under daemon mode without explicit config)
 (setq browse-url-browser-function 'browse-url-generic
