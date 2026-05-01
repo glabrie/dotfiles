@@ -18,7 +18,6 @@
       firefox
       freecad
       gimp
-      mpv
       obsidian
       obs-studio
       protonmail-bridge
@@ -28,8 +27,7 @@
       vlc
       wl-clipboard
       xarchiver
-      yt-dlp
-      
+
       # using flakes:
       inputs.oxicord.packages.${pkgs.stdenv.hostPlatform.system}.default # <- Love this TUI for text channels.
       inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default # <- Browser of choice. SO NICE.

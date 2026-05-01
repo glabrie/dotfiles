@@ -1,9 +1,9 @@
 (setq
         ;; Directories and shells
-        shell-file-name "/etc/profiles/per-user/ghil/bin/zsh"           ;; Because Nushell in Emacs is hell
-        org-directory "~/org/"                                          ;; Notes directory for org-mode
-        org-roam-directory "~/org/roam"                                 ;; But what about second org-mode?
-        projectile-project-search-path '("~/projects/")                ;; Coding Projects directory
+        shell-file-name "/etc/profiles/per-user/ghil/bin/zsh" ;; Because Nushell in Emacs is hell
+        org-directory "~/org/"                                ;; Notes directory for org-mode
+        org-roam-directory "~/org/roam"                       ;; But what about second org-mode?
+        projectile-project-search-path '("~/projects/")       ;; Coding Projects directory
 
         ;; User ID
         user-full-name "Guillaume Labrie"                               ;; My..name...
@@ -11,12 +11,11 @@
 
         ;; Display, themes, fonts
         doom-font (font-spec :family "Maple Mono NF" :size 18)          ;; Font settings, using Maple Mono because it is BEAUTIFUL
-        doom-variable-pitch-font (font-spec :family "Montserrat" :size 18)
-        doom-serif-font          (font-spec :family "Montserrat" :size 18)
+        doom-variable-pitch-font (font-spec :family "Maple Mono NF" :size 18)
+        doom-serif-font          (font-spec :family "Maple Mono NF" :size 18)
         doom-theme 'doom-tokyo-night                                    ;; Theme, I expect to change in three days, like always
-        display-line-numbers-type 'relative                             ;; You can take the man from the Vim
+        display-line-numbers-type 'relative)                             ;; You can take the man from the Vim
 
-        )
 
 (global-display-line-numbers-mode +1)                                   ;; But you can't take the vim from the man
 

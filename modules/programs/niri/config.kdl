@@ -105,13 +105,6 @@ window-rule {
     }
 }
 
-layer-rule {
-  match namespace="^noctalia-(background|launcher-overlay|dock)-.*$"
-  background-effect {
-    xray true
-  }
-}
-
 window-rule {
     match app-id="emacs" title="org-capture"
     open-floating true
