@@ -96,8 +96,8 @@
 ;; foreground so the lines remain visible against both bgs.
 (after! highlight-indent-guides
   (custom-set-faces!
-   '(highlight-indent-guides-character-face :foreground "#565f89")
-   '(highlight-indent-guides-top-character-face :foreground "#7aa2f7")))
+   '(highlight-indent-guides-character-face :family "JetBrainsMono Nerd Font" :foreground "#565f89")
+   '(highlight-indent-guides-top-character-face :family "JetBrainsMono Nerd Font" :foreground "#7aa2f7")))
 
 ;; Don't let mixed-pitch force variable-pitch to match the default face's
 ;; height — we want Montserrat slightly larger to compensate for its smaller

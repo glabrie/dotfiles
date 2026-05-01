@@ -282,31 +282,11 @@ Now That we've set up our options, we can configure a lot of Emacs (and Doom) th
 (setq jit-lock-defer-time nil
       jit-lock-chunk-size 4096)
 
-;; highlight-indent-guides' character method puts a `display' overlay whose face
-;; doesn't inherit the underlying bg, so under alpha-background the guides look
-;; transparent (showing the wallpaper) inside org-block tint. Brighten the
-;; foreground so the lines remain visible against both bgs.
-(after! highlight-indent-guides
-  (custom-set-faces!
-   '(highlight-indent-guides-character-face :family "JetBrainsMono Nerd Font" :foreground "#565f89")
-   '(highlight-indent-guides-top-character-face :family "JetBrainsMono Nerd Font" :foreground "#7aa2f7")))
-
 ;; Don't let mixed-pitch force variable-pitch to match the default face's
 ;; height — we want Montserrat slightly larger to compensate for its smaller
 ;; x-height vs JetBrains Mono.
-;; Also keep indent-guide faces in fixed-pitch — Montserrat's │ is a narrow
-;; glyph that doesn't fill the cell, which is what made the guides look
-;; transparent inside source blocks.
 (after! mixed-pitch
-  (setq mixed-pitch-set-height nil)
-  (pushnew! mixed-pitch-fixed-pitch-faces
-            'highlight-indent-guides-character-face
-            'highlight-indent-guides-top-character-face
-            'highlight-indent-guides-stack-character-face
-            'highlight-indent-guides-even-face
-            'highlight-indent-guides-odd-face
-            'highlight-indent-guides-top-even-face
-            'highlight-indent-guides-top-odd-face))
+  (setq mixed-pitch-set-height nil))
 
 ;; Always-on mixed-pitch in text/org buffers (the :ui zen hook isn't reliably
 ;; firing for unknown reasons — wire it explicitly).
