@@ -90,6 +90,15 @@
 (setq jit-lock-defer-time nil
       jit-lock-chunk-size 4096)
 
+;; highlight-indent-guides' character method puts a `display' overlay whose face
+;; doesn't inherit the underlying bg, so under alpha-background the guides look
+;; transparent (showing the wallpaper) inside org-block tint. Brighten the
+;; foreground so the lines remain visible against both bgs.
+(after! highlight-indent-guides
+  (custom-set-faces!
+   '(highlight-indent-guides-character-face :foreground "#565f89")
+   '(highlight-indent-guides-top-character-face :foreground "#7aa2f7")))
+
 ;; Open links in Zen via the system browser (browse-url breaks under daemon mode without explicit config)
 (setq browse-url-browser-function 'browse-url-generic
       browse-url-generic-program "zen")
