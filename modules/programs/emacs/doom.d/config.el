@@ -54,12 +54,17 @@ doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 18)
         org-roam-ui-open-on-start t))
 
 ;; Dedicated org-capture frame, adapted from https://gist.github.com/progfolio/af627354f87542879de3ddc30a31adc1
-(defun +my/org-capture-fullscreen-in-dedicated-frame ()
-  "When inside the dedicated \"org-capture\" frame, expand the capture buffer
-to fill the frame after `org-capture-mode' has set itself up."
+(defun +my/org-capture-fullscreen-in-dedicated-frame (&rest _)
+  "When inside the dedicated \"org-capture\" frame, fill it with the capture buffer."
+  (message "[ocap-debug] cleanup fired; frame=%S window=%S buffer=%S"
+           (frame-parameter nil 'name)
+           (selected-window)
+           (current-buffer))
   (when (equal (frame-parameter nil 'name) "org-capture")
     (delete-other-windows)))
 (add-hook 'org-capture-mode-hook #'+my/org-capture-fullscreen-in-dedicated-frame)
+(advice-add 'org-roam-dailies-capture-today
+            :after #'+my/org-capture-fullscreen-in-dedicated-frame)
 
 (defun +my/org-capture-cleanup-frame (&rest _)
   (when (equal (frame-parameter nil 'name) "org-capture")
