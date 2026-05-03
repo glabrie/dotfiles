@@ -31,7 +31,7 @@ doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 18)
         org-insert-heading-respect-content t
         org-hide-emphasis-markers t
         org-pretty-entities t
-        org-ellipsis "…"
+        org-ellipsis " ⮯"
         org-agenda-tags-column 0
         org-agenda-block-separator ?─
         org-agenda-time-grid
@@ -42,6 +42,9 @@ doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 18)
         "◀── now ─────────────────────────────────────────────────"
         org-agenda-files
           (directory-files-recursively org-directory "\\.org$"))
+;; org-modern bullet style: classic org-bullets glyphs at fixed levels
+(setq org-modern-star 'replace
+      org-modern-replace-stars '("◉" "○" "✸" "✿"))
 ;; Let's activate it now
 (global-org-modern-mode))
 
@@ -111,8 +114,7 @@ doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 18)
 ;; Force eager fontification so org source-block faces apply across the whole
 ;; block instead of only where the cursor has been — visible when alpha-background
 ;; is on and a block's tinted bg is missing.
-(setq jit-lock-defer-time nil
-      jit-lock-chunk-size 4096)
+(setq jit-lock-chunk-size 4096)
 
 ;; Don't let mixed-pitch force variable-pitch to match the default face's
 ;; height — we want Montserrat slightly larger to compensate for its smaller
