@@ -88,7 +88,7 @@ While we're talking about mu4e, here's the other shoe: We need isync and mu, so 
 
 The Doom config comes in three files, ~init.el~, ~config.el~ and ~packages.el~. They all have their purpose which I'll explain below. Normally, you'd want to either reload the config after each edit of these files (done with ~SPC h r r~) but since we're using ~Unstraightened~,
 
-** doom.d/init.el
+** Init (init.el)
 :PROPERTIES:
 :header-args:emacs-lisp: :tangle doom.d/init.el
 :END:
@@ -182,7 +182,7 @@ The init.el serves as an options menu with many possibilities. There are more th
        (default +bindings +smartparens))
 #+end_src
 
-** doom.d/config.el
+** Config (config.el)
 :PROPERTIES:
 :header-args:emacs-lisp: :tangle doom.d/config.el
 :END:
@@ -205,30 +205,70 @@ First a bit of boilerplate. We'll set up a few things required for [[https://org
 
 *** Aesthetics and themes
 
-We'll then set the theme and fonts. In this case I'm using a mixed pitch where the prose is displayed in [[https://www.fontspace.com/montserrat-font-f16544][Montserrat]] while the code is displayed in [[https://www.jetbrains.com/lp/mono/][JetBrains Mono]]. I'm also still using Tokyo Night as my main theme.
+We'll then set the theme and fonts.  I'm also still using Tokyo Night as my main theme.
+small note: In the Doom documentation you'll find ~Doom-unicode-font~. It's been deprecated and we're now using ~doom-symbol-font~.
 
 Finally, we'll be adding some transparency to the frames to get that ~Niri~ blur to show through.
 
-#+begin_src emacs-lisp
-        doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 18)
-        doom-variable-pitch-font (font-spec :family "Montserrat" :size 20)
-        doom-serif-font          (font-spec :family "JetBrainsMono Nerd Font" :size 18)
-        doom-theme 'doom-tokyo-night                                    ;; Theme, I expect to change in three days, like always
-        display-line-numbers-type 'relative)                             ;; You can take the man from the Vim
+**** Fonts
 
+I'm using a mixed pitch where the prose is displayed in [[https://www.fontspace.com/montserrat-font-f16544][Montserrat]] while the code is displayed in [[https://www.jetbrains.com/lp/mono/][JetBrains Mono]].
+It makes for a nice separation that make prose look like documentation, while the code is still eminently readable in a mono font.
+
+#+begin_src emacs-lisp
+
+        doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 18)
+        doom-variable-pitch-font (font-spec :family "Montserrat")
+        doom-symbol-font (font-spec :family "JetBrainsMono Nerd Font" :size 18)
+        doom-big-font (font-spec :family "Maple Mono NF" :size )
+#+end_src
+
+**** Theme
+
+I'm using Tokyo Night everywhere else in the system, so this gets applied here as well.
+
+#+begin_src emacs-lisp
+        doom-theme 'doom-tokyo-night
+#+end_src
+
+**** Relative lines - The vim way
+
+As I'm coming from vim, and still uses the keybindings daily, I need my relative lines. This gives me that, with another setting to correct the numbers to their actual position:
+
+#+begin_src emacs-lisp
+        display-line-numbers-type 'relative)
+(global-display-line-numbers-mode +1)
+#+end_src
+
+**** Let the frames breathe
+
+#+begin_src emacs-lisp
+(modify-all-frames-parameters
+ '((right-divider-width . 12)
+   (internal-border-width . 12)))
+(dolist (face '(window-divider
+                window-divider-first-pixel
+                window-divider-last-pixel))
+  (face-spec-reset-face face)
+  (set-face-foreground face (face-attribute 'default :background)))
+(set-face-background 'fringe (face-attribute 'default :background))
+#+end_src
+
+**** Transparency
+
+Niri now has a beautiful blur, which we're taking advantage of by setting the opacity to 80%
+
+#+begin_src emacs-lisp
 (add-to-list 'default-frame-alist '(alpha-background . 80))
 (set-frame-parameter nil 'alpha-background 80)
 #+end_src
 
+**** Org-modern
+
+[[https://github.com/minad/org-modern][Org-modern]] is a nice way to format ~Org-mode~ automatically. It's very pretty, customizable. I recommend it!
+Normally, org-mode doesn't parse your notes recursively for todos, for performance reasons. I'll set up something better someday, but for now just a dirty trick to make it check recursively so that it can get to my ~org-roam~ daily notes folder.
+
 #+begin_src emacs-lisp
-(global-display-line-numbers-mode +1)                                   ;; But you can't take the vim from the man
-
-(map! :leader
-      :desc "Capture daily" "n d" #'org-roam-dailies-capture-today
-      :desc "Go to daily" "n D" #'org-roam-dailies-goto-today
-      :desc "Org-roam UI graph" "n r g" #'org-roam-ui-mode)
-
-;; org-modern configuration + a dirty fix for TODOs in roam not showing up outside in the todo list.
 (after! org
   (setq org-auto-align-tags nil
         org-tags-column 0
@@ -237,7 +277,7 @@ Finally, we'll be adding some transparency to the frames to get that ~Niri~ blur
         org-insert-heading-respect-content t
         org-hide-emphasis-markers t
         org-pretty-entities t
-        org-ellipsis "…"
+        org-ellipsis " ⮯"
         org-agenda-tags-column 0
         org-agenda-block-separator ?─
         org-agenda-time-grid
@@ -248,33 +288,30 @@ Finally, we'll be adding some transparency to the frames to get that ~Niri~ blur
         "◀── now ─────────────────────────────────────────────────"
         org-agenda-files
           (directory-files-recursively org-directory "\\.org$"))
-;; Let's activate it now
 (global-org-modern-mode))
 
+#+end_src
 
+*** Keybindings
+
+The rare custom keybinds I run are to get to my notes faster, and a graph that you'll look at once, go "wow, that's neat" and probably never open again, just like in ~Obsidian~. Yay!
+
+#+begin_src emacs-lisp
+(map! :leader
+      :desc "Capture daily" "n d" #'org-roam-dailies-capture-today
+      :desc "Go to daily" "n D" #'org-roam-dailies-goto-today
+      :desc "Org-roam UI graph" "n r g" #'org-roam-ui-mode)
+#+end_src
+
+*** Org-roam
+
+#+begin_src emacs-lisp
 (after! org-roam
   (require 'org-roam-ui)
   (setq org-roam-ui-sync-theme t
         org-roam-ui-follow t
         org-roam-ui-update-on-save t
         org-roam-ui-open-on-start t))
-
-;; Dedicated org-capture frame, adapted from https://gist.github.com/progfolio/af627354f87542879de3ddc30a31adc1
-(defun +my/org-capture-fullscreen-in-dedicated-frame (&rest _)
-  "When inside the dedicated \"org-capture\" frame, fill it with the capture buffer."
-  (when (equal (frame-parameter nil 'name) "org-capture")
-    (delete-other-windows)))
-(add-hook 'org-capture-mode-hook #'+my/org-capture-fullscreen-in-dedicated-frame)
-(advice-add 'org-roam-dailies-capture-today
-            :after #'+my/org-capture-fullscreen-in-dedicated-frame)
-
-(defun +my/org-capture-cleanup-frame (&rest _)
-  (when (equal (frame-parameter nil 'name) "org-capture")
-    (delete-frame)))
-(advice-add 'org-capture-finalize :after #'+my/org-capture-cleanup-frame)
-
-(add-hook '+doom-dashboard-inhibit-functions
-          (lambda () (equal (frame-parameter nil 'name) "org-capture")))
 
 (setq org-roam-dailies-capture-templates
         '(("d" "default" entry
@@ -298,7 +335,32 @@ Finally, we'll be adding some transparency to the frames to get that ~Niri~ blur
 "
            :target (file+head "%<%Y-%m-%d>.org"
                               "#+title: %<%Y-%m-%d>\n"))))
+#+end_src
 
+*** Org-capture global capture key
+
+
+#+begin_src emacs-lisp
+(defun +my/org-capture-fullscreen-in-dedicated-frame (&rest _)
+  (when (equal (frame-parameter nil 'name) "org-capture")
+    (delete-other-windows)))
+(add-hook 'org-capture-mode-hook #'+my/org-capture-fullscreen-in-dedicated-frame)
+(advice-add 'org-roam-dailies-capture-today
+            :after #'+my/org-capture-fullscreen-in-dedicated-frame)
+
+(defun +my/org-capture-cleanup-frame (&rest _)
+  (when (equal (frame-parameter nil 'name) "org-capture")
+    (delete-frame)))
+(advice-add 'org-capture-finalize :after #'+my/org-capture-cleanup-frame)
+
+(add-hook '+doom-dashboard-inhibit-functions
+          (lambda () (equal (frame-parameter nil 'name) "org-capture")))
+#+end_src
+
+*** Mu4e
+
+
+#+begin_src emacs-lisp
 (after! mu4e
   (setq mu4e-update-interval 120
         mu4e-change-filenames-when-moving t
@@ -311,37 +373,18 @@ Finally, we'll be adding some transparency to the frames to get that ~Niri~ blur
         shr-max-image-proportion 0.0
         shr-color-visible-luminance-min 80
         shr-use-colors nil))
+#+end_src
 
-;; mixed-pitch stays enabled (default) so prose uses Montserrat and code stays mono.
+*** Browser not opening links fix
 
-;; Force eager fontification so org source-block faces apply across the whole
-;; block instead of only where the cursor has been — visible when alpha-background
-;; is on and a block's tinted bg is missing.
-(setq jit-lock-chunk-size 4096)
+I have this weird thing where since I've switched to emacs as a daemon, it doesn't want to open links anymore. This is a quick fix for that. I should investigate more. I have seen on the net that it might be because of the environment and selecting a display too soon. More on this some other time.
 
-;; Don't let mixed-pitch force variable-pitch to match the default face's
-;; height — we want Montserrat slightly larger to compensate for its smaller
-;; x-height vs JetBrains Mono.
-(after! mixed-pitch
-  (setq mixed-pitch-set-height nil))
-
-;; Always-on mixed-pitch in text/org buffers (the :ui zen hook isn't reliably
-;; firing for unknown reasons — wire it explicitly).
-(add-hook 'text-mode-hook #'mixed-pitch-mode)
-
-;; Open links in Zen via the system browser (browse-url breaks under daemon mode without explicit config)
+#+begin_src emacs-lisp
 (setq browse-url-browser-function 'browse-url-generic
       browse-url-generic-program "zen")
-
-;; Use mu4e's built-in modeline; suppress the legacy doom-modeline mu4e segment
-(after! doom-modeline
-  (setq doom-modeline-mu4e nil))
-
 #+end_src
-#+RESULTS:
-: relative
 
-** doom.d/packages.el
+** Packages (packages.el)
 :PROPERTIES:
 :header-args:emacs-lisp: :tangle doom.d/packages.el
 :END:

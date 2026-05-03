@@ -31,7 +31,7 @@ doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 18)
         org-insert-heading-respect-content t
         org-hide-emphasis-markers t
         org-pretty-entities t
-        org-ellipsis " ⮯"
+        org-ellipsis "…"
         org-agenda-tags-column 0
         org-agenda-block-separator ?─
         org-agenda-time-grid
@@ -42,13 +42,6 @@ doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 18)
         "◀── now ─────────────────────────────────────────────────"
         org-agenda-files
           (directory-files-recursively org-directory "\\.org$"))
-;; org-modern bullet style: same ◉ glyph at every level; depth shown by face color, fold state by org-ellipsis
-(setq org-modern-star 'fold
-      org-modern-fold-stars '(("◉" . "◉")
-                              ("◉" . "◉")
-                              ("◉" . "◉")
-                              ("◉" . "◉"))
-      org-modern-hide-stars t)
 ;; Let's activate it now
 (global-org-modern-mode))
 
