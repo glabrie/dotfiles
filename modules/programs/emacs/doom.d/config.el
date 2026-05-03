@@ -69,9 +69,17 @@
           (lambda () (equal (frame-parameter nil 'name) "org-capture")))
 (add-hook 'org-capture-after-finalize-hook #'+my/org-capture-cleanup-frame)
 
-;; Capture buffer takes the full frame instead of splitting — keeps the
-;; dashboard from showing through behind the floating Mod+C frame.
-(setq org-capture-window-setup 'only-window)
+;; Only when invoked from the dedicated Mod+C frame (named "org-capture"),
+;; bypass Doom's popup rules and force capture to take the whole window.
+;; Normal in-emacs capture keeps its popup behavior.
+(defun +my/org-roam-capture-fullscreen-in-dedicated-frame (orig-fn &rest args)
+  (if (equal (frame-parameter nil 'name) "org-capture")
+      (let ((org-capture-window-setup 'only-window)
+            (display-buffer-alist nil))
+        (apply orig-fn args))
+    (apply orig-fn args)))
+(advice-add 'org-roam-dailies-capture-today
+            :around #'+my/org-roam-capture-fullscreen-in-dedicated-frame)
 
 (after! mu4e
   (setq mu4e-update-interval 120
