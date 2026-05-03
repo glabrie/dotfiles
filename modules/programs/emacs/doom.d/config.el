@@ -1,19 +1,18 @@
-(setq
-        shell-file-name "/etc/profiles/per-user/ghil/bin/zsh"
-        org-directory "~/org/"
-        org-roam-directory "~/org/roam"
-        projectile-project-search-path '("~/projects/")
-        user-full-name "Guillaume Labrie"
-        user-mail-address "glabrie@proton.me"
+(setq shell-file-name "/etc/profiles/per-user/ghil/bin/zsh"
+      org-directory "~/org/"
+      org-roam-directory "~/org/roam"
+      projectile-project-search-path '("~/projects/")
+      user-full-name "Guillaume Labrie"
+      user-mail-address "glabrie@proton.me")
 
-doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 18)
-doom-variable-pitch-font (font-spec :family "Montserrat")
-doom-symbol-font (font-spec :family "JetBrainsMono Nerd Font" :size 18)
-doom-big-font (font-spec :family "Maple Mono NF" :size 24 )
+(setq doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 18)
+      doom-variable-pitch-font (font-spec :family "Montserrat")
+      doom-symbol-font (font-spec :family "JetBrainsMono Nerd Font" :size 18)
+      doom-big-font (font-spec :family "Maple Mono NF" :size 24))
 
-doom-theme 'doom-tokyo-night
+(setq doom-theme 'doom-tokyo-night)
 
-display-line-numbers-type 'relative)
+(setq display-line-numbers-type 'relative)
 (global-display-line-numbers-mode +1)
 
 (modify-all-frames-parameters
@@ -47,8 +46,15 @@ display-line-numbers-type 'relative)
         org-agenda-current-time-string
         "◀── now ─────────────────────────────────────────────────"
         org-agenda-files
-          (directory-files-recursively org-directory "\\.org$"))
-(global-org-modern-mode))
+          (directory-files-recursively org-directory "\\.org$")))
+
+(use-package! org-modern
+  :hook (org-mode . org-modern-mode)
+  :config
+  (setq org-modern-star '("◉" "○" "✸" "✿" "✤" "✜" "◆" "▶")
+        org-modern-block-fringe nil))
+
+(add-hook 'text-mode-hook #'mixed-pitch-mode)
 
 (map! :leader
       :desc "Capture daily" "n d" #'org-roam-dailies-capture-today

@@ -396,4 +396,5 @@ I have this weird thing where since I've switched to emacs as a daemon, it doesn
 (package! kdl-mode)
 (package! org-modern)
 (package! org-roam-ui)
+(package! mixed-pitch)
 #+end_src
