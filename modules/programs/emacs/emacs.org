@@ -283,19 +283,19 @@ Finally, we'll be adding some transparency to the frames to get that ~Niri~ blur
                               "#+title: %<%Y-%m-%d>\n"))
           ("w" "weekly review" entry
            "* %<%Y-W%V> Weekly review                                  :weekly:
-  [[id:WEEKLY-REVIEW-NODE-ID][Weekly Review]]
+[[id:WEEKLY-REVIEW-NODE-ID][Weekly Review]]
 
-  ,** Summary of the week
-  %?                                                                                
-                                                            
-  ,** Wins
+,** Summary of the week
+%?
 
-  ,** Misses
+,** Wins
 
-  ,** What to keep in mind moving forward
+,** Misses
 
-  ,** Planning the next: What needs doing?
-  "
+,** What to keep in mind moving forward
+
+,** Planning the next: What needs doing?
+"
            :target (file+head "%<%Y-%m-%d>.org"
                               "#+title: %<%Y-%m-%d>\n"))))
 

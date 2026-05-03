@@ -16,14 +16,18 @@ $timer ++= [{step: "tangle org files", time: (timeit {
 })}]
 print "/---- Tangle done ----/ \n"
 
+print "\n/---- Files staged ----/"
+git diff --cached --stat
+print ""
+let default_msg = $"NixOS (date now | format date '%Y-%m-%dT%H:%M:%S%z') Build (hostname) (readlink /nix/var/nix/profiles/system | path basename | split row '-' | get 1)"
+let user_msg = (input $"(ansi green_bold)Commit message(ansi reset) [($default_msg)]: ")
+let commit_msg = if ($user_msg | str trim | is-empty) { $default_msg } else { $"($user_msg)\n($default_msg)" }
+
 print "/---- Rebuilding NixOS ----/ \n"
 $timer ++= [{step:"NixOS rebuild", time: (timeit { sudo nixos-rebuild switch --flake $".#(hostname)" })}]
 print "/---- NixOS rebuilt ----/ \n"
 
 print "/---- Committing to git ----/ \n"
-let default_msg = $"NixOS (date now | format date '%Y-%m-%dT%H:%M:%S%z') Build (hostname) (readlink /nix/var/nix/profiles/system | path basename | split row '-' | get 1)"
-let user_msg = (input $"Commit message \(($default_msg)\): ")
-let commit_msg = if ($user_msg | str trim | is-empty) { $default_msg } else { $"($user_msg)\n($default_msg)" }
 $timer ++= [{step: "Git commit", time: (timeit { git commit -m $commit_msg })}]
 print "/---- Changes commited to git ----/ \n"
 

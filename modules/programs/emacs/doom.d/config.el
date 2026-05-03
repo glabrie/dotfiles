@@ -56,10 +56,6 @@ doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 18)
 ;; Dedicated org-capture frame, adapted from https://gist.github.com/progfolio/af627354f87542879de3ddc30a31adc1
 (defun +my/org-capture-fullscreen-in-dedicated-frame (&rest _)
   "When inside the dedicated \"org-capture\" frame, fill it with the capture buffer."
-  (message "[ocap-debug] cleanup fired; frame=%S window=%S buffer=%S"
-           (frame-parameter nil 'name)
-           (selected-window)
-           (current-buffer))
   (when (equal (frame-parameter nil 'name) "org-capture")
     (delete-other-windows)))
 (add-hook 'org-capture-mode-hook #'+my/org-capture-fullscreen-in-dedicated-frame)
@@ -73,6 +69,29 @@ doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 18)
 
 (add-hook '+doom-dashboard-inhibit-functions
           (lambda () (equal (frame-parameter nil 'name) "org-capture")))
+
+(setq org-roam-dailies-capture-templates
+        '(("d" "default" entry
+           "* %?"
+           :target (file+head "%<%Y-%m-%d>.org"
+                              "#+title: %<%Y-%m-%d>\n"))
+          ("w" "weekly review" entry
+           "* %<%Y-W%V> Weekly review                                  :weekly:
+  [[id:WEEKLY-REVIEW-NODE-ID][Weekly Review]]
+
+  ** Summary of the week
+  %?                                                                                
+                                                            
+  ** Wins
+
+  ** Misses
+
+  ** What to keep in mind moving forward
+
+  ** Planning the next: What needs doing?
+  "
+           :target (file+head "%<%Y-%m-%d>.org"
+                              "#+title: %<%Y-%m-%d>\n"))))
 
 (after! mu4e
   (setq mu4e-update-interval 120
