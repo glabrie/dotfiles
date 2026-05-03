@@ -47,7 +47,8 @@ doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 18)
       org-modern-fold-stars '(("◉" . "◉")
                               ("◉" . "◉")
                               ("◉" . "◉")
-                              ("◉" . "◉")))
+                              ("◉" . "◉"))
+      org-modern-hide-stars t)
 ;; Let's activate it now
 (global-org-modern-mode))
 
