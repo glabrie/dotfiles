@@ -42,9 +42,12 @@ doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 18)
         "◀── now ─────────────────────────────────────────────────"
         org-agenda-files
           (directory-files-recursively org-directory "\\.org$"))
-;; org-modern bullet style: classic org-bullets glyphs at fixed levels
-(setq org-modern-star 'replace
-      org-modern-replace-stars '("◉" "○" "✸" "✿"))
+;; org-modern bullet style: same ◉ glyph at every level; depth shown by face color, fold state by org-ellipsis
+(setq org-modern-star 'fold
+      org-modern-fold-stars '(("◉" . "◉")
+                              ("◉" . "◉")
+                              ("◉" . "◉")
+                              ("◉" . "◉")))
 ;; Let's activate it now
 (global-org-modern-mode))
 

@@ -253,7 +253,8 @@ Finally, we'll be adding some transparency to the frames to get that ~Niri~ blur
       org-modern-fold-stars '(("◉" . "◉")
                               ("◉" . "◉")
                               ("◉" . "◉")
-                              ("◉" . "◉")))
+                              ("◉" . "◉"))
+      org-modern-hide-stars t)
 ;; Let's activate it now
 (global-org-modern-mode))
 
