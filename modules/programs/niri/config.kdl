@@ -116,7 +116,7 @@ binds {
     Mod+D { spawn "noctalia-shell" "ipc" "call" "launcher" "toggle"; }
     Mod+T hotkey-overlay-title="Open a Terminal: kitty" { spawn "kitty"; }
     Mod+E hotkey-overlay-title="Open an Emacs window" { spawn "emacsclient" "-c"; }
-    Mod+C hotkey-overlay-title="Org-roam daily capture" { spawn "emacsclient" "-c" "-n" "-F" "((name . \"org-capture\"))" "-e" "(+my/org-capture-frame)"; }
+    Mod+C hotkey-overlay-title="Org-roam daily capture" { spawn "emacsclient" "-c" "-F" "((name . \"org-capture\"))" "-e" "(org-roam-dailies-capture-today)"; }
 
 Mod+O repeat=false { toggle-overview; }
 Mod+Q repeat=false { close-window; }

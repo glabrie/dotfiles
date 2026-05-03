@@ -1,30 +1,26 @@
 (setq
-        ;; Directories and shells
-        shell-file-name "/etc/profiles/per-user/ghil/bin/zsh" ;; Because Nushell in Emacs is hell
-        org-directory "~/org/"                                ;; Notes directory for org-mode
-        org-roam-directory "~/org/roam"                       ;; But what about second org-mode?
-        projectile-project-search-path '("~/projects/")       ;; Coding Projects directory
+        shell-file-name "/etc/profiles/per-user/ghil/bin/zsh"
+        org-directory "~/org/"
+        org-roam-directory "~/org/roam"
+        projectile-project-search-path '("~/projects/")
+        user-full-name "Guillaume Labrie"
+        user-mail-address "glabrie@proton.me"
 
-        ;; User ID
-        user-full-name "Guillaume Labrie"                               ;; My..name...
-        user-mail-address "glabrie@proton.me"                           ;; My..email...address...
-
-        ;; Display, themes, fonts
-        doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 18)
+doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 18)
         doom-variable-pitch-font (font-spec :family "Montserrat" :size 20)
         doom-serif-font          (font-spec :family "JetBrainsMono Nerd Font" :size 18)
         doom-theme 'doom-tokyo-night                                    ;; Theme, I expect to change in three days, like always
         display-line-numbers-type 'relative)                             ;; You can take the man from the Vim
 
-
-(global-display-line-numbers-mode +1)                                   ;; But you can't take the vim from the man
-
-;; Transparent background so niri's blur shows through
 (add-to-list 'default-frame-alist '(alpha-background . 80))
 (set-frame-parameter nil 'alpha-background 80)
 
-(use-package! org-auto-tangle                                           ;; Auto-tangle, to tangle auto-magically!
-  :hook (org-mode . org-auto-tangle-mode))
+(global-display-line-numbers-mode +1)                                   ;; But you can't take the vim from the man
+
+(map! :leader
+      :desc "Capture daily" "n d" #'org-roam-dailies-capture-today
+      :desc "Go to daily" "n D" #'org-roam-dailies-goto-today
+      :desc "Org-roam UI graph" "n r g" #'org-roam-ui-mode)
 
 ;; org-modern configuration + a dirty fix for TODOs in roam not showing up outside in the todo list.
 (after! org
@@ -49,10 +45,6 @@
 ;; Let's activate it now
 (global-org-modern-mode))
 
-(map! :leader
-      :desc "Capture daily" "n d" #'org-roam-dailies-capture-today
-      :desc "Go to daily" "n D" #'org-roam-dailies-goto-today
-      :desc "Org-roam UI graph" "n r g" #'org-roam-ui-mode)
 
 (after! org-roam
   (require 'org-roam-ui)
@@ -61,25 +53,26 @@
         org-roam-ui-update-on-save t
         org-roam-ui-open-on-start t))
 
-(defun +my/org-capture-cleanup-frame ()
+;; Dedicated org-capture frame, adapted from https://gist.github.com/progfolio/af627354f87542879de3ddc30a31adc1
+(defun +my/org-capture-frame ()
+  "Run org-roam-dailies capture in the dedicated org-capture frame."
+  (interactive)
+  (require 'cl-lib)
+  (select-frame-by-name "org-capture")
+  (delete-other-windows)
+  (cl-letf (((symbol-function 'switch-to-buffer-other-window) #'switch-to-buffer))
+    (condition-case err
+        (org-roam-dailies-capture-today)
+      (user-error (when (string= (cadr err) "Abort")
+                    (delete-frame))))))
+
+(defun +my/org-capture-cleanup-frame (&rest _)
   (when (equal (frame-parameter nil 'name) "org-capture")
     (delete-frame)))
+(advice-add 'org-capture-finalize :after #'+my/org-capture-cleanup-frame)
 
 (add-hook '+doom-dashboard-inhibit-functions
           (lambda () (equal (frame-parameter nil 'name) "org-capture")))
-(add-hook 'org-capture-after-finalize-hook #'+my/org-capture-cleanup-frame)
-
-;; Only when invoked from the dedicated Mod+C frame (named "org-capture"),
-;; bypass Doom's popup rules and force capture to take the whole window.
-;; Normal in-emacs capture keeps its popup behavior.
-(defun +my/org-roam-capture-fullscreen-in-dedicated-frame (orig-fn &rest args)
-  (if (equal (frame-parameter nil 'name) "org-capture")
-      (let ((org-capture-window-setup 'only-window)
-            (display-buffer-alist nil))
-        (apply orig-fn args))
-    (apply orig-fn args)))
-(advice-add 'org-roam-dailies-capture-today
-            :around #'+my/org-roam-capture-fullscreen-in-dedicated-frame)
 
 (after! mu4e
   (setq mu4e-update-interval 120
