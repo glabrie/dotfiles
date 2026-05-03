@@ -106,7 +106,6 @@ The init.el serves as an options menu with many possibilities. There are more th
        (emoji +unicode)          ; 🙂
        hl-todo                   ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
        indent-guides             ; highlighted indent columns
-       zen                       ; distraction-free + mixed-pitch (Montserrat for prose)
        ligatures                 ; ligatures and symbols to make your code pretty again
        modeline                  ; snazzy, Atom-inspired modeline, plus API
        nav-flash                 ; blink cursor line after big motions
@@ -194,13 +193,12 @@ Now That we've set up our options, we can configure a lot of Emacs (and Doom) th
 First a bit of boilerplate. We'll set up a few things required for [[https://orgmode.org/][Org-mode]], [[https://github.com/bbatsov/projectile][Projectile]] and setting the term to zsh because I couldn't make nushell work (for now) reliably inside emacs. Finally I'm setting my name and email.
 
 #+begin_src emacs-lisp
-(setq
-        shell-file-name "/etc/profiles/per-user/ghil/bin/zsh"
-        org-directory "~/org/"
-        org-roam-directory "~/org/roam"
-        projectile-project-search-path '("~/projects/")
-        user-full-name "Guillaume Labrie"
-        user-mail-address "glabrie@proton.me"
+(setq shell-file-name "/etc/profiles/per-user/ghil/bin/zsh"
+      org-directory "~/org/"
+      org-roam-directory "~/org/roam"
+      projectile-project-search-path '("~/projects/")
+      user-full-name "Guillaume Labrie"
+      user-mail-address "glabrie@proton.me")
 #+end_src
 
 *** Aesthetics and themes
@@ -216,11 +214,10 @@ I'm using a mixed pitch where the prose is displayed in [[https://www.fontspace.
 It makes for a nice separation that make prose look like documentation, while the code is still eminently readable in a mono font.
 
 #+begin_src emacs-lisp
-
-        doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 18)
-        doom-variable-pitch-font (font-spec :family "Montserrat")
-        doom-symbol-font (font-spec :family "JetBrainsMono Nerd Font" :size 18)
-        doom-big-font (font-spec :family "Maple Mono NF" :size 24 )
+(setq doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 18)
+      doom-variable-pitch-font (font-spec :family "Montserrat")
+      doom-symbol-font (font-spec :family "JetBrainsMono Nerd Font" :size 18)
+      doom-big-font (font-spec :family "Maple Mono NF" :size 24))
 #+end_src
 
 **** Theme
@@ -228,7 +225,7 @@ It makes for a nice separation that make prose look like documentation, while th
 I'm using Tokyo Night everywhere else in the system, so this gets applied here as well.
 
 #+begin_src emacs-lisp
-        doom-theme 'doom-tokyo-night
+(setq doom-theme 'doom-tokyo-night)
 #+end_src
 
 **** Relative lines - The vim way
@@ -236,7 +233,7 @@ I'm using Tokyo Night everywhere else in the system, so this gets applied here a
 As I'm coming from vim, and still uses the keybindings daily, I need my relative lines. This gives me that, with another setting to correct the numbers to their actual position:
 
 #+begin_src emacs-lisp
-        display-line-numbers-type 'relative)
+(setq display-line-numbers-type 'relative)
 (global-display-line-numbers-mode +1)
 #+end_src
 
@@ -287,9 +284,15 @@ Normally, org-mode doesn't parse your notes recursively for todos, for performan
         org-agenda-current-time-string
         "◀── now ─────────────────────────────────────────────────"
         org-agenda-files
-          (directory-files-recursively org-directory "\\.org$"))
-(global-org-modern-mode))
+          (directory-files-recursively org-directory "\\.org$")))
 
+(use-package! org-modern
+  :hook (org-mode . org-modern-mode)
+  :config
+  (setq org-modern-star '("◉" "○" "✸" "✿" "✤" "✜" "◆" "▶")
+        org-modern-block-fringe nil))
+
+(add-hook 'text-mode-hook #'mixed-pitch-mode)
 #+end_src
 
 *** Keybindings

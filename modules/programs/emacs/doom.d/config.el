@@ -9,7 +9,7 @@
 doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 18)
 doom-variable-pitch-font (font-spec :family "Montserrat")
 doom-symbol-font (font-spec :family "JetBrainsMono Nerd Font" :size 18)
-doom-big-font (font-spec :family "Maple Mono NF" :size )
+doom-big-font (font-spec :family "Maple Mono NF" :size 24 )
 
 doom-theme 'doom-tokyo-night
 
