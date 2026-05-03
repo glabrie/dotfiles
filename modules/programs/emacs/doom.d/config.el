@@ -7,22 +7,28 @@
         user-mail-address "glabrie@proton.me"
 
 doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 18)
-        doom-variable-pitch-font (font-spec :family "Montserrat" :size 20)
-        doom-serif-font          (font-spec :family "JetBrainsMono Nerd Font" :size 18)
-        doom-theme 'doom-tokyo-night                                    ;; Theme, I expect to change in three days, like always
-        display-line-numbers-type 'relative)                             ;; You can take the man from the Vim
+doom-variable-pitch-font (font-spec :family "Montserrat")
+doom-symbol-font (font-spec :family "JetBrainsMono Nerd Font" :size 18)
+doom-big-font (font-spec :family "Maple Mono NF" :size )
+
+doom-theme 'doom-tokyo-night
+
+display-line-numbers-type 'relative)
+(global-display-line-numbers-mode +1)
+
+(modify-all-frames-parameters
+ '((right-divider-width . 12)
+   (internal-border-width . 12)))
+(dolist (face '(window-divider
+                window-divider-first-pixel
+                window-divider-last-pixel))
+  (face-spec-reset-face face)
+  (set-face-foreground face (face-attribute 'default :background)))
+(set-face-background 'fringe (face-attribute 'default :background))
 
 (add-to-list 'default-frame-alist '(alpha-background . 80))
 (set-frame-parameter nil 'alpha-background 80)
 
-(global-display-line-numbers-mode +1)                                   ;; But you can't take the vim from the man
-
-(map! :leader
-      :desc "Capture daily" "n d" #'org-roam-dailies-capture-today
-      :desc "Go to daily" "n D" #'org-roam-dailies-goto-today
-      :desc "Org-roam UI graph" "n r g" #'org-roam-ui-mode)
-
-;; org-modern configuration + a dirty fix for TODOs in roam not showing up outside in the todo list.
 (after! org
   (setq org-auto-align-tags nil
         org-tags-column 0
@@ -31,7 +37,7 @@ doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 18)
         org-insert-heading-respect-content t
         org-hide-emphasis-markers t
         org-pretty-entities t
-        org-ellipsis "…"
+        org-ellipsis " ⮯"
         org-agenda-tags-column 0
         org-agenda-block-separator ?─
         org-agenda-time-grid
@@ -42,9 +48,12 @@ doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 18)
         "◀── now ─────────────────────────────────────────────────"
         org-agenda-files
           (directory-files-recursively org-directory "\\.org$"))
-;; Let's activate it now
 (global-org-modern-mode))
 
+(map! :leader
+      :desc "Capture daily" "n d" #'org-roam-dailies-capture-today
+      :desc "Go to daily" "n D" #'org-roam-dailies-goto-today
+      :desc "Org-roam UI graph" "n r g" #'org-roam-ui-mode)
 
 (after! org-roam
   (require 'org-roam-ui)
@@ -52,23 +61,6 @@ doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 18)
         org-roam-ui-follow t
         org-roam-ui-update-on-save t
         org-roam-ui-open-on-start t))
-
-;; Dedicated org-capture frame, adapted from https://gist.github.com/progfolio/af627354f87542879de3ddc30a31adc1
-(defun +my/org-capture-fullscreen-in-dedicated-frame (&rest _)
-  "When inside the dedicated \"org-capture\" frame, fill it with the capture buffer."
-  (when (equal (frame-parameter nil 'name) "org-capture")
-    (delete-other-windows)))
-(add-hook 'org-capture-mode-hook #'+my/org-capture-fullscreen-in-dedicated-frame)
-(advice-add 'org-roam-dailies-capture-today
-            :after #'+my/org-capture-fullscreen-in-dedicated-frame)
-
-(defun +my/org-capture-cleanup-frame (&rest _)
-  (when (equal (frame-parameter nil 'name) "org-capture")
-    (delete-frame)))
-(advice-add 'org-capture-finalize :after #'+my/org-capture-cleanup-frame)
-
-(add-hook '+doom-dashboard-inhibit-functions
-          (lambda () (equal (frame-parameter nil 'name) "org-capture")))
 
 (setq org-roam-dailies-capture-templates
         '(("d" "default" entry
@@ -93,6 +85,21 @@ doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 18)
            :target (file+head "%<%Y-%m-%d>.org"
                               "#+title: %<%Y-%m-%d>\n"))))
 
+(defun +my/org-capture-fullscreen-in-dedicated-frame (&rest _)
+  (when (equal (frame-parameter nil 'name) "org-capture")
+    (delete-other-windows)))
+(add-hook 'org-capture-mode-hook #'+my/org-capture-fullscreen-in-dedicated-frame)
+(advice-add 'org-roam-dailies-capture-today
+            :after #'+my/org-capture-fullscreen-in-dedicated-frame)
+
+(defun +my/org-capture-cleanup-frame (&rest _)
+  (when (equal (frame-parameter nil 'name) "org-capture")
+    (delete-frame)))
+(advice-add 'org-capture-finalize :after #'+my/org-capture-cleanup-frame)
+
+(add-hook '+doom-dashboard-inhibit-functions
+          (lambda () (equal (frame-parameter nil 'name) "org-capture")))
+
 (after! mu4e
   (setq mu4e-update-interval 120
         mu4e-change-filenames-when-moving t
@@ -106,27 +113,5 @@ doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 18)
         shr-color-visible-luminance-min 80
         shr-use-colors nil))
 
-;; mixed-pitch stays enabled (default) so prose uses Montserrat and code stays mono.
-
-;; Force eager fontification so org source-block faces apply across the whole
-;; block instead of only where the cursor has been — visible when alpha-background
-;; is on and a block's tinted bg is missing.
-(setq jit-lock-chunk-size 4096)
-
-;; Don't let mixed-pitch force variable-pitch to match the default face's
-;; height — we want Montserrat slightly larger to compensate for its smaller
-;; x-height vs JetBrains Mono.
-(after! mixed-pitch
-  (setq mixed-pitch-set-height nil))
-
-;; Always-on mixed-pitch in text/org buffers (the :ui zen hook isn't reliably
-;; firing for unknown reasons — wire it explicitly).
-(add-hook 'text-mode-hook #'mixed-pitch-mode)
-
-;; Open links in Zen via the system browser (browse-url breaks under daemon mode without explicit config)
 (setq browse-url-browser-function 'browse-url-generic
       browse-url-generic-program "zen")
-
-;; Use mu4e's built-in modeline; suppress the legacy doom-modeline mu4e segment
-(after! doom-modeline
-  (setq doom-modeline-mu4e nil))
