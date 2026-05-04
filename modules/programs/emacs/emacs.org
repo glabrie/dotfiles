@@ -93,6 +93,9 @@ The Doom config comes in three files, ~init.el~, ~config.el~ and ~packages.el~. 
 :header-args:emacs-lisp: :tangle doom.d/init.el
 :END:
 
+**** Sample thing
+***** Another sample thing
+
 The init.el serves as an options menu with many possibilities. There are more than these but these ones are mine. They are commented by Doom Emacs by default, I've left them there for the explanation (or funny).
 
 #+begin_src emacs-lisp
@@ -267,7 +270,8 @@ Normally, org-mode doesn't parse your notes recursively for todos, for performan
 
 #+begin_src emacs-lisp
 (after! org
-  (setq org-auto-align-tags nil
+  (setq org-startup-indented nil
+        org-auto-align-tags nil
         org-tags-column 0
         org-catch-invisible-edits 'show-and-error
         org-special-ctrl-a/e t
