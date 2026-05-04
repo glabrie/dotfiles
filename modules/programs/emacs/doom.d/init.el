@@ -15,7 +15,6 @@
        (popup +defaults)         ; tame sudden yet inevitable temporary windows
        smooth-scroll             ; So smooth you won't believe it's not butter
        (vc-gutter +pretty)       ; vcs diff in the fringe
-       vi-tilde-fringe           ; fringe tildes to mark beyond EOB
        workspaces                ; tab emulation, persistence & separate workspaces
 
        :editor

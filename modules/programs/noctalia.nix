@@ -13,9 +13,9 @@ settings = {
     density = "default";
     position = "top";
     showCapsule = false;
-    backgroundOpacity = 0.8;
-    useSeparateOpacity = true;
-    floating = false;
+    backgroundOpacity = 1;
+    useSeparateOpacity = false;
+    floating = true;
     marginVertical = 4;
     marginHorizontal = 12;
     frameThickness = 8;
@@ -71,9 +71,9 @@ colorSchemes = {
 
 general = {
   avatarImage = "/home/ghil/.face";
-  radiusRatio = 0;
+  radiusRatio = 20;
   dimmerOpacity = 0.2;
-  showScreenCorners = false;
+  showScreenCorners = true;
   forceBlackScreenCorners = true;
   enableShadows = true;
   telemetryEnabled = false;
@@ -83,7 +83,7 @@ general = {
 ui = {
   fontDefault = "JetBrainsMono Nerd Font";
   fontFixed = "JetBrainsMono Nerd Font";
-  panelBackgroundOpacity = 0.8;
+  panelBackgroundOpacity = 1;
   boxBorderEnabled = false;
 };
 

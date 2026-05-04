@@ -18,6 +18,10 @@
 (modify-all-frames-parameters
  '((right-divider-width . 12)
    (internal-border-width . 12)))
+(setq window-divider-default-right-width 12
+      window-divider-default-bottom-width 12
+      window-divider-default-places t)
+(window-divider-mode 1)
 (dolist (face '(window-divider
                 window-divider-first-pixel
                 window-divider-last-pixel))

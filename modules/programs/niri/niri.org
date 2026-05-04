@@ -222,10 +222,6 @@ window-rule {
   geometry-corner-radius 12
   clip-to-geometry true
 }
-
-debug {
-  honor-xdg-activation-with-invalid-serial
-}
 #+end_src
 
 Noctalia can display a fixed wallpaper across all workspaces and the overview. This is this.
