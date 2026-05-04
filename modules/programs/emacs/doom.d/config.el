@@ -27,32 +27,32 @@
 
 (add-to-list 'default-frame-alist '(alpha-background . 80))
 
-(after! org
-  (setq org-auto-align-tags nil
-        org-tags-column 0
-        org-catch-invisible-edits 'show-and-error
-        org-special-ctrl-a/e t
-        org-insert-heading-respect-content t
-        org-hide-leading-stars t
-        org-hide-emphasis-markers t
-        org-pretty-entities t
-        org-ellipsis " ⮯"
-        org-agenda-tags-column 0
-        org-agenda-block-separator ?─
-        org-agenda-time-grid
-        '((daily today require-timed)
-          (800 1000 1200 1400 1600 1800 2000)
-          " ┄┄┄┄┄ " "┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄")
-        org-agenda-current-time-string
-        "◀── now ─────────────────────────────────────────────────"
-        org-agenda-files
-          (directory-files-recursively org-directory "\\.org$")))
+;;(after! org
+;;  (setq org-auto-align-tags nil
+;;        org-tags-column 0
+;;        org-catch-invisible-edits 'show-and-error
+;;        org-special-ctrl-a/e t
+;;        org-insert-heading-respect-content t
+;;        org-hide-leading-stars t
+;;        org-hide-emphasis-markers t
+;;        org-pretty-entities t
+;;        org-ellipsis " ⮯"
+;;        org-agenda-tags-column 0
+;;        org-agenda-block-separator ?─
+;;        org-agenda-time-grid
+;;        '((daily today require-timed)
+;;          (800 1000 1200 1400 1600 1800 2000)
+;;          " ┄┄┄┄┄ " "┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄")
+;;        org-agenda-current-time-string
+;;        "◀── now ─────────────────────────────────────────────────"
+;;        org-agenda-files
+;;          (directory-files-recursively org-directory "\\.org$")))
 
-(use-package! org-modern
-  :hook (org-mode . org-modern-mode)
-  :config
-  (setq org-modern-star 'replace
-        org-modern-block-fringe nil))
+;;(use-package! org-modern
+;;  :hook (org-mode . org-modern-mode)
+;;  :config
+;;  (setq org-modern-star 'replace
+;;        org-modern-block-fringe nil))
 
 (add-hook 'text-mode-hook #'mixed-pitch-mode)
 
