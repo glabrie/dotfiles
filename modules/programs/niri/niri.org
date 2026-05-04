@@ -50,7 +50,6 @@ The xwayland-satellite is used by your compositor to gain access to a rootless x
 }
 #+end_src
 
-
 * Niri configuration
 
 The standard Niri config is written in KDL format. You can find out more about KDL [[https://kdl.dev/][here]].
@@ -165,6 +164,7 @@ I like having workspaces that are ordered a certain way, I'm weird like that.
 #+begin_src kdl
 workspace "emacs"
 workspace "comms"
+workspace "web"
 workspace "games"
 workspace "media"
 #+end_src
@@ -234,7 +234,6 @@ Noctalia can display a fixed wallpaper across all workspaces and the overview. T
 // }
 #+end_src
 
-
 ** Window rules
 
 Rules that let me customize..windows. You guessed it!
@@ -262,13 +261,9 @@ window-rule {
 
 So about that transparency? Niri now includes blur. Yay! So we're going to put it EVERYWHERE.
 
+  *ISSUE [2026-05-04]:* Removed emacs transparency, see [[file:../emacs/emacs.org::#issue-opacity][emacs.org/Current Issues]].
+
 #+begin_src kdl
-window-rule {
-    match app-id="emacs"
-    background-effect {
-        blur true
-    }
-}
 window-rule {
     match app-id="kitty"
     background-effect {

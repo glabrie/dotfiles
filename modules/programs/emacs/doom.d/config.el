@@ -25,15 +25,13 @@
   (set-face-foreground face (face-attribute 'default :background)))
 (set-face-background 'fringe (face-attribute 'default :background))
 
-(add-to-list 'default-frame-alist '(alpha-background . 80))
-
 (after! org
  (setq org-auto-align-tags nil
        org-tags-column 0
        org-catch-invisible-edits 'show-and-error
        org-special-ctrl-a/e t
        org-insert-heading-respect-content t
-       org-hide-leading-stars nil
+       org-hide-leading-stars t
        org-hide-emphasis-markers t
        org-pretty-entities t
        org-ellipsis " ⮯"
@@ -53,7 +51,6 @@
  :config
  (setq org-modern-star 'replace
        org-modern-replace-stars '("●" "●" "●" "●" "●" "●" "●" "●")
-       org-modern-hide-stars " "
        org-modern-block-fringe nil))
 
 (add-hook 'text-mode-hook #'mixed-pitch-mode)

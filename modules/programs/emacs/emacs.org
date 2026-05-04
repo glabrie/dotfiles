@@ -1,16 +1,70 @@
 #+title: Emacs configuration file
 #+property: header-args :noweb yes :mkdirp yes :tangle no
-#+property: header-args:nix :tangle emacs.nix
 
 This file tangles into ~emacs.nix~, ~doom.d/config.el~, ~doom.d/init.el~ and ~doom.d/packages.el.~
 
-I never thought I'd say this, but I completely switched from neovim to emacs, mainly because of [[https://orgmode.org/][Org-mode]]. I would never have switched if I couldn't have my vim keybindings, and those are very well supported via evil-mode, which we can get in [[https://github.com/doomemacs/doomemacs][Doom Emacs]], a ready made distribution of emacs that is optimized and caters to vimers like me. Plus the logo is just cool.
+* Introduction
 
-* emacs.nix
+I never thought I'd say this, but I completely switched from [[https://neovim.io/][neovim]] to [[https://www.gnu.org/software/emacs/][emacs]], mainly because of [[https://orgmode.org/][Org-mode]]. I would never have switched if I couldn't have my vim keybindings, and those are very well supported via evil-mode, which we can get in [[https://github.com/doomemacs/doomemacs][Doom Emacs]], a ready made distribution of emacs that is optimized and caters to vimers like me. There is a lot to learn still, and emacs is a completely new world for me, so treat this document as a living journey through learning emacs.
+
+Quick disclaimer: I'm in the middle of writing this file, so a lot of it that isn't code is either stubs, incomplete or not reviewed yet.
+
+* Learning center
+** Org-mode
+** Doom-Emacs and evil-mode
+** Emacs concepts
+*** Faces
+
+* Current Issues
+** Opacity problems
+:PROPERTIES:
+:CUSTOM_ID: issue-opacity
+:END:
+
+- Last investigated :: [2026-05-04]
+- Severity :: Cosmetic
+
+*** Description of the issue
+
+You can now apply transparency to emacs's background natively with this bit:
+
+#+begin_src emacs-lisp
+(set-frame-parameter nil 'alpha-background 70)
+(add-to-list 'default-frame-alist '(alpha-background . 70))
+#+end_src
+
+Note that you need a PGTK package of emacs for it to work on Wayland. With that done, you should have a nice transparency effect on the background only of emacs' frames. The issue I am having with it is in regard to the leading asterisks behind the header levels.
+Normally, headers are denoted with stars. The depth is denoted by the number of stars, like so:
+
+#+begin_example
+,* Level 1
+,** Level 2
+,*** Level 3
+#+end_example
+
+Org-mode will normally attempt to hide the stars by using the ~Org-hide~ [[*Faces][face]], and then use ~org-indent-mode~ to indent them visually.
+Concretely, when ~org-hide-leading-stars~ is set to ~t~, a font-lock keyword is installed that will apply ~org-hide~ to the stars. That face has a ~:foreground~ color property that ~Org~ will set to match the frame's ~:background~ color property, making them appear invisible. This would normally be fine, except when transparency is turned on. Now that background is not static, and your background has an opacity value, the hidden stars shine through at 100% opacity, leaving faint black marks behind the bullet that you want shown, like here:
+
+[[../../../assets/issue-opacity-1.png]]
+
+*** Attempted fixes and knowledge gained.
+
++ I initially tried to play with ~org-modern-hide-stars~, setting it to ~nil~ or to or to ~" "~.
++ Disabled the ~org-indented-
++ ~org-modern-hide-stars " "~ is a clean alternative that bypasses the face mechanism entirely but for some reason seem to disable itself when ~org-indent-mode~ is active, as far as I could see.
++ ~org-indent-mode~ which is enabled by ~org-startup-indented t~, seems to reset any global changes made by ~org-modern-hide-stars t~ at the local buffer level, preventing it from firing at all.
+
+
+
+* Configuration files
+** emacs.nix
+:PROPERTIES:
+:header-args:nix: :tangle emacs.nix
+:END:
 
 First we need to to define our nix module.
 
-**  Module definition and package wrangling
+***  Module definition and package wrangling
 
 
 Next, we need to nixify it, so we'll use [[https://github.com/marienz/nix-doom-emacs-unstraightened][nix-doom-emacs-unstraightened]] (oof) since it helps us bypass straight.el and manages our packages for us :D
@@ -38,7 +92,7 @@ The all-grammars line is a fix for tree-sitter which currently behaves eraticall
     };
 #+end_src
 
-** Emacs as a server
+*** Emacs as a server
 
 One of the understated advantages of emacs is being able to run it as a server and have new frames attach to it automatically. This has several benefits here:
 - Doom Emacs is started just the once, meaning that actually opening an emacs frame (the app) is, wait for it, *Blazingly Fast*.
@@ -54,7 +108,7 @@ We'll also start mbsync, which is necessary for mu4e.
     };
 #+end_src
 
-** Some dependencies and protonmail.
+*** Some dependencies and protonmail.
 
 While we're talking about mu4e, here's the other shoe: We need isync and mu, so we're pulling them here, along with hunspell (for spelling in org-mode), and then I'm using protonmail, so I need to set up the protonmail bridge to pipe my email correctly into it.
 
@@ -84,11 +138,11 @@ While we're talking about mu4e, here's the other shoe: We need isync and mu, so 
 
 #+end_src
 
-* Doom Config
+** Doom Config
 
 The Doom config comes in three files, ~init.el~, ~config.el~ and ~packages.el~. They all have their purpose which I'll explain below. Normally, you'd want to either reload the config after each edit of these files (done with ~SPC h r r~) but since we're using ~Unstraightened~,
 
-** Init (init.el)
+*** Init (init.el)
 :PROPERTIES:
 :header-args:emacs-lisp: :tangle doom.d/init.el
 :END:
@@ -181,12 +235,12 @@ The init.el serves as an options menu with many possibilities. There are more th
        (default +bindings +smartparens))
 #+end_src
 
-** Config (config.el)
+*** Config (config.el)
 :PROPERTIES:
 :header-args:emacs-lisp: :tangle doom.d/config.el
 :END:
 
-*** Directory settings and username
+**** Directory settings and username
 
 Now That we've set up our options, we can configure a lot of Emacs (and Doom) through ~config.el~.
 
@@ -201,14 +255,14 @@ First a bit of boilerplate. We'll set up a few things required for [[https://org
       user-mail-address "glabrie@proton.me")
 #+end_src
 
-*** Aesthetics and themes
+**** Aesthetics and themes
 
 We'll then set the theme and fonts.  I'm also still using Tokyo Night as my main theme.
 small note: In the Doom documentation you'll find ~Doom-unicode-font~. It's been deprecated and we're now using ~doom-symbol-font~.
 
 Finally, we'll be adding some transparency to the frames to get that ~Niri~ blur to show through.
 
-**** Fonts
+***** Fonts
 
 I'm using a mixed pitch where the prose is displayed in [[https://www.fontspace.com/montserrat-font-f16544][Montserrat]] while the code is displayed in [[https://www.jetbrains.com/lp/mono/][JetBrains Mono]].
 It makes for a nice separation that make prose look like documentation, while the code is still eminently readable in a mono font.
@@ -220,7 +274,7 @@ It makes for a nice separation that make prose look like documentation, while th
       doom-big-font (font-spec :family "Maple Mono NF" :size 24))
 #+end_src
 
-**** Theme
+***** Theme
 
 I'm using Tokyo Night everywhere else in the system, so this gets applied here as well.
 
@@ -228,7 +282,7 @@ I'm using Tokyo Night everywhere else in the system, so this gets applied here a
 (setq doom-theme 'doom-tokyo-night)
 #+end_src
 
-**** Relative lines - The vim way
+***** Relative lines - The vim way
 
 As I'm coming from vim, and still uses the keybindings daily, I need my relative lines. This gives me that, with another setting to correct the numbers to their actual position:
 
@@ -237,7 +291,7 @@ As I'm coming from vim, and still uses the keybindings daily, I need my relative
 (global-display-line-numbers-mode +1)
 #+end_src
 
-**** Let the frames breathe
+***** Let the frames breathe
 
 #+begin_src emacs-lisp
 (modify-all-frames-parameters
@@ -251,7 +305,16 @@ As I'm coming from vim, and still uses the keybindings daily, I need my relative
 (set-face-background 'fringe (face-attribute 'default :background))
 #+end_src
 
-**** Org-modern
+***** Indent bars
+
+[[https://github.com/jdtsmith/indent-bars][indent-bars]] draws crisp vertical guides at each indentation level using stipple patterns, so they stay sharp at any zoom and don't slow down rendering. Color and depth-highlighting come for free from the active theme.
+
+#+begin_src emacs-lisp
+(use-package! indent-bars
+  :hook ((prog-mode yaml-mode) . indent-bars-mode))
+#+end_src
+
+***** Org-modern
 
 [[https://github.com/minad/org-modern][Org-modern]] is a nice way to format ~Org-mode~ automatically. It's very pretty, customizable. I recommend it!
 Normally, org-mode doesn't parse your notes recursively for todos, for performance reasons. I'll set up something better someday, but for now just a dirty trick to make it check recursively so that it can get to my ~org-roam~ daily notes folder.
@@ -291,7 +354,7 @@ Normally, org-mode doesn't parse your notes recursively for todos, for performan
 #+RESULTS:
 | mixed-pitch-mode | er/add-text-mode-expansions | +word-wrap-mode | display-line-numbers-mode | vi-tilde-fringe-mode | text-mode-hook-identify | editorconfig-major-mode-hook |
 
-*** Keybindings
+**** Keybindings
 
 The rare custom keybinds I run are to get to my notes faster, and a graph that you'll look at once, go "wow, that's neat" and probably never open again, just like in ~Obsidian~. Yay!
 
@@ -302,7 +365,7 @@ The rare custom keybinds I run are to get to my notes faster, and a graph that y
       :desc "Org-roam UI graph" "n r g" #'org-roam-ui-mode)
 #+end_src
 
-*** Org-roam
+**** Org-roam
 
 #+begin_src emacs-lisp
 (after! org-roam
@@ -336,7 +399,7 @@ The rare custom keybinds I run are to get to my notes faster, and a graph that y
                               "#+title: %<%Y-%m-%d>\n"))))
 #+end_src
 
-*** Org-capture global capture key
+**** Org-capture global capture key
 
 
 #+begin_src emacs-lisp
@@ -356,7 +419,7 @@ The rare custom keybinds I run are to get to my notes faster, and a graph that y
           (lambda () (equal (frame-parameter nil 'name) "org-capture")))
 #+end_src
 
-*** Mu4e
+**** Mu4e
 
 
 #+begin_src emacs-lisp
@@ -374,7 +437,7 @@ The rare custom keybinds I run are to get to my notes faster, and a graph that y
         shr-use-colors nil))
 #+end_src
 
-*** Fix for src blocks not loading right until you cursor into them
+**** Fix for src blocks not loading right until you cursor into them
 
 #+begin_src emacs-lisp
 (setq jit-lock-stealth-time 1
@@ -382,7 +445,7 @@ The rare custom keybinds I run are to get to my notes faster, and a graph that y
       jit-lock-stealth-load 200)
 #+end_src
 
-*** Browser not opening links fix
+**** Browser not opening links fix
 
 I have this weird thing where since I've switched to emacs as a daemon, it doesn't want to open links anymore. This is a quick fix for that. I should investigate more. I have seen on the net that it might be because of the environment and selecting a display too soon. More on this some other time.
 
@@ -391,7 +454,7 @@ I have this weird thing where since I've switched to emacs as a daemon, it doesn
       browse-url-generic-program "zen")
 #+end_src
 
-** Packages (packages.el)
+*** Packages (packages.el)
 :PROPERTIES:
 :header-args:emacs-lisp: :tangle doom.d/packages.el
 :END:
@@ -401,4 +464,5 @@ I have this weird thing where since I've switched to emacs as a daemon, it doesn
 (package! org-modern)
 (package! org-roam-ui)
 (package! mixed-pitch)
+(package! indent-bars)
 #+end_src

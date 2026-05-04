@@ -127,12 +127,12 @@ Here I'm defining a few misceleanous things like the avatar.
 
 * Ui settings
 
-Bit of a catch-all again, here I'm defining my current system-wide font, [[https://github.com/subframe7536/Maple-font][Maple Mono]], which has a whimsycal quality while being legible in every situation.
+Bit of a catch-all again, here I'm defining the mono font used throughout the config, setting the panel opacity and removing borders.
 
 #+begin_src nix
         ui = {
-          fontDefault = "Maple Mono";
-          fontFixed = "Maple Mono";
+          fontDefault = "JetBrainsMono Nerd Font";
+          fontFixed = "JetBrainsMono Nerd Font";
           panelBackgroundOpacity = 0.8;
           boxBorderEnabled = false;
         };
