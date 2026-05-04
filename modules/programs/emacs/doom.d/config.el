@@ -28,12 +28,12 @@
 (add-to-list 'default-frame-alist '(alpha-background . 80))
 (set-frame-parameter nil 'alpha-background 80)
 
-(after! org
-  (setq org-auto-align-tags nil
+(setq org-auto-align-tags nil
         org-tags-column 0
         org-catch-invisible-edits 'show-and-error
         org-special-ctrl-a/e t
         org-insert-heading-respect-content t
+        org-hide-leading-stars t
         org-hide-emphasis-markers t
         org-pretty-entities t
         org-ellipsis " ⮯"
@@ -46,7 +46,7 @@
         org-agenda-current-time-string
         "◀── now ─────────────────────────────────────────────────"
         org-agenda-files
-          (directory-files-recursively org-directory "\\.org$")))
+          (directory-files-recursively org-directory "\\.org$"))
 
 (use-package! org-modern
   :hook (org-mode . org-modern-mode)

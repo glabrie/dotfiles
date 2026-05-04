@@ -257,7 +257,6 @@ Niri now has a beautiful blur, which we're taking advantage of by setting the op
 
 #+begin_src emacs-lisp
 (add-to-list 'default-frame-alist '(alpha-background . 80))
-(set-frame-parameter nil 'alpha-background 80)
 #+end_src
 
 **** Org-modern
@@ -266,6 +265,7 @@ Niri now has a beautiful blur, which we're taking advantage of by setting the op
 Normally, org-mode doesn't parse your notes recursively for todos, for performance reasons. I'll set up something better someday, but for now just a dirty trick to make it check recursively so that it can get to my ~org-roam~ daily notes folder.
 
 #+begin_src emacs-lisp
+(after! org
   (setq org-auto-align-tags nil
         org-tags-column 0
         org-catch-invisible-edits 'show-and-error
@@ -284,7 +284,7 @@ Normally, org-mode doesn't parse your notes recursively for todos, for performan
         org-agenda-current-time-string
         "◀── now ─────────────────────────────────────────────────"
         org-agenda-files
-          (directory-files-recursively org-directory "\\.org$"))
+          (directory-files-recursively org-directory "\\.org$")))
 
 (use-package! org-modern
   :hook (org-mode . org-modern-mode)
