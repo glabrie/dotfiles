@@ -26,9 +26,9 @@
 (set-face-background 'fringe (face-attribute 'default :background))
 
 (add-to-list 'default-frame-alist '(alpha-background . 80))
-(set-frame-parameter nil 'alpha-background 80)
 
-(setq org-auto-align-tags nil
+(after! org
+  (setq org-auto-align-tags nil
         org-tags-column 0
         org-catch-invisible-edits 'show-and-error
         org-special-ctrl-a/e t
@@ -46,7 +46,7 @@
         org-agenda-current-time-string
         "◀── now ─────────────────────────────────────────────────"
         org-agenda-files
-          (directory-files-recursively org-directory "\\.org$"))
+          (directory-files-recursively org-directory "\\.org$")))
 
 (use-package! org-modern
   :hook (org-mode . org-modern-mode)
