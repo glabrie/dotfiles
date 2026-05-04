@@ -51,7 +51,7 @@
 (use-package! org-modern
   :hook (org-mode . org-modern-mode)
   :config
-  (setq org-modern-star 'replace)
+  (setq org-modern-star 'replace
         org-modern-block-fringe nil))
 
 (add-hook 'text-mode-hook #'mixed-pitch-mode)

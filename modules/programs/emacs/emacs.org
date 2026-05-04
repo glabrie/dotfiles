@@ -255,7 +255,7 @@ As I'm coming from vim, and still uses the keybindings daily, I need my relative
 
 Niri now has a beautiful blur, which we're taking advantage of by setting the opacity to 80%
 
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle no
 (add-to-list 'default-frame-alist '(alpha-background . 80))
 (set-frame-parameter nil 'alpha-background 80)
 #+end_src
