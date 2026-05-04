@@ -291,6 +291,7 @@ Normally, org-mode doesn't parse your notes recursively for todos, for performan
  :config
  (setq org-modern-star 'replace
        org-modern-replace-stars '("●" "●" "●" "●" "●" "●" "●" "●")
+       org-modern-hide-stars " "
        org-modern-block-fringe nil))
 
 (add-hook 'text-mode-hook #'mixed-pitch-mode)

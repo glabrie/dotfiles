@@ -33,7 +33,7 @@
        org-catch-invisible-edits 'show-and-error
        org-special-ctrl-a/e t
        org-insert-heading-respect-content t
-       org-hide-leading-stars t
+       org-hide-leading-stars nil
        org-hide-emphasis-markers t
        org-pretty-entities t
        org-ellipsis " ⮯"
@@ -52,6 +52,7 @@
  :hook (org-mode . org-modern-mode)
  :config
  (setq org-modern-star 'replace
+       org-modern-replace-stars '("●" "●" "●" "●" "●" "●" "●" "●")
        org-modern-block-fringe nil))
 
 (add-hook 'text-mode-hook #'mixed-pitch-mode)
@@ -119,7 +120,9 @@
         shr-color-visible-luminance-min 80
         shr-use-colors nil))
 
-(setq jit-lock-chunk-size 4096)
+(setq jit-lock-stealth-time 1
+      jit-lock-stealth-nice 0.5
+      jit-lock-stealth-load 200)
 
 (setq browse-url-browser-function 'browse-url-generic
       browse-url-generic-program "zen")
