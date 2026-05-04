@@ -93,9 +93,6 @@ The Doom config comes in three files, ~init.el~, ~config.el~ and ~packages.el~. 
 :header-args:emacs-lisp: :tangle doom.d/init.el
 :END:
 
-**** Sample thing
-***** Another sample thing
-
 The init.el serves as an options menu with many possibilities. There are more than these but these ones are mine. They are commented by Doom Emacs by default, I've left them there for the explanation (or funny).
 
 #+begin_src emacs-lisp

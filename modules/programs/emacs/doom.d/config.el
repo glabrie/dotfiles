@@ -29,8 +29,7 @@
 (set-frame-parameter nil 'alpha-background 80)
 
 (after! org
-  (setq org-startup-indented nil
-        org-auto-align-tags nil
+  (setq org-auto-align-tags nil
         org-tags-column 0
         org-catch-invisible-edits 'show-and-error
         org-special-ctrl-a/e t
@@ -52,7 +51,7 @@
 (use-package! org-modern
   :hook (org-mode . org-modern-mode)
   :config
-  (setq org-modern-star '("◉" "○" "✸" "✿" "✤" "✜" "◆" "▶")
+  (setq org-modern-star 'replace)
         org-modern-block-fringe nil))
 
 (add-hook 'text-mode-hook #'mixed-pitch-mode)
