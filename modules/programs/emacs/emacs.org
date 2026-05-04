@@ -286,7 +286,7 @@ Normally, org-mode doesn't parse your notes recursively for todos, for performan
        org-agenda-files
          (directory-files-recursively org-directory "\\.org$")))
 
-use-package! org-modern
+(use-package! org-modern
  :hook (org-mode . org-modern-mode)
  :config
  (setq org-modern-star 'replace
@@ -294,6 +294,9 @@ use-package! org-modern
 
 (add-hook 'text-mode-hook #'mixed-pitch-mode)
 #+end_src
+
+#+RESULTS:
+| mixed-pitch-mode | er/add-text-mode-expansions | +word-wrap-mode | display-line-numbers-mode | vi-tilde-fringe-mode | text-mode-hook-identify | editorconfig-major-mode-hook |
 
 *** Keybindings
 
@@ -376,6 +379,12 @@ The rare custom keybinds I run are to get to my notes faster, and a graph that y
         shr-max-image-proportion 0.0
         shr-color-visible-luminance-min 80
         shr-use-colors nil))
+#+end_src
+
+*** Fix for src blocks not loading right until you cursor into them
+
+#+begin_src emacs-lisp
+(setq jit-lock-chunk-size 4096)
 #+end_src
 
 *** Browser not opening links fix
