@@ -29,7 +29,8 @@
 (set-frame-parameter nil 'alpha-background 80)
 
 (after! org
-  (setq org-auto-align-tags nil
+  (setq org-startup-indented nil
+        org-auto-align-tags nil
         org-tags-column 0
         org-catch-invisible-edits 'show-and-error
         org-special-ctrl-a/e t
