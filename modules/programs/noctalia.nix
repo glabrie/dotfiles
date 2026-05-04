@@ -32,9 +32,13 @@ widgets = {
     ];
     center = [
       {
-        hideUnoccupied = false;
+        hideUnoccupied = true;
         id = "Workspace";
-        labelMode = "none";
+        labelMode = "name";
+        characterCount = 10;
+        fontWeight = "bold";
+        pillSize = 0.8;
+        showLabelsOnlyWhenOccupied = true;
       }
     ];
     right = [
@@ -92,7 +96,11 @@ location = {
 
 wallpaper = {
           enabled = true;
+          overviewEnabled = true;
           directory = "$HOME/images/walls/tokyo";
+          automationEnabled = true;
+          wallpaperChangeMode = "random";
+          randomIntervalSec = 1800;
         };
         dock = {
           enabled = false;

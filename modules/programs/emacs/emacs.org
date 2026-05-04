@@ -15,6 +15,7 @@ Quick disclaimer: I'm in the middle of writing this file, so a lot of it that is
 ** Emacs concepts
 *** Faces
 
+** Nix and Doom Unstraightened
 * Current Issues
 ** Opacity problems
 :PROPERTIES:
@@ -50,11 +51,16 @@ Concretely, when ~org-hide-leading-stars~ is set to ~t~, a font-lock keyword is 
 *** Attempted fixes and knowledge gained.
 
 + I initially tried to play with ~org-modern-hide-stars~, setting it to ~nil~ or to or to ~" "~.
-+ Disabled the ~org-indented-
++ Disabled ~org-startup-indented~ to diagnose. It did remove the problem at the cost of visual indenting.
+
+**** Incidental knowledge
+
 + ~org-modern-hide-stars " "~ is a clean alternative that bypasses the face mechanism entirely but for some reason seem to disable itself when ~org-indent-mode~ is active, as far as I could see.
 + ~org-indent-mode~ which is enabled by ~org-startup-indented t~, seems to reset any global changes made by ~org-modern-hide-stars t~ at the local buffer level, preventing it from firing at all.
 
+*** Resolution
 
+As of [2024-05-04] I chose to remove transparency from emacs. I will revisit this someday.
 
 * Configuration files
 ** emacs.nix
@@ -167,7 +173,6 @@ The init.el serves as an options menu with many possibilities. There are more th
        (popup +defaults)         ; tame sudden yet inevitable temporary windows
        smooth-scroll             ; So smooth you won't believe it's not butter
        (vc-gutter +pretty)       ; vcs diff in the fringe
-       vi-tilde-fringe           ; fringe tildes to mark beyond EOB
        workspaces                ; tab emulation, persistence & separate workspaces
 
        :editor
@@ -297,6 +302,10 @@ As I'm coming from vim, and still uses the keybindings daily, I need my relative
 (modify-all-frames-parameters
  '((right-divider-width . 12)
    (internal-border-width . 12)))
+(setq window-divider-default-right-width 12
+      window-divider-default-bottom-width 12
+      window-divider-default-places t)
+(window-divider-mode 1)
 (dolist (face '(window-divider
                 window-divider-first-pixel
                 window-divider-last-pixel))

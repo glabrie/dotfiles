@@ -215,6 +215,19 @@ Do you also want pretty shadows? ✨ /*aesthetics*/ ✨!
 }
 #+end_src
 
+Need that modern rounded corners? Well look no further. Noctalia recommends 20, but I find that's way too much, so we're going with a more reasonable 12.
+
+#+begin_src kdl
+window-rule {
+  geometry-corner-radius 12
+  clip-to-geometry true
+}
+
+debug {
+  honor-xdg-activation-with-invalid-serial
+}
+#+end_src
+
 Noctalia can display a fixed wallpaper across all workspaces and the overview. This is this.
 
 #+begin_src kdl :tangle no
@@ -248,7 +261,9 @@ window-rule {
 
 Before, I used a lot of transparency  in my config. I got rid of it all! ...and lasted about one week. Zen still has a weird problem with transparency, doesn't mix well with xdg decorations so it will render the border as a full color background for you to sear your eyes on. We're telling it harshly to stop being an ass.
 
-#+begin_src kdl
+[2026-05-04] Removing transparency for now, it visually clashes with with emacs.
+
+#+begin_src kdl :tangle no
 window-rule {
     match app-id=r#"^zen$"#
     draw-border-with-background false
@@ -261,9 +276,9 @@ window-rule {
 
 So about that transparency? Niri now includes blur. Yay! So we're going to put it EVERYWHERE.
 
-  *ISSUE [2026-05-04]:* Removed emacs transparency, see [[file:../emacs/emacs.org::#issue-opacity][emacs.org/Current Issues]].
+  *ISSUE [2026-05-04]:* Removed emacs transparency, see [[file:../emacs/emacs.org::#issue-opacity][emacs.org/Current Issues]]. Removed kitty's blur as well, to better fit with emacs.
 
-#+begin_src kdl
+#+begin_src kdl :tangle no
 window-rule {
     match app-id="kitty"
     background-effect {
