@@ -53,6 +53,7 @@
  :config
  (setq org-modern-star 'replace
        org-modern-replace-stars '("●" "●" "●" "●" "●" "●" "●" "●")
+       org-modern-hide-stars " "
        org-modern-block-fringe nil))
 
 (add-hook 'text-mode-hook #'mixed-pitch-mode)

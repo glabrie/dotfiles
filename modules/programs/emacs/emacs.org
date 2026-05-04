@@ -251,14 +251,6 @@ As I'm coming from vim, and still uses the keybindings daily, I need my relative
 (set-face-background 'fringe (face-attribute 'default :background))
 #+end_src
 
-**** Transparency
-
-Niri now has a beautiful blur, which we're taking advantage of by setting the opacity to 80%
-
-#+begin_src emacs-lisp
-(add-to-list 'default-frame-alist '(alpha-background . 80))
-#+end_src
-
 **** Org-modern
 
 [[https://github.com/minad/org-modern][Org-modern]] is a nice way to format ~Org-mode~ automatically. It's very pretty, customizable. I recommend it!
@@ -271,7 +263,7 @@ Normally, org-mode doesn't parse your notes recursively for todos, for performan
        org-catch-invisible-edits 'show-and-error
        org-special-ctrl-a/e t
        org-insert-heading-respect-content t
-       org-hide-leading-stars nil
+       org-hide-leading-stars t
        org-hide-emphasis-markers t
        org-pretty-entities t
        org-ellipsis " ⮯"
@@ -291,7 +283,6 @@ Normally, org-mode doesn't parse your notes recursively for todos, for performan
  :config
  (setq org-modern-star 'replace
        org-modern-replace-stars '("●" "●" "●" "●" "●" "●" "●" "●")
-       org-modern-hide-stars " "
        org-modern-block-fringe nil))
 
 (add-hook 'text-mode-hook #'mixed-pitch-mode)
