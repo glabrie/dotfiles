@@ -48,7 +48,7 @@
        org-agenda-files
          (directory-files-recursively org-directory "\\.org$")))
 
-use-package! org-modern
+(use-package! org-modern
  :hook (org-mode . org-modern-mode)
  :config
  (setq org-modern-star 'replace
@@ -118,6 +118,8 @@ use-package! org-modern
         shr-max-image-proportion 0.0
         shr-color-visible-luminance-min 80
         shr-use-colors nil))
+
+(setq jit-lock-chunk-size 4096)
 
 (setq browse-url-browser-function 'browse-url-generic
       browse-url-generic-program "zen")
