@@ -25,9 +25,6 @@
   (set-face-foreground face (face-attribute 'default :background)))
 (set-face-background 'fringe (face-attribute 'default :background))
 
-(add-to-list 'default-frame-alist '(alpha-background . 80))
-(set-frame-parameter nil 'alpha-background 80)
-
 (after! org
   (setq org-auto-align-tags nil
         org-tags-column 0
