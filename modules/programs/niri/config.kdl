@@ -47,6 +47,7 @@ warp-mouse-to-focus
 
 workspace "emacs"
 workspace "comms"
+workspace "web"
 workspace "games"
 workspace "media"
 
@@ -92,12 +93,6 @@ window-rule {
     }
 }
 
-window-rule {
-    match app-id="emacs"
-    background-effect {
-        blur true
-    }
-}
 window-rule {
     match app-id="kitty"
     background-effect {

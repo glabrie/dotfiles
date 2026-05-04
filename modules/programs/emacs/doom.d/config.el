@@ -25,6 +25,9 @@
   (set-face-foreground face (face-attribute 'default :background)))
 (set-face-background 'fringe (face-attribute 'default :background))
 
+(use-package! indent-bars
+  :hook ((prog-mode yaml-mode) . indent-bars-mode))
+
 (after! org
  (setq org-auto-align-tags nil
        org-tags-column 0

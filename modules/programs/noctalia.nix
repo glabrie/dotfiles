@@ -77,8 +77,8 @@ general = {
 };
 
 ui = {
-  fontDefault = "Maple Mono";
-  fontFixed = "Maple Mono";
+  fontDefault = "JetBrainsMono Nerd Font";
+  fontFixed = "JetBrainsMono Nerd Font";
   panelBackgroundOpacity = 0.8;
   boxBorderEnabled = false;
 };

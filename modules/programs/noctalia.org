@@ -27,7 +27,6 @@ Small note here, the noctalia systemd service has been deprecated, if you where 
 #+end_src
 
 * Bar settings
-
 ** Appearance
 
 On to the settings themselves. Noctalia's flake provide pretty much every option the KDL config file gives me, so I've taken the time to translate it and not have two files.
@@ -68,9 +67,13 @@ Note that currently, there's a bug I'm having where ~barType~ is not always set 
             ];
             center = [
               {
-                hideUnoccupied = false;
+                hideUnoccupied = true;
                 id = "Workspace";
-                labelMode = "none";
+                labelMode = "name";
+                characterCount = 10;
+                fontWeight = "bold";
+                pillSize = 0.8;
+                showLabelsOnlyWhenOccupied = true;
               }
             ];
             right = [
@@ -160,7 +163,11 @@ We end with defining where you can find the wallpaper and disabling the dock tha
 #+begin_src nix
         wallpaper = {
           enabled = true;
+          overviewEnabled = true;
           directory = "$HOME/images/walls/tokyo";
+          automationEnabled = true;
+          wallpaperChangeMode = "random";
+          randomIntervalSec = 1800;
         };
         dock = {
           enabled = false;
