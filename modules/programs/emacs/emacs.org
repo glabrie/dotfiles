@@ -7,12 +7,21 @@ This file tangles into ~emacs.nix~, ~doom.d/config.el~, ~doom.d/init.el~ and ~do
 
 I never thought I'd say this, but I completely switched from [[https://neovim.io/][neovim]] to [[https://www.gnu.org/software/emacs/][emacs]], mainly because of [[https://orgmode.org/][Org-mode]]. I would never have switched if I couldn't have my vim keybindings, and those are very well supported via evil-mode, which we can get in [[https://github.com/doomemacs/doomemacs][Doom Emacs]], a ready made distribution of emacs that is optimized and caters to vimers like me. There is a lot to learn still, and emacs is a completely new world for me, so treat this document as a living journey through learning emacs.
 
+As for why I am *not* being entirely imperative and nixxy here, You can look into learning center/Nix and Doom Unstraightened for a more thorough answer than this one: I don't like it, and I'm being practical.
+
 Quick disclaimer: I'm in the middle of writing this file, so a lot of it that isn't code is either stubs, incomplete or not reviewed yet.
 
 * Learning center
 ** Org-mode
+
+#+begin_quote orgmode.org
+A GNU Emacs major mode for keeping notes, authoring documents, computational notebooks, literate programming, maintaining to-do lists, planning projects, and more — in a fast and effective plain text system.
+#+end_quote
+
+~Org~ is a plain text file format not unlike markdown with a variety of awesome features. ~Org-mode~ is a major
 ** Doom-Emacs and evil-mode
 ** Emacs concepts
+*** Modes
 *** Faces
 
 ** Nix and Doom Unstraightened

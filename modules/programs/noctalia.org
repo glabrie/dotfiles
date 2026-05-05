@@ -111,14 +111,14 @@ Noctalia comes with a number of preset color schemes that you can set, as well a
         };
 #+end_src
 
-* General settings
+j General settings
 
 Here I'm defining a few misceleanous things like the avatar.
 
 #+begin_src nix
         general = {
           avatarImage = "/home/ghil/.face";
-          radiusRatio = 20;
+          radiusRatio = 0.30;
           dimmerOpacity = 0.2;
           showScreenCorners = true;
           forceBlackScreenCorners = true;
@@ -164,7 +164,7 @@ We end with defining where you can find the wallpaper and disabling the dock tha
         wallpaper = {
           enabled = true;
           overviewEnabled = true;
-          directory = "$HOME/images/walls/tokyo";
+          directory = "$HOME/images/walls/art/";
           automationEnabled = true;
           wallpaperChangeMode = "random";
           randomIntervalSec = 1800;
