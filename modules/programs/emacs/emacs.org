@@ -90,20 +90,16 @@ Finally, I'm also adding vterm for terminal support inside emacs and [[https://g
 The all-grammars line is a fix for tree-sitter which currently behaves eratically across multiple programs since the author archived it. Each definition is very small, so adding all grammars does not add a lot of overhead.
 
 #+begin_src nix
-{ inputs, ... }:
+{ ... }:
 {
   flake.modules.homeManager.emacs = { pkgs, ... }: {
-    imports = [ inputs.nix-doom-emacs-unstraightened.homeModule ];
-
-    programs.doom-emacs = {
+    programs.emacs = {
       enable = true;
-      doomDir = ./doom.d;
-      emacs = pkgs.emacs-pgtk;
-      extraPackages = epkgs: [
-        epkgs.vterm
-        epkgs.mu4e
-        epkgs.treesit-grammars.with-all-grammars
-      ];
+      package = pkgs.emacs-pgtk.pkgs.withPackages (e: [
+        e.vterm
+        e.mu4e
+        e.treesit-grammars.with-all-grammars
+      ]);
     };
 #+end_src
 
@@ -134,6 +130,7 @@ While we're talking about mu4e, here's the other shoe: We need isync and mu, so 
       pkgs.hunspell
       pkgs.hunspellDicts.en_US
       pkgs.hunspellDicts.fr-any
+      pkgs.graphviz
     ];
     systemd.user.services.protonmail-bridge = {
       Unit = {
@@ -159,7 +156,7 @@ The Doom config comes in three files, ~init.el~, ~config.el~ and ~packages.el~. 
 
 *** Init (init.el)
 :PROPERTIES:
-:header-args:emacs-lisp: :tangle doom.d/init.el
+:header-args:emacs-lisp: :tangle ~/.config/doom/init.el
 :END:
 
 The init.el serves as an options menu with many possibilities. There are more than these but these ones are mine. They are commented by Doom Emacs by default, I've left them there for the explanation (or funny).
@@ -251,7 +248,7 @@ The init.el serves as an options menu with many possibilities. There are more th
 
 *** Config (config.el)
 :PROPERTIES:
-:header-args:emacs-lisp: :tangle doom.d/config.el
+:header-args:emacs-lisp: :tangle ~/.config/doom/config.el
 :END:
 
 **** Directory settings and username
@@ -474,10 +471,12 @@ I have this weird thing where since I've switched to emacs as a daemon, it doesn
 
 *** Packages (packages.el)
 :PROPERTIES:
-:header-args:emacs-lisp: :tangle doom.d/packages.el
+:header-args:emacs-lisp: :tangle ~/.config/doom/packages.el
 :END:
 
 #+begin_src emacs-lisp
+(package! vterm :built-in t)
+(package! mu4e :built-in t)
 (package! kdl-mode)
 (package! org-modern)
 (package! org-roam-ui)

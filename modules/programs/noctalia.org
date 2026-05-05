@@ -111,7 +111,7 @@ Noctalia comes with a number of preset color schemes that you can set, as well a
         };
 #+end_src
 
-j General settings
+* General settings
 
 Here I'm defining a few misceleanous things like the avatar.
 

@@ -1,17 +1,13 @@
-{ inputs, ... }:
+{ ... }:
 {
   flake.modules.homeManager.emacs = { pkgs, ... }: {
-    imports = [ inputs.nix-doom-emacs-unstraightened.homeModule ];
-
-    programs.doom-emacs = {
+    programs.emacs = {
       enable = true;
-      doomDir = ./doom.d;
-      emacs = pkgs.emacs-pgtk;
-      extraPackages = epkgs: [
-        epkgs.vterm
-        epkgs.mu4e
-        epkgs.treesit-grammars.with-all-grammars
-      ];
+      package = pkgs.emacs-pgtk.pkgs.withPackages (e: [
+        e.vterm
+        e.mu4e
+        e.treesit-grammars.with-all-grammars
+      ]);
     };
 
 services = {
@@ -25,6 +21,7 @@ home.packages = [
       pkgs.hunspell
       pkgs.hunspellDicts.en_US
       pkgs.hunspellDicts.fr-any
+      pkgs.graphviz
     ];
     systemd.user.services.protonmail-bridge = {
       Unit = {

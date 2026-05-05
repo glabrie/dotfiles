@@ -71,7 +71,7 @@ colorSchemes = {
 
 general = {
   avatarImage = "/home/ghil/.face";
-  radiusRatio = 20;
+  radiusRatio = 0.30;
   dimmerOpacity = 0.2;
   showScreenCorners = true;
   forceBlackScreenCorners = true;
@@ -97,7 +97,7 @@ location = {
 wallpaper = {
           enabled = true;
           overviewEnabled = true;
-          directory = "$HOME/images/walls/tokyo";
+          directory = "$HOME/images/walls/art/";
           automationEnabled = true;
           wallpaperChangeMode = "random";
           randomIntervalSec = 1800;
