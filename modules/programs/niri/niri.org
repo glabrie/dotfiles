@@ -5,9 +5,10 @@
 This file will tangle into ~niri.nix~ (the NixOS module) and ~config.kdl~ (Niri's native config)
 
 * Introduction
-Here we are building up my compositor of choice, Niri.
-Niri is a scrolling window manager, a variant of tiling WMs that present you with an infinite horizontal strip where windows spawn into, arranging workspaces vertically.
-The main advantage of scrolling is the space saved on smaller resolutions, but it's really nice still at any resolution including my ultrawide.
+
+Here we are building up my compositor of choice, [[https://github.com/niri-wm/niri][Niri]].
+Niri is a scrolling window manager, a variant of tiling window managers that present you with an infinite horizontal strip where windows spawn into, arranging work spaces vertically.
+The main advantage of scrolling is the space saved on smaller resolutions, but it's really nice still at any resolution including my ultrawide monitor.
 It's snappy and light with rapid development that doesn't break the config every two months, which is a good bonus, highly recommended!
 
 * Definition of the module
@@ -24,7 +25,7 @@ Let's start! First we'll need to declare the nix module, and we're using an over
 
 #+end_src
 
-Next we'll deal with the xdg portals we need to make wayland work. Portals allow an application to reach past its little sandbox. You need these for example when discord wants to stream or select an image. I'm using both gnome and gtk here, I had some problems at first with using only one. I'll revisit that at a later date.
+Next we'll deal with the XDG portals we need to make Wayland work. Portals allow an application to reach past its little sandbox. You need these for example when discord wants to stream or select an image. I'm using both gnome and GTK here, I had some problems at first with using only one. I'll revisit that at a later date.
 
 #+begin_src nix
     xdg.portal = {
@@ -41,7 +42,7 @@ Next we'll deal with the xdg portals we need to make wayland work. Portals allow
 #+end_src
 
 Finally for the nix file, we'll just declare xwayland-satellite and close it off.
-The xwayland-satellite is used by your compositor to gain access to a rootless xwayland instance. That gives your compositor full control of each individual xwayland window.
+The xwayland-satellite is used by your compositor to gain access to a rootless Xwayland instance. That gives your compositor full control of each individual Xwayland window.
 
 #+begin_src nix
     environment.systemPackages = [ pkgs.xwayland-satellite ];
@@ -53,19 +54,17 @@ The xwayland-satellite is used by your compositor to gain access to a rootless x
 * Niri configuration
 
 The standard Niri config is written in KDL format. You can find out more about KDL [[https://kdl.dev/][here]].
-Completely off-topic, but KDL comments make me think of an old gamefaq walkthrough and I dig that a lot. Sadly we're in org mode here and you won't see one :P
+Completely off-topic, but KDL comments make me think of an old Gamefaq walkthrough and I dig that a lot. Sadly we're in org mode here and you won't see one :P
 
 ** Noctalia
 
-Since the systemd service option is now deprecated, we have to start Noctalia from inside niri with this little snippet
+Since the systemd service option is now deprecated, we have to start Noctalia from inside Niri with this little snippet
 
 #+begin_src kdl
 spawn-at-startup "noctalia-shell"
 #+end_src
 
-** Debug and env rules
-
-Those are more fixes for various weirdness I encountered when starting to use niri along with a couple of one-liner configurations.
+** Environment variables
 
 This snippet allows Electron ( -_- ) apps to auto-detect Wayland vs X11 and switch accordingly.
 Then we force a GTK theme, because I had trouble making the GTK theme stick.
@@ -77,6 +76,8 @@ environment {
 }
 #+end_src
 
+** Debug flags
+
 Here is a fix for Noctalia (desktop-shell)'s notifications. When an app's activation request is sent with an invalid serial number, Niri ignores them and won't show them. We're simply telling Niri to show them too.
 
 #+begin_src kdl
@@ -84,6 +85,8 @@ debug {
     honor-xdg-activation-with-invalid-serial
 }
 #+end_src
+
+** Xwayland routing
 
 I've had some weirdness with xwayland-satellite trying to switch to an unknown x server (which doesn't exist), so I'm trying a fix here:
 
@@ -93,7 +96,9 @@ xwayland-satellite {
   }
 #+end_src
 
-Next we'll disable the keybindings overlay that pops up whenever Niri boots up. You can get that magical pop back using ~Mod+Shift+/~ (only in this config). The hotkey is configured a little later with ~show-hotkey-overlay~ in the binds section.
+** Startup behavior
+
+Next we'll disable the keybindings overlay that pops up whenever Niri boots up. You can get that magical pop back using ~Mod+Shift+/~ (only in this config). The hotkey is configured a little later with ~show-hotkey-overlay~ in the [[*Keybindings][binds]] section.
 
 #+begin_src kdl
 hotkey-overlay { skip-at-startup; }
@@ -105,15 +110,17 @@ We'll remove window decorations, as this config is purely keyboard driven. I use
 prefer-no-csd
 #+end_src
 
+** Screenshot management
+
 Niri comes with a screenshot tool, I'm just setting the path for the saved screenshots here:
 
 #+begin_src kdl
 screenshot-path "~/images/screenshots from %Y-%m-%d %H-%M-%S.png"
 #+end_src
 
-** Displays
+** Display management
 
-Niri's display configuration is simple and clear. I'm disabling eDP-1 as I only use that laptop in desktop mode. It's not technically necessary as I have it also disabled at the kernel level, but better be safe than sorry, as I had problems in hyprland with that as well.
+Niri's display configuration is simple and clear. I'm disabling eDP-1 as I only use that laptop in desktop mode. It's not technically necessary as I have it also disabled at the kernel level, but better be safe than sorry, as I had problems in Hyprland with that as well.
 
 #+begin_src kdl
 output "eDP-1" {
@@ -127,7 +134,7 @@ output "DP-4" {
 }
 #+end_src
 
-** Inputs
+** Peripherals
 
 I'm French Canadian, but I use the US qwerty layout when writing in English and coding, so dual layouts it is! I also hate caps lock, so we'll replace it with something useful, the super key (used as Mod in Niri).
 
@@ -162,16 +169,16 @@ Lastly, I'm setting it so that the mouse cursor warps to the center of the activ
 I like having workspaces that are ordered a certain way, I'm weird like that.
 
 #+begin_src kdl
-workspace "emacs"
-workspace "comms"
-workspace "web"
-workspace "games"
-workspace "media"
+workspace ""
+workspace ""
+workspace ""
+workspace ""
+workspace ""
 #+end_src
-** Layout
+** Aesthetics
 
-Rules that let me customize the layout when niri is arranging windows around on the desktop.
-The first rule sets up gaps in between windows for ✨ /*aesthetics*/ ✨. There was a time where that simple setting started online wars.
+Rules that let me customize the layout when Niri is arranging windows around on the desktop.
+The first rule sets up gaps in between windows for ✨ /aesthetics/ ✨. There was a time where that simple setting started online wars.
 
 #+begin_src kdl
 layout {
@@ -189,7 +196,7 @@ Column settings. I always want the window to open on the left, not in the center
     default-column-width { proportion 0.5; }
 #+end_src
 
-Borders and focus-ring setting. Border will draw borders around every windows, with inactive ones getting another color. Focus ring will draw only one border around the active window and the rest will be left unbordered. It's really just a matter of preference.
+Borders and focus-ring setting. Border will draw borders around every windows, with inactive ones getting another color. Focus ring will draw only one border around the active window and the rest will be left borderless. It's really just a matter of preference.
 
 #+begin_src kdl
     border {
@@ -202,7 +209,7 @@ Borders and focus-ring setting. Border will draw borders around every windows, w
     }
 #+end_src
 
-Do you also want pretty shadows? ✨ /*aesthetics*/ ✨!
+Do you also want pretty shadows? ✨ /aesthetics/ ✨!
 
 #+begin_src kdl
     shadow {
@@ -246,6 +253,7 @@ Noctalia can display a fixed wallpaper across all workspaces and the overview. T
 ** Window rules
 
 Rules that let me customize..windows. You guessed it!
+
 Steam has a tendency to bypass XDG and puts its notifications straight in the center of the screen. This fix gets them where you want them. I choose bottom-right instead of top-right like Noctalia's to differentiate them easily.
 
 #+begin_src kdl
@@ -255,9 +263,9 @@ window-rule {
 }
 #+end_src
 
-Before, I used a lot of transparency  in my config. I got rid of it all! ...and lasted about one week. Zen still has a weird problem with transparency, doesn't mix well with xdg decorations so it will render the border as a full color background for you to sear your eyes on. We're telling it harshly to stop being an ass.
+Before, I used a lot of transparency  in my config. I got rid of it all! ...and lasted about one week. Zen still has a weird problem with transparency, doesn't mix well with XDG decorations so it will render the border as a full color background for you to sear your eyes on. We're telling it harshly to stop being an ass.
 
-[2026-05-04] Removing transparency for now, it visually clashes with with emacs.
+[2026-05-04] Removing transparency for now, it visually clashes with Emacs.
 
 #+begin_src kdl :tangle no
 window-rule {
@@ -272,7 +280,7 @@ window-rule {
 
 So about that transparency? Niri now includes blur. Yay! So we're going to put it EVERYWHERE.
 
-  *ISSUE [2026-05-04]:* Removed emacs transparency, see [[file:../emacs/emacs.org::#issue-opacity][emacs.org/Current Issues]]. Removed kitty's blur as well, to better fit with emacs.
+  *ISSUE [2026-05-04]:* Removed Emacs transparency, see [[file:../emacs/emacs.org::#issue-opacity][this section]] in my Emacs config. Removed kitty's blur as well, to better fit with Emacs.
 
 #+begin_src kdl :tangle no
 window-rule {
@@ -297,7 +305,7 @@ window-rule {
 
 The bulk of the config is actually keybindings, which are mostly default.
 First we'll determine a few programs we want to launch with a simple shortcut. Noctalia comes with a launcher which is very practical. My terminal emulator of choice is kitty and I'm often in the terminal using TUI apps like Oxicord instead of discord.
-Last one is emacs, of course.
+Last one is Emacs, of course.
 
 #+begin_src kdl
 binds {
@@ -308,7 +316,7 @@ binds {
     Mod+C hotkey-overlay-title="Org-roam daily capture" { spawn "emacsclient" "-c" "-F" "((name . \"org-capture\"))" "-e" "(org-roam-dailies-capture-today)"; }
 #+end_src
 
-Overview binds. Most DEs have this, I don't use it very often but it's nice when you lost the plot a bit.
+Overview binds. Most desktop environments have something like this to situate the user across multiple virtual desktops. I don't use it very often but it's nice when you lost the plot a bit.
 
 #+begin_src kdl
     Mod+O repeat=false { toggle-overview; }
@@ -378,7 +386,7 @@ You can move windows or columns with much the same binds, adding ~Ctrl~ to the c
 #+end_src
 
 Niri allows you to ~consume~ and ~expel~ windows. It's the two mechanisms that make it possible to have more than one window in a column, stacking them vertically. When you ~consume~ a window, you send it into the stack, ~expelling~ it to restore the window to its own column.
-There is also a tabbed mode, that will take that column of windows and stack them on top of each other instead. You can move into the stack with the same keybinds you would use to focus.
+There is also a tabbed mode, that will take that column of windows and stack them on top of each other instead. You can move into the stack with the same keybindings you would use to focus.
 
 #+begin_src kdl
     Mod+BracketLeft  { consume-or-expel-window-left; }
@@ -432,7 +440,7 @@ This is an escape hatch for remote desktop utilities taking over the keyboard
     Mod+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
 #+end_src
 
-And finally, keybinds to quit niri. But why would you?
+And finally, keybindings to quit Niri. But why would you?
 
 #+begin_src kdl
     Mod+Shift+E { quit; }
@@ -440,5 +448,3 @@ And finally, keybinds to quit niri. But why would you?
 }
 #+end_src
 
-* Tasklist
-** TODO revisit xdg portal implementation :dotfiles:

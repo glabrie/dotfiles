@@ -10,12 +10,12 @@
       ]);
     };
 
-services = {
-  emacs.enable = true;
-  mbsync.enable = true;
-};
+    services = {
+      emacs.enable = true;
+      mbsync.enable = true;
+    };
 
-home.packages = [
+    home.packages = [
       pkgs.mu
       pkgs.isync
       pkgs.hunspell
