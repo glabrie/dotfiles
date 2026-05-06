@@ -1,0 +1,35 @@
+#+title: Kitty
+#+property: header-args:nix :noweb yes :mkdirp yes :tangle kitty.nix
+
+* The emulators debate
+
+Terminal emulators can be a contentious subject. It's not the Emacs vs Vim war of old but it still elicit some attachment to their favorite one. Honestly, I don't have a strong opinion on emulators. I've used many at various times in my life and never ran across something that would make me really consider switching. Last time I switched was because I liked [[https://sw.kovidgoyal.net/kitty/][Kitty]]'s' image support and cursor trail.
+
+That's it. There's things out there like [[https://ghostty.org/][Ghostty]] that are really cool project but as long as kitty doesn't give me any reasons to switch, I'll still be using it in 10 years.
+
+* Module definition
+
+#+begin_src nix
+{ ... }:
+{
+  flake.modules.homeManager.kitty =
+  {
+    programs.kitty = {
+      enable = true;
+      themeFile = "tokyo_night_night";
+      shellIntegration.enableZshIntegration = true;
+      font = {
+        name = "TerminessTTF Nerd Font";
+        size = 12;
+      };
+      settings = {
+        confirm_os_window_close = 0;
+        dynamic_background_opacity = true;
+        enable_audio_bell = false;
+        background_opacity = "1";
+        cursor_trail = 8;
+      };
+    };
+  };
+}
+#+end_src

@@ -1,0 +1,59 @@
+#+title: Nushell
+#+property: header-args:nix :noweb yes :mkdirp yes :tangle nushell.nix
+
+This file tangles into ~nushell.nix~
+
+* A new shell
+
+[[https://www.nushell.sh/][Nushell]] is a fascinating new shell with a great hook "Everything is structured data". It has a wonderful type system and a great syntax. Other shells make do with text streams that you need to parse with tools such as awk to be able to extract fields.
+Nushell makes working with your data a breeze. It's already a table, with addressable cells. Maths and comparisons are easy thanks to this.
+
+It's simple and beautiful to use. Here's a simple example:
+
+[[../../../assets/nushell.jpg]]
+
+* Module definition
+
+Here is my very basic nushell config, with some aliases I use everyday.
+
+[[https://carapace.sh/][Carapace]] is the completion library (available to many more shells than nushell) most used with Nushell. It's very simple and works wonders.
+
+#+begin_src nix
+{ ... }:
+{
+  flake.modules.homeManager.nushell =
+  { lib, pkgs, ... }:
+  {
+    programs.nushell = {
+      enable = true;
+      extraConfig = ''
+        $env.config.show_banner = false
+        $env.config.completions.case_sensitive = false
+        $env.config.completions.quick = true
+        $env.config.completions.partial = true
+        $env.config.completions.algorithm = "fuzzy"
+        $env.config.completions.external.enable = true
+        $env.config.completions.external.max_results = 100
+
+        def ll [path?: string = "."] { ls $path | sort-by type name }
+      '';
+
+      shellAliases = {
+        boot-garbage = "sudo /run/current-system/bin/switch-to-configuration boot";
+        collect-garbage = "sudo nix-collect-garbage -d";
+        dots ="cd ~/.dotfiles/";
+        flup = "nix flake update";
+        v = "emacsclient -t";
+      };
+
+    };
+
+    programs = {
+
+      carapace.enable = true;
+      carapace.enableNushellIntegration = true;
+
+    };
+  };
+}
+#+end_src

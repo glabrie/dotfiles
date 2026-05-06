@@ -1,4 +1,3 @@
-# programs that belong only on that system, with only that user.
 { inputs, ... }:
 {
   flake.modules.homeManager.ghil =
@@ -11,7 +10,6 @@
 
     home.packages = with pkgs;
     [
-      bootdev-cli # <- learning backend!
       cava
       claude-code
       element-desktop
@@ -23,14 +21,11 @@
       protonmail-bridge
       proton-vpn
       qbittorrent
-      vesktop # <- Better than Discord at being discord. Still would rather do without discord though.
+      vesktop
       vlc
       wl-clipboard
-      xarchiver
-
-      # using flakes:
-      inputs.oxicord.packages.${pkgs.stdenv.hostPlatform.system}.default # <- Love this TUI for text channels.
-      inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default # <- Browser of choice. SO NICE.
+      inputs.oxicord.packages.${pkgs.stdenv.hostPlatform.system}.default
+      inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
     ];
   };
 }

@@ -20,7 +20,7 @@ in
       ];
     };
   };
-    
+
   flake.modules.homeManager."${username}" = {
     imports = with inputs.self.modules.homeManager;
     [

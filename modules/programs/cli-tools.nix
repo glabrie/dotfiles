@@ -1,4 +1,3 @@
-# CLI tools needed on every system.
 { ... }:
 {
   flake.modules.nixos.cli-tools =
@@ -19,6 +18,7 @@
       git
       gh
       mpc
+      mpv
       ncdu
       neovim
       nmap
@@ -26,6 +26,7 @@
       ripgrep
       shotwell
       yazi
+      yt-dlp
       zellij
     ];
   };

@@ -309,8 +309,7 @@ Now That we've set up our options, we can configure a lot of Emacs (and Doom) th
 First a bit of boilerplate. We'll set up a few things required for [[https://orgmode.org/][Org-mode]], [[https://github.com/bbatsov/projectile][Projectile]] and setting the term to zsh because I couldn't make nushell work (for now) reliably inside emacs. Finally I'm setting my name and email.
 
 #+begin_src emacs-lisp
-(setq shell-file-name "/etc/profiles/per-user/ghil/bin/zsh"
-      org-directory "~/org/"
+(setq org-directory "~/org/"
       org-roam-directory "~/org/roam"
       projectile-project-search-path '("~/projects/")
       user-full-name "Guillaume Labrie"
@@ -417,9 +416,6 @@ Normally, org-mode doesn't parse your notes recursively for todos, for performan
 (add-hook 'text-mode-hook #'mixed-pitch-mode)
 #+end_src
 
-#+RESULTS:
-| mixed-pitch-mode | er/add-text-mode-expansions | +word-wrap-mode | display-line-numbers-mode | vi-tilde-fringe-mode | text-mode-hook-identify | editorconfig-major-mode-hook |
-
 **** Keybindings
 
 The rare custom keybinds I run are to get to my notes faster, and a graph that you'll look at once, go "wow, that's neat" and probably never open again, just like in ~Obsidian~. Yay!
@@ -492,6 +488,7 @@ Pin the dictionary so ispell stop bothering me with apostrophe. (it doesn't load
 #+begin_src emacs-lisp
 (setq ispell-dictionary "en_US")
 #+end_src
+
 **** mu4e
 
 

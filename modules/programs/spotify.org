@@ -1,0 +1,29 @@
+#+title: Spotify
+#+property: header-args:nix :noweb yes :mkdirp yes :tangle spotify.nix
+
+small module using [[https://spicetify.app/][Spicetify]] to pretty up Spotify.
+
+#+begin_src nix
+{ inputs, ... }:
+{
+  flake.modules.homeManager.spotify =
+  { pkgs, ... }:
+  let
+    spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.stdenv.hostPlatform.system};
+  in {
+    imports = [
+      inputs.spicetify-nix.homeManagerModules.spicetify
+      ];
+    programs.spicetify = {
+      enable = true;
+      enabledExtensions = with spicePkgs.extensions; [
+        adblockify
+        hidePodcasts
+        shuffle
+      ];
+      theme = spicePkgs.themes.text;
+      colorScheme = "TokyoNight";
+    };
+  };
+}
+#+end_src
