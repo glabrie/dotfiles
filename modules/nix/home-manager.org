@@ -1,0 +1,56 @@
+#+title: Home-manager configuration
+#+property: header-args:nix :noweb yes :mkdirp yes :tangle home-manager.nix
+
+This file will tangle into ~home-manager.nix~
+
+* The half-ton solution to most of your nix problems.
+
+[[https://github.com/nix-community/home-manager][Home-manager]] is an environment manager for NixOS. Concretely, it provides mechanisms to declare, at the user level, both packages and config files. It's one the most common Nix way of doing it and is widely supported.
+
+It has its drawbacks. It's a heavyweight champion, the only one in its weight category. If you want something lean and clean, HM is not it.
+Since it's so domain-specific, it has a tendency to lock you in. If I wanted to move away from NixOS for any reason, I'd have to redo my whole Noctalia config, which is entirely configured in an HM module.
+
+But it's also kind of magical. Much like NixOS, declaring a thing pulls in everything you need to use it. It's very easy to parse through an HM module, since it's all Nix, all the way down.
+
+Most people have no problem with using HM, and I get it. but...
+
+* There are alternatives
+
+[[https://github.com/feel-co/hjem][Hjem]] ['jem?] (kinda like yem) is the danish word for home. It's also an alternative to HM that's way lighter, as it doesn't attempt to provide options, merely a way to manage your config files from Nix. Highly recommended if you're starting out or feel like slimming down.
+
+But there's a better way.
+~Wrappers~. I will let Vimjoyer take it from here to explain on his [[https://www.youtube.com/watch?v=Zzvn9uYjQJY][youtube]] channel.
+
+"So why are you using HM then?" I hear you ask from the back of the non-existent room.
+Well..I tend to be lazy. Also, I'm overly focused on other things. HM is already setup and works, so It's in until I find some time for a complete rewrite.
+
+* Definition module
+
+This is a very small module. It's just the plumbing to integrate HM into the config.
+We're importing the modules necessary and then creating a dendritic module called ~home-manager~.
+
+#+begin_src nix
+{ inputs, ... }:
+{
+  imports = [
+    inputs.flake-parts.flakeModules.modules
+    inputs.home-manager.flakeModules.home-manager
+  ];
+
+  flake.modules.nixos.home-manager = {
+    imports = [
+      inputs.home-manager.nixosModules.home-manager
+      {
+        home-manager = {
+            verbose = true;
+            useUserPackages = true;
+            useGlobalPkgs = true;
+            backupFileExtension = "backup";
+            backupCommand = "rm";
+            overwriteBackup = true;
+        };
+      }
+    ];
+  };
+}
+#+end_src

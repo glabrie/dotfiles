@@ -7,7 +7,7 @@ This file tangles into ~emacs.nix~, ~doom.d/config.el~, ~doom.d/init.el~ and ~do
 
 [[../../../assets/kermit.jpg]]
 
-I never thought I'd say this, but I completely switched from [[https://neovim.io/][neovim]] to [[https://www.gnu.org/software/emacs/][emacs]], mainly because of [[https://orgmode.org/][Org-mode]]. I would never have switched if I couldn't have my vim keybindings, and those are very well supported via evil-mode, which we can get in [[https://github.com/doomemacs/doomemacs][Doom Emacs]], a ready made distribution of emacs that is optimized and caters to vimers like me. There is a lot to learn still, and emacs is a completely new world for me, so treat this document as a living journey through learning emacs.
+I never thought I'd say this, but I completely switched from [[https://neovim.io/][neovim]] to [[https://www.gnu.org/software/emacs/][emacs]], mainly because of [[https://orgmode.org/][Org-mode]]. I would never have switched if I couldn't have my vim keybindings, and those are very well supported via evil-mode, which we can get in [[https://github.com/doomemacs/doomemacs][Doom Emacs]], a ready made distribution of Emacs that is optimized and caters to vimers like me. There is a lot to learn still, and Emacs is a completely new world for me, so treat this document as a living journey through learning Emacs.
 
 As for why I am *not* being entirely declarative and nixxy here, you can look [[*Nix and Doom Unstraightened][here]]  for a more thorough answer than this one: I don't like it, and I'm being practical.
 
@@ -128,22 +128,17 @@ Concretely, when ~org-hide-leading-stars~ is set to ~t~, a font-lock keyword is 
 As of [2024-05-04] I chose to remove transparency from emacs. I will revisit this someday.
 
 * Configuration files
-** emacs.nix
+** Nix module
 :PROPERTIES:
 :header-args:nix: :tangle emacs.nix
 :END:
 
-First we need to to define our nix module.
+First we need to define our nix module.
 
-***  Module definition and package wrangling
+***  Definition and package wrangling
 
-
-Next, we need to nixify it, so we'll use [[https://github.com/marienz/nix-doom-emacs-unstraightened][nix-doom-emacs-unstraightened]] (oof) since it helps us bypass straight.el and manages our packages for us :D
-Since we're using unstraightened (even then it's too long) as a flake with home-manager, we first need to import the module. Then we'll tell it where our Doom config will live (here in a subfolder caller ~doom.d~).
-
-Finally, I'm also adding vterm for terminal support inside emacs and [[https://github.com/emacsmirror/mu4e][mu4e]], an email client inside emacs. Nifty!
-
-The all-grammars line is a fix for tree-sitter which currently behaves eratically across multiple programs since the author archived it. Each definition is very small, so adding all grammars does not add a lot of overhead.
+Since I am *not* declaring all of Emacs, the definition is a pretty straightforward affair. I get the Emacs options from nixpkgs but specify the PGTK version that has Wayland support.
+With it I pull along vterm, the terminal emulator that lives inside Emacs. Then mu4e, the
 
 #+begin_src nix
 { ... }:
@@ -210,7 +205,7 @@ While we're talking about mu4e, here's the other shoe: We need isync and mu, so 
 
 The Doom config comes in three files, ~init.el~, ~config.el~ and ~packages.el~. They all have their purpose which I'll explain below. Normally, you'd want to either reload the config after each edit of these files (done with ~SPC h r r~) but since we're using ~Unstraightened~,
 
-*** Init (init.el)
+*** Init
 :PROPERTIES:
 :header-args:emacs-lisp: :tangle ~/.config/doom/init.el
 :END:
@@ -302,7 +297,7 @@ The init.el serves as an options menu with many possibilities. There are more th
        (default +bindings +smartparens))
 #+end_src
 
-*** Config (config.el)
+*** Config
 :PROPERTIES:
 :header-args:emacs-lisp: :tangle ~/.config/doom/config.el
 :END:
@@ -490,7 +485,14 @@ The rare custom keybinds I run are to get to my notes faster, and a graph that y
           (lambda () (equal (frame-parameter nil 'name) "org-capture")))
 #+end_src
 
-**** Mu4e
+**** Spell checker
+
+Pin the dictionary so ispell stop bothering me with apostrophe. (it doesn't load a dictionary by default, returning bad spelling results.)
+
+#+begin_src emacs-lisp
+(setq ispell-dictionary "en_US")
+#+end_src
+**** mu4e
 
 
 #+begin_src emacs-lisp
@@ -532,7 +534,7 @@ I have this weird thing where since I've switched to emacs as a daemon, it doesn
       browse-url-generic-program "zen")
 #+end_src
 
-*** Packages (packages.el)
+*** Packages
 :PROPERTIES:
 :header-args:emacs-lisp: :tangle ~/.config/doom/packages.el
 :END:
