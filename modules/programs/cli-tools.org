@@ -1,0 +1,42 @@
+#+title: Cli tools
+#+property: header-args:nix :noweb yes :mkdirp yes :tangle cli-tools.nix
+
+This file tangles into ~cli-tools.nix~
+
+Small definition module adding cli utilities that are needed on every system.
+
+#+begin_src nix
+{ ... }:
+{
+  flake.modules.nixos.cli-tools =
+  { pkgs, ... }:
+  {
+    environment.systemPackages = with pkgs;
+    [
+      arp-scan
+      p7zip
+      bottom
+      cliphist
+      cmake
+      direnv
+      fastfetch
+      file
+      fzf
+      gcc
+      git
+      gh
+      mpc
+      mpv
+      ncdu
+      neovim
+      nmap
+      rmpc
+      ripgrep
+      shotwell
+      yazi
+      yt-dlp
+      zellij
+    ];
+  };
+}
+#+end_src

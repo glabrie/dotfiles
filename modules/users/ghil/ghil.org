@@ -1,0 +1,40 @@
+#+title: Ghil
+#+property: header-args:nix :noweb yes :mkdirp yes :tangle ghil.nix
+
+Very simple module defining a user. To stay as [[https://en.wikipedia.org/wiki/Don't_repeat_yourself][DRY]] as possible, we're using a simple let expression to pass in our username into the actual module definition. If I ever add a second user, copying this and changing the username once will be all that's needed.
+
+#+begin_src nix
+{ inputs, ... }:
+let
+  username = "ghil";
+in
+{
+  flake.modules.nixos."${username}" =
+  { pkgs, ... }:
+  {
+    users.users."${username}" = {
+      name = "${username}";
+      isNormalUser = true;
+      description = "Guillaume Labrie";
+      extraGroups = [ "networkmanager" "wheel" ];
+      shell = pkgs.nushell;
+    };
+
+    home-manager.users."${username}" = {
+      imports = [
+        inputs.self.modules.homeManager."${username}"
+      ];
+    };
+  };
+
+  flake.modules.homeManager."${username}" = {
+    imports = with inputs.self.modules.homeManager;
+    [
+      system-desktop
+      nushell
+    ];
+  home.username = "${username}";
+
+  };
+}
+#+end_src

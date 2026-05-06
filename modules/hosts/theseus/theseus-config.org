@@ -1,0 +1,53 @@
+#+title: Theseus Config
+#+property: header-args:nix :noweb yes :mkdirp yes :tangle theseus-config.nix
+
+This file will tangle into ~theseus-config.nix~
+
+*  Is it the same ship anymore captain?
+
+My laptop is called Theseus. That's because over the years, I've repaired it so often, I don't think there's an original piece left in it.
+
+* Host definition
+
+Now that we have built plenty of dendritic modules and generic system types, it's time to bundle them together to build the actual host. That's where the dendritic pattern shines. You could be reusing all of those pieces in many different hosts and situations without any scalability problems.
+
+We'll start by defining the system itself as a ~nixosConfigurations~ module.
+
+#+begin_src nix
+{ inputs, ... }:
+{
+  systems = [ "x86_64-linux" ];
+
+  flake.nixosConfigurations.theseus =
+    inputs.nixpkgs.lib.nixosSystem {
+      modules = [ inputs.self.modules.nixos.theseus ];
+  };
+#+end_src
+
+Then we define the actual module, which contains our host name and its platform.
+
+#+begin_src nix
+  flake.modules.nixos.theseus =
+  {
+    networking.hostName = "theseus";
+    nixpkgs.hostPlatform = "x86_64-linux";
+#+end_src
+
+Finally, we're importing all the modules we created that are necessary for Theseus to run. Every modules are named after the .org file they come from, so if you need to consult them, they are easily found in my dotfiles.
+
+#+begin_src nix
+    imports = with inputs.self.modules.nixos;
+    [
+      system-desktop
+      ghil
+      fonts
+      gaming
+      locale
+      nvidia
+      security
+      boot
+      touchpad
+    ];
+  };
+}
+#+end_src
