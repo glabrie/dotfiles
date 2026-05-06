@@ -20,7 +20,8 @@ Very simple module defining the programs that should live only on Theseus, scope
     home.packages = with pkgs;
     [
       cava
-      nerd-fonts.terminess-ttf
+      monocraft
+      nerd-fonts.symbols-only
       claude-code
       element-desktop
       firefox
