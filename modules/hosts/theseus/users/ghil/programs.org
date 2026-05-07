@@ -20,6 +20,7 @@ Very simple module defining the programs that should live only on Theseus, scope
     home.packages = with pkgs;
     [
       cava
+      miracode
       monocraft
       nerd-fonts.symbols-only
       claude-code
