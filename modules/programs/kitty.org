@@ -20,7 +20,7 @@ That's it. There's things out there like [[https://ghostty.org/][Ghostty]] that 
       shellIntegration.enableZshIntegration = true;
       font = {
         name = "Monocraft";
-        size = 14;
+        size = 12;
       };
       settings = {
         confirm_os_window_close = 0;

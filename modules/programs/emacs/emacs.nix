@@ -22,6 +22,7 @@ home.packages = [
       pkgs.hunspellDicts.en_US
       pkgs.hunspellDicts.fr-any
       pkgs.graphviz
+      pkgs.libertinus
     ];
     systemd.user.services.protonmail-bridge = {
       Unit = {

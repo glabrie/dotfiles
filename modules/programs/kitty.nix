@@ -4,11 +4,11 @@
   {
     programs.kitty = {
       enable = true;
-      themeFile = "tokyo_night_night";
+      themeFile = "gruvbox-dark";
       shellIntegration.enableZshIntegration = true;
       font = {
         name = "Monocraft";
-        size = 14;
+        size = 12;
       };
       settings = {
         confirm_os_window_close = 0;
