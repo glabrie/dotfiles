@@ -183,6 +183,7 @@ While we're talking about mu4e, here's the other shoe: We need isync and mu, so 
       pkgs.hunspellDicts.fr-any
       pkgs.graphviz
       pkgs.libertinus
+      pkgs.imagemagick
     ];
     systemd.user.services.protonmail-bridge = {
       Unit = {
@@ -347,19 +348,19 @@ I'm using Tokyo Night everywhere else in the system, so this gets applied here a
 
 ***** Dynamic splash sizing
 
-Scale the splash image to 40% of the frame's pixel width at startup so it looks right on the ultrawide without hardcoding a pixel value.
+Scale the splash image to 40% of the frame's pixel width when each frame is created. ~after-make-frame-functions~ fires before the dashboard renders, so the resized path is picked up on first display. Works correctly with the Emacs daemon since the frame has its real pixel width by the time this runs.
 
 #+begin_src emacs-lisp
-(defun +my/scale-splash-image ()
+(defun +my/scale-splash-image (&optional _frame)
   (let* ((width (round (* (frame-pixel-width) 0.40)))
          (src (expand-file-name "~/.dotfiles/assets/aperture40s.png"))
          (dest "/tmp/doom-aperture-splash.png"))
     (when (and (> width 0) (executable-find "magick") (file-exists-p src))
       (call-process "magick" nil nil nil src "-resize" (format "%dx" width) dest)
       (setq fancy-splash-image dest)
-      (+doom-dashboard-reload t))))
+      (run-with-timer 0.5 nil (lambda () (+doom-dashboard-reload t))))))
 
-(add-hook 'window-setup-hook #'+my/scale-splash-image)
+(add-hook 'after-make-frame-functions #'+my/scale-splash-image)
 #+end_src
 
 ***** Relative lines - The vim way

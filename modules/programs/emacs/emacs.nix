@@ -23,6 +23,7 @@
       pkgs.hunspellDicts.fr-any
       pkgs.graphviz
       pkgs.libertinus
+      pkgs.imagemagick
     ];
     systemd.user.services.protonmail-bridge = {
       Unit = {
