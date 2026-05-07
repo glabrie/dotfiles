@@ -22,7 +22,7 @@ small module using [[https://spicetify.app/][Spicetify]] to pretty up Spotify.
         shuffle
       ];
       theme = spicePkgs.themes.text;
-      colorScheme = "TokyoNight";
+      colorScheme = "Gruvbox";
     };
   };
 }

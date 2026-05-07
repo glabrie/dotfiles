@@ -341,7 +341,8 @@ It makes for a nice separation that make prose look like documentation, while th
 I'm using Tokyo Night everywhere else in the system, so this gets applied here as well.
 
 #+begin_src emacs-lisp
-(setq doom-theme 'doom-tokyo-night)
+(setq doom-theme 'doom-gruvbox-light
+      fancy-splash-image (expand-file-name "~/.dotfiles/assets/aperture40s.png"))
 #+end_src
 
 ***** Relative lines - The vim way
