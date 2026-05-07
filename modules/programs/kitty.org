@@ -16,10 +16,10 @@ That's it. There's things out there like [[https://ghostty.org/][Ghostty]] that 
   {
     programs.kitty = {
       enable = true;
-      themeFile = "gruvbox-dark";
+      themeFile = "tokyo_night_night";
       shellIntegration.enableZshIntegration = true;
       font = {
-        name = "Monocraft";
+        name = "JetBrainsMono Nerd Font";
         size = 12;
       };
       settings = {

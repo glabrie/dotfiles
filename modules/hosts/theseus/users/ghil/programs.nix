@@ -11,6 +11,7 @@
     home.packages = with pkgs;
     [
       cava
+      miracode
       monocraft
       nerd-fonts.symbols-only
       claude-code
