@@ -65,8 +65,8 @@ widgets = {
 };
 
 colorSchemes = {
-  predefinedScheme = "Tokyo-Night";
-  darkMode = true;
+  predefinedScheme = "Gruvbox";
+  darkMode = false;
 };
 
 general = {

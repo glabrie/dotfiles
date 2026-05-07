@@ -345,6 +345,23 @@ I'm using Tokyo Night everywhere else in the system, so this gets applied here a
       fancy-splash-image (expand-file-name "~/.dotfiles/assets/aperture40s.png"))
 #+end_src
 
+***** Dynamic splash sizing
+
+Scale the splash image to 40% of the frame's pixel width at startup so it looks right on the ultrawide without hardcoding a pixel value.
+
+#+begin_src emacs-lisp
+(defun +my/scale-splash-image ()
+  (let* ((width (round (* (frame-pixel-width) 0.40)))
+         (src (expand-file-name "~/.dotfiles/assets/aperture40s.png"))
+         (dest "/tmp/doom-aperture-splash.png"))
+    (when (and (> width 0) (executable-find "magick") (file-exists-p src))
+      (call-process "magick" nil nil nil src "-resize" (format "%dx" width) dest)
+      (setq fancy-splash-image dest)
+      (+doom-dashboard-reload t))))
+
+(add-hook 'window-setup-hook #'+my/scale-splash-image)
+#+end_src
+
 ***** Relative lines - The vim way
 
 As I'm coming from vim, and still uses the keybindings daily, I need my relative lines. This gives me that, with another setting to correct the numbers to their actual position:
