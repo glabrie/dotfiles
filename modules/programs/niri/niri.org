@@ -267,7 +267,7 @@ Before, I used a lot of transparency  in my config. I got rid of it all! ...and 
 
 [2026-05-04] Removing transparency for now, it visually clashes with Emacs.
 
-#+begin_src kdl :tangle no
+#+begin_src kdl
 window-rule {
     match app-id=r#"^zen$"#
     draw-border-with-background false
@@ -282,9 +282,18 @@ So about that transparency? Niri now includes blur. Yay! So we're going to put i
 
   *ISSUE [2026-05-04]:* Removed Emacs transparency, see [[file:../emacs/emacs.org::#issue-opacity][this section]] in my Emacs config. Removed kitty's blur as well, to better fit with Emacs.
 
-#+begin_src kdl :tangle no
+#+begin_src kdl
 window-rule {
     match app-id="kitty"
+    background-effect {
+        blur true
+    }
+}
+#+end_src
+
+#+begin_src kdl
+window-rule {
+    match app-id="emacs"
     background-effect {
         blur true
     }

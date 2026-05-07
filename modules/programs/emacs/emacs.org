@@ -343,7 +343,17 @@ I'm using Tokyo Night everywhere else in the system, so this gets applied here a
 
 #+begin_src emacs-lisp
 (setq doom-theme 'doom-gruvbox-light
-      fancy-splash-image (expand-file-name "~/.dotfiles/assets/aperture40s.png"))
+      fancy-splash-image (expand-file-name "~/.dotfiles/assets/aperture40s.png")
+      +dashboard-functions '(+dashboard-widget-banner
+                             +dashboard-widget-footer
+                             +dashboard-widget-loaded))
+#+end_src
+
+***** Transparency
+
+#+begin_src emacs-lisp
+(add-to-list 'default-frame-alist '(alpha-background . 80))
+(modify-all-frames-parameters '((alpha-background . 80)))
 #+end_src
 
 ***** Dynamic splash sizing
@@ -352,13 +362,16 @@ Scale the splash image to 40% of the frame's pixel width when each frame is crea
 
 #+begin_src emacs-lisp
 (defun +my/scale-splash-image (&optional _frame)
-  (let* ((width (round (* (frame-pixel-width) 0.40)))
+  (let* ((width (round (* (or (ignore-errors (x-display-pixel-width)) 1920) 0.35)))
          (src (expand-file-name "~/.dotfiles/assets/aperture40s.png"))
          (dest "/tmp/doom-aperture-splash.png"))
     (when (and (> width 0) (executable-find "magick") (file-exists-p src))
       (call-process "magick" nil nil nil src "-resize" (format "%dx" width) dest)
       (setq fancy-splash-image dest)
-      (run-with-timer 0.5 nil (lambda () (+doom-dashboard-reload t))))))
+      (run-with-timer 0.3 nil
+        (lambda ()
+          (when (fboundp '+doom-dashboard-reload)
+            (+doom-dashboard-reload t)))))))
 
 (add-hook 'after-make-frame-functions #'+my/scale-splash-image)
 #+end_src
@@ -370,24 +383,6 @@ As I'm coming from vim, and still uses the keybindings daily, I need my relative
 #+begin_src emacs-lisp
 (setq display-line-numbers-type 'relative)
 (global-display-line-numbers-mode +1)
-#+end_src
-
-***** Let the frames breathe
-
-#+begin_src emacs-lisp
-(modify-all-frames-parameters
- '((right-divider-width . 12)
-   (internal-border-width . 12)))
-(setq window-divider-default-right-width 12
-      window-divider-default-bottom-width 12
-      window-divider-default-places t)
-(window-divider-mode 1)
-(dolist (face '(window-divider
-                window-divider-first-pixel
-                window-divider-last-pixel))
-  (face-spec-reset-face face)
-  (set-face-foreground face (face-attribute 'default :background)))
-(set-face-background 'fringe (face-attribute 'default :background))
 #+end_src
 
 ***** Indent bars
@@ -411,6 +406,7 @@ Normally, org-mode doesn't parse your notes recursively for todos, for performan
        org-catch-invisible-edits 'show-and-error
        org-special-ctrl-a/e t
        org-insert-heading-respect-content t
+       org-startup-indented nil
        org-hide-leading-stars t
        org-hide-emphasis-markers t
        org-pretty-entities t
@@ -444,7 +440,8 @@ The rare custom keybinds I run are to get to my notes faster, and a graph that y
 (map! :leader
       :desc "Capture daily" "n d" #'org-roam-dailies-capture-today
       :desc "Go to daily" "n D" #'org-roam-dailies-goto-today
-      :desc "Org-roam UI graph" "n r g" #'org-roam-ui-mode)
+      :desc "Org-roam UI graph" "n r g" #'org-roam-ui-mode
+      :desc "Open emacs.org" "f p" (cmd! (find-file (expand-file-name "~/.dotfiles/modules/programs/emacs/emacs.org"))))
 #+end_src
 
 **** Org-roam
