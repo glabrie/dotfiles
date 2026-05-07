@@ -343,7 +343,7 @@ I'm using Tokyo Night everywhere else in the system, so this gets applied here a
 
 #+begin_src emacs-lisp
 (setq doom-theme 'doom-gruvbox
-      fancy-splash-image (expand-file-name "~/.dotfiles/assets/aperture40s.png")
+      fancy-splash-image (expand-file-name "~/.dotfiles/assets/Aperture_Science_70s_Logo.xpm")
       +dashboard-functions '(+dashboard-widget-banner
                              +dashboard-widget-footer
                              +dashboard-widget-loaded))
@@ -356,30 +356,6 @@ I'm using Tokyo Night everywhere else in the system, so this gets applied here a
 (modify-all-frames-parameters '((alpha-background . 80)))
 #+end_src
 
-***** Dynamic splash sizing
-
-Scale the splash image to 40% of the frame's pixel width when each frame is created. ~after-make-frame-functions~ fires before the dashboard renders, so the resized path is picked up on first display. Works correctly with the Emacs daemon since the frame has its real pixel width by the time this runs.
-
-#+begin_src emacs-lisp
-(defun +my/scale-splash-image (&optional _frame)
-  (let* ((width (round (* (or (ignore-errors (x-display-pixel-width)) 1920) 0.35)))
-         (src (expand-file-name "~/.dotfiles/assets/aperture40s.png"))
-         (dest "/tmp/doom-aperture-splash.png")
-         (bg (let ((attr (face-attribute 'default :background)))
-               (if (or (null attr) (eq attr 'unspecified)) "#282828" attr))))
-    (when (and (> width 0) (executable-find "magick") (file-exists-p src))
-      (call-process "magick" nil nil nil src
-                    "-background" bg "-flatten"
-                    "-resize" (format "%dx" width)
-                    dest)
-      (setq fancy-splash-image dest)
-      (run-with-timer 0.3 nil
-        (lambda ()
-          (when (fboundp '+doom-dashboard-reload)
-            (+doom-dashboard-reload t)))))))
-
-(add-hook 'after-make-frame-functions #'+my/scale-splash-image)
-#+end_src
 
 ***** Relative lines - The vim way
 

@@ -42,15 +42,15 @@ First thing I'm establishing is the format, or how it will look at the end of it
 "$schema" = 'https://starship.rs/config-schema.json'
 
 format = """
-[](color_orange)\
+[](fg:color_orange)\
 $os\
 $username\
-[](bg:color_yellow fg:color_orange)\
+[](bg:color_yellow fg:color_orange)\
 $directory\
-[](fg:color_yellow bg:color_aqua)\
+[](fg:color_yellow bg:color_aqua)\
 $git_branch\
 $git_status\
-[](fg:color_aqua bg:color_blue)\
+[](fg:color_aqua bg:color_blue)\
 $c\
 $cpp\
 $rust\
@@ -62,13 +62,13 @@ $java\
 $kotlin\
 $haskell\
 $python\
-[](fg:color_blue bg:color_bg3)\
+[](fg:color_blue bg:color_bg3)\
 $docker_context\
 $conda\
 $pixi\
-[](fg:color_bg3 bg:color_bg1)\
+[](fg:color_bg3 bg:color_bg1)\
 $time\
-[ ](fg:color_bg1)\
+[](fg:color_bg1)\
 $line_break$character"""
 
 palette = 'gruvbox_dark'
@@ -112,6 +112,7 @@ Debian = "󰣚"
 Redhat = "󱄛"
 RedHatEnterprise = "󱄛"
 Pop = ""
+NixOS = "󰄄"
 
 [username]
 show_always = true

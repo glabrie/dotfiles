@@ -66,7 +66,7 @@ widgets = {
 
 colorSchemes = {
   predefinedScheme = "Gruvbox";
-  darkMode = false;
+  darkMode = true;
 };
 
 general = {
