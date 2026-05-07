@@ -182,6 +182,7 @@ While we're talking about mu4e, here's the other shoe: We need isync and mu, so 
       pkgs.hunspellDicts.en_US
       pkgs.hunspellDicts.fr-any
       pkgs.graphviz
+      pkgs.libertinus
     ];
     systemd.user.services.protonmail-bridge = {
       Unit = {
@@ -329,10 +330,10 @@ I'm using a mixed pitch where the prose is displayed in [[https://www.fontspace.
 It makes for a nice separation that make prose look like documentation, while the code is still eminently readable in a mono font.
 
 #+begin_src emacs-lisp
-(setq doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 18)
-      doom-variable-pitch-font (font-spec :family "Montserrat")
-      doom-symbol-font (font-spec :family "JetBrainsMono Nerd Font" :size 18)
-      doom-big-font (font-spec :family "Maple Mono NF" :size 24))
+(setq doom-font (font-spec :family "Monocraft" :size 18)
+      doom-variable-pitch-font (font-spec :family "Libertinus Serif" :size 22)
+      doom-symbol-font (font-spec :family "Symbols Nerd Font Mono" :size 18)
+      doom-big-font (font-spec :family "Monocraft" :size 24))
 #+end_src
 
 ***** Theme
@@ -340,7 +341,7 @@ It makes for a nice separation that make prose look like documentation, while th
 I'm using Tokyo Night everywhere else in the system, so this gets applied here as well.
 
 #+begin_src emacs-lisp
-(setq doom-theme 'doom-tokyo-night)
+(setq doom-theme 'doom-gruvbox)
 #+end_src
 
 ***** Relative lines - The vim way

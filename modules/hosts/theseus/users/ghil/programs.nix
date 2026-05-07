@@ -11,7 +11,8 @@
     home.packages = with pkgs;
     [
       cava
-      nerd-fonts.terminess-ttf
+      monocraft
+      nerd-fonts.symbols-only
       claude-code
       element-desktop
       firefox
