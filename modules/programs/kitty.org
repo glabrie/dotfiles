@@ -16,7 +16,7 @@ That's it. There's things out there like [[https://ghostty.org/][Ghostty]] that 
   {
     programs.kitty = {
       enable = true;
-      themeFile = "gruvbox-light";
+      themeFile = "gruvbox-dark";
       shellIntegration.enableZshIntegration = true;
       font = {
         name = "JetBrainsMono Nerd Font";

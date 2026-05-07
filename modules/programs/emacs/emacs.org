@@ -342,7 +342,7 @@ It makes for a nice separation that make prose look like documentation, while th
 I'm using Tokyo Night everywhere else in the system, so this gets applied here as well.
 
 #+begin_src emacs-lisp
-(setq doom-theme 'doom-gruvbox-light
+(setq doom-theme 'doom-gruvbox
       fancy-splash-image (expand-file-name "~/.dotfiles/assets/aperture40s.png")
       +dashboard-functions '(+dashboard-widget-banner
                              +dashboard-widget-footer
@@ -366,7 +366,7 @@ Scale the splash image to 40% of the frame's pixel width when each frame is crea
          (src (expand-file-name "~/.dotfiles/assets/aperture40s.png"))
          (dest "/tmp/doom-aperture-splash.png")
          (bg (let ((attr (face-attribute 'default :background)))
-               (if (or (null attr) (eq attr 'unspecified)) "#f9f5d7" attr))))
+               (if (or (null attr) (eq attr 'unspecified)) "#282828" attr))))
     (when (and (> width 0) (executable-find "magick") (file-exists-p src))
       (call-process "magick" nil nil nil src
                     "-background" bg "-flatten"
