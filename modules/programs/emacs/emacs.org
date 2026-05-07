@@ -364,9 +364,14 @@ Scale the splash image to 40% of the frame's pixel width when each frame is crea
 (defun +my/scale-splash-image (&optional _frame)
   (let* ((width (round (* (or (ignore-errors (x-display-pixel-width)) 1920) 0.35)))
          (src (expand-file-name "~/.dotfiles/assets/aperture40s.png"))
-         (dest "/tmp/doom-aperture-splash.png"))
+         (dest "/tmp/doom-aperture-splash.png")
+         (bg (let ((attr (face-attribute 'default :background)))
+               (if (or (null attr) (eq attr 'unspecified)) "#f9f5d7" attr))))
     (when (and (> width 0) (executable-find "magick") (file-exists-p src))
-      (call-process "magick" nil nil nil src "-resize" (format "%dx" width) dest)
+      (call-process "magick" nil nil nil src
+                    "-background" bg "-flatten"
+                    "-resize" (format "%dx" width)
+                    dest)
       (setq fancy-splash-image dest)
       (run-with-timer 0.3 nil
         (lambda ()
