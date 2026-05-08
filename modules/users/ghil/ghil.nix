@@ -29,5 +29,19 @@ in
     ];
   home.username = "${username}";
 
+  xdg.userDirs = {
+    enable = true;
+    createDirectories = true;
+    desktop = null;
+    documents = "/home/${username}/documents";
+    download = "/home/${username}/downloads";
+    music = "/home/${username}/music";
+    pictures = "/home/${username}/images";
+    projects = "/home/${username}/projects";
+    publicShare = null;
+    templates = null;
+    videos = "/home/${username}/videos";
+  };
+
   };
 }
