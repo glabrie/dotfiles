@@ -4,10 +4,6 @@ mut timer = []
 
 cd ~/.dotfiles
 
-print "/---- Adding files to git ----/ \n"
-$timer ++= [{step: "git add", time: (timeit { git add . })}]
-print "/---- Files added ----/ \n"
-
 print "/---- Tangling org files ----/ \n"
 $timer ++= [{step: "tangle org files", time: (timeit {
        glob **/*.org | where ($it | path basename) != "README.org" | each { |f| let eval_str = '(org-babel-tangle-file "' + ($f | str trim) + '")'
@@ -15,6 +11,10 @@ $timer ++= [{step: "tangle org files", time: (timeit {
        }
 })}]
 print "/---- Tangle done ----/ \n"
+
+print "/---- Adding files to git ----/ \n"
+$timer ++= [{step: "git add", time: (timeit { git add . })}]
+print "/---- Files added ----/ \n"
 
 print "\n/---- Files staged ----/"
 git diff --cached --stat

@@ -17,12 +17,6 @@ cd ~/.dotfiles
 First we'll add files to git. Using Jujitsu would be simpler but I'm not there yet.
 Note the ~$timer~ variable in use. I'm using nushell's ~timeit~ command to time each section, and It'll build a nice list at the end of how long the process took.
 
-#+begin_src nushell
-print "/---- Adding files to git ----/ \n"
-$timer ++= [{step: "git add", time: (timeit { git add . })}]
-print "/---- Files added ----/ \n"
-#+end_src
-
 We then need to tangle the org files. Since I'm converting to a literate config, every file in the config starts life as an org file. Org-mode is a markdown like language native to emacs that has several nifty features for documentation and plain organizing your life around. You can learn more about it [[https://orgmode.org/][here]].
 Tangling is org-mode's way of taking every code block in a file and putting them together in a separate config file of your choosing. Here for example, this document's code block will be "tangled" into ~rebuild.nu~, a useable nushell script in the same directory.
 This means that the org file becomes the sole source of truth, both in documentation and in code.
@@ -35,6 +29,12 @@ $timer ++= [{step: "tangle org files", time: (timeit {
        }
 })}]
 print "/---- Tangle done ----/ \n"
+#+end_src
+
+#+begin_src nushell
+print "/---- Adding files to git ----/ \n"
+$timer ++= [{step: "git add", time: (timeit { git add . })}]
+print "/---- Files added ----/ \n"
 #+end_src
 
 Ask for the commit message *before* the rebuild, so the prompt is never adjacent to sudo's password prompt. Print the staged diff stat first as a sanity check on what's about to be committed.
