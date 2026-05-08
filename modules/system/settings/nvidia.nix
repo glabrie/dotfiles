@@ -21,6 +21,9 @@
       services.xserver.videoDrivers = [ "nvidia" ];
 
       hardware.nvidia = {
+        # GTX 1050 is Pascal; NVIDIA 590+ dropped Pascal support
+        package = config.boot.kernelPackages.nvidiaPackages.legacy_580;
+
         # Modesetting is required for Wayland
         modesetting.enable = true;
         
