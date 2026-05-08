@@ -32,6 +32,11 @@
       carapace.enable = true;
       carapace.enableNushellIntegration = true;
 
+      direnv = {
+        enable = true;
+        nix-direnv.enable = true;
+      };
+
     };
   };
 }

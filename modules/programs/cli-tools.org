@@ -18,7 +18,6 @@ Small definition module adding cli utilities that are needed on every system.
       bottom
       cliphist
       cmake
-      direnv
       fastfetch
       file
       fzf

@@ -10,7 +10,6 @@
       bottom
       cliphist
       cmake
-      direnv
       fastfetch
       file
       fzf
