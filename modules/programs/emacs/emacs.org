@@ -3,9 +3,10 @@
 
 This file tangles into ~emacs.nix~, ~doom.d/config.el~, ~doom.d/init.el~ and ~doom.d/packages.el.~
 
-* I was seduced by the Dark side. They had better cookies.
+* Emacs got me with cookies.
 
 [[../../../assets/kermit.jpg]]
+
 
 I never thought I'd say this, but I completely switched from [[https://neovim.io/][neovim]] to [[https://www.gnu.org/software/emacs/][emacs]], mainly because of [[https://orgmode.org/][Org-mode]]. I would never have switched if I couldn't have my vim keybindings, and those are very well supported via evil-mode, which we can get in [[https://github.com/doomemacs/doomemacs][Doom Emacs]], a ready made distribution of Emacs that is optimized and caters to vimers like me. There is a lot to learn still, and Emacs is a completely new world for me, so treat this document as a living journey through learning Emacs.
 
@@ -25,9 +26,9 @@ Now the next question might be: Why Emacs?
 41
 
 I'm mainly a hobbyist. I like diving into new things and learning.
-Emacs is a program released in 1985, {{{results(emacs-age)}}} years ago. It's a bit older than me, by some months. Being from another time but still actively developed and maintained to this day, Emacs evolved into its own beast, the product of a divergent evolution with its very own ethos. Growing in isolation from UI/UX trends and standards over these four decades, Emacs forged its own path. A very different architecture creates a nomenclature so alien it sometimes feels obscure, almost occult in a way. There is definitely something magical in there.
+Emacs is a program released in 1985, 41 years ago. It's a bit older than me, by some months. Being from another time but still actively developed and maintained to this day, Emacs evolved into its own beast, the product of a divergent evolution with its very own ethos. Growing in isolation from UI/UX trends and standards over these four decades, Emacs forged its own path. A very different architecture creates a nomenclature so alien it sometimes feels obscure, almost occult in a way. There is definitely something magical in there.
 
-In {{{results(emacs-age)}}} years, I've changed so much that it might be hard to chart me as a single individual line. Not so with Emacs. Its roots are still there and vibrant.
+In 40 years, I've changed so much that it might be hard to chart me as a single individual line. Not so with Emacs. Its roots are still there and vibrant.
 
 Emacs sells itself as a text editor, but I would argue against that. It's really an Elisp interpreter that went haywire trying to recreate an OS. That interpreter affords us the magic that Emacs summons as it becomes this mutable platform that blurs the line between writing in an application and writing the application itself.
 
