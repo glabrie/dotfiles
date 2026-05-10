@@ -5,6 +5,7 @@
   { ... }:
   {
     networking.networkmanager.enable = true;
+    services.tailscale.enable = true;
   };
 
   flake.modules.homeManager.networking =
