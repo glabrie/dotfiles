@@ -33,16 +33,16 @@ $line_break$character"""
 palette = 'tokyo_night'
 
 [palettes.tokyo_night]
-color_fg0 = '#c0caf5'
-color_bg1 = '#1f2335'
-color_bg3 = '#414868'
-color_blue = '#7aa2f7'
-color_aqua = '#73daca'
+color_fg0 = '#e3e5e5'
+color_bg1 = '#1d2230'
+color_bg3 = '#1d2230'
+color_blue = '#212736'
+color_aqua = '#394260'
 color_green = '#9ece6a'
-color_orange = '#ff9e64'
+color_orange = '#a3aed2'
 color_purple = '#bb9af7'
 color_red = '#f7768e'
-color_yellow = '#e0af68'
+color_yellow = '#769ff0'
 
 [os]
 disabled = false
@@ -159,11 +159,11 @@ format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
 [docker_context]
 symbol = ""
 style = "bg:color_bg3"
-format = '[[ $symbol( $context) ](fg:#73daca bg:color_bg3)]($style)'
+format = '[[ $symbol( $context) ](fg:#e3e5e5 bg:color_bg3)]($style)'
 
 [conda]
 style = "bg:color_bg3"
-format = '[[ $symbol( $environment) ](fg:#73daca bg:color_bg3)]($style)'
+format = '[[ $symbol( $environment) ](fg:#e3e5e5 bg:color_bg3)]($style)'
 
 [pixi]
 style = "bg:color_bg3"
