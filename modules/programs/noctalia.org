@@ -106,7 +106,7 @@ Noctalia comes with a number of preset color schemes that you can set, as well a
 
 #+begin_src nix
         colorSchemes = {
-          predefinedScheme = "Gruvbox";
+          predefinedScheme = "Tokyo-Night";
           darkMode = true;
         };
 #+end_src

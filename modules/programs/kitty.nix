@@ -4,7 +4,7 @@
   {
     programs.kitty = {
       enable = true;
-      themeFile = "gruvbox-dark";
+      themeFile = "tokyo_night_night";
       shellIntegration.enableZshIntegration = true;
       font = {
         name = "JetBrainsMono Nerd Font";
