@@ -26,6 +26,9 @@ Here is my very basic nushell config, with some aliases I use everyday.
   {
     programs.nushell = {
       enable = true;
+      extraEnv = ''
+        $env.PATH = ($env.PATH | prepend $"($env.HOME)/.config/emacs/bin")
+      '';
       extraConfig = ''
         $env.config.show_banner = false
         $env.config.completions.case_sensitive = false

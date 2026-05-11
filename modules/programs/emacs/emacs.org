@@ -309,14 +309,17 @@ The init.el serves as an options menu with many possibilities. There are more th
 
 Now That we've set up our options, we can configure a lot of Emacs (and Doom) through ~config.el~.
 
-First a bit of boilerplate. We'll set up a few things required for [[https://orgmode.org/][Org-mode]], [[https://github.com/bbatsov/projectile][Projectile]] and setting the term to zsh because I couldn't make nushell work (for now) reliably inside emacs. Finally I'm setting my name and email.
+First a bit of boilerplate. We'll set up a few things required for [[https://orgmode.org/][Org-mode]], [[https://github.com/bbatsov/projectile][Projectile]] and setting the term to bash because I couldn't make nushell work (for now) reliably inside emacs. Finally I'm setting my name and email.
 
 #+begin_src emacs-lisp
 (setq org-directory "~/org/"
       org-roam-directory "~/org/roam"
       projectile-project-search-path '("~/projects/")
       user-full-name "Guillaume Labrie"
-      user-mail-address "glabrie@proton.me")
+      user-mail-address "glabrie@proton.me"
+      shell-file-name (executable-find "bash"))
+
+(add-to-list 'safe-local-eval-forms '(git-auto-commit-mode 1))
 #+end_src
 
 **** Aesthetics and themes
@@ -343,7 +346,7 @@ It makes for a nice separation that make prose look like documentation, while th
 I'm using Tokyo Night everywhere else in the system, so this gets applied here as well.
 
 #+begin_src emacs-lisp
-(setq doom-theme 'doom-gruvbox
+(setq doom-theme 'doom-tokyo-night
       fancy-splash-image (expand-file-name "~/.dotfiles/assets/Aperture_Science_70s_Logo.xpm")
       +dashboard-functions '(+dashboard-widget-banner
                              +dashboard-widget-footer
@@ -401,8 +404,13 @@ Normally, org-mode doesn't parse your notes recursively for todos, for performan
          " ┄┄┄┄┄ " "┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄")
        org-agenda-current-time-string
        "◀── now ─────────────────────────────────────────────────"
-       org-agenda-files
-         (directory-files-recursively org-directory "\\.org$")))
+       org-agenda-files '("~/org/tasks.org")
+       org-archive-location "~/org/archive.org::datetree/")
+
+(add-hook 'org-after-todo-state-change-hook
+          (lambda ()
+            (when (equal org-state "DONE")
+              (org-archive-subtree)))))
 
 (use-package! org-modern
  :hook (org-mode . org-modern-mode)
@@ -414,14 +422,34 @@ Normally, org-mode doesn't parse your notes recursively for todos, for performan
 (add-hook 'text-mode-hook #'mixed-pitch-mode)
 #+end_src
 
+**** Daily setup
+
+A single command to start the day: opens today's org-roam daily note (creating it if needed) and inserts the standard sections if they aren't already there. Safe to run more than once.
+
+#+begin_src emacs-lisp
+(defun my/daily-setup ()
+  "Open today's org-roam daily note with standard sections."
+  (interactive)
+  (org-roam-dailies-goto-today "d")
+  (save-excursion
+    (goto-char (point-min))
+    (unless (search-forward "* Morning Pages" nil t)
+      (goto-char (point-max))
+      (unless (bolp) (insert "\n"))
+      (insert "* Morning Pages\n\n* Fleeting Notes\n"))))
+#+end_src
+
 **** Keybindings
 
 The rare custom keybinds I run are to get to my notes faster, and a graph that you'll look at once, go "wow, that's neat" and probably never open again, just like in ~Obsidian~. Yay!
 
 #+begin_src emacs-lisp
 (map! :leader
-      :desc "Capture daily" "n d" #'org-roam-dailies-capture-today
+      :desc "Daily setup" "n d" #'my/daily-setup
       :desc "Go to daily" "n D" #'org-roam-dailies-goto-today
+      :desc "Daily Quest" "n q" (cmd! (org-capture nil "q"))
+      :desc "Event" "n e" (cmd! (org-capture nil "e"))
+      :desc "Weekly review" "n r w" (cmd! (org-roam-dailies-capture-today nil "w"))
       :desc "Org-roam UI graph" "n r g" #'org-roam-ui-mode
       :desc "Open emacs.org" "f p" (cmd! (find-file (expand-file-name "~/.dotfiles/modules/programs/emacs/emacs.org"))))
 #+end_src
@@ -462,6 +490,28 @@ The rare custom keybinds I run are to get to my notes faster, and a graph that y
 
 **** Org-capture global capture key
 
+Two capture templates: fleeting notes go into today's daily page, quests go under =* Dailies= in =tasks.org=. The global Niri shortcut (=Mod+C=) calls the fleeting template directly, skipping the menu.
+
+#+begin_src emacs-lisp
+(setq org-capture-templates
+  '(("f" "Fleeting Note" entry
+     (file+headline
+      (lambda ()
+        (expand-file-name
+         (format-time-string "%Y-%m-%d.org")
+         (expand-file-name org-roam-dailies-directory org-roam-directory)))
+      "Fleeting Notes")
+     "** %?"
+     :empty-lines 1)
+    ("q" "Daily Quest" entry
+     (file+headline "~/org/tasks.org" "Dailies")
+     "** TODO %? %t"
+     :empty-lines 1)
+    ("e" "Event" entry
+     (file+headline "~/org/tasks.org" "Events")
+     "** %? %^T :event:"
+     :empty-lines 1)))
+#+end_src
 
 #+begin_src emacs-lisp
 (defun +my/org-capture-fullscreen-in-dedicated-frame (&rest _)
@@ -543,4 +593,5 @@ I have this weird thing where since I've switched to emacs as a daemon, it doesn
 (package! org-roam-ui)
 (package! mixed-pitch)
 (package! indent-bars)
+(package! git-auto-commit-mode)
 #+end_src
