@@ -32,6 +32,7 @@ in
   xdg.userDirs = {
     enable = true;
     createDirectories = true;
+    setSessionVariables = false;
     desktop = null;
     documents = "/home/${username}/documents";
     download = "/home/${username}/downloads";
