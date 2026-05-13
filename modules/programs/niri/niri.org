@@ -263,6 +263,14 @@ window-rule {
 }
 #+end_src
 
+#+begin_src kdl
+window-rule {
+    match app-id="steam"
+    exclude title="^Steam$"
+    open-floating true
+}
+#+end_src
+
 Before, I used a lot of transparency  in my config. I got rid of it all! ...and lasted about one week. Zen still has a weird problem with transparency, doesn't mix well with XDG decorations so it will render the border as a full color background for you to sear your eyes on. We're telling it harshly to stop being an ass.
 
 [2026-05-04] Removing transparency for now, it visually clashes with Emacs.

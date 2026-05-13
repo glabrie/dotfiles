@@ -90,6 +90,12 @@ window-rule {
 }
 
 window-rule {
+    match app-id="steam"
+    exclude title="^Steam$"
+    open-floating true
+}
+
+window-rule {
     match app-id=r#"^zen$"#
     draw-border-with-background false
     opacity 0.8

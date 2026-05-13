@@ -2,19 +2,14 @@
 { inputs, ... }:
 {
   flake.modules.nixos.networking =
-  { pkgs, ... }:
+  { pkgs, config, ... }:
   {
     networking.networkmanager.enable = true;
     services.tailscale.enable = true;
-
-    systemd.services.tailscale-resume = {
-      description = "Restart tailscaled after resume";
-      wantedBy = [ "post-resume.target" ];
-      after = [ "post-resume.target" ];
-      serviceConfig = {
-        Type = "oneshot";
-        ExecStart = "${pkgs.systemd}/bin/systemctl restart tailscaled.service";
-      };
+    networking.firewall = {
+      enable = true;
+      trustedInterfaces = [ "tailscale0" ];
+      allowedUDPPorts = [ config.services.tailscale.port ];
     };
   };
 

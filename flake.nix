@@ -29,6 +29,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    concord.url = "github:chojs23/concord";
+
     # Niri flake because I need that BLUR
     niri = {
       url = "github:YaLTeR/niri";
