@@ -11,45 +11,41 @@ This file tangles into ~emacs.nix~, ~doom.d/config.el~, ~doom.d/init.el~ and ~do
 [[../../../assets/kermit.jpg]]
 
 I'm mainly a hobbyist. I like diving into new things and learning.
-Emacs is a program released in 1985, 41 years ago. It's a bit older than me, by some months. Being from another time but still actively developed and maintained to this day, Emacs evolved into its own beast, the product of a divergent evolution with its very own ethos. Growing in isolation from UI/UX trends and standards over these four decades, Emacs forged its own path. A very different architecture creates a nomenclature so alien it sometimes feels obscure, almost occult in a way. There is definitely something magical in there.
+ [[https://www.gnu.org/software/emacs/][Emacs ]]is a program released in 1985, 41 years ago. It's a bit older than me, by some months. Being from another time but still actively developed and maintained to this day, Emacs evolved into its own beast, the product of a divergent evolution with its very own ethos. Growing in isolation from UI/UX trends and standards over these four decades, Emacs forged its own path. A very different architecture creates a nomenclature so alien it sometimes feels obscure, almost occult in a way. There is definitely something magical in there.
 
 In 40 years, I've changed so much that it might be hard to chart me as a single individual line. Not so with Emacs. Its roots are still there and vibrant.
 
-Emacs sells itself as a text editor, but I would argue (like many) against that. It's really an Emacs lisp interpreter that went haywire trying to recreate an OS. That interpreter affords us the magic that Emacs summons as it becomes this mutable platform that blurs the line between writing in an application and writing the application itself.
+Emacs sells itself as a text editor, but I would argue (like many) that it's really an Emacs lisp interpreter that went haywire trying to recreate an OS. That interpreter affords us the magic that Emacs summons as it becomes this mutable platform that blurs the line between writing in an application and writing the application itself.
 
 Now, that Lisp machine can do anything your mind conjures. Years of hacks, packages, extensions are at your fingertips.
 
 Before, I was very happy with a combination of apps and Neovim.
-I never thought I'd say this, but I completely switched from [[https://neovim.io/][neovim]] to [[https://www.gnu.org/software/emacs/][emacs]], mainly because of [[https://orgmode.org/][Org-mode]]. I would never have switched if I couldn't have my vim keybindings, and those are very well supported via evil-mode, which we can get in [[https://github.com/doomemacs/doomemacs][Doom Emacs]], a ready made distribution of Emacs that is optimized and caters to vimers like me. There is a lot to learn still, and Emacs is a completely new world for me, so treat this document as a living journey through learning Emacs.
 
-As for why I am *not* being entirely declarative and nixxy here, you can look [[*Nix and Doom Unstraightened][here]]  for a more thorough answer than this one: I don't like it, and I'm being practical.
-
-Now the next question might be: Why Emacs?
-
-** All-in?
 
 Emacs can be as simple or as complicated as you want it to be. I've already replaced a good number of things with it. The spells it can invoke are near-infinite. Here's what it replaced in my life so far.
 
-*** Neovim
+** Neovim
 
 It could've been just a code editor for me, replacing Neovim. Evil-mode gives me my Vim keybindings and Doom-Emacs comes with Projectile, a fair replacement for my dear Telescope. Tree-sitter supports all the languages I know of and many I didn't. And it comes with Magit, the single best git client ever made. It's full-featured and unified, but adds the ability to hack it at runtime to make it do what you want. I was happy in Neovim. I could've stayed there for the rest of my life. But it's the things it adds on top of it that I truly love.
 
-*** Obsidian
+** Obsidian
 
 One of the things it adds is Org-mode, the major mode that uses Org, the plain text format of my dreams. All my notes are now in Org-mode, available in the same application I'm already writing and coding in. Again, Obsidian is a great app that I loved using for years. But Org-mode is great AND it's in Emacs. I used to love outliners like Roam, Logseq, Workflowy, and Tana. I had one of these apps installed at one point or another in the last ten years, but always came back to Obsidian because of how open it is (Logseq is similarly open, but has been going through a messy development while their sync solution made me lose data. I jumped off pretty quickly after that.)
 Again, Emacs comes in with the solution: Org-roam. It's org files as a node tree, creating daily nodes that you can link to and from with backlinks. Works great for me and my brain! I've also added a quick capture hotkey to Niri, so that when I'm not in Emacs, I can still quickly jot down something. That goes straight to the daily page.
 
-*** Google Calendar, TickTick
+** Google Calendar, TickTick
 
 Did I mention that Org-mode comes with an agenda and TODO management built-in? Since Emacs is always open, I'm one chord away from my agenda and tasks at all times. I sync them with a WebDAV server under Tailscale to an application on my iPhone called [[https://www.beorgapp.com/][Beorg]] for portability.
 
-*** Scrivener
+** Scrivener
 
 I write, and I love using novel writing apps like Scrivener to keep everything in one place, but allow me to separate chapters and scenes so that I can reorder or rewrite them easily instead of searching through a massive Word document. Say hello to [[https://github.com/sympodius/org-novelist][Org-novelist]], an extension of Org-mode that does exactly that!... In the same place I do all my coding, writing, management...
 
-*** Email clients
+** Email clients
 
 My needs are fairly simple, I'm not a power email user in any way. I replaced my ProtonMail web client with [[https://github.com/emacsmirror/mu4e][mu4e]] without too much trouble. Since setting it up, I've been very happy keeping a workspace open with mu4e and switching to it when I see a new email come in.
+
+As for why I am *not* being entirely declarative and nixxy here, you can look [[*Nix and Doom Unstraightened][here]]  for a more thorough answer than this one: I don't like it, and I'm being practical.
 
 * Learning center
 ** Org-mode and Org-roam
