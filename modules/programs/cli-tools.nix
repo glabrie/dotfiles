@@ -1,4 +1,4 @@
-{ ... }:
+{ inputs, ... }:
 {
   flake.modules.nixos.cli-tools =
   { pkgs, ... }:
@@ -27,6 +27,8 @@
       yazi
       yt-dlp
       zellij
+      inputs.concord.packages.${pkgs.stdenv.hostPlatform.system}.default
     ];
+
   };
 }

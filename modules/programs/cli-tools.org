@@ -6,7 +6,7 @@ This file tangles into ~cli-tools.nix~
 Small definition module adding cli utilities that are needed on every system.
 
 #+begin_src nix
-{ ... }:
+{ inputs, ... }:
 {
   flake.modules.nixos.cli-tools =
   { pkgs, ... }:
@@ -35,7 +35,9 @@ Small definition module adding cli utilities that are needed on every system.
       yazi
       yt-dlp
       zellij
+      inputs.concord.packages.${pkgs.stdenv.hostPlatform.system}.default
     ];
+
   };
 }
 #+end_src
