@@ -49,13 +49,80 @@ Here's what I use in this config, on a daily basis!
 Here's a quick top down view of the system:
 
 #+begin_src text
-.
-'-- modules
-    |-- hosts            # Building up the hosts, with programs only meant for that particular computer
-    |-- nix              # Nix tools
-    |-- programs         # Discrete, self-contained features. Like Niri, or Noctalia.
-    |-- system           # Building generic desktops and settings, which are services needed by the desktops
-    |-- users            # Yup, you guessed right!
+.dotfiles/
+├── assets/
+├── modules/
+│   ├── hosts/
+│   │   └── theseus/
+│   │       ├── hardware.nix
+│   │       ├── theseus-config.nix        ← generated
+│   │       ├── theseus-config.org
+│   │       └── users/
+│   │           └── ghil/
+│   │               ├── programs.nix      ← generated
+│   │               └── programs.org
+│   ├── nix/
+│   │   ├── home-manager.nix              ← generated
+│   │   └── home-manager.org
+│   ├── programs/
+│   │   ├── emacs/
+│   │   │   ├── emacs.nix                 ← generated
+│   │   │   └── emacs.org
+│   │   ├── fastfetch/
+│   │   │   ├── config.jsonc              ← generated
+│   │   │   ├── fastfetch.nix             ← generated
+│   │   │   └── fastfetch.org
+│   │   ├── niri/
+│   │   │   ├── config.kdl                ← generated
+│   │   │   ├── niri.nix                  ← generated
+│   │   │   ├── niri.org
+│   │   │   └── niri-settings.nix
+│   │   ├── starship/
+│   │   │   ├── starship.nix              ← generated
+│   │   │   ├── starship.org
+│   │   │   └── starship.toml             ← generated
+│   │   ├── cli-tools.nix                 ← generated
+│   │   ├── cli-tools.org
+│   │   ├── kitty.nix                     ← generated
+│   │   ├── kitty.org
+│   │   ├── mpd.nix                       ← generated
+│   │   ├── mpd.org
+│   │   ├── noctalia.nix                  ← generated
+│   │   ├── noctalia.org
+│   │   ├── nushell.nix                   ← generated
+│   │   ├── nushell.org
+│   │   ├── spotify.nix                   ← generated
+│   │   ├── spotify.org
+│   │   └── zsh.nix
+│   ├── system/
+│   │   ├── settings/
+│   │   │   ├── audio.nix
+│   │   │   ├── bluetooth.nix
+│   │   │   ├── firmware.nix
+│   │   │   ├── flatpak.nix
+│   │   │   ├── fonts.nix
+│   │   │   ├── gaming.nix
+│   │   │   ├── greetd.nix
+│   │   │   ├── gtk.nix
+│   │   │   ├── locale.nix
+│   │   │   ├── networking.nix
+│   │   │   ├── nvidia.nix
+│   │   │   ├── security.nix
+│   │   │   ├── storage.nix
+│   │   │   ├── systemd-boot.nix
+│   │   │   └── touchpad.nix
+│   │   └── types/
+│   │       ├── system-base.nix
+│   │       └── system-desktop.nix
+│   └── users/
+│       └── ghil/
+│           ├── ghil.nix                  ← generated
+│           └── ghil.org
+├── flake.lock
+├── flake.nix
+├── rebuild.nu                            ← generated
+├── rebuild.org
+└── README.org
 #+end_src
 
 * Dendriwhat now?
