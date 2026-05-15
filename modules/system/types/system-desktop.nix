@@ -16,6 +16,7 @@
         networking
         niri
         storage
+        virtualisation
       ];
   };
 

@@ -10,7 +10,6 @@
         cli-tools
         firmware
         home-manager
-        zsh
       ];
     
     # I know Stallman wouldn't approve. I don't care.
@@ -38,6 +37,8 @@
     # at the tradeoff of more RAM usage. 
     # In this economy?!?
     nix.settings.download-buffer-size = 524288000;
+
+    nix.channel.enable = false;
   };
 
   flake.modules.homeManager.system-base =
@@ -47,7 +48,6 @@
     [
       mpd
       starship
-      zsh
     ];
 
     home.homeDirectory = "/home/${config.home.username}";

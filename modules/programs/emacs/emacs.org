@@ -6,8 +6,6 @@ This file tangles into ~emacs.nix~, ~doom.d/config.el~, ~doom.d/init.el~ and ~do
 * Emacs got me with cookies.
 -----
 
-
-
 [[../../../assets/kermit.jpg]]
 
 I'm mainly a hobbyist. I like diving into new things and learning.
@@ -19,18 +17,17 @@ Emacs sells itself as a text editor, but I would argue (like many) that it's rea
 
 Now, that Lisp machine can do anything your mind conjures. Years of hacks, packages, extensions are at your fingertips.
 
-Before, I was very happy with a combination of apps and Neovim.
-
-
-Emacs can be as simple or as complicated as you want it to be. I've already replaced a good number of things with it. The spells it can invoke are near-infinite. Here's what it replaced in my life so far.
+Before, I was very happy with a combination of apps and Neovim. I didn't miss anything. But then I started seeing videos about Org-mode. It was tempting. a markup language, like [[https://en.wikipedia.org/wiki/Markdown][Markdown]], but somehow has these very cool capabilities when mixed with Emacs. The joke about living in Emacs might be a tiny bit exaggerated, but not that much. So I took the plunge, and a couple of weeks later, here's what I replaced in my old setup with just Emacs:
 
 ** Neovim
 
-It could've been just a code editor for me, replacing Neovim. Evil-mode gives me my Vim keybindings and Doom-Emacs comes with Projectile, a fair replacement for my dear Telescope. Tree-sitter supports all the languages I know of and many I didn't. And it comes with Magit, the single best git client ever made. It's full-featured and unified, but adds the ability to hack it at runtime to make it do what you want. I was happy in Neovim. I could've stayed there for the rest of my life. But it's the things it adds on top of it that I truly love.
+It could've been just a code editor for me, replacing Neovim. Evil-mode gives me my Vim keybindings and Doom-Emacs comes with Projectile, a fair replacement for my dear Telescope. Tree-sitter supports all the languages I know of and many I didn't. And it comes with Magit, the single best git client ever made. It's full-featured and unified, but adds the ability to hack it at runtime to make it do what you want. I was happy in Neovim. I could've stayed there for the rest of my life. But it's the things it adds on top of it that I truly love. As a code editor, it's top of its class, just like Neovim.
 
 ** Obsidian
 
-One of the things it adds is Org-mode, the major mode that uses Org, the plain text format of my dreams. All my notes are now in Org-mode, available in the same application I'm already writing and coding in. Again, Obsidian is a great app that I loved using for years. But Org-mode is great AND it's in Emacs. I used to love outliners like Roam, Logseq, Workflowy, and Tana. I had one of these apps installed at one point or another in the last ten years, but always came back to Obsidian because of how open it is (Logseq is similarly open, but has been going through a messy development while their sync solution made me lose data. I jumped off pretty quickly after that.)
+One of the things it adds over that text/code editor is [[https://orgmode.org/][Org-mode]]. Org-mode is a[[*Modes][ major mode]] of Emacs that uses the Org plain text format. All of my personal notes and miserable attempts at novel writing are available in the same application I'm already coding in. Obsidian is a great app that I loved and recommended for years, and I still do, but Org-mode is great AND it's in Emacs.
+I used to love outliners like Roam, Logseq, Workflowy, and Tana.
+I had one of these apps installed at one point or another in the last ten years, but always came back to Obsidian because of how open it is (Logseq is similarly open, but has been going through a messy development while their sync solution made me lose data. I jumped off pretty quickly after that.)
 Again, Emacs comes in with the solution: Org-roam. It's org files as a node tree, creating daily nodes that you can link to and from with backlinks. Works great for me and my brain! I've also added a quick capture hotkey to Niri, so that when I'm not in Emacs, I can still quickly jot down something. That goes straight to the daily page.
 
 ** Google Calendar, TickTick
@@ -54,12 +51,30 @@ As for why I am *not* being entirely declarative and nixxy here, you can look [[
 A GNU Emacs major mode for keeping notes, authoring documents, computational notebooks, literate programming, maintaining to-do lists, planning projects, and more — in a fast and effective plain text system.
 #+end_quote
 
-~Org~ is a plain text file format not unlike markdown with a variety of awesome features. ~Org-mode~ is a major mode of ~Emacs~ taking advantage of that format.
+Org is a plain text file format not unlike markdown with a variety of awesome features. Org-mode is a major mode of Emacs taking advantage of that format.
 
-*** Use cases?
+It has various functions for tables (that can act as spreadsheets, much more than simple tables in markdown), has export and publish options and even a clocking function, to track time. It's also highly extensible, with numerous packages to add to Org-mode.
 
+It's that big, while still being at it's heart just a plain text file.
 
-*** Grammar
+*** An example of the format
+
+#+begin_src org
+,#+title: An example of an org format file
+,#+author: Ghil
+,#+date: <2026-05-14 Thu>
+
+Metadata about the file are found up top, with a #+ prefix. There are also options for specifying the language, an html meta description and export options, like tangling, which I'll explain in the literate programming section.
+
+,* Headers use asterisks
+,** And can be nested
+,*** infinitely.
+
+But headers are more than just titles. They can be tasks as well, tracked across all your org files with the agenda function inside Emacs (Evil-mode: SPC o a , vanilla: C-c a ). You can set yourself a TODO, you can either schedule it or put a deadline on it, even place some sub-tasks in it and get a progress percentage automatically on that header.
+
+,* TODO Finish writing NixOS literate config [44%]
+,SCHEDULED: <2044-06-01 Mon>
+#+end_src
 
 *** Literate programming
 *** Org-roam
@@ -408,6 +423,11 @@ Normally, org-mode doesn't parse your notes recursively for todos, for performan
        org-modern-block-fringe nil))
 
 (add-hook 'text-mode-hook #'mixed-pitch-mode)
+
+(use-package! olivetti
+  :hook (org-mode . olivetti-mode)
+  :config
+  (setq olivetti-body-width 120))
 #+end_src
 
 **** Daily setup
@@ -579,6 +599,7 @@ I have this weird thing where since I've switched to emacs as a daemon, it doesn
 (package! mu4e :built-in t)
 (package! kdl-mode)
 (package! org-modern)
+(package! olivetti)
 (package! org-roam-ui)
 (package! mixed-pitch)
 (package! indent-bars)

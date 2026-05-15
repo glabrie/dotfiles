@@ -16,7 +16,7 @@ in
       name = "${username}";
       isNormalUser = true;
       description = "Guillaume Labrie";
-      extraGroups = [ "networkmanager" "wheel" ];
+      extraGroups = [ "networkmanager" "wheel" "libvirtd" ];
       shell = pkgs.nushell;
     };
 
