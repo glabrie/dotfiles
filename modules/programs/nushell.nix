@@ -10,7 +10,7 @@
       '';
       extraConfig = ''
         if ("TMUX" not-in $env) {
-          tmux new-session -A -s main
+          tmux new-session
         }
 
         $env.config.show_banner = false

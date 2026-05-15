@@ -31,7 +31,7 @@ Here is my very basic nushell config, with some aliases I use everyday.
       '';
       extraConfig = ''
         if ("TMUX" not-in $env) {
-          tmux new-session -A -s main
+          tmux new-session
         }
 
         $env.config.show_banner = false
