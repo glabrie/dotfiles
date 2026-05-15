@@ -102,11 +102,11 @@ Note that currently, there's a bug I'm having where ~barType~ is not always set 
 
 * Colorscheme
 
-Noctalia comes with a number of preset color schemes that you can set, as well as setting your own colors. You can get a good template for this [[https://docs.noctalia.dev/getting-started/nixos/#theme-colors][here]]. I'm normally very gruvbox, but currently running a Tokyo Night desktop.
+Noctalia comes with a number of preset color schemes that you can set, as well as setting your own colors. You can get a good template for this [[https://docs.noctalia.dev/getting-started/nixos/#theme-colors][here]]. I'm normally very gruvbox, but currently running a Nord desktop.
 
 #+begin_src nix
         colorSchemes = {
-          predefinedScheme = "Tokyo-Night";
+          predefinedScheme = "Nord";
           darkMode = true;
         };
 #+end_src

@@ -18,7 +18,7 @@ xdg.portal = {
   };
 };
 
-environment.systemPackages = [ pkgs.xwayland-satellite ];
+environment.systemPackages = [ pkgs.xwayland-satellite pkgs.nordic ];
 
   };
 }

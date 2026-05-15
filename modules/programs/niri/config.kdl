@@ -2,7 +2,7 @@ spawn-at-startup "noctalia-shell"
 
 environment {
     ELECTRON_OZONE_PLATFORM_HINT "auto"
-    GTK_THEME "Tokyonight-Dark"
+    GTK_THEME "Nordic"
 }
 
 debug {
@@ -54,7 +54,7 @@ workspace ""
 layout {
     gaps 12
 
-center-focused-column "never"
+always-center-single-column
 preset-column-widths {
     proportion 0.33333
     proportion 0.66667
@@ -62,9 +62,9 @@ preset-column-widths {
 default-column-width { proportion 0.5; }
 
 border {
-    width 2
-    active-color "#7aa2f7"
-    inactive-color "#414868"
+    width 4
+    active-color "#88c0d0"
+    inactive-color "#3b4252"
 }
 focus-ring {
     off
@@ -80,7 +80,7 @@ shadow {
 }
 
 window-rule {
-  geometry-corner-radius 12
+  geometry-corner-radius 6
   clip-to-geometry true
 }
 

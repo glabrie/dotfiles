@@ -363,7 +363,7 @@ It makes for a nice separation that make prose look like documentation, while th
 I'm using Tokyo Night everywhere else in the system, so this gets applied here as well.
 
 #+begin_src emacs-lisp
-(setq doom-theme 'doom-tokyo-night)
+(setq doom-theme 'doom-nord)
 #+end_src
 
 ***** Doom dashboard
@@ -406,10 +406,10 @@ As I'm coming from vim, and still uses the keybindings daily, I need my relative
   :hook ((prog-mode yaml-mode) . indent-bars-mode))
 #+end_src
 
-***** Org-mode and org-modern
+**** Org-mode
+***** Options, agenda
 
-Let's customize a Org-mode a bit.
-[[https://github.com/minad/org-modern][Org-modern]] is a nice way to format ~Org-mode~ automatically. It's very pretty, customizable. I recommend it!
+Let's customize a bit how Org-mode looks, along with sprucing up the agenda
 
 #+begin_src emacs-lisp
 (after! org
@@ -432,7 +432,13 @@ Let's customize a Org-mode a bit.
        "◀── now ─────────────────────────────────────────────────"
        org-agenda-files '("~/org/tasks.org")
        org-archive-location "~/org/archive.org::datetree/")
+#+end_src
 
+***** Org-modern
+
+[[https://github.com/minad/org-modern][Org-modern]] is a nice way to format ~Org-mode~ automatically. It's very pretty, customizable. I recommend it!
+
+#+begin_src emacs-lisp
 (add-hook 'org-after-todo-state-change-hook
           (lambda ()
             (when (equal org-state "DONE")
@@ -442,11 +448,102 @@ Let's customize a Org-mode a bit.
  :hook (org-mode . org-modern-mode))
 
 (add-hook 'text-mode-hook #'mixed-pitch-mode)
+#+end_src
 
+***** Olivetti
+
+Olivetti is a nice little package that does only one thing: If your window (the buffer inside, not the frame, thank you Emacs for the confusion) is too large for readability, it just shrinks the text to a manageable size.
+
+#+begin_src emacs-lisp
 (use-package! olivetti
   :hook (org-mode . olivetti-mode)
   :config
   (setq olivetti-body-width 120))
+#+end_src
+
+***** Org-roam
+
+#+begin_src emacs-lisp
+(after! org
+  (setq org-capture-templates
+    '(("f" "Fleeting Note" entry
+       (file+headline
+        (lambda ()
+          (expand-file-name
+           (format-time-string "%Y-%m-%d.org")
+           (expand-file-name org-roam-dailies-directory org-roam-directory)))
+        "Fleeting Notes")
+       "** %?"
+       :empty-lines 1)
+      ("q" "Daily Quest" entry
+       (file+headline "~/org/tasks.org" "Dailies")
+       "** TODO %? %t"
+       :empty-lines 1)
+      ("e" "Event" entry
+       (file+headline "~/org/tasks.org" "Events")
+       "** %? %^T :event:"
+       :empty-lines 1))))
+#+end_src
+
+#+begin_src emacs-lisp
+(after! org-roam
+  (require 'org-roam-ui)
+  (setq org-roam-ui-sync-theme t
+        org-roam-ui-follow t
+        org-roam-ui-update-on-save t
+        org-roam-ui-open-on-start t))
+
+(setq org-roam-dailies-capture-templates
+        '(("d" "default" entry
+           "* %?"
+           :target (file+head "%<%Y-%m-%d>.org"
+                              "#+title: %<%Y-%m-%d>\n"))
+          ("w" "weekly review" entry
+           "* %<%Y-W%V> Weekly review                                  :weekly:
+[[id:WEEKLY-REVIEW-NODE-ID][Weekly Review]]
+
+,** Summary of the week
+%?
+
+,** Wins
+
+,** Misses
+
+,** What to keep in mind moving forward
+
+,** Planning the next: What needs doing?
+"
+           :target (file+head "%<%Y-%m-%d>.org"
+                              "#+title: %<%Y-%m-%d>\n"))))
+#+end_src
+
+***** Org-capture global capture key
+
+Two capture templates: fleeting notes go into today's daily page, quests go under =* Dailies= in =tasks.org=. The global Niri shortcut (=Mod+C=) calls the fleeting template directly, skipping the menu.
+
+This first blocks sets up
+
+#+begin_src emacs-lisp
+
+(defconst +my/org-capture-frame-name "Org-capture to daily note")
+(defun +my/org-capture-frame (template) (interactive)
+       (if (not (equal +my/org-capture-frame-name (frame-parameter nil 'name)))
+           (make-frame `((name . ,+my/org-capture-frame-name))))
+
+       (select-frame-by-name +my/org-capture-frame-name)
+       (delete-other-windows)
+
+       (defun org-capture-after-finalize-cleanup ()
+         (advice-remove 'org-capture-place-template 'delete-other-windows)
+         (remove-hook 'org-capture-after-finalize-hook 'org-capture-after-finalize-cleanup)
+
+         (select-frame-by-name +my/org-capture-frame-name)
+         (delete-frame nil))
+
+       (add-hook 'org-capture-after-finalize-hook 'org-capture-after-finalize-cleanup)
+       (advice-add #'org-capture-place-template :after 'delete-other-windows)
+
+       (org-capture nil template))
 #+end_src
 
 **** Daily setup
@@ -494,89 +591,6 @@ The rare custom keybinds I run are to get to my notes faster, and a graph that y
       :desc "Weekly review" "n r w" (cmd! (org-roam-dailies-capture-today nil "w"))
       :desc "Org-roam UI graph" "n r g" #'org-roam-ui-mode
       :desc "Open emacs.org" "f p" (cmd! (find-file (expand-file-name "~/.dotfiles/modules/programs/emacs/emacs.org"))))
-#+end_src
-
-**** Org-roam
-
-#+begin_src emacs-lisp
-(after! org-roam
-  (require 'org-roam-ui)
-  (setq org-roam-ui-sync-theme t
-        org-roam-ui-follow t
-        org-roam-ui-update-on-save t
-        org-roam-ui-open-on-start t))
-
-(setq org-roam-dailies-capture-templates
-        '(("d" "default" entry
-           "* %?"
-           :target (file+head "%<%Y-%m-%d>.org"
-                              "#+title: %<%Y-%m-%d>\n"))
-          ("w" "weekly review" entry
-           "* %<%Y-W%V> Weekly review                                  :weekly:
-[[id:WEEKLY-REVIEW-NODE-ID][Weekly Review]]
-
-,** Summary of the week
-%?
-
-,** Wins
-
-,** Misses
-
-,** What to keep in mind moving forward
-
-,** Planning the next: What needs doing?
-"
-           :target (file+head "%<%Y-%m-%d>.org"
-                              "#+title: %<%Y-%m-%d>\n"))))
-#+end_src
-
-**** Org-capture global capture key
-
-Two capture templates: fleeting notes go into today's daily page, quests go under =* Dailies= in =tasks.org=. The global Niri shortcut (=Mod+C=) calls the fleeting template directly, skipping the menu.
-
-#+begin_src emacs-lisp
-(after! org
-  (setq org-capture-templates
-    '(("f" "Fleeting Note" entry
-       (file+headline
-        (lambda ()
-          (expand-file-name
-           (format-time-string "%Y-%m-%d.org")
-           (expand-file-name org-roam-dailies-directory org-roam-directory)))
-        "Fleeting Notes")
-       "** %?"
-       :empty-lines 1)
-      ("q" "Daily Quest" entry
-       (file+headline "~/org/tasks.org" "Dailies")
-       "** TODO %? %t"
-       :empty-lines 1)
-      ("e" "Event" entry
-       (file+headline "~/org/tasks.org" "Events")
-       "** %? %^T :event:"
-       :empty-lines 1))))
-#+end_src
-
-#+begin_src emacs-lisp
-
-(defconst +my/org-capture-frame-name "Org-capture to daily note")
-(defun +my/org-capture-frame (template) (interactive)
-       (if (not (equal +my/org-capture-frame-name (frame-parameter nil 'name)))
-           (make-frame `((name . ,+my/org-capture-frame-name))))
-
-       (select-frame-by-name +my/org-capture-frame-name)
-       (delete-other-windows)
-
-       (defun org-capture-after-finalize-cleanup ()
-         (advice-remove 'org-capture-place-template 'delete-other-windows)
-         (remove-hook 'org-capture-after-finalize-hook 'org-capture-after-finalize-cleanup)
-
-         (select-frame-by-name +my/org-capture-frame-name)
-         (delete-frame nil))
-
-       (add-hook 'org-capture-after-finalize-hook 'org-capture-after-finalize-cleanup)
-       (advice-add #'org-capture-place-template :after 'delete-other-windows)
-
-       (org-capture nil template))
 #+end_src
 
 **** Spell checker
