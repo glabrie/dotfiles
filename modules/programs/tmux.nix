@@ -9,18 +9,6 @@
       historyLimit = 10000;
       mouse = true;
       keyMode = "vi";
-      plugins = with pkgs.tmuxPlugins; [
-        {
-          plugin = catppuccin;
-          extraConfig = ''
-            set -g @catppuccin_flavor "mocha"
-            set -g @catppuccin_window_status_style "rounded"
-            set -g @catppuccin_status_modules_right "application date_time"
-            set -g @catppuccin_status_modules_left "session"
-            set -g @catppuccin_date_time_text "%H:%M"
-          '';
-        }
-      ];
       extraConfig = ''
         set-option -g status-position top
         set -g status-right-length 100
@@ -29,6 +17,15 @@
         set -g automatic-rename-format "#{pane_current_command}"
         set -ga terminal-overrides ",*256col*:Tc"
         set -ga terminal-features ",*256col*:bce"
+
+        set -g @catppuccin_flavor "mocha"
+        set -g @catppuccin_window_status_style "rounded"
+        set -g @catppuccin_date_time_text "%H:%M"
+
+        run-shell ${pkgs.tmuxPlugins.catppuccin.rtp}
+
+        set -g status-left "#{E:@catppuccin_status_session}"
+        set -g status-right "#{E:@catppuccin_status_application}#{E:@catppuccin_status_date_time}"
       '';
     };
   };
