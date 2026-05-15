@@ -219,95 +219,96 @@ While we're talking about mu4e, here's the other shoe: We need isync and mu, so 
 
 ** Doom Config
 
-The Doom config comes in three files, ~init.el~, ~config.el~ and ~packages.el~. They all have their purpose which I'll explain below. Normally, you'd want to either reload the config after each edit of these files (done with ~SPC h r r~) but since we're using ~Unstraightened~,
+The Doom config comes in three files, ~init.el~, ~config.el~ and ~packages.el~. .
 
 *** Init
 :PROPERTIES:
 :header-args:emacs-lisp: :tangle ~/.config/doom/init.el
 :END:
 
-The init.el serves as an options menu with many possibilities. There are more than these but these ones are mine. They are commented by Doom Emacs by default, I've left them there for the explanation (or funny).
+The init.el serves as an options menu with many possibilities. There are more than these but these ones are mine. They are commented by Doom Emacs by default, I've left them there for the explanation (really just because they're funny).
+Those options come packaged as part of Doom Emacs. In vanilla emacs, most of these would be packages you need to install.
 
 #+begin_src emacs-lisp
 (doom! :completion
-       (corfu +orderless)        ; complete with cap(f), cape and a flying feather!
-       vertico                   ; the search engine of the future
+       (corfu +orderless)          ; complete with cap(f), cape and a flying feather!
+       vertico                     ; the search engine of the future
 
        :ui
-       doom                      ; what makes DOOM look the way it does
-       dashboard                 ; a nifty splash screen for Emacs
-       (emoji +unicode)          ; 🙂
-       hl-todo                   ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
-       ;; indent-guides             ; highlighted indent columns
-       ligatures                 ; ligatures and symbols to make your code pretty again
-       modeline                  ; snazzy, Atom-inspired modeline, plus API
-       nav-flash                 ; blink cursor line after big motions
-       ophints                   ; highlight the region an operation acts on
-       (popup +defaults)         ; tame sudden yet inevitable temporary windows
-       smooth-scroll             ; So smooth you won't believe it's not butter
-       (vc-gutter +pretty)       ; vcs diff in the fringe
-       workspaces                ; tab emulation, persistence & separate workspaces
+       doom                        ; what makes DOOM look the way it does
+       dashboard                   ; a nifty splash screen for Emacs
+       (emoji +unicode)            ; 🙂
+       hl-todo                     ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
+       ;                           ; indent-guides             ; highlighted indent columns
+       ligatures                   ; ligatures and symbols to make your code pretty again
+       modeline                    ; snazzy, Atom-inspired modeline, plus API
+       nav-flash                   ; blink cursor line after big motions
+       ophints                     ; highlight the region an operation acts on
+       (popup +defaults)           ; tame sudden yet inevitable temporary windows
+       smooth-scroll               ; So smooth you won't believe it's not butter
+       (vc-gutter +pretty)         ; vcs diff in the fringe
+       workspaces                  ; tab emulation, persistence & separate workspaces
 
        :editor
-       (evil +everywhere)        ; come to the dark side, we have cookies
-       file-templates            ; auto-snippets for empty files
-       fold                      ; (nigh) universal code folding
-       (format +onsave)          ; automated prettiness
-       multiple-cursors          ; editing in many places at once
-       snippets                  ; my elves. They type so I don't have to
-       (whitespace +guess +trim) ; a butler for your whitespace
-       word-wrap                 ; soft wrapping with language-aware indent
+       (evil +everywhere)          ; come to the dark side, we have cookies
+       file-templates              ; auto-snippets for empty files
+       fold                        ; (nigh) universal code folding
+       (format +onsave)            ; automated prettiness
+       multiple-cursors            ; editing in many places at once
+       snippets                    ; my elves. They type so I don't have to
+       (whitespace +guess +trim)   ; a butler for your whitespace
+       word-wrap                   ; soft wrapping with language-aware indent
 
        :emacs
-       dired                     ; making dired pretty [functional]
-       electric                  ; smarter, keyword-based electric-indent
-       tramp                     ; remote files at your arthritic fingertips
-       undo                      ; persistent, smarter undo for your inevitable mistakes
+       dired                       ; making dired pretty [functional]
+       electric                    ; smarter, keyword-based electric-indent
+       tramp                       ; remote files at your arthritic fingertips
+       undo                        ; persistent, smarter undo for your inevitable mistakes
 
        :term
-       vterm                     ; the best terminal emulation in Emacs
+       vterm                       ; the best terminal emulation in Emacs
 
-       :checkers
-       syntax                    ; tasing you for every semicolon you forget
-       (spell +flyspell +hunspell)         ; tasing you for misspelling mispelling
+       :checkers                   ; category
+       syntax                      ; tasing you for every semicolon you forget
+       (spell +flyspell +hunspell) ; tasing you for misspelling mispelling
 
        :tools
        direnv
-       editorconfig              ; let someone else argue about tabs vs spaces
-       (eval +overlay)           ; run code, run (also, repls)
-       lookup                    ; navigate your code and its documentation
-       (lsp +eglot)              ; M-x vscode
-       magit                     ; a git porcelain for Emacs
-       pdf                       ; pdf enhancements
-       tree-sitter               ; syntax and parsing, sitting in a tree...
+       editorconfig                ; let someone else argue about tabs vs spaces
+       (eval +overlay)             ; run code, run (also, repls)
+       lookup                      ; navigate your code and its documentation
+       (lsp +eglot)                ; M-x vscode
+       magit                       ; a git porcelain for Emacs
+       pdf                         ; pdf enhancements
+       tree-sitter                 ; syntax and parsing, sitting in a tree...
 
        :os
-       tty                       ; improve the terminal Emacs experience
+       tty                         ; improve the terminal Emacs experience
 
        :lang
-       data                      ; config/data formats
-       emacs-lisp                ; drown in parentheses
-       (go +lsp)                 ; the hipster dialect
-       json                      ; At least it ain't XML
-       lua                       ; one-based indices? one-based indices
-       markdown                  ; writing docs for people to ignore
-       nix                       ; I hereby declare "nix geht mehr!"
-       (org +roam)              ; organize your plain life in plain text
-       graphviz                  ; diagrams for confusing yourself even more
-       python                    ; beautiful is better than ugly
-       (rust +lsp)               ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
-       sh                        ; she sells {ba,z,fi}sh shells on the C xor
-       yaml                      ; JSON, but readable
-       zig                       ; C, but simpler
+       data                        ; config/data formats
+       emacs-lisp                  ; drown in parentheses
+       (go +lsp)                   ; the hipster dialect
+       json                        ; At least it ain't XML
+       lua                         ; one-based indices? one-based indices
+       markdown                    ; writing docs for people to ignore
+       nix                         ; I hereby declare "nix geht mehr!"
+       (org +roam)                 ; organize your plain life in plain text
+       graphviz                    ; diagrams for confusing yourself even more
+       python                      ; beautiful is better than ugly
+       (rust +lsp)                 ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
+       sh                          ; she sells {ba,z,fi}sh shells on the C xor
+       yaml                        ; JSON, but readable
+       zig                         ; C, but simpler
 
        :email
-       (mu4e +org +mbsync)        ; Email client, requires mu, mpd, and for me, protonmail-bridge.
+       (mu4e +org +mbsync)         ; Email client, requires mu, mpd, and for me, protonmail-bridge.
 
        :app
-       calendar                  ; As the name suggests, it is a calendar.
-       emms                      ; A media player in my text editor? Really?
-       erc                       ; how neckbeards socialize
-       (rss +org)                ; emacs as an RSS reader
+       calendar                    ; As the name suggests, it is a calendar.
+       emms                        ; A media player in my text editor? Really?
+       erc                         ; how neckbeards socialize
+       (rss +org)                  ; emacs as an RSS reader
 
        :config
        (default +bindings +smartparens))
@@ -331,18 +332,21 @@ First a bit of boilerplate. We'll set up a few things required for [[https://org
       user-full-name "Guillaume Labrie"
       user-mail-address "glabrie@proton.me"
       shell-file-name (executable-find "bash"))
+#+end_src
 
+**** Git auto commit fix
+
+This bit is a trick to make Emacs shut up while I'm using ~git-auto-commit-mode~ in my ~~/org~ directory. If this snippet wasn't there, each time I would save a file (and thus spring auto-commit), Emacs would complain about the safety and ask me if I really wanted it. Yes, I do. Now please leave me alone.
+
+#+begin_src emacs-lisp
 (add-to-list 'safe-local-eval-forms '(git-auto-commit-mode 1))
 #+end_src
 
 **** Aesthetics and themes
 
-We'll then set the theme and fonts.  I'm also still using Tokyo Night as my main theme.
-small note: In the Doom documentation you'll find ~Doom-unicode-font~. It's been deprecated and we're now using ~doom-symbol-font~.
-
-Finally, we'll be adding some transparency to the frames to get that ~Niri~ blur to show through.
-
 ***** Fonts
+
+NOTE: In the Doom documentation you'll find ~Doom-unicode-font~. It's been deprecated and we're now using ~doom-symbol-font~.
 
 I'm using a mixed pitch where the prose is displayed in [[https://www.fontspace.com/montserrat-font-f16544][Montserrat]] while the code is displayed in [[https://www.jetbrains.com/lp/mono/][JetBrains Mono]].
 It makes for a nice separation that make prose look like documentation, while the code is still eminently readable in a mono font.
@@ -359,20 +363,30 @@ It makes for a nice separation that make prose look like documentation, while th
 I'm using Tokyo Night everywhere else in the system, so this gets applied here as well.
 
 #+begin_src emacs-lisp
-(setq doom-theme 'doom-tokyo-night
-      fancy-splash-image (expand-file-name "~/.dotfiles/assets/Aperture_Science_70s_Logo.xpm")
+(setq doom-theme 'doom-tokyo-night)
+#+end_src
+
+***** Doom dashboard
+
+Doom has a dashboard loading when you boot up Emacs. It's actually faster than opening the scratchpad, so I keep it on. I removed some stuff from it to keep it nice and tidy and stole Tecosaur's Emacs logo from his wonderful config. Don't tell him.
+
+#+begin_src emacs-lisp
+(setq fancy-splash-image (expand-file-name
+                          "~/.dotfiles/assets/emacs-e-template.svg")
       +dashboard-functions '(+dashboard-widget-banner
                              +dashboard-widget-footer
                              +dashboard-widget-loaded))
 #+end_src
-
 ***** Transparency
 
-#+begin_src emacs-lisp
+Since Emacs v29, it finally supports true background transparency, which we're setting here.
+It causes some problems with ~Org-modern~ but I get around it by simply disabling indent in prose.
+Note: I'm currently disabling it, to get a better experience with a variety of bugs.
+
+#+begin_src emacs-lisp :tangle no
 (add-to-list 'default-frame-alist '(alpha-background . 80))
 (modify-all-frames-parameters '((alpha-background . 80)))
 #+end_src
-
 
 ***** Relative lines - The vim way
 
@@ -392,10 +406,10 @@ As I'm coming from vim, and still uses the keybindings daily, I need my relative
   :hook ((prog-mode yaml-mode) . indent-bars-mode))
 #+end_src
 
-***** Org-modern
+***** Org-mode and org-modern
 
+Let's customize a Org-mode a bit.
 [[https://github.com/minad/org-modern][Org-modern]] is a nice way to format ~Org-mode~ automatically. It's very pretty, customizable. I recommend it!
-Normally, org-mode doesn't parse your notes recursively for todos, for performance reasons. I'll set up something better someday, but for now just a dirty trick to make it check recursively so that it can get to my ~org-roam~ daily notes folder.
 
 #+begin_src emacs-lisp
 (after! org
@@ -404,7 +418,6 @@ Normally, org-mode doesn't parse your notes recursively for todos, for performan
        org-catch-invisible-edits 'show-and-error
        org-special-ctrl-a/e t
        org-insert-heading-respect-content t
-       org-startup-indented nil
        org-hide-leading-stars t
        org-hide-emphasis-markers t
        org-pretty-entities t
@@ -426,11 +439,7 @@ Normally, org-mode doesn't parse your notes recursively for todos, for performan
               (org-archive-subtree)))))
 
 (use-package! org-modern
- :hook (org-mode . org-modern-mode)
- :config
- (setq org-modern-star 'replace
-       org-modern-replace-stars '("●" "●" "●" "●" "●" "●" "●" "●")
-       org-modern-block-fringe nil))
+ :hook (org-mode . org-modern-mode))
 
 (add-hook 'text-mode-hook #'mixed-pitch-mode)
 
@@ -442,11 +451,10 @@ Normally, org-mode doesn't parse your notes recursively for todos, for performan
 
 **** Daily setup
 
-A single command to start the day: opens today's org-roam daily note (creating it if needed) and inserts the standard sections if they aren't already there. Safe to run more than once.
+A single command to start the day: opens today's org-roam daily note (creating it if needed) and inserts the standard sections if they aren't already there. Safe to run more than once, it won't recreate it.
 
 #+begin_src emacs-lisp
 (defun my/daily-setup ()
-  "Open today's org-roam daily note with standard sections."
   (interactive)
   (org-roam-dailies-goto-today "d")
   (save-excursion
@@ -454,7 +462,23 @@ A single command to start the day: opens today's org-roam daily note (creating i
     (unless (search-forward "* Morning Pages" nil t)
       (goto-char (point-max))
       (unless (bolp) (insert "\n"))
-      (insert "* Morning Pages\n\n* Fleeting Notes\n"))))
+      (insert (concat "* Morning Pages\n\n"
+                      "* Habits\n"
+                      "** TODO Morning routine\n"
+                      "*** [ ] Drink a glass of water\n"
+                      "*** [ ] Take meds\n"
+                      "*** [ ] Healthy breakfast\n"
+                      "*** [ ] Beeline the sun, 15 minutes walk\n"
+                      "*** [ ] Morning exercises and stretching\n"
+                      "*** [ ] Cold shower\n"
+                      "*** [ ] Read 20 mins\n"
+                      "*** [ ] Journal and prepare the day\n\n"
+                      "** TODO Evening routine\n"
+                      "*** [ ] 30-min walk\n"
+                      "*** [ ] Before bed, 3 2 1. 3 hours before no food, 2 no water and 1 no screens\n"
+                      "*** [ ] Review of the day, journal, prepare the next\n"
+                      "*** [ ] Read some more\n\n"
+                      "* Fleeting Notes\n"))))
 #+end_src
 
 **** Keybindings
@@ -533,20 +557,26 @@ Two capture templates: fleeting notes go into today's daily page, quests go unde
 #+end_src
 
 #+begin_src emacs-lisp
-(defun +my/org-capture-fullscreen-in-dedicated-frame (&rest _)
-  (when (equal (frame-parameter nil 'name) "org-capture")
-    (delete-other-windows)))
-(add-hook 'org-capture-mode-hook #'+my/org-capture-fullscreen-in-dedicated-frame)
-(advice-add 'org-roam-dailies-capture-today
-            :after #'+my/org-capture-fullscreen-in-dedicated-frame)
 
-(defun +my/org-capture-cleanup-frame (&rest _)
-  (when (equal (frame-parameter nil 'name) "org-capture")
-    (delete-frame)))
-(advice-add 'org-capture-finalize :after #'+my/org-capture-cleanup-frame)
+(defconst +my/org-capture-frame-name "Org-capture to daily note")
+(defun +my/org-capture-frame (template) (interactive)
+       (if (not (equal +my/org-capture-frame-name (frame-parameter nil 'name)))
+           (make-frame '((name . +my/org-capture-frame-name))))
 
-(add-hook '+doom-dashboard-inhibit-functions
-          (lambda () (equal (frame-parameter nil 'name) "org-capture")))
+       (select-frame-by-name +my/org-capture-frame-name)
+       (delete-other-windows)
+
+       (defun org-capture-after-finalize-clean-up ()
+         (advice-remove 'org-capture-place-template 'delete-other-windows)
+         (remove-hook 'org-capture-after-finalize-hook 'org-capture-after-finalize-cleanup)
+
+         (select-frame-by-name +my/org-capture-frame-name)
+         (delete-frame nil))
+
+       (add-hook 'org-capture-after-finalize-hook 'org-capture-after-finalize-cleanup)
+       (advice-add #'org-capture-place-template :after 'delete-other-windows)
+
+       (org-capture nil template))
 #+end_src
 
 **** Spell checker
