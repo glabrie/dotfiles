@@ -119,7 +119,7 @@ window-rule {
 }
 
 window-rule {
-    match app-id="emacs" title="org-capture"
+    match app-id="emacs" title="Org-capture to daily note"
     open-floating true
     default-column-width { fixed 600; }
 }

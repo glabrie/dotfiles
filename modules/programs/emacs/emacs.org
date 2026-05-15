@@ -478,7 +478,7 @@ A single command to start the day: opens today's org-roam daily note (creating i
                       "*** [ ] Before bed, 3 2 1. 3 hours before no food, 2 no water and 1 no screens\n"
                       "*** [ ] Review of the day, journal, prepare the next\n"
                       "*** [ ] Read some more\n\n"
-                      "* Fleeting Notes\n"))))
+                      "* Fleeting Notes\n")))))
 #+end_src
 
 **** Keybindings
@@ -561,12 +561,12 @@ Two capture templates: fleeting notes go into today's daily page, quests go unde
 (defconst +my/org-capture-frame-name "Org-capture to daily note")
 (defun +my/org-capture-frame (template) (interactive)
        (if (not (equal +my/org-capture-frame-name (frame-parameter nil 'name)))
-           (make-frame '((name . +my/org-capture-frame-name))))
+           (make-frame `((name . ,+my/org-capture-frame-name))))
 
        (select-frame-by-name +my/org-capture-frame-name)
        (delete-other-windows)
 
-       (defun org-capture-after-finalize-clean-up ()
+       (defun org-capture-after-finalize-cleanup ()
          (advice-remove 'org-capture-place-template 'delete-other-windows)
          (remove-hook 'org-capture-after-finalize-hook 'org-capture-after-finalize-cleanup)
 

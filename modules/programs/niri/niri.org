@@ -312,7 +312,7 @@ This makes my amazing org-mode capture everywhere float, which is very cool
 
 #+begin_src kdl
 window-rule {
-    match app-id="emacs" title="org-capture"
+    match app-id="emacs" title="Org-capture to daily note"
     open-floating true
     default-column-width { fixed 600; }
 }
