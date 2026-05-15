@@ -26,7 +26,7 @@
       shotwell
       yazi
       yt-dlp
-      zellij
+
       inputs.concord.packages.${pkgs.stdenv.hostPlatform.system}.default
     ];
 

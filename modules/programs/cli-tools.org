@@ -34,7 +34,7 @@ Small definition module adding cli utilities that are needed on every system.
       shotwell
       yazi
       yt-dlp
-      zellij
+
       inputs.concord.packages.${pkgs.stdenv.hostPlatform.system}.default
     ];
 

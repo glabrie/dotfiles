@@ -4,7 +4,6 @@
 This file tangles into ~emacs.nix~, ~doom.d/config.el~, ~doom.d/init.el~ and ~doom.d/packages.el.~
 
 * Emacs got me with cookies.
------
 
 [[../../../assets/kermit.jpg]]
 
@@ -77,6 +76,17 @@ But headers are more than just titles. They can be tasks as well, tracked across
 #+end_src
 
 *** Literate programming
+
+Another thing that sets org apart is the concept of literate programming. It basically is a way to wrap your code inside a prose document. The advantages are two fold: Documentation is embedded with the code, giving you the coveted *One Source of Truth* ™ for your project. It also allows for more flexibility when commenting the code, giving you access to a large array of formatting options just not found in // blocks in code.
+
+This file is a literate document, which starts has a .org . In it, we can use SRC blocks to put our code in, like so:
+
+#+begin_example
+,#+begin_src
+Your brilliant code here!
+,#+enc_src
+#+end_example
+
 *** Org-roam
 
 ** Doom-Emacs and evil-mode
