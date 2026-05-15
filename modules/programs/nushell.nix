@@ -9,6 +9,10 @@
         $env.PATH = ($env.PATH | prepend $"($env.HOME)/.config/emacs/bin")
       '';
       extraConfig = ''
+        if ("TMUX" not-in $env) {
+          tmux new-session -A -s main
+        }
+
         $env.config.show_banner = false
         $env.config.completions.case_sensitive = false
         $env.config.completions.quick = true
