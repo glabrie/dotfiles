@@ -40,8 +40,8 @@ These settings gives me a nice transparent top bar that frames the whole desktop
           density = "default";
           position = "top";
           showCapsule = false;
-          backgroundOpacity = 1;
-          useSeparateOpacity = false;
+          backgroundOpacity = 0;
+          useSeparateOpacity = true;
           floating = true;
           marginVertical = 4;
           marginHorizontal = 12;
@@ -100,7 +100,7 @@ Note that currently, there's a bug I'm having where ~barType~ is not always set 
         };
 #+end_src
 
-* Colorscheme
+* Color scheme
 
 Noctalia comes with a number of preset color schemes that you can set, as well as setting your own colors. You can get a good template for this [[https://docs.noctalia.dev/getting-started/nixos/#theme-colors][here]]. I'm normally very gruvbox, but currently running a Nord desktop.
 
@@ -164,8 +164,8 @@ We end with defining where you can find the wallpaper and disabling the dock tha
         wallpaper = {
           enabled = true;
           overviewEnabled = true;
-          directory = "$HOME/images/walls/art/";
-          automationEnabled = true;
+          directory = "$HOME/images/walls/nord";
+          automationEnabled = false;
           wallpaperChangeMode = "random";
           randomIntervalSec = 1800;
         };

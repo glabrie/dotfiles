@@ -62,8 +62,8 @@ preset-column-widths {
 default-column-width { proportion 0.5; }
 
 border {
-    width 4
-    active-color "#88c0d0"
+    width 2
+    active-color "#5e81ac"
     inactive-color "#3b4252"
 }
 focus-ring {
@@ -80,9 +80,24 @@ shadow {
 }
 
 window-rule {
-  geometry-corner-radius 6
+  geometry-corner-radius 12
   clip-to-geometry true
 }
+
+background-color "transparent"
+
+ }
+
+layer-rule {
+  match namespace="^noctalia-wallpaper*"
+  place-within-backdrop true
+}
+
+ overview {
+ workspace-shadow {
+    on
+  }
+ }
 
 window-rule {
     match app-id="steam" title=r#"^notificationtoasts_\d+_desktop$"#
