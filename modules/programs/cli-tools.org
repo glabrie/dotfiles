@@ -14,7 +14,7 @@ Small definition module adding cli utilities that are needed on every system.
     environment.systemPackages = with pkgs;
     [
       arp-scan
-      p7zip
+      p7zip-rar
       bottom
       cliphist
       cmake

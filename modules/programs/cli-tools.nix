@@ -6,7 +6,7 @@
     environment.systemPackages = with pkgs;
     [
       arp-scan
-      p7zip
+      p7zip-rar
       bottom
       cliphist
       cmake

@@ -43,7 +43,9 @@ My needs are fairly simple, I'm not a power email user in any way. I replaced my
 
 As for why I am *not* being entirely declarative and nixxy here, you can look [[*Nix and Doom Unstraightened][here]]  for a more thorough answer than this one: I don't like it, and I'm being practical.
 
+
 * Learning center
+
 ** Org-mode and Org-roam
 
 #+begin_quote orgmode.org
@@ -95,7 +97,10 @@ Your brilliant code here!
 *** Faces
 
 ** Nix and Doom Unstraightened
+
+
 * Current Issues
+
 ** Opacity problems
 :PROPERTIES:
 :CUSTOM_ID: issue-opacity
@@ -141,7 +146,9 @@ Concretely, when ~org-hide-leading-stars~ is set to ~t~, a font-lock keyword is 
 
 As of [2024-05-04] I chose to remove transparency from emacs. I will revisit this someday.
 
+
 * Configuration files
+
 ** Nix module
 :PROPERTIES:
 :header-args:nix: :tangle emacs.nix
@@ -184,7 +191,7 @@ We'll also start mbsync, which is necessary for mu4e.
     };
 #+end_src
 
-*** Some dependencies and protonmail.
+*** Some dependencies and Protonmail.
 
 While we're talking about mu4e, here's the other shoe: We need isync and mu, so we're pulling them here, along with hunspell (for spelling in org-mode), and then I'm using protonmail, so I need to set up the protonmail bridge to pipe my email correctly into it.
 
@@ -246,7 +253,7 @@ Those options come packaged as part of Doom Emacs. In vanilla emacs, most of the
        ophints                     ; highlight the region an operation acts on
        (popup +defaults)           ; tame sudden yet inevitable temporary windows
        smooth-scroll               ; So smooth you won't believe it's not butter
-       (vc-gutter +pretty)         ; vcs diff in the fringe
+       ;;(vc-gutter +pretty)         ; vcs diff in the fringe
        workspaces                  ; tab emulation, persistence & separate workspaces
 
        :editor
@@ -319,7 +326,7 @@ Those options come packaged as part of Doom Emacs. In vanilla emacs, most of the
 :header-args:emacs-lisp: :tangle ~/.config/doom/config.el
 :END:
 
-**** Directory settings and username
+**** Core
 
 Now That we've set up our options, we can configure a lot of Emacs (and Doom) through ~config.el~.
 
@@ -334,15 +341,30 @@ First a bit of boilerplate. We'll set up a few things required for [[https://org
       shell-file-name (executable-find "bash"))
 #+end_src
 
-**** Git auto commit fix
-
-This bit is a trick to make Emacs shut up while I'm using ~git-auto-commit-mode~ in my ~~/org~ directory. If this snippet wasn't there, each time I would save a file (and thus spring auto-commit), Emacs would complain about the safety and ask me if I really wanted it. Yes, I do. Now please leave me alone.
+Let's make Emacs shut up while I'm using ~git-auto-commit-mode~ in my ~~/org~ directory. If this snippet wasn't there, each time I would save a file (and thus spring auto-commit), Emacs would complain about the safety and ask me if I really wanted it. Yes, I do. Now please leave me alone.
 
 #+begin_src emacs-lisp
 (add-to-list 'safe-local-eval-forms '(git-auto-commit-mode 1))
 #+end_src
 
-**** Aesthetics and themes
+**** Optimizations
+
+Thank you to [[https://github.com/SophieBosio/.emacs.d][Sophie]] for the awesome config I could wade through and find nuggets of wisdom.
+
+This is a very nice trick when using the pgtk Emacs package. It reduces childframe latency (many popups like Which key)
+
+#+begin_src emacs-lisp
+(when (boundp 'pgtk-wait-for-event-timeout)
+  (setq pgtk-wait-for-event-timeout 0.001))
+#+end_src
+
+This one skips font-lock (Highlighting in Emacs) when you're typing, giving you a smoother typing feel in large files.
+
+#+begin_src emacs-lisp
+(setq redisplay-skip-fontification-on-input t)
+#+end_src
+
+**** Aesthetics
 
 ***** Fonts
 
@@ -377,6 +399,7 @@ Doom has a dashboard loading when you boot up Emacs. It's actually faster than o
                              +dashboard-widget-footer
                              +dashboard-widget-loaded))
 #+end_src
+
 ***** Transparency
 
 Since Emacs v29, it finally supports true background transparency, which we're setting here.
@@ -388,28 +411,41 @@ Note: I'm currently disabling it, to get a better experience with a variety of b
 (modify-all-frames-parameters '((alpha-background . 80)))
 #+end_src
 
-***** Relative lines - The vim way
+***** Frames
+
+Pilfering Sophia's config, I found a few nice things :D
+
+Nicer border around the frame:
+
+#+begin_src emacs-lisp
+(add-to-list 'default-frame-alist '(internal-border-width . 16))
+#+end_src
+
+Then some fringe beautifying:
+
+#+begin_src emacs-lisp
+(set-fringe-mode 10)                          ;; Set fringe width to 10
+
+(setq-default fringes-outside-margins nil)
+(setq-default indicate-buffer-boundaries nil) ;; Otherwise shows a corner icon on the edge
+(setq-default indicate-empty-lines nil)       ;; Otherwise there are weird fringes on blank lines
+
+(set-face-attribute 'header-line t :inherit 'default)
+#+end_src
+
+***** Relative lines
 
 As I'm coming from vim, and still uses the keybindings daily, I need my relative lines. This gives me that, with another setting to correct the numbers to their actual position:
 
 #+begin_src emacs-lisp
 (setq display-line-numbers-type 'relative)
-(global-display-line-numbers-mode +1)
-#+end_src
-
-***** Indent bars
-
-[[https://github.com/jdtsmith/indent-bars][indent-bars]] draws crisp vertical guides at each indentation level using stipple patterns, so they stay sharp at any zoom and don't slow down rendering. Color and depth-highlighting come for free from the active theme.
-
-#+begin_src emacs-lisp
-(use-package! indent-bars
-  :hook ((prog-mode yaml-mode) . indent-bars-mode))
+(setq-default display-line-numbers-width 3)
+(add-hook 'org-mode-hook #'(lambda () (display-line-numbers-mode -1)))
 #+end_src
 
 **** Org-mode
-***** Options, agenda
-
-Let's customize a bit how Org-mode looks, along with sprucing up the agenda
+***** Core settings
+Here we're setting up a lot of options for Org-mode
 
 #+begin_src emacs-lisp
 (after! org
@@ -431,7 +467,7 @@ Let's customize a bit how Org-mode looks, along with sprucing up the agenda
        org-agenda-current-time-string
        "◀── now ─────────────────────────────────────────────────"
        org-agenda-files '("~/org/tasks.org")
-       org-archive-location "~/org/archive.org::datetree/")
+       org-archive-location "~/org/archive.org::datetree/"))
 #+end_src
 
 ***** Org-modern
@@ -442,12 +478,14 @@ Let's customize a bit how Org-mode looks, along with sprucing up the agenda
 (add-hook 'org-after-todo-state-change-hook
           (lambda ()
             (when (equal org-state "DONE")
-              (org-archive-subtree)))))
+              (org-archive-subtree))))
 
 (use-package! org-modern
  :hook (org-mode . org-modern-mode))
 
-(add-hook 'text-mode-hook #'mixed-pitch-mode)
+(use-package! mixed-pitch
+  :hook ((org-mode   . mixed-pitch-mode)
+         (LaTeX-mode . mixed-pitch-mode)))
 #+end_src
 
 ***** Olivetti
@@ -626,15 +664,8 @@ Pin the dictionary so ispell stop bothering me with apostrophe. (it doesn't load
       smtpmail-default-smtp-server "127.0.0.1")
 #+end_src
 
-**** Fix for src blocks not loading right until you cursor into them
-
-#+begin_src emacs-lisp
-(setq jit-lock-stealth-time 1
-      jit-lock-stealth-nice 0.5
-      jit-lock-stealth-load 200)
-#+end_src
-
-**** Browser not opening links fix
+**** Fixes and misc packages
+***** Default browser
 
 I have this weird thing where since I've switched to emacs as a daemon, it doesn't want to open links anymore. This is a quick fix for that. I should investigate more. I have seen on the net that it might be because of the environment and selecting a display too soon. More on this some other time.
 
