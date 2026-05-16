@@ -3,6 +3,16 @@
 
 This file tangles into ~emacs.nix~, ~doom.d/config.el~, ~doom.d/init.el~ and ~doom.d/packages.el.~
 
+* About
+
+This is a literate config for Emacs, my editor of choice. I suggest not taking it wholesale unless you have my exact setup. I have mixed declarative NixOS with mutable Emacs, so this configuration file has in it the nix file needed to declare it.
+
+Also note that this being a literate config, it needs to be tangled for it to create the config files themselves. You can do so inside Emacs with ~C-c C-v C-t~, or ~M-x~ to get the function ~org-babel-tangle~.
+
+Special thanks to [[https://github.com/SophieBosio][Sophie]], your configuration was a joy to explore and much of the final result here is lifted of inspired by what you did.
+
+Let's get this show started.
+
 * Emacs got me with cookies.
 
 [[../../../assets/kermit.jpg]]
@@ -10,13 +20,13 @@ This file tangles into ~emacs.nix~, ~doom.d/config.el~, ~doom.d/init.el~ and ~do
 I'm mainly a hobbyist. I like diving into new things and learning.
  [[https://www.gnu.org/software/emacs/][Emacs ]]is a program released in 1985, 41 years ago. It's a bit older than me, by some months. Being from another time but still actively developed and maintained to this day, Emacs evolved into its own beast, the product of a divergent evolution with its very own ethos. Growing in isolation from UI/UX trends and standards over these four decades, Emacs forged its own path. A very different architecture creates a nomenclature so alien it sometimes feels obscure, almost occult in a way. There is definitely something magical in there.
 
-In 40 years, I've changed so much that it might be hard to chart me as a single individual line. Not so with Emacs. Its roots are still there and vibrant.
+In 40 years, I've changed so much that it might be hard to chart me as a single individual line. Not so with Emacs. Its roots are still there and vibrant, sometimes for the best, sometimes introducing quirks you'd never see elsewhere. It's part of the charm of it.
 
 Emacs sells itself as a text editor, but I would argue (like many) that it's really an Emacs lisp interpreter that went haywire trying to recreate an OS. That interpreter affords us the magic that Emacs summons as it becomes this mutable platform that blurs the line between writing in an application and writing the application itself.
 
 Now, that Lisp machine can do anything your mind conjures. Years of hacks, packages, extensions are at your fingertips.
 
-Before, I was very happy with a combination of apps and Neovim. I didn't miss anything. But then I started seeing videos about Org-mode. It was tempting. a markup language, like [[https://en.wikipedia.org/wiki/Markdown][Markdown]], but somehow has these very cool capabilities when mixed with Emacs. The joke about living in Emacs might be a tiny bit exaggerated, but not that much. So I took the plunge, and a couple of weeks later, here's what I replaced in my old setup with just Emacs:
+Before, I was very happy with a combination of apps and Neovim. I didn't miss anything. But then I started seeing videos about Org-mode. It was tempting: a markup language, like [[https://en.wikipedia.org/wiki/Markdown][Markdown]], but somehow has these very cool capabilities when mixed with Emacs. The joke about living in Emacs might be a tiny bit exaggerated, but not that much. So I took the plunge, and a couple of weeks later, here's what I had replaced with just Emacs:
 
 ** Neovim
 
@@ -42,7 +52,6 @@ I write, and I love using novel writing apps like Scrivener to keep everything i
 My needs are fairly simple, I'm not a power email user in any way. I replaced my ProtonMail web client with [[https://github.com/emacsmirror/mu4e][mu4e]] without too much trouble. Since setting it up, I've been very happy keeping a workspace open with mu4e and switching to it when I see a new email come in.
 
 As for why I am *not* being entirely declarative and nixxy here, you can look [[*Nix and Doom Unstraightened][here]]  for a more thorough answer than this one: I don't like it, and I'm being practical.
-
 
 * Learning center
 
@@ -98,7 +107,6 @@ Your brilliant code here!
 
 ** Nix and Doom Unstraightened
 
-
 * Current Issues
 
 ** Opacity problems
@@ -145,7 +153,6 @@ Concretely, when ~org-hide-leading-stars~ is set to ~t~, a font-lock keyword is 
 *** Resolution
 
 As of [2024-05-04] I chose to remove transparency from emacs. I will revisit this someday.
-
 
 * Configuration files
 
@@ -347,6 +354,13 @@ Let's make Emacs shut up while I'm using ~git-auto-commit-mode~ in my ~~/org~ di
 (add-to-list 'safe-local-eval-forms '(git-auto-commit-mode 1))
 #+end_src
 
+I have this weird thing where since I've switched to emacs as a daemon, it doesn't want to open links anymore. This is a quick fix for that. I should investigate more. I have seen on the net that it might be because of the environment and selecting a display too soon. More on this some other time.
+
+#+begin_src emacs-lisp
+(setq browse-url-browser-function 'browse-url-generic
+      browse-url-generic-program "zen")
+#+end_src
+
 **** Optimizations
 
 Thank you to [[https://github.com/SophieBosio/.emacs.d][Sophie]] for the awesome config I could wade through and find nuggets of wisdom.
@@ -413,8 +427,6 @@ Note: I'm currently disabling it, to get a better experience with a variety of b
 
 ***** Frames
 
-Pilfering Sophia's config, I found a few nice things :D
-
 Nicer border around the frame:
 
 #+begin_src emacs-lisp
@@ -433,6 +445,7 @@ Then some fringe beautifying:
 (set-face-attribute 'header-line t :inherit 'default)
 #+end_src
 
+**** Editor
 ***** Relative lines
 
 As I'm coming from vim, and still uses the keybindings daily, I need my relative lines. This gives me that, with another setting to correct the numbers to their actual position:
@@ -443,36 +456,89 @@ As I'm coming from vim, and still uses the keybindings daily, I need my relative
 (add-hook 'org-mode-hook #'(lambda () (display-line-numbers-mode -1)))
 #+end_src
 
+***** Keybindings
+
+The rare custom keybinds I run are to get to my notes faster, and a graph that you'll look at once, go "wow, that's neat" and probably never open again, just like in ~Obsidian~. Yay!
+
+#+begin_src emacs-lisp
+(map! :leader
+      :desc "Daily setup" "n d" #'my/daily-setup
+      :desc "Go to daily" "n D" #'org-roam-dailies-goto-today
+      :desc "Daily Quest" "n q" (cmd! (org-capture nil "q"))
+      :desc "Event" "n e" (cmd! (org-capture nil "e"))
+      :desc "Weekly review" "n r w" (cmd! (org-roam-dailies-capture-today nil "w"))
+      :desc "Org-roam UI graph" "n r g" #'org-roam-ui-mode
+      :desc "Open emacs.org" "f p" (cmd! (find-file (expand-file-name "~/.dotfiles/modules/programs/emacs/emacs.org"))))
+#+end_src
+
+***** Spell checker
+
+Pin the dictionary so ispell stop bothering me with apostrophe. (it doesn't load a dictionary by default, returning bad spelling results.)
+
+#+begin_src emacs-lisp
+(setq ispell-dictionary "en_US")
+#+end_src
+
 **** Org-mode
 ***** Core settings
 Here we're setting up a lot of options for Org-mode
 
 #+begin_src emacs-lisp
 (after! org
- (setq org-auto-align-tags nil
-       org-tags-column 0
-       org-catch-invisible-edits 'show-and-error
-       org-special-ctrl-a/e t
-       org-insert-heading-respect-content t
-       org-hide-leading-stars t
-       org-hide-emphasis-markers t
-       org-pretty-entities t
-       org-ellipsis " ⮯"
-       org-agenda-tags-column 0
-       org-agenda-block-separator ?─
-       org-agenda-time-grid
-       '((daily today require-timed)
-         (800 1000 1200 1400 1600 1800 2000)
-         " ┄┄┄┄┄ " "┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄")
-       org-agenda-current-time-string
-       "◀── now ─────────────────────────────────────────────────"
-       org-agenda-files '("~/org/tasks.org")
-       org-archive-location "~/org/archive.org::datetree/"))
+  (setq org-startup-folded 'content ; Fold headings by default
+        org-auto-align-tags nil
+        org-tags-column 0
+        org-catch-invisible-edits 'show-and-error
+        org-special-ctrl-a/e t
+        org-insert-heading-respect-content t
+        org-hide-leading-stars t
+        org-hide-emphasis-markers t
+        org-pretty-entities t
+        org-ellipsis " ⮯"
+        org-log-done t
+        org-src-content-indentation 0
+        org-startup-with-inline-images t
+        org-agenda-tags-column 0
+        org-agenda-block-separator ?─
+        org-agenda-time-grid
+        '((daily today require-timed)
+          (800 1000 1200 1400 1600 1800 2000)
+          " ┄┄┄┄┄ " "┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄")
+        org-agenda-current-time-string
+        "◀── now ─────────────────────────────────────────────────"
+        org-agenda-files '("~/org/tasks.org")
+        org-archive-location "~/org/archive.org::datetree/"))
 #+end_src
 
-***** Org-modern
+***** Tags
 
-[[https://github.com/minad/org-modern][Org-modern]] is a nice way to format ~Org-mode~ automatically. It's very pretty, customizable. I recommend it!
+#+begin_src emacs-lisp
+(after! org
+  (add-to-list 'font-lock-extra-managed-props 'display)
+  (font-lock-add-keywords 'org-mode
+                          `(("^.*?\\( \\)\\(:[[:alnum:]_@#%:]+:\\)$"
+                             (1 `(face nil
+                                       display (space :align-to (- right ,(org-string-width (match-string 2)) 3)))
+                                prepend))) t))
+#+end_src
+
+***** Fonts
+
+#+begin_src emacs-lisp
+(custom-set-faces!
+  '(org-document-title :height 1.6)
+  '(outline-1          :height 1.25)
+  '(outline-2          :height 1.2)
+  '(outline-3          :height 1.2)
+  '(outline-4          :height 1.2)
+  '(outline-5          :height 1.2)
+  '(outline-6          :height 1.2)
+  '(outline-7          :height 1.2)
+  '(outline-8          :height 1.2)
+  '(outline-9          :height 1.2))
+#+end_src
+
+***** Org-superstar
 
 #+begin_src emacs-lisp
 (add-hook 'org-after-todo-state-change-hook
@@ -480,9 +546,89 @@ Here we're setting up a lot of options for Org-mode
             (when (equal org-state "DONE")
               (org-archive-subtree))))
 
-(use-package! org-modern
- :hook (org-mode . org-modern-mode))
+(use-package! org-superstar
+  :after org
+  :hook (org-mode . org-superstar-mode)
+  :config
+  (setq org-superstar-leading-bullet " ")
+  (setq org-superstar-headline-bullets-list '(""))
+  (setq org-superstar-special-todo-items t)
+  (setq org-superstar-todo-bullet-alist '(("TODO"     . 9744)
+                                          ("NEXT"     . 9744)
+                                          ("WAIT"     . 9744)
+                                          ("DROP"     . 9744)
+                                          ("DONE"     . 9745))))
+#+end_src
 
+***** Org-appear
+
+#+begin_src emacs-lisp
+(use-package! org-appear
+  :hook (org-mode . org-appear-mode)
+  :config
+  (setq org-appear-autoemphasis   t
+        org-appear-autolinks      t
+        org-appear-autosubmarkers t))
+#+end_src
+
+***** SVG Tags
+
+#+begin_src emacs-lisp
+(use-package! svg-tag-mode
+  :after org
+  :hook (org-mode . svg-tag-mode)
+  :config
+  (defconst date-re "[0-9]\\{4\\}-[0-9]\\{2\\}-[0-9]\\{2\\}")
+  (defconst time-re "[0-9]\\{2\\}:[0-9]\\{2\\}")
+  (defconst day-re "[A-Za-z]\\{3\\}")
+  (defconst day-time-re (format "\\(%s\\)? ?\\(%s\\)?" day-re time-re))
+
+  (defun svg-progress-percent (value)
+    (svg-image (svg-lib-concat
+                (svg-lib-progress-bar (/ (string-to-number value) 100.0)
+                  nil :margin 0 :stroke 2 :radius 3 :padding 2 :width 11)
+                (svg-lib-tag (concat value "%")
+                  nil :stroke 0 :margin 0)) :ascent 'center))
+
+  (defun svg-progress-count (value)
+    (let* ((seq (mapcar #'string-to-number (split-string value "/")))
+           (count (float (car seq)))
+           (total (float (cadr seq))))
+      (svg-image (svg-lib-concat
+                  (svg-lib-progress-bar (/ count total) nil
+                    :margin 0 :stroke 2 :radius 3 :padding 2 :width 11)
+                  (svg-lib-tag value nil
+                    :stroke 0 :margin 0)) :ascent 'center)))
+
+  (setq svg-tag-tags
+        `(;; Task priority
+          ("\\[#[A-Z]\\]" . ((lambda (tag)
+                               (svg-tag-make tag :face 'org-priority
+                                             :beg 2 :end -1 :margin 0))))
+          ;; Progress
+          ("\\(\\[[0-9]\\{1,3\\}%\\]\\)" . ((lambda (tag)
+            (svg-progress-percent (substring tag 1 -2)))))
+          ("\\(\\[[0-9]+/[0-9]+\\]\\)" . ((lambda (tag)
+            (svg-progress-count (substring tag 1 -1)))))
+          ;; Active date
+          (,(format "\\(<%s>\\)" date-re) .
+           ((lambda (tag) (svg-tag-make tag :beg 1 :end -1 :margin 0))))
+          (,(format "\\(<%s \\)%s>" date-re day-time-re) .
+           ((lambda (tag) (svg-tag-make tag :beg 1 :inverse nil :crop-right t :margin 0))))
+          (,(format "<%s \\(%s>\\)" date-re day-time-re) .
+           ((lambda (tag) (svg-tag-make tag :end -1 :inverse t :crop-left t :margin 0))))
+          ;; Inactive date
+          (,(format "\\(\\[%s\\]\\)" date-re) .
+           ((lambda (tag) (svg-tag-make tag :beg 1 :end -1 :margin 0 :face 'org-date))))
+          (,(format "\\(\\[%s \\)%s\\]" date-re day-time-re) .
+           ((lambda (tag) (svg-tag-make tag :beg 1 :inverse nil :crop-right t :margin 0 :face 'org-date))))
+          (,(format "\\[%s \\(%s\\]\\)" date-re day-time-re) .
+           ((lambda (tag) (svg-tag-make tag :end -1 :inverse t :crop-left t :margin 0 :face 'org-date)))))))
+#+end_src
+
+***** Mixed Pitch
+
+#+begin_src emacs-lisp
 (use-package! mixed-pitch
   :hook ((org-mode   . mixed-pitch-mode)
          (LaTeX-mode . mixed-pitch-mode)))
@@ -555,36 +701,7 @@ Olivetti is a nice little package that does only one thing: If your window (the 
                               "#+title: %<%Y-%m-%d>\n"))))
 #+end_src
 
-***** Org-capture global capture key
-
-Two capture templates: fleeting notes go into today's daily page, quests go under =* Dailies= in =tasks.org=. The global Niri shortcut (=Mod+C=) calls the fleeting template directly, skipping the menu.
-
-This first blocks sets up
-
-#+begin_src emacs-lisp
-
-(defconst +my/org-capture-frame-name "Org-capture to daily note")
-(defun +my/org-capture-frame (template) (interactive)
-       (if (not (equal +my/org-capture-frame-name (frame-parameter nil 'name)))
-           (make-frame `((name . ,+my/org-capture-frame-name))))
-
-       (select-frame-by-name +my/org-capture-frame-name)
-       (delete-other-windows)
-
-       (defun org-capture-after-finalize-cleanup ()
-         (advice-remove 'org-capture-place-template 'delete-other-windows)
-         (remove-hook 'org-capture-after-finalize-hook 'org-capture-after-finalize-cleanup)
-
-         (select-frame-by-name +my/org-capture-frame-name)
-         (delete-frame nil))
-
-       (add-hook 'org-capture-after-finalize-hook 'org-capture-after-finalize-cleanup)
-       (advice-add #'org-capture-place-template :after 'delete-other-windows)
-
-       (org-capture nil template))
-#+end_src
-
-**** Daily setup
+****** Daily setup
 
 A single command to start the day: opens today's org-roam daily note (creating it if needed) and inserts the standard sections if they aren't already there. Safe to run more than once, it won't recreate it.
 
@@ -616,31 +733,38 @@ A single command to start the day: opens today's org-roam daily note (creating i
                       "* Fleeting Notes\n")))))
 #+end_src
 
-**** Keybindings
+***** Org-capture global capture key
 
-The rare custom keybinds I run are to get to my notes faster, and a graph that you'll look at once, go "wow, that's neat" and probably never open again, just like in ~Obsidian~. Yay!
+Two capture templates: fleeting notes go into today's daily page, quests go under =* Dailies= in =tasks.org=. The global Niri shortcut (=Mod+C=) calls the fleeting template directly, skipping the menu.
 
-#+begin_src emacs-lisp
-(map! :leader
-      :desc "Daily setup" "n d" #'my/daily-setup
-      :desc "Go to daily" "n D" #'org-roam-dailies-goto-today
-      :desc "Daily Quest" "n q" (cmd! (org-capture nil "q"))
-      :desc "Event" "n e" (cmd! (org-capture nil "e"))
-      :desc "Weekly review" "n r w" (cmd! (org-roam-dailies-capture-today nil "w"))
-      :desc "Org-roam UI graph" "n r g" #'org-roam-ui-mode
-      :desc "Open emacs.org" "f p" (cmd! (find-file (expand-file-name "~/.dotfiles/modules/programs/emacs/emacs.org"))))
-#+end_src
-
-**** Spell checker
-
-Pin the dictionary so ispell stop bothering me with apostrophe. (it doesn't load a dictionary by default, returning bad spelling results.)
+This first blocks sets up
 
 #+begin_src emacs-lisp
-(setq ispell-dictionary "en_US")
+
+(defconst +my/org-capture-frame-name "Org-capture to daily note")
+(defun +my/org-capture-frame (template) (interactive)
+       (if (not (equal +my/org-capture-frame-name (frame-parameter nil 'name)))
+           (make-frame `((name . ,+my/org-capture-frame-name))))
+
+       (select-frame-by-name +my/org-capture-frame-name)
+       (delete-other-windows)
+
+       (defun org-capture-after-finalize-cleanup ()
+         (advice-remove 'org-capture-place-template 'delete-other-windows)
+         (remove-hook 'org-capture-after-finalize-hook 'org-capture-after-finalize-cleanup)
+
+         (select-frame-by-name +my/org-capture-frame-name)
+         (delete-frame nil))
+
+       (add-hook 'org-capture-after-finalize-hook 'org-capture-after-finalize-cleanup)
+       (advice-add #'org-capture-place-template :after 'delete-other-windows)
+
+       (org-capture nil template))
 #+end_src
 
-**** mu4e
+**** Email
 
+Simple email setting using [[https://github.com/emacsmirror/mu4e][mu4e]].
 
 #+begin_src emacs-lisp
 (after! mu4e
@@ -664,16 +788,6 @@ Pin the dictionary so ispell stop bothering me with apostrophe. (it doesn't load
       smtpmail-default-smtp-server "127.0.0.1")
 #+end_src
 
-**** Fixes and misc packages
-***** Default browser
-
-I have this weird thing where since I've switched to emacs as a daemon, it doesn't want to open links anymore. This is a quick fix for that. I should investigate more. I have seen on the net that it might be because of the environment and selecting a display too soon. More on this some other time.
-
-#+begin_src emacs-lisp
-(setq browse-url-browser-function 'browse-url-generic
-      browse-url-generic-program "zen")
-#+end_src
-
 *** Packages
 :PROPERTIES:
 :header-args:emacs-lisp: :tangle ~/.config/doom/packages.el
@@ -683,7 +797,9 @@ I have this weird thing where since I've switched to emacs as a daemon, it doesn
 (package! vterm :built-in t)
 (package! mu4e :built-in t)
 (package! kdl-mode)
-(package! org-modern)
+(package! org-superstar)
+(package! svg-tag-mode)
+(package! org-appear)
 (package! olivetti)
 (package! org-roam-ui)
 (package! mixed-pitch)
