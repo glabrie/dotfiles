@@ -90,6 +90,11 @@ layer-rule {
   match namespace="^noctalia-wallpaper*"
   place-within-backdrop true
 }
+overview {
+  workspace-shadow {
+    off
+  }
+}
 
 window-rule {
     match app-id="steam" title=r#"^notificationtoasts_\d+_desktop$"#
@@ -105,7 +110,7 @@ window-rule {
 window-rule {
     match app-id=r#"^zen$"#
     draw-border-with-background false
-    opacity 0.8
+    opacity 0.6
     background-effect {
         blur true
     }

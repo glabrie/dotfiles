@@ -236,13 +236,17 @@ window-rule {
 }
 #+end_src
 
-Noctalia can display a fixed wallpaper across all workspaces and the overview. This is this.
-It's not active right now because it was straining my setup, I don't know why.
+Noctalia can display a fixed wallpaper across all workspaces and the overview. This is that. Also removing shadows around the wallpaper overview for a cleaner look.
 
 #+begin_src kdl
 layer-rule {
   match namespace="^noctalia-wallpaper*"
   place-within-backdrop true
+}
+overview {
+  workspace-shadow {
+    off
+  }
 }
 #+end_src
 
@@ -273,7 +277,7 @@ Before, I used a lot of transparency  in my config. I got rid of it all! ...and 
 window-rule {
     match app-id=r#"^zen$"#
     draw-border-with-background false
-    opacity 0.8
+    opacity 0.6
     background-effect {
         blur true
     }
@@ -295,7 +299,6 @@ window-rule {
         blur true
     }
 }
-
 #+end_src
 
 This makes my amazing org-mode capture everywhere float, which is very cool
