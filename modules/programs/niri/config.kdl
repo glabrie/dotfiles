@@ -84,9 +84,9 @@ window-rule {
   clip-to-geometry true
 }
 
-background-color "transparent"
-
- }
+layout {
+ background-color "transparent"
+}
 
 layer-rule {
   match namespace="^noctalia-wallpaper*"

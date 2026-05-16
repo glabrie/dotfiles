@@ -235,9 +235,9 @@ Noctalia can display a fixed wallpaper across all workspaces and the overview. T
 It's not active right now because it was straining my setup, I don't know why.
 
 #+begin_src kdl
+layout {
  background-color "transparent"
-
- }
+}
 
 layer-rule {
   match namespace="^noctalia-wallpaper*"
