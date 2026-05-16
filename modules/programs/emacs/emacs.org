@@ -363,8 +363,6 @@ I have this weird thing where since I've switched to emacs as a daemon, it doesn
 
 **** Optimizations
 
-Thank you to [[https://github.com/SophieBosio/.emacs.d][Sophie]] for the awesome config I could wade through and find nuggets of wisdom.
-
 This is a very nice trick when using the pgtk Emacs package. It reduces childframe latency (many popups like Which key)
 
 #+begin_src emacs-lisp
@@ -491,7 +489,6 @@ Here we're setting up a lot of options for Org-mode
         org-catch-invisible-edits 'show-and-error
         org-special-ctrl-a/e t
         org-insert-heading-respect-content t
-        org-hide-leading-stars t
         org-hide-emphasis-markers t
         org-pretty-entities t
         org-ellipsis " ⮯"
@@ -550,8 +547,8 @@ Here we're setting up a lot of options for Org-mode
   :after org
   :hook (org-mode . org-superstar-mode)
   :config
-  (setq org-superstar-leading-bullet " ")
-  (setq org-superstar-headline-bullets-list '(""))
+  (setq org-superstar-leading-bullet ?›)
+  (setq org-superstar-headline-bullets-list '(" >"))
   (setq org-superstar-special-todo-items t)
   (setq org-superstar-todo-bullet-alist '(("TODO"     . 9744)
                                           ("NEXT"     . 9744)
