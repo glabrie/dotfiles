@@ -71,21 +71,19 @@ focus-ring {
 }
 
 shadow {
-        on
-        softness 30
-        spread 5
-        offset x=0 y=5
-        color "#0007"
-    }
+    on
+    softness 30
+    spread 5
+    offset x=0 y=5
+    color "#0007"
+}
+
+background-color "transparent"
 }
 
 window-rule {
   geometry-corner-radius 12
   clip-to-geometry true
-}
-
-layout {
- background-color "transparent"
 }
 
 layer-rule {

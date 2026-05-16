@@ -219,9 +219,14 @@ Do you also want pretty shadows? ✨ /aesthetics/ ✨!
         offset x=0 y=5
         color "#0007"
     }
-}
 #+end_src
 
+Last layout rule makes the background transparent so the overview works correctly with a background...in the background.
+
+#+begin_src kdl
+    background-color "transparent"
+}
+#+end_src
 Need that modern rounded corners? Well look no further. Noctalia recommends 20, but I find that's way too much, so we're going with a more reasonable 12.
 
 #+begin_src kdl
@@ -235,9 +240,8 @@ Noctalia can display a fixed wallpaper across all workspaces and the overview. T
 It's not active right now because it was straining my setup, I don't know why.
 
 #+begin_src kdl
-layout {
- background-color "transparent"
-}
+
+
 
 layer-rule {
   match namespace="^noctalia-wallpaper*"
