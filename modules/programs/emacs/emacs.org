@@ -406,7 +406,7 @@ Since Emacs v29, it finally supports true background transparency, which we're s
 It causes some problems with ~Org-modern~ but I get around it by simply disabling indent in prose.
 Note: I'm currently disabling it, to get a better experience with a variety of bugs.
 
-#+begin_src emacs-lisp :tangle no
+#+begin_src emacs-lisp
 (add-to-list 'default-frame-alist '(alpha-background . 80))
 (modify-all-frames-parameters '((alpha-background . 80)))
 #+end_src

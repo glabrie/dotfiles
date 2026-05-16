@@ -240,19 +240,10 @@ Noctalia can display a fixed wallpaper across all workspaces and the overview. T
 It's not active right now because it was straining my setup, I don't know why.
 
 #+begin_src kdl
-
-
-
 layer-rule {
   match namespace="^noctalia-wallpaper*"
   place-within-backdrop true
 }
-
- overview {
- workspace-shadow {
-    on
-  }
- }
 #+end_src
 
 ** Window rules
@@ -278,8 +269,6 @@ window-rule {
 
 Before, I used a lot of transparency  in my config. I got rid of it all! ...and lasted about one week. Zen still has a weird problem with transparency, doesn't mix well with XDG decorations so it will render the border as a full color background for you to sear your eyes on. We're telling it harshly to stop being an ass.
 
-[2026-05-04] Removing transparency for now, it visually clashes with Emacs.
-
 #+begin_src kdl
 window-rule {
     match app-id=r#"^zen$"#
@@ -293,8 +282,6 @@ window-rule {
 
 So about that transparency? Niri now includes blur. Yay! So we're going to put it EVERYWHERE.
 
-  *ISSUE [2026-05-04]:* Removed Emacs transparency, see [[file:../emacs/emacs.org::#issue-opacity][this section]] in my Emacs config. Removed kitty's blur as well, to better fit with Emacs.
-
 #+begin_src kdl
 window-rule {
     match app-id="kitty"
@@ -302,15 +289,13 @@ window-rule {
         blur true
     }
 }
-#+end_src
-
-#+begin_src kdl
 window-rule {
     match app-id="emacs"
     background-effect {
         blur true
     }
 }
+
 #+end_src
 
 This makes my amazing org-mode capture everywhere float, which is very cool
