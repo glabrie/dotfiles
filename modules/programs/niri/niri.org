@@ -436,7 +436,6 @@ My normal workflow would be to have a main window I fine-tune to my desire width
     Mod+Ctrl+R { reset-window-height; }
     Mod+F { maximize-column; }
     Mod+Shift+F { fullscreen-window; }
-    Mod+M { maximize-window-to-edges; }
     Mod+Ctrl+F { expand-column-to-available-width; }
     Mod+Shift+Period { center-column; }
     Mod+Ctrl+C { center-visible-columns; }
