@@ -331,12 +331,18 @@ Last one is Emacs, of course.
 #+begin_src kdl
 binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
-    Mod+D { spawn "noctalia" "msg" "panel-toggle" "launcher"; }
     Mod+T hotkey-overlay-title="Open a Terminal: kitty" { spawn "kitty"; }
     Mod+E hotkey-overlay-title="Open an Emacs window" { spawn "emacsclient" "-c"; }
     Mod+C hotkey-overlay-title="Org-roam daily capture" { spawn "emacsclient" "-e" "(+my/org-capture-frame \"f\")"; }
 #+end_src
 
+Noctalia has a couple of very nice shortcuts to its built-in functions like a launcher and a session manager.
+
+#+begin_src kdl
+    Mod+D { spawn "noctalia" "msg" "panel-toggle" "launcher"; }
+    Mod+Y { spawn "noctalia" "msg" "panel-toggle" "clipboard"; }
+    Mod+M { spawn "noctalia" "msg" "panel-toggle" "session"; }
+#+end_src
 Overview binds. Most desktop environments have something like this to situate the user across multiple virtual desktops. I don't use it very often but it's nice when you lost the plot a bit.
 
 #+begin_src kdl
