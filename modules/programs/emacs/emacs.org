@@ -523,16 +523,16 @@ Here we're setting up a lot of options for Org-mode
 
 #+begin_src emacs-lisp
 (custom-set-faces!
-  '(org-document-title :height 1.6)
-  '(outline-1          :height 1.25)
-  '(outline-2          :height 1.2)
-  '(outline-3          :height 1.2)
-  '(outline-4          :height 1.2)
-  '(outline-5          :height 1.2)
-  '(outline-6          :height 1.2)
-  '(outline-7          :height 1.2)
-  '(outline-8          :height 1.2)
-  '(outline-9          :height 1.2))
+  '(org-document-title :height 1.2)
+  '(outline-1          :height 1.1)
+  '(outline-2          :height 1.025)
+  '(outline-3          :height 1.025)
+  '(outline-4          :height 1.025)
+  '(outline-5          :height 1.025)
+  '(outline-6          :height 1.025)
+  '(outline-7          :height 1.025)
+  '(outline-8          :height 1.025)
+  '(outline-9          :height 1.025))
 #+end_src
 
 ***** Org-superstar
@@ -548,7 +548,7 @@ Here we're setting up a lot of options for Org-mode
   :hook (org-mode . org-superstar-mode)
   :config
   (setq org-superstar-leading-bullet ?›)
-  (setq org-superstar-headline-bullets-list '(" >"))
+  (setq org-superstar-headline-bullets-list '("●"))
   (setq org-superstar-special-todo-items t)
   (setq org-superstar-todo-bullet-alist '(("TODO"     . 9744)
                                           ("NEXT"     . 9744)

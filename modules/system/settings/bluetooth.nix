@@ -1,7 +1,7 @@
 # bluetooth config.
 { inputs, ... }:
 {
-  flake.modules.nixos.bluetooth = 
+  flake.modules.nixos.bluetooth =
   { ... }:
   {
     # Enable bluetooth

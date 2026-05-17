@@ -26,28 +26,28 @@
 
         # Modesetting is required for Wayland
         modesetting.enable = true;
-        
+
         # Enable power management (important for laptops to save battery)
         powerManagement = {
           enable = true;
           finegrained = false;  # Requires Turing (RTX 20xx)+; GTX 1050 is Pascal
         };
-        
+
         # Use the NVidia open source kernel module (for newer cards)
         # Comment this out if you have an older NVIDIA GPU
         open = false;
-        
+
         # Enable the Optimus Prime offloading mode
         prime = {
           offload.enable = true;
-          
+
           # Intel iGPU as primary
           intelBusId = "PCI:0:2:0";  # You might need to verify this with `lspci | grep VGA`
-          
+
           # NVIDIA dGPU
           nvidiaBusId = "PCI:1:0:0";  # You might need to verify this with `lspci | grep NVIDIA`
         };
-        
+
         # Enable the nvidia-settings menu
         nvidiaSettings = true;
       };

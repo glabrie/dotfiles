@@ -21,7 +21,7 @@
     oxicord.url = "github:linuxmobile/oxicord";
     spicetify-nix.url = "github:Gerg-L/spicetify-nix";
     noctalia = {
-      url = "github:noctalia-dev/noctalia-shell";
+      url = "github:noctalia-dev/noctalia-shell/v5";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     zen-browser = {

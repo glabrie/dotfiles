@@ -1,0 +1,468 @@
+#+title: System Settings
+#+property: header-args:nix :noweb yes :mkdirp yes
+
+Here are a series of settings needed for the computers.
+
+* Audio
+
+#+begin_src nix :tangle audio.nix
+# Audio config. We are using pipewire mainly because we're not in the stone age anymore.
+{ ... }:
+{
+  flake.modules.nixos.audio =
+  { ... }:
+  {
+    services.pulseaudio.enable = false;
+    security.rtkit.enable = true;
+    services.pipewire = {
+      enable = true;
+      alsa.enable = true;
+      alsa.support32Bit = true;
+      pulse.enable = true;
+    };
+  };
+}
+#+end_src
+
+* Bluetooth
+
+#+begin_src nix :tangle bluetooth.nix
+# bluetooth config.
+{ inputs, ... }:
+{
+  flake.modules.nixos.bluetooth =
+  { ... }:
+  {
+    # Enable bluetooth
+    hardware.bluetooth = {
+      enable = true;
+      powerOnBoot = true;
+      settings.General = {
+        Privacy = "device";
+        JustWorksRepairing = "always";
+        Class = "0x000100";
+        FastConnectable = true;
+      };
+    };
+    # Bluetooth applet
+    services.blueman.enable = true;
+  };
+
+  flake.modules.homeManager.bluetooth =
+  { ... }:
+  {
+  };
+}
+#+end_src
+
+* Firmware
+
+#+begin_src nix :tangle firmware.nix
+# Enable updating the firmware for hardware devices.
+{
+  flake.modules.nixos.firmware = {
+    services.fwupd.enable = true;
+    hardware.enableAllFirmware = true;
+    hardware.enableRedistributableFirmware = true;
+    nixpkgs.config.allowUnfree = true; # enableAllFirmware depends on this
+  };
+}
+#+end_src
+
+* Flatpak
+
+#+begin_src nix :tangle flatpak.nix
+# Simple aspect for supporting flatpaks.
+{ ... }:
+{
+  flake.modules.nixos.flatpak =
+  { ... }:
+  {
+    services.flatpak.enable = true;
+  };
+}
+#+end_src
+
+* Fonts
+
+I use Montserrat and Jetbrains in Emacs for the mixed pitch, and Jetbrains pretty much everywhere else.
+I also have maple-mono installed, which I switch to from time to time. It's whimsical and fun, with great ligatures.
+
+#+begin_src nix :tangle fonts.nix
+{ inputs, ... }:
+{
+  flake.modules.nixos.fonts =
+  { pkgs, ...}:
+  {
+    fonts.packages = with pkgs; [
+      maple-mono.NF
+      montserrat
+      nerd-fonts.jetbrains-mono
+      font-awesome
+      font-awesome_5
+    ];
+  };
+  flake.modules.homeManager.fonts = {
+    fonts.fontconfig.enable = true;
+  };
+}
+#+end_src
+
+* Gaming
+
+#+begin_src nix :tangle gaming.nix
+# Gaming related config, all conveniently placed in the same spot!
+{ ... }:
+{
+  flake.modules.nixos.gaming =
+  { pkgs, ... }:
+  {
+    # Steam
+    programs.steam = {
+      enable = true;
+      remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
+      dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+      extraPackages = [ pkgs.libxmu ];
+    };
+
+    # Enable xbox controller support
+    hardware.xpadneo.enable = true;
+    hardware.xone.enable = true;
+  };
+
+  flake.modules.homeManager.gaming =
+  { ... }:
+  {
+    xdg.desktopEntries.steam = {
+      name = "Steam";
+      exec = "steam -system-composer %U";
+      icon = "steam";
+      terminal = false;
+      categories = [ "Network" "FileTransfer" "Game" ];
+    };
+  };
+}
+#+end_src
+
+* Greetd
+
+#+begin_src nix :tangle greetd.nix
+{ inputs, ... }:
+{
+  flake.modules.nixos.greetd =
+    { pkgs, ... }:
+      let
+        tuigreet = "${pkgs.tuigreet}/bin/tuigreet";
+      in
+      {
+        services.greetd = {
+          enable = true;
+          settings = {
+            default_session = {
+              command = "${tuigreet} --time --remember --asterisks --cmd niri-session";
+              user = "greeter";
+            };
+          };
+        };
+
+        # this is a life saver.
+        # literally no documentation about this anywhere.
+        # might be good to write about this...
+        # https://www.reddit.com/r/NixOS/comments/u0cdpi/tuigreet_with_xmonad_how/
+        systemd.services.greetd.serviceConfig = {
+          Type = "idle";
+          StandardInput = "tty";
+          StandardOutput = "tty";
+          StandardError = "journal"; # Without this errors will spam on screen
+          # Without these bootlogs will spam on screen
+          TTYReset = true;
+          TTYVHangup = true;
+          TTYVTDisallocate = true;
+        };
+
+        # Let's allow our keyring to work from the start
+        security.pam.services.greetd.enableGnomeKeyring = true;
+      };
+}
+#+end_src
+
+* GTK
+
+#+begin_src nix :tangle gtk.nix
+{ ... }:
+{
+  flake.modules.homeManager.gtk =
+  { pkgs, lib, ...}:
+  {
+    gtk = {
+      enable = true;
+      theme = {
+        name = "Tokyonight-Dark";
+        package = pkgs.tokyonight-gtk-theme;
+      };
+      cursorTheme = {
+        name = "catppuccin-mocha-dark-cursors";
+        package = pkgs.catppuccin-cursors.mochaDark;
+        size = 24;
+      };
+      gtk4.theme = null;
+    };
+
+    home.pointerCursor = {
+      gtk.enable = true;
+      x11.enable = true;
+      package = pkgs.catppuccin-cursors.mochaDark;
+      name = "catppuccin-mocha-dark-cursors";
+      size = 24;
+    };
+
+    dconf.settings."org/gnome/desktop/interface" = {
+      color-scheme = "prefer-dark";
+      gtk-theme = "Tokyonight-Dark";
+    };
+  };
+}
+#+end_src
+
+* Locale
+
+#+begin_src nix :tangle locale.nix
+# locale config.
+{ ... }:
+{
+  flake.modules.nixos.locale =
+  { ... }:
+  {
+    # Set your time zone.
+    time.timeZone = "America/Toronto";
+
+    # Select internationalisation properties.
+    i18n.defaultLocale = "en_US.UTF-8";
+
+    i18n.extraLocaleSettings = {
+      LC_ADDRESS = "en_US.UTF-8";
+      LC_IDENTIFICATION = "en_US.UTF-8";
+      LC_MEASUREMENT = "en_US.UTF-8";
+      LC_MONETARY = "en_US.UTF-8";
+      LC_NAME = "en_US.UTF-8";
+      LC_NUMERIC = "en_US.UTF-8";
+      LC_PAPER = "en_US.UTF-8";
+      LC_TELEPHONE = "en_US.UTF-8";
+      LC_TIME = "en_US.UTF-8";
+    };
+  };
+}
+#+end_src
+
+* Networking
+
+#+begin_src nix :tangle networking.nix
+# Networking config. Will be expanded later.
+{ inputs, ... }:
+{
+  flake.modules.nixos.networking =
+  { pkgs, config, ... }:
+  {
+    networking.networkmanager.enable = true;
+    services.tailscale.enable = true;
+    networking.firewall = {
+      enable = true;
+      trustedInterfaces = [ "tailscale0" ];
+      allowedUDPPorts = [ config.services.tailscale.port ];
+    };
+  };
+
+  flake.modules.homeManager.networking =
+  { ... }:
+  {
+    services.network-manager-applet.enable = true;
+  };
+}
+#+end_src
+
+* NVIDIA
+
+#+begin_src nix :tangle nvidia.nix
+# graphics.nix - Configuration for NVIDIA Optimus laptop
+{ ... } :
+{
+  flake.modules.nixos.nvidia =
+    { config, pkgs, ... }:
+    {
+      # Enable OpenGL
+      hardware.graphics = {
+        enable = true;
+        # driSupport = true;
+        enable32Bit = true;  # Needed for Steam and other 32-bit applications
+        extraPackages = with pkgs; [
+          intel-media-driver  # VAAPI driver for Intel iGPU
+          intel-vaapi-driver  # VAAPI for older Intel iGPUs
+          libva-vdpau-driver
+          libvdpau-va-gl
+        ];
+      };
+
+      # Load nvidia driver for Xorg and Wayland
+      services.xserver.videoDrivers = [ "nvidia" ];
+
+      hardware.nvidia = {
+        # GTX 1050 is Pascal; NVIDIA 590+ dropped Pascal support
+        package = config.boot.kernelPackages.nvidiaPackages.legacy_580;
+
+        # Modesetting is required for Wayland
+        modesetting.enable = true;
+
+        # Enable power management (important for laptops to save battery)
+        powerManagement = {
+          enable = true;
+          finegrained = false;  # Requires Turing (RTX 20xx)+; GTX 1050 is Pascal
+        };
+
+        # Use the NVidia open source kernel module (for newer cards)
+        # Comment this out if you have an older NVIDIA GPU
+        open = false;
+
+        # Enable the Optimus Prime offloading mode
+        prime = {
+          offload.enable = true;
+
+          # Intel iGPU as primary
+          intelBusId = "PCI:0:2:0";  # You might need to verify this with `lspci | grep VGA`
+
+          # NVIDIA dGPU
+          nvidiaBusId = "PCI:1:0:0";  # You might need to verify this with `lspci | grep NVIDIA`
+        };
+
+        # Enable the nvidia-settings menu
+        nvidiaSettings = true;
+      };
+
+      # Add nvidia-offload script for easy launching of applications on the NVIDIA GPU
+      environment.systemPackages = with pkgs; [
+        # Create a script to easily run programs on the NVIDIA GPU
+        (writeShellScriptBin "nvidia-offload" ''
+          export __NV_PRIME_RENDER_OFFLOAD=1
+          export __NV_PRIME_RENDER_OFFLOAD_PROVIDER=NVIDIA-G0
+          export __GLX_VENDOR_LIBRARY_NAME=nvidia
+          export __VK_LAYER_NV_optimus=NVIDIA_only
+          exec "$@"
+        '')
+      ];
+
+      # Add kernel parameters to improve NVIDIA compatibility and performance
+      boot.kernelParams = [
+        "nvidia.NVreg_PreserveVideoMemoryAllocations=1"  # Better suspend/resume support
+        "video=eDP-1:d"  # Disable internal display at KMS level (eDP-1 is on Intel/card0, unmanaged by Hyprland)
+        "nvidia.NVreg_RegistryDwords=PowerMizerEnable=0x1;PowerMizerDefault=0x1;PowerMizerDefaultAC=0x1;PerfLevelSrc=0x2222" # Power mizer setting to force the clock, for niri.
+      ];
+
+      environment.etc."nvidia/nvidia-application-profiles-rc.d/50-niri-vram-fix.json".text =
+      builtins.toJSON {
+        rules = [
+          {
+            pattern = {
+              feature = "procname";
+              matches = "niri";
+            };
+            profile = "Limit Free Buffer Pool On Wayland Compositors";
+          }
+        ];
+        profiles = [
+          {
+            name = "Limit Free Buffer Pool On Wayland Compositors";
+            settings = [
+              {
+                key = "GLVidHeapReuseRatio";
+                value = 0;
+              }
+            ];
+          }
+        ];
+      };
+
+      # For hybrid graphics - set the default to the integrated GPU for better battery life
+      environment.variables = {
+        LIBVA_DRIVER_NAME = "iHD"; # Use Intel's media driver for hardware video acceleration
+        NIXOS_OZONE_WL = "1";
+      };
+    };
+}
+#+end_src
+
+* Security
+
+#+begin_src nix :tangle security.nix
+# Add a keyring to keep all of your secrets...secret.
+{ ... }:
+{
+  flake.modules.nixos.security =
+  { ... }:
+  {
+    programs.gnupg.agent.enable = true;
+    services.gnome.gnome-keyring.enable = true;
+  };
+}
+#+end_src
+
+* Storage
+
+#+begin_src nix :tangle storage.nix
+# storage config to automount USB drives.
+{ ... }:
+{
+  flake.modules.nixos.storage =
+  { ... }:
+  {
+    services.gvfs.enable = true;
+    services.udisks2.enable = true;
+    services.devmon.enable = true;
+  };
+}
+#+end_src
+
+* Boot
+
+#+begin_src nix :tangle systemd-boot.nix
+# Boot config file.
+{ ... }:
+{
+  flake.modules.nixos.boot =
+  { config, pkgs, ... }:
+  {
+    boot = {
+      kernelPackages = pkgs.linuxPackages_latest;
+      extraModprobeConfig = "options bluetooth disable_ertm=Y\n";
+      loader.systemd-boot.enable = true;
+      loader.efi.canTouchEfiVariables = true;
+    };
+  };
+}
+#+end_src
+
+* Touchpad
+
+#+begin_src nix :tangle touchpad.nix
+# simple touchpad config.
+{ ... }:
+{
+  flake.modules.nixos.touchpad =
+  { ... }:
+  {
+    services.libinput.enable = true;
+  };
+}
+#+end_src
+
+* Virtualisation
+
+#+begin_src nix :tangle virtualisation.nix
+{ ... }:
+{
+  flake.modules.nixos.virtualisation =
+  { ... }:
+  {
+    virtualisation.libvirtd.enable = true;
+    programs.virt-manager.enable = true;
+  };
+}
+#+end_src

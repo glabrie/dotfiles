@@ -458,3 +458,15 @@ And finally, keybindings to quit Niri. But why would you?
 }
 #+end_src
 
+* XDG config wiring
+
+Wire ~config.kdl~ into the Home Manager XDG config path.
+
+#+begin_src nix :tangle niri-settings.nix
+{ ... }:
+{
+  flake.modules.homeManager.niri = { ... }: {
+    xdg.configFile."niri/config.kdl".source = ./config.kdl;
+  };
+}
+#+end_src
