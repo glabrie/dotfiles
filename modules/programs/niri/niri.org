@@ -277,13 +277,16 @@ Before, I used a lot of transparency  in my config. I got rid of it all! ...and 
 window-rule {
     match app-id=r#"^zen$"#
     draw-border-with-background false
-    opacity 0.6
+    opacity 0.2
+    background-effect {
+        blur true
+    }
 }
 #+end_src
 
 So about that transparency? Niri now includes blur. Yay! So we're going to put it EVERYWHERE.
 
-#+begin_src kdl :tangle no
+#+begin_src kdl
 window-rule {
     match app-id="kitty"
     background-effect {
