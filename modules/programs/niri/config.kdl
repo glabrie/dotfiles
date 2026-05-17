@@ -110,7 +110,6 @@ window-rule {
 window-rule {
     match app-id=r#"^zen$"#
     draw-border-with-background false
-    opacity 0.6
     background-effect {
         blur true
     }
