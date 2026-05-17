@@ -61,7 +61,7 @@ Completely off-topic, but KDL comments make me think of an old Gamefaq walkthrou
 Since the systemd service option is now deprecated, we have to start Noctalia from inside Niri with this little snippet
 
 #+begin_src kdl
-spawn-at-startup "noctalia-shell"
+spawn-at-startup "noctalia"
 #+end_src
 
 ** Environment variables
@@ -301,6 +301,17 @@ window-rule {
 }
 #+end_src
 
+Fix for Noctalia v5 activating blur even though I didn't tell it to
+
+#+begin_src kdl
+layer-rule {
+  match namespace="^noctalia-.*$"
+  background-effect {
+    blur false
+  }
+}
+#+end_src
+
 This makes my amazing org-mode capture everywhere float, which is very cool
 
 #+begin_src kdl
@@ -320,7 +331,7 @@ Last one is Emacs, of course.
 #+begin_src kdl
 binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
-    Mod+D { spawn "noctalia-shell" "ipc" "call" "launcher" "toggle"; }
+    Mod+D { spawn "noctalia" "msg" "panel-toggle" "launcher"; }
     Mod+T hotkey-overlay-title="Open a Terminal: kitty" { spawn "kitty"; }
     Mod+E hotkey-overlay-title="Open an Emacs window" { spawn "emacsclient" "-c"; }
     Mod+C hotkey-overlay-title="Org-roam daily capture" { spawn "emacsclient" "-e" "(+my/org-capture-frame \"f\")"; }

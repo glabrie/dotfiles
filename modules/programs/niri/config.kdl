@@ -1,4 +1,4 @@
-spawn-at-startup "noctalia-shell"
+spawn-at-startup "noctalia"
 
 environment {
     ELECTRON_OZONE_PLATFORM_HINT "auto"
@@ -129,6 +129,13 @@ window-rule {
     }
 }
 
+layer-rule {
+  match namespace="^noctalia-.*$"
+  background-effect {
+    blur false
+  }
+}
+
 window-rule {
     match app-id="emacs" title="Org-capture to daily note"
     open-floating true
@@ -137,7 +144,7 @@ window-rule {
 
 binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
-    Mod+D { spawn "noctalia-shell" "ipc" "call" "launcher" "toggle"; }
+    Mod+D { spawn "noctalia" "msg" "panel-toggle" "launcher"; }
     Mod+T hotkey-overlay-title="Open a Terminal: kitty" { spawn "kitty"; }
     Mod+E hotkey-overlay-title="Open an Emacs window" { spawn "emacsclient" "-c"; }
     Mod+C hotkey-overlay-title="Org-roam daily capture" { spawn "emacsclient" "-e" "(+my/org-capture-frame \"f\")"; }
