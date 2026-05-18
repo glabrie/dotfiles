@@ -306,7 +306,7 @@ window-rule {
 Fix for Noctalia v5 activating blur even though I didn't tell it to
 
 #+begin_src kdl
-layer-rule {
+window-rule {
   match namespace="^noctalia-.*$"
   draw-border-with-background false
 }

@@ -131,7 +131,7 @@ window-rule {
     }
 }
 
-layer-rule {
+window-rule {
   match namespace="^noctalia-.*$"
   draw-border-with-background false
 }
