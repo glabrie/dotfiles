@@ -140,9 +140,9 @@ window-rule {
     match app-id="emacs"
     open-on-workspace "emacs"
     draw-border-with-background false
-    saturation 1
     background-effect {
         blur true
+        saturation 1
     }
 }
 window-rule {
