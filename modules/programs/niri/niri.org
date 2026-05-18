@@ -300,7 +300,7 @@ window-rule {
     }
 }
 window-rule {
-    math app-id="noctalia"
+    match app-id="noctalia"
     draw-border-with-background false
 }
 #+end_src
