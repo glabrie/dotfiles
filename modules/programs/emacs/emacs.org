@@ -419,8 +419,8 @@ It causes some problems with ~Org-modern~ but I get around it by simply disablin
 Note: I'm currently disabling it, to get a better experience with a variety of bugs.
 
 #+begin_src emacs-lisp
-(add-to-list 'default-frame-alist '(alpha-background . 00))
-(modify-all-frames-parameters '((alpha-background . 00)))
+(add-to-list 'default-frame-alist '(alpha-background . 60))
+(modify-all-frames-parameters '((alpha-background . 60)))
 #+end_src
 
 ***** Frames
