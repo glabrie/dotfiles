@@ -174,11 +174,11 @@ I like having workspaces that are ordered a certain way, I'm weird like that.
 // workspace ""
 // workspace ""
 // workspace ""
-workspace "Emacs"
-workspace "Comms"
-workspace "Web"
-workspace "Gaming"
-workspace "Media"
+workspace "emacs"
+workspace "comms"
+workspace "web"
+workspace "gaming"
+workspace "media"
 #+end_src
 ** Aesthetics
 
@@ -187,7 +187,7 @@ The first rule sets up gaps in between windows for ✨ /aesthetics/ ✨. There w
 
 #+begin_src kdl
 layout {
-    gaps 12
+    gaps 16
 #+end_src
 
 Column settings. Here I'm setting that a single app on a column should spawn centered, and then the other two are setting the preset column width of apps and the default width of an app when spawning.
@@ -232,11 +232,12 @@ Last layout rule makes the background transparent so the overview works correctl
     background-color "transparent"
 }
 #+end_src
-Need that modern rounded corners? Well look no further. Noctalia recommends 20, but I find that's way too much, so we're going with a more reasonable 12.
+
+Need those modern/retro/trendy rounded corners? There you go!
 
 #+begin_src kdl
 window-rule {
-  geometry-corner-radius 12
+  geometry-corner-radius 20
   clip-to-geometry true
 }
 #+end_src
@@ -261,14 +262,21 @@ Rules that let me customize..windows. You guessed it!
 
 Steam has a tendency to bypass XDG and puts its notifications straight in the center of the screen. This fix gets them where you want them. I choose bottom-right instead of top-right like Noctalia's to differentiate them easily.
 
+Next I'm telling Steam to open only on the Gaming workspace, and finally that all windows spawned from Steam should be floating.
+
 #+begin_src kdl
 window-rule {
     match app-id="steam" title=r#"^notificationtoasts_\d+_desktop$"#
     default-floating-position x=10 y=10 relative-to="bottom-right"
 }
-#+end_src
-
-#+begin_src kdl
+window-rule {
+    match app-id="steam"
+    open-on-workspace "gaming"
+    opacity 0.8
+    background-effect {
+        blur true
+    }
+}
 window-rule {
     match app-id="steam"
     exclude title="^Steam$"
@@ -276,11 +284,13 @@ window-rule {
 }
 #+end_src
 
-Before, I used a lot of transparency  in my config. I got rid of it all! ...and lasted about one week. Zen still has a weird problem with transparency, doesn't mix well with XDG decorations so it will render the border as a full color background for you to sear your eyes on. We're telling it harshly to stop being an ass.
+Zen browser is next. It has a weird relation with opacity and the drawing behind it, so we specify that we do not want the border to be a solid background (which is still a weird concept to me from Niri but I digress.)
 
+And we'll add some blur to it.
 #+begin_src kdl
 window-rule {
     match app-id=r#"^zen$"#
+    open-on-workspace "web"
     draw-border-with-background false
     opacity 0.8
     background-effect {
@@ -289,7 +299,7 @@ window-rule {
 }
 #+end_src
 
-So about that transparency? Niri now includes blur. Yay! So we're going to put it EVERYWHERE.
+And we'll keep adding apps to this "I want it on that workspace" and also "moar blur please"
 
 #+begin_src kdl
 window-rule {
@@ -301,7 +311,25 @@ window-rule {
 }
 window-rule {
     match app-id="emacs"
+    open-on-workspace "emacs"
     draw-border-with-background false
+    background-effect {
+        saturation 0
+        blur true
+    }
+}
+window-rule {
+    match app-id"GeForceNOW"
+    open-on-workspace "gaming"
+    opacity 0.8
+    background-effect {
+        blur true
+    }
+}
+window-rule {
+    match app-id"spotify"
+    open-on-workspace "media"
+    opacity 0.8
     background-effect {
         blur true
     }

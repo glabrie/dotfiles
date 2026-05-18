@@ -50,14 +50,14 @@ warp-mouse-to-focus
 // workspace ""
 // workspace ""
 // workspace ""
-workspace "Emacs"
-workspace "Comms"
-workspace "Web"
-workspace "Gaming"
-workspace "Media"
+workspace "emacs"
+workspace "comms"
+workspace "web"
+workspace "gaming"
+workspace "media"
 
 layout {
-    gaps 12
+    gaps 16
 
 always-center-single-column
 preset-column-widths {
@@ -87,7 +87,7 @@ background-color "transparent"
 }
 
 window-rule {
-  geometry-corner-radius 12
+  geometry-corner-radius 20
   clip-to-geometry true
 }
 
@@ -105,7 +105,14 @@ window-rule {
     match app-id="steam" title=r#"^notificationtoasts_\d+_desktop$"#
     default-floating-position x=10 y=10 relative-to="bottom-right"
 }
-
+window-rule {
+    match app-id="steam"
+    open-on-workspace "gaming"
+    opacity 0.8
+    background-effect {
+        blur true
+    }
+}
 window-rule {
     match app-id="steam"
     exclude title="^Steam$"
@@ -114,6 +121,7 @@ window-rule {
 
 window-rule {
     match app-id=r#"^zen$"#
+    open-on-workspace "web"
     draw-border-with-background false
     opacity 0.8
     background-effect {
@@ -130,7 +138,25 @@ window-rule {
 }
 window-rule {
     match app-id="emacs"
+    open-on-workspace "emacs"
     draw-border-with-background false
+    background-effect {
+        saturation 0
+        blur true
+    }
+}
+window-rule {
+    match app-id"GeForceNOW"
+    open-on-workspace "gaming"
+    opacity 0.8
+    background-effect {
+        blur true
+    }
+}
+window-rule {
+    match app-id"spotify"
+    open-on-workspace "media"
+    opacity 0.8
     background-effect {
         blur true
     }
