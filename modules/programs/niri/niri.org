@@ -289,19 +289,17 @@ So about that transparency? Niri now includes blur. Yay! So we're going to put i
 #+begin_src kdl
 window-rule {
     match app-id="kitty"
+    draw-border-with-background false
     background-effect {
         blur true
     }
 }
 window-rule {
     match app-id="emacs"
+    draw-border-with-background false
     background-effect {
         blur true
     }
-}
-window-rule {
-    match app-id="noctalia"
-    draw-border-with-background true
 }
 #+end_src
 
