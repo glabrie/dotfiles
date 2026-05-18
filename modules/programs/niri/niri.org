@@ -298,7 +298,7 @@ window-rule {
     match app-id="emacs"
     draw-border-with-background false
     background-effect {
-        blur false
+        blur true
     }
 }
 #+end_src
