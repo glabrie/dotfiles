@@ -31,7 +31,6 @@
         gtk
         kitty
         networking
-        tmux
         niri
         noctalia
       ];
