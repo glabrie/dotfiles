@@ -212,6 +212,7 @@ While we're talking about mu4e, here's the other shoe: We need isync and mu, so 
       pkgs.graphviz
       pkgs.libertinus
       pkgs.imagemagick
+      (pkgs.texlive.combine { inherit (pkgs.texlive) scheme-basic dvipng; })
     ];
     systemd.user.services.protonmail-bridge = {
       Unit = {
@@ -260,7 +261,7 @@ Those options come packaged as part of Doom Emacs. In vanilla emacs, most of the
        ophints                     ; highlight the region an operation acts on
        (popup +defaults)           ; tame sudden yet inevitable temporary windows
        smooth-scroll               ; So smooth you won't believe it's not butter
-       ;;(vc-gutter +pretty)         ; vcs diff in the fringe
+       (vc-gutter +pretty)         ; vcs diff in the fringe
        workspaces                  ; tab emulation, persistence & separate workspaces
 
        :editor
@@ -278,6 +279,7 @@ Those options come packaged as part of Doom Emacs. In vanilla emacs, most of the
        electric                    ; smarter, keyword-based electric-indent
        tramp                       ; remote files at your arthritic fingertips
        undo                        ; persistent, smarter undo for your inevitable mistakes
+       eww
 
        :term
        vterm                       ; the best terminal emulation in Emacs
@@ -304,6 +306,7 @@ Those options come packaged as part of Doom Emacs. In vanilla emacs, most of the
        emacs-lisp                  ; drown in parentheses
        (go +lsp)                   ; the hipster dialect
        json                        ; At least it ain't XML
+       latex                       ; Writing papers in Emacs has never been so fun
        lua                         ; one-based indices? one-based indices
        markdown                    ; writing docs for people to ignore
        nix                         ; I hereby declare "nix geht mehr!"
@@ -327,6 +330,8 @@ Those options come packaged as part of Doom Emacs. In vanilla emacs, most of the
        :config
        (default +bindings +smartparens))
 #+end_src
+
+#+RESULTS:
 
 *** Config
 :PROPERTIES:
@@ -419,8 +424,8 @@ It causes some problems with ~Org-modern~ but I get around it by simply disablin
 Note: I'm currently disabling it, to get a better experience with a variety of bugs.
 
 #+begin_src emacs-lisp
-(add-to-list 'default-frame-alist '(alpha-background . 60))
-(modify-all-frames-parameters '((alpha-background . 60)))
+(add-to-list 'default-frame-alist '(alpha-background . 40))
+(modify-all-frames-parameters '((alpha-background . 40)))
 #+end_src
 
 ***** Frames
@@ -495,6 +500,7 @@ Here we're setting up a lot of options for Org-mode
         org-log-done t
         org-src-content-indentation 0
         org-startup-with-inline-images t
+        org-startup-with-latex-preview t
         org-agenda-tags-column 0
         org-agenda-block-separator ?─
         org-agenda-time-grid
@@ -505,6 +511,10 @@ Here we're setting up a lot of options for Org-mode
         "◀── now ─────────────────────────────────────────────────"
         org-agenda-files '("~/org/tasks.org")
         org-archive-location "~/org/archive.org::datetree/"))
+#+end_src
+
+#+begin_src emacs-lisp
+(add-hook 'org-mode-hook (lambda () (diff-hl-mode -1)))
 #+end_src
 
 ***** Tags
@@ -640,6 +650,23 @@ Olivetti is a nice little package that does only one thing: If your window (the 
   :hook (org-mode . olivetti-mode)
   :config
   (setq olivetti-body-width 120))
+#+end_src
+
+***** Org LaTeX Preview
+
+#+begin_src emacs-lisp
+(after! org
+  (plist-put org-format-latex-options :scale 1.35)
+  (let ((png (cdr (assoc 'dvipng org-preview-latex-process-alist))))
+    (plist-put png :latex-compiler '("latex -interaction nonstopmode -output-directory %o %F"))
+    (plist-put png :image-converter '("dvipng -D %D -T tight -o %O %F"))
+    (plist-put png :transparent-image-converter '("dvipng -D %D -T tight -bg Transparent -o %O %F"))))
+#+end_src
+
+#+begin_src emacs-lisp
+(use-package! org-fragtog
+  :after org
+  :hook (org-mode . org-fragtog-mode))
 #+end_src
 
 ***** Org-roam

@@ -24,6 +24,7 @@ home.packages = [
       pkgs.graphviz
       pkgs.libertinus
       pkgs.imagemagick
+      (pkgs.texlive.combine { inherit (pkgs.texlive) scheme-basic dvipng; })
     ];
     systemd.user.services.protonmail-bridge = {
       Unit = {
