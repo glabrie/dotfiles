@@ -307,7 +307,7 @@ Fix for Noctalia v5 activating blur even though I didn't tell it to
 
 #+begin_src kdl
 window-rule {
-  match namespace="^noctalia-.*$"
+  match app-id="^noctalia-.*$"
   draw-border-with-background false
 }
 #+end_src

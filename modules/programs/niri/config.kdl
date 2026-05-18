@@ -132,7 +132,7 @@ window-rule {
 }
 
 window-rule {
-  match namespace="^noctalia-.*$"
+  match app-id="^noctalia-.*$"
   draw-border-with-background false
 }
 
