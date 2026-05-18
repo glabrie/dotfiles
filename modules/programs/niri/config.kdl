@@ -130,13 +130,13 @@ window-rule {
 }
 window-rule {
     match app-id="noctalia"
-    draw-border-with-background false
+    draw-border-with-background true
 }
 
 layer-rule {
   match namespace="^noctalia-.*$"
   background-effect {
-    blur true
+    blur false
   }
 }
 
