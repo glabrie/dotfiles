@@ -169,11 +169,16 @@ Lastly, I'm setting it so that the mouse cursor warps to the center of the activ
 I like having workspaces that are ordered a certain way, I'm weird like that.
 
 #+begin_src kdl
-workspace ""
-workspace ""
-workspace ""
-workspace ""
-workspace ""
+// workspace ""
+// workspace ""
+// workspace ""
+// workspace ""
+// workspace ""
+workspace "Emacs"
+workspace "Comms"
+workspace "Web"
+workspace "Gaming"
+workspace "Media"
 #+end_src
 ** Aesthetics
 

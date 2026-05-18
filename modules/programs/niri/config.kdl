@@ -45,11 +45,16 @@ touchpad {
 warp-mouse-to-focus
 }
 
-workspace ""
-workspace ""
-workspace ""
-workspace ""
-workspace ""
+// workspace ""
+// workspace ""
+// workspace ""
+// workspace ""
+// workspace ""
+workspace "Emacs"
+workspace "Comms"
+workspace "Web"
+workspace "Gaming"
+workspace "Media"
 
 layout {
     gaps 12
