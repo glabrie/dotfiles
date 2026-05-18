@@ -289,26 +289,30 @@ So about that transparency? Niri now includes blur. Yay! So we're going to put i
 #+begin_src kdl
 window-rule {
     match app-id="kitty"
-    draw-border-with-background false
     background-effect {
         blur true
     }
 }
 window-rule {
     match app-id="emacs"
-    draw-border-with-background false
     background-effect {
         blur true
     }
+}
+window-rule {
+    math app-id="noctalia"
+    draw-border-with-background false
 }
 #+end_src
 
 Fix for Noctalia v5 activating blur even though I didn't tell it to
 
 #+begin_src kdl
-window-rule {
-  match app-id="^noctalia-.*$"
-  draw-border-with-background false
+layer-rule {
+  match namespace="^noctalia-.*$"
+  background-effect {
+    blur true
+  }
 }
 #+end_src
 

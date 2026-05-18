@@ -118,22 +118,26 @@ window-rule {
 
 window-rule {
     match app-id="kitty"
-    draw-border-with-background false
     background-effect {
         blur true
     }
 }
 window-rule {
     match app-id="emacs"
-    draw-border-with-background false
     background-effect {
         blur true
     }
 }
-
 window-rule {
-  match app-id="^noctalia-.*$"
-  draw-border-with-background false
+    math app-id="noctalia"
+    draw-border-with-background false
+}
+
+layer-rule {
+  match namespace="^noctalia-.*$"
+  background-effect {
+    blur true
+  }
 }
 
 window-rule {
