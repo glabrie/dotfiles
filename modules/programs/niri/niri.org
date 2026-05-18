@@ -313,8 +313,8 @@ window-rule {
     match app-id="emacs"
     open-on-workspace "emacs"
     draw-border-with-background false
+    saturation 1
     background-effect {
-        saturation 0
         blur true
     }
 }
