@@ -146,7 +146,7 @@ window-rule {
     }
 }
 window-rule {
-    match app-id"GeForceNOW"
+    match app-id="GeForceNOW"
     open-on-workspace "gaming"
     opacity 0.8
     background-effect {
@@ -154,7 +154,7 @@ window-rule {
     }
 }
 window-rule {
-    match app-id"spotify"
+    match app-id="spotify"
     open-on-workspace "media"
     opacity 0.8
     background-effect {
