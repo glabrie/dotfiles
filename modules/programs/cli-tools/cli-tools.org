@@ -21,6 +21,7 @@ Small definition module adding cli utilities that are needed on every system.
       fastfetch
       file
       fzf
+      jujutsu
       gcc
       git
       gh

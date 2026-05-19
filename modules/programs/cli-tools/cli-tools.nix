@@ -13,6 +13,7 @@
       fastfetch
       file
       fzf
+      jujutsu
       gcc
       git
       gh
