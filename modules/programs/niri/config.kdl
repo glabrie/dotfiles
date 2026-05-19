@@ -105,14 +105,17 @@ window-rule {
     match app-id="steam" title=r#"^notificationtoasts_\d+_desktop$"#
     default-floating-position x=10 y=10 relative-to="bottom-right"
 }
+
 window-rule {
     match app-id="steam"
     open-on-workspace "gaming"
     opacity 0.8
     background-effect {
         blur true
+        saturation 1
     }
 }
+
 window-rule {
     match app-id="steam"
     exclude title="^Steam$"
@@ -126,6 +129,7 @@ window-rule {
     opacity 0.8
     background-effect {
         blur true
+        saturation 1
     }
 }
 
@@ -134,8 +138,10 @@ window-rule {
     draw-border-with-background false
     background-effect {
         blur true
+        saturation 1
     }
 }
+
 window-rule {
     match app-id="emacs"
     open-on-workspace "emacs"
@@ -145,20 +151,24 @@ window-rule {
         saturation 1
     }
 }
+
 window-rule {
     match app-id="GeForceNOW"
     open-on-workspace "gaming"
     opacity 0.8
     background-effect {
         blur true
+        saturation 1
     }
 }
+
 window-rule {
     match app-id="spotify"
     open-on-workspace "media"
     opacity 0.8
     background-effect {
         blur true
+        saturation 1
     }
 }
 

@@ -11,6 +11,12 @@ Niri is a scrolling window manager, a variant of tiling window managers that pre
 The main advantage of scrolling is the space saved on smaller resolutions, but it's really nice still at any resolution including my ultrawide monitor.
 It's snappy and light with rapid development that doesn't break the config every two months, which is a good bonus, highly recommended!
 
+** Useful links
+
++ [[https://github.com/niri-wm/niri][Github]]
++ [[puuhttps://github.com/niri-wm/niri/wiki/Configuration:-Introduction][Configuration documentation]]
++
+
 * Definition of the module
 Let's start! First we'll need to declare the nix module, and we're using an overlay to pipe in the niri flake's package for the newer version that adds *blur*. :D
 
@@ -54,7 +60,7 @@ The xwayland-satellite is used by your compositor to gain access to a rootless X
 * Niri configuration
 
 The standard Niri config is written in KDL format. You can find out more about KDL [[https://kdl.dev/][here]].
-Completely off-topic, but KDL comments make me think of an old Gamefaq walkthrough and I dig that a lot. Sadly we're in org mode here and you won't see one :P
+Completely off-topic, but KDL comments make me think of an old Gamefaq walkthrough and I dig that a lot. Sadly we're in org mode here and you won't see much of them :P
 
 ** Noctalia
 
@@ -98,7 +104,7 @@ xwayland-satellite {
 
 ** Startup behavior
 
-Next we'll disable the keybindings overlay that pops up whenever Niri boots up. You can get that magical pop back using ~Mod+Shift+/~ (only in this config). The hotkey is configured a little later with ~show-hotkey-overlay~ in the [[*Keybindings][binds]] section.
+Next I'll disable the keybindings overlay that pops up whenever Niri boots up. You can get that magical pop back using ~Mod+Shift+/~ (only in this config). The hotkey is configured a little later with ~show-hotkey-overlay~ in the [[*Keybindings][binds]] section.
 
 #+begin_src kdl
 hotkey-overlay { skip-at-startup; }
@@ -260,29 +266,52 @@ overview {
 
 Rules that let me customize..windows. You guessed it!
 
-Steam has a tendency to bypass XDG and puts its notifications straight in the center of the screen. This fix gets them where you want them. I choose bottom-right instead of top-right like Noctalia's to differentiate them easily.
+*** A note on transparency, blur and saturation in Niri.
 
-Next I'm telling Steam to open only on the Gaming workspace, and finally that all windows spawned from Steam should be floating.
+For apps that don't have transparency built-in, I go through the compositor, with the obvious downside that this applies to the whole window, not just the background. This is why I'll use conservative values like 0.8 and 0.9, to not lose too much opacity on the text itself.
+
+Niri now supports blurring the background to great effect. By default, transparency and blur will only render the background underneath. If you want true passthrough with windows underneath also being counted, which will require more from your system (marginally, but stil), you can set xray to false.
+
+It also under the hood sets by default the saturation of the blurred color to 1.5, making for more vibrant windows, which in a calm blue-grey setup like nord, can seem a bit much. So throughout the config I'll be dialing it back down to 1.
+
+For more on the window rules, look [[https://niri-wm.github.io/niri/Configuration%3A-Window-Rules.html][here]].
+
+*** Steam
+
+Steam has a tendency to bypass XDG and puts its notifications straight in the center of the screen. This fix gets them where you want them. I choose bottom-right instead of top-right like Noctalia's to differentiate them easily.
 
 #+begin_src kdl
 window-rule {
     match app-id="steam" title=r#"^notificationtoasts_\d+_desktop$"#
     default-floating-position x=10 y=10 relative-to="bottom-right"
 }
+#+end_src
+
+Here I'm asking for it to open on a particular workspace, then setting the overall opacity to 0.8, the saturation to 1, some blur.
+
+#+begin_src kdl
 window-rule {
     match app-id="steam"
     open-on-workspace "gaming"
     opacity 0.8
     background-effect {
         blur true
+        saturation 1
     }
 }
+#+end_src
+
+I want all windows spawned from Steam to be floating. This matches any window with the app-id steam and if it's not Steam itself, gives it the floating attribute.
+
+#+begin_src kdl
 window-rule {
     match app-id="steam"
     exclude title="^Steam$"
     open-floating true
 }
 #+end_src
+
+*** Zen
 
 Zen browser is next. It has a weird relation with opacity and the drawing behind it, so we specify that we do not want the border to be a solid background (which is still a weird concept to me from Niri but I digress.)
 
@@ -295,11 +324,12 @@ window-rule {
     opacity 0.8
     background-effect {
         blur true
+        saturation 1
     }
 }
 #+end_src
 
-And we'll keep adding apps to this "I want it on that workspace" and also "moar blur please"
+*** Kitty
 
 #+begin_src kdl
 window-rule {
@@ -307,8 +337,14 @@ window-rule {
     draw-border-with-background false
     background-effect {
         blur true
+        saturation 1
     }
 }
+#+end_src
+
+*** Emacs
+
+#+begin_src kdl
 window-rule {
     match app-id="emacs"
     open-on-workspace "emacs"
@@ -318,25 +354,39 @@ window-rule {
         saturation 1
     }
 }
+#+end_src
+
+*** Geforce now
+
+#+begin_src kdl
 window-rule {
     match app-id="GeForceNOW"
     open-on-workspace "gaming"
     opacity 0.8
     background-effect {
         blur true
+        saturation 1
     }
 }
+#+end_src
+
+*** Spotify
+
+#+begin_src kdl
 window-rule {
     match app-id="spotify"
     open-on-workspace "media"
     opacity 0.8
     background-effect {
         blur true
+        saturation 1
     }
 }
 #+end_src
 
-Fix for Noctalia v5 activating blur even though I didn't tell it to
+*** Noctalia
+
+I don't know if it's Noctalia or Niri, but blur is activated automatically on Noctalia's bar, so I'm just reverting it because I'm using an all transparent setup.
 
 #+begin_src kdl
 layer-rule {
