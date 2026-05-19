@@ -63,7 +63,10 @@ Next we commit to jj and add a commit comment
 
 #+begin_src nushell
 step "Committing"
-$timer ++= [{step: "jj commit", time: (timeit { jj commit -m $commit_msg })}]
+$timer ++= [{step: "jj commit", time: (timeit {
+    jj commit -m $commit_msg
+    jj bookmark move main --to @-
+})}]
 #+end_src
 
 And finally we push it to the remote, in this case +github+ ( I have a deep seated hate for Microsoft whose fiery embers have been forged in the early aughts, and I finally did the switch to codeberg. yay! )

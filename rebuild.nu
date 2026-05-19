@@ -26,7 +26,10 @@ step "Rebuilding NixOS"
 $timer ++= [{step: "NixOS rebuild", time: (timeit { sudo nixos-rebuild switch --flake $".#(hostname)" })}]
 
 step "Committing"
-$timer ++= [{step: "jj commit", time: (timeit { jj commit -m $commit_msg })}]
+$timer ++= [{step: "jj commit", time: (timeit {
+    jj commit -m $commit_msg
+    jj bookmark move main --to @-
+})}]
 
 step "Pushing to remote"
 $timer ++= [{step: "jj push", time: (timeit { jj git push })}]
