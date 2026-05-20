@@ -27,6 +27,7 @@ in
       system-desktop
       nushell
       nushell-book
+      helium
     ];
   home.username = "${username}";
 

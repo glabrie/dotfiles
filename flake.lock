@@ -8,11 +8,11 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1779030500,
-        "narHash": "sha256-n3ZJyY2QHIm538K41ir4GyXeIj20X2rqjdJtX78rLfk=",
+        "lastModified": 1779289782,
+        "narHash": "sha256-pXdTDJXsgjEn8Nl8C98Ecwns/23utDhDYEQLXZLKqLM=",
         "owner": "chojs23",
         "repo": "concord",
-        "rev": "7e3cee846e1452ea4525848646f754d7d87aa89c",
+        "rev": "e41ae36837461fc1c438367054c049f1d196cbfa",
         "type": "github"
       },
       "original": {
@@ -72,6 +72,26 @@
         "type": "github"
       }
     },
+    "helium": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1778840565,
+        "narHash": "sha256-f163E7vSidKkhUu/+gk6f+clP3kfTjNqzUWUCK8fE1w=",
+        "owner": "oxcl",
+        "repo": "nix-flake-helium-browser",
+        "rev": "5c62a4c0de2a930f16e697ccf9cbc981915cd8dc",
+        "type": "github"
+      },
+      "original": {
+        "owner": "oxcl",
+        "repo": "nix-flake-helium-browser",
+        "type": "github"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -79,11 +99,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1779027260,
-        "narHash": "sha256-ZbgWWFQmSyM3HQ31nAZk2hJ7OSeNr9uRFHL8jCifY9M=",
+        "lastModified": 1779213149,
+        "narHash": "sha256-Cf+p/T4Z3n9Sw0TiR3kQaIwQI+/hfvLJcoTzeq6yS3E=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "bcb774cfc3268120cd61808629f9aa7dad3750a2",
+        "rev": "bd868f769a69d3b6091a1da68a75cb83a181033c",
         "type": "github"
       },
       "original": {
@@ -211,11 +231,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1779048490,
-        "narHash": "sha256-QKxJbRGQmMncuBbSqYVjlmqmi8aXnKit8WimmzOdFIo=",
+        "lastModified": 1779303980,
+        "narHash": "sha256-8EbgCot7n3XXq2hsK4ext6kZ8FC9ZReZlEt9/Q8jNy4=",
         "owner": "noctalia-dev",
         "repo": "noctalia-shell",
-        "rev": "eeb2c02cdc85de3353eafc616d9e237779d5b0f5",
+        "rev": "ae2ae7ad849b3d373847b52b195e49528a884562",
         "type": "github"
       },
       "original": {
@@ -249,6 +269,7 @@
       "inputs": {
         "concord": "concord",
         "flake-parts": "flake-parts",
+        "helium": "helium",
         "home-manager": "home-manager",
         "import-tree": "import-tree",
         "niri": "niri",

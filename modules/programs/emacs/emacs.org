@@ -669,6 +669,15 @@ Olivetti is a nice little package that does only one thing: If your window (the 
   :hook (org-mode . org-fragtog-mode))
 #+end_src
 
+***** Org-super-agenda
+
+#+begin_src emacs-lisp
+(use-package! org-super-agenda
+  :after org
+  :config
+  (org-super-agenda-mode))
+#+end_src
+
 ***** Org-roam
 
 #+begin_src emacs-lisp
@@ -812,6 +821,15 @@ Simple email setting using [[https://github.com/emacsmirror/mu4e][mu4e]].
       smtpmail-default-smtp-server "127.0.0.1")
 #+end_src
 
+**** Majutsu
+
+#+begin_src emacs-lisp
+(use-package! majutsu
+  :commands majutsu
+  :init
+  (map! :leader :desc "Majutsu (jj)" "g j" #'majutsu))
+#+end_src
+
 *** Packages
 :PROPERTIES:
 :header-args:emacs-lisp: :tangle ~/.config/doom/packages.el
@@ -832,4 +850,6 @@ Simple email setting using [[https://github.com/emacsmirror/mu4e][mu4e]].
 (package! git-auto-commit-mode)
 (package! org-novelist
   :recipe (:host github :repo "sympodius/org-novelist" :branch "development" :files ("*.el")))
+(package! majutsu :recipe (:host github :repo "0WD0/majutsu"))
+(package! org-super-agenda)
 #+end_src

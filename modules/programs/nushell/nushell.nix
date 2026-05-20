@@ -21,10 +21,10 @@
       '';
 
       shellAliases = {
-        boot-garbage = "sudo /run/current-system/bin/switch-to-configuration boot";
-        collect-garbage = "sudo nix-collect-garbage -d";
-        dots ="cd ~/.dotfiles/";
+        dots = "cd ~/.dotfiles/";
         flup = "nix flake update";
+        jjs = "jj status";
+        update = "nu /home/ghil/.dotfiles/rebuild.nu";
         v = "emacsclient -t";
       };
 

@@ -1,0 +1,18 @@
+#+title: Helium
+#+property: header-args:nix :noweb yes :mkdirp yes :tangle helium.nix
+
+* Module definition
+
+#+begin_src nix
+{ inputs, ... }:
+{
+  flake.modules.homeManager.helium =
+  { pkgs, ... }:
+  {
+    imports = [ inputs.helium.homeModules.default ];
+    programs.helium = {
+      enable = true;
+    };
+  };
+}
+#+end_src
