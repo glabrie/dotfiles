@@ -5,6 +5,8 @@
   {
     environment.systemPackages = with pkgs;
     [
+      comma
+      nix-index
       arp-scan
       p7zip-rar
       bottom

@@ -110,8 +110,10 @@ I also have maple-mono installed, which I switch to from time to time. It's whim
 
 * Gaming
 
+Steam Controller note: enable extest to fix broken mouse input support in games and on the desktop.
+Thank you [[https://github.com/NoahIles][NoahIles]] for his comment in Niri's github issues [[https://github.com/niri-wm/niri/issues/823][#823]].
+
 #+begin_src nix :tangle gaming.nix
-# Gaming related config, all conveniently placed in the same spot!
 { ... }:
 {
   flake.modules.nixos.gaming =
@@ -120,15 +122,11 @@ I also have maple-mono installed, which I switch to from time to time. It's whim
     # Steam
     programs.steam = {
       enable = true;
-      remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
-      dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+      remotePlay.openFirewall = true;
+      dedicatedServer.openFirewall = true;
       extraPackages = [ pkgs.libxmu pkgs.catppuccin-cursors.mochaDark ];
       extest.enable = true;
     };
-
-    # Enable xbox controller support
-    hardware.xpadneo.enable = true;
-    hardware.xone.enable = true;
   };
 
   flake.modules.homeManager.gaming =

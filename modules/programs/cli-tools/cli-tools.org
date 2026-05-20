@@ -13,6 +13,8 @@ Small definition module adding cli utilities that are needed on every system.
   {
     environment.systemPackages = with pkgs;
     [
+      comma
+      nix-index
       arp-scan
       p7zip-rar
       bottom
