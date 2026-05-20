@@ -45,7 +45,7 @@ Here is my very basic nushell config, with some aliases I use everyday.
         dots = "cd ~/.dotfiles/";
         flup = "nix flake update";
         jjs = "jj status";
-        update = "nu /home/ghil/.dotfiles/rebuild.nu";
+        rebuild = "nu /home/ghil/.dotfiles/rebuild.nu";
         v = "emacsclient -t";
       };
 

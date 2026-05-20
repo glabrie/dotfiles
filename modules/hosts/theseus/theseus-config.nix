@@ -24,6 +24,7 @@ imports = with inputs.self.modules.nixos;
       boot
       touchpad
       nix-ld
+      nightly-update
     ];
   };
 }

@@ -24,7 +24,7 @@
         dots = "cd ~/.dotfiles/";
         flup = "nix flake update";
         jjs = "jj status";
-        update = "nu /home/ghil/.dotfiles/rebuild.nu";
+        rebuild = "nu /home/ghil/.dotfiles/rebuild.nu";
         v = "emacsclient -t";
       };
 

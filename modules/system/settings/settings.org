@@ -490,6 +490,44 @@ Enables the dynamic linker compatibility layer so unpatched native binaries (e.g
 }
 #+end_src
 
+* Nightly Update
+
+Wakes the machine from suspend at 4am, updates all flake inputs, rebuilds the system, then suspends again.
+Only triggers when the machine is suspended -- not on full shutdown.
+
+#+begin_src nix :tangle nightly-update.nix
+{ pkgs, ... }:
+{
+  flake.modules.nixos.nightly-update =
+  { pkgs, ... }:
+  {
+    systemd.services.nightly-update = {
+      description = "Nightly flake update and rebuild";
+      after = [ "network-online.target" ];
+      wants = [ "network-online.target" ];
+      serviceConfig = {
+        Type = "oneshot";
+        ExecStart = pkgs.writeShellScript "nightly-update" ''
+          set -e
+          ${pkgs.nix}/bin/nix flake update /home/ghil/.dotfiles
+          ${pkgs.nixos-rebuild}/bin/nixos-rebuild switch --flake /home/ghil/.dotfiles#theseus
+          ${pkgs.systemd}/bin/systemctl suspend
+        '';
+      };
+    };
+
+    systemd.timers.nightly-update = {
+      wantedBy = [ "timers.target" ];
+      timerConfig = {
+        OnCalendar = "*-*-* 04:00:00";
+        WakeSystem = true;
+        Persistent = true;
+      };
+    };
+  };
+}
+#+end_src
+
 * Nushell Book
 
 Offline nushell documentation served by miniserve on port 8585.
