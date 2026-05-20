@@ -474,3 +474,41 @@ Thank you [[https://github.com/NoahIles][NoahIles]] for his comment in Niri's gi
   };
 }
 #+end_src
+
+* Nix LD
+
+Enables the dynamic linker compatibility layer so unpatched native binaries (e.g. bundled Dart, Electron, npm-shipped executables) work on NixOS without manual patchelf.
+
+#+begin_src nix :tangle nix-ld.nix
+{ ... }:
+{
+  flake.modules.nixos.nix-ld =
+  { ... }:
+  {
+    programs.nix-ld.enable = true;
+  };
+}
+#+end_src
+
+* Nushell Book
+
+Offline nushell documentation served by miniserve on port 8585.
+
+#+begin_src nix :tangle nushell-book.nix
+{ ... }:
+{
+  flake.modules.homeManager.nushell-book =
+  { pkgs, ... }:
+  {
+    home.packages = [ pkgs.miniserve ];
+    systemd.user.services.nushell-book = {
+      Unit.Description = "Nushell Book offline server";
+      Service = {
+        ExecStart = "${pkgs.miniserve}/bin/miniserve --port 8585 %h/documents/nushell-book/.vuepress/dist";
+        Restart = "on-failure";
+      };
+      Install.WantedBy = [ "default.target" ];
+    };
+  };
+}
+#+end_src

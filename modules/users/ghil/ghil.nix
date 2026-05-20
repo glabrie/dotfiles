@@ -26,6 +26,7 @@ in
     [
       system-desktop
       nushell
+      nushell-book
     ];
   home.username = "${username}";
 

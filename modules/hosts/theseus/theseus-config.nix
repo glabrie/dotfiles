@@ -23,6 +23,7 @@ imports = with inputs.self.modules.nixos;
       security
       boot
       touchpad
+      nix-ld
     ];
   };
 }

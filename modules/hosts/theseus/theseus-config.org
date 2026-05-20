@@ -47,6 +47,7 @@ Finally, we're importing all the modules we created that are necessary for These
       security
       boot
       touchpad
+      nix-ld
     ];
   };
 }
