@@ -5,7 +5,7 @@ This file tangles into ~emacs.nix~, ~doom.d/config.el~, ~doom.d/init.el~ and ~do
 
 * About
 
-This is a literate config for Emacs, my editor of choice. I suggest not taking it wholesale unless you have my exact setup. I have mixed declarative NixOS with mutable Emacs, so this configuration file has in it the nix file needed to declare it.
+This is a literate config for Emacs, my editor of choice. I suggest not taking it wholesale unless you have my exact setup. I have mixed declarative NixOS with mutable Emacs, so this configuration file has in it the nix file needed to declare it. If you wish to adopt this setup, there is a list of needed dependencies
 
 Also note that this being a literate config, it needs to be tangled for it to create the config files themselves. You can do so inside Emacs with ~C-c C-v C-t~, or ~M-x~ to get the function ~org-babel-tangle~.
 
@@ -13,6 +13,14 @@ Special thanks to [[https://github.com/SophieBosio][Sophie]], your configuration
 
 Let's get this show started.
 
+* Requirements
+
+If you truly want to run this config, here are a map of the dependencies required. As I previously said, you should not copy it wholesale, but if you do, be careful of wiring things like the ~org~ directory to its right place.
+
+** Home manager packages
+** Fonts and themes
+** Doom packages
+** External requirements
 * Emacs got me with cookies.
 
 [[../../../assets/kermit.jpg]]
@@ -53,7 +61,9 @@ My needs are fairly simple, I'm not a power email user in any way. I replaced my
 
 As for why I am *not* being entirely declarative and nixxy here, you can look [[*Nix and Doom Unstraightened][here]]  for a more thorough answer than this one: I don't like it, and I'm being practical.
 
-* Learning center
+* The grimoire
+
+All I'm learning about Emacs will be contained within these pages. Sometimes I find that trying to explain something helps me understand it better, That's what I'm doing here. If it helps somewhere, the better!
 
 ** Org-mode and Org-roam
 
@@ -90,7 +100,7 @@ But headers are more than just titles. They can be tasks as well, tracked across
 
 Another thing that sets org apart is the concept of literate programming. It basically is a way to wrap your code inside a prose document. The advantages are two fold: Documentation is embedded with the code, giving you the coveted *One Source of Truth* ™ for your project. It also allows for more flexibility when commenting the code, giving you access to a large array of formatting options just not found in // blocks in code.
 
-This file is a literate document, which starts has a .org . In it, we can use SRC blocks to put our code in, like so:
+This file is a literate document, which starts has an ~org~ file . In it, we can use source blocks to put our code in, like so:
 
 #+begin_example
 ,#+begin_src
@@ -98,9 +108,45 @@ Your brilliant code here!
 ,#+enc_src
 #+end_example
 
+but that's very tedious, so Emacs comes with tab completions like ~<s~ to create a source block, or ~<q~ for a quote. There are several such blocks available by default.
 *** Org-roam
 
 ** Doom-Emacs and evil-mode
+*** doom-big-font
+
+You can turn on a presentation mode called ~doom-big-font-mode~ with ~SPC t b~.
+
+~tldr~: Setting ~doom-big-font~ in your font variables will only work and change the actual font used if you do not use ~mixed-pitch-mode~ in your org and latex documents. It will work in source files regardless.
+If you have ~mixed-pitch-mode~ active in a document, the presentation mode will use your two other specified fonts instead but still work.
+In a source file, if it isn't set, it will default to your ~doom-font~.
+
+That's why I'm simply not setting the ~doom-big-font~ variable anymore.
+
+**** Why'd it does that? (in-depth explanation)
+
+The mode works in two steps:
+First, if ~doom-big-font~ returns ~nil~ when the leader key sequence is pressed, the mode will read and use the ~doom-big-font-increment~ variable, which defaults to four steps bigger.
+Then, you can invoke ~doom/increase-font-size~ or ~doom/decrease-font-size~ which are both set by default to two steps. They are not bound by default, so you would need to make up your own keybinds for it (or invoke them the Emacs standard way, ~M-x~)
+
+Why I discovered it was a minor rabbit hole on the font settings.
+In ~config.el~, you can set four different variables for font configuration. As an example take this snippet here:
+
+#+begin_src emacs-lisp
+  (setq doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 18)
+        doom-variable-pitch-font (font-spec :family "Montserrat")
+        doom-symbol-font (font-spec :family "JetBrainsMono Nerd Font" :size 18)
+        doom-big-font (font-spec :family "Maple Mono NF" :size 24))
+#+end_src
+
+My configuration would make it so that whenever the presentation mode is activated, you should be seeing Maple Mono everywhere right? That's the interesting part.
+It turns out that while ~doom-big-font~ is global and is registered when Emacs loads, it is superceded in my configuration by another mode, this one local, ~mixed-pitch-mode~.
+This mode is always active in ~org~ and ~LaTeX~ documents. It allows two fonts into the config, one for the prose and another for the code blocks.
+What happens it that when you enter an org document, ~mixed-pitch-mode~ activates and sets buffer-local entries with ~face-remap-add-relative~. These values take over the global precedent (buffer-local always takes precedence) and ~doom-big-font~ is never used.
+
+In the case of a source file, if ~doom-big-font~ returns ~nil~, it will simply default to your ~doom-font~ scaled up by ~doom-big-font-increment~.
+
+So unless you really want to change the actual font when in presentation mode, I'd suggest just not bothering with setting it at all.
+
 ** Emacs concepts
 *** Modes
 *** Faces
@@ -382,7 +428,6 @@ This one skips font-lock (Highlighting in Emacs) when you're typing, giving you 
 #+end_src
 
 **** Aesthetics
-
 ***** Fonts
 
 NOTE: In the Doom documentation you'll find ~Doom-unicode-font~. It's been deprecated and we're now using ~doom-symbol-font~.
@@ -390,11 +435,11 @@ NOTE: In the Doom documentation you'll find ~Doom-unicode-font~. It's been depre
 I'm using a mixed pitch where the prose is displayed in [[https://www.fontspace.com/montserrat-font-f16544][Montserrat]] while the code is displayed in [[https://www.jetbrains.com/lp/mono/][JetBrains Mono]].
 It makes for a nice separation that make prose look like documentation, while the code is still eminently readable in a mono font.
 
+You can also set ~doom-big-font~ for the presentation mode, but I don't and you can find out why [[*doom-big-font][here]].
 #+begin_src emacs-lisp
 (setq doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 18)
       doom-variable-pitch-font (font-spec :family "Montserrat")
       doom-symbol-font (font-spec :family "JetBrainsMono Nerd Font" :size 18)
-      doom-big-font (font-spec :family "Maple Mono NF" :size 24))
 #+end_src
 
 ***** Theme
@@ -423,7 +468,7 @@ Since Emacs v29, it finally supports true background transparency, which we're s
 It causes some problems with ~Org-modern~ but I get around it by simply disabling indent in prose.
 Note: I'm currently disabling it, to get a better experience with a variety of bugs.
 
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle no
 (add-to-list 'default-frame-alist '(alpha-background . 40))
 (modify-all-frames-parameters '((alpha-background . 40)))
 #+end_src
@@ -649,7 +694,7 @@ Olivetti is a nice little package that does only one thing: If your window (the 
 (use-package! olivetti
   :hook (org-mode . olivetti-mode)
   :config
-  (setq olivetti-body-width 120))
+  (setq olivetti-body-width 140))
 #+end_src
 
 ***** Org LaTeX Preview
@@ -795,7 +840,8 @@ This first blocks sets up
        (org-capture nil template))
 #+end_src
 
-**** Email
+**** Additional features and modes
+***** Email
 
 Simple email setting using [[https://github.com/emacsmirror/mu4e][mu4e]].
 
@@ -821,7 +867,7 @@ Simple email setting using [[https://github.com/emacsmirror/mu4e][mu4e]].
       smtpmail-default-smtp-server "127.0.0.1")
 #+end_src
 
-**** Majutsu
+***** Majutsu
 
 #+begin_src emacs-lisp
 (use-package! majutsu
