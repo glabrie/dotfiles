@@ -31,6 +31,14 @@ in
     };
   };
 
+  flake.modules.nixos."${username}-keys" =
+  { ... }:
+  {
+    users.users."${username}".openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBV9vWWWG5h/Lg9ar+6Qena77JtMELm0xbO8BaqwI46Z ghil@theseus"
+    ];
+  };
+
   flake.modules.homeManager."${username}" = {
     imports = with inputs.self.modules.homeManager;
     [

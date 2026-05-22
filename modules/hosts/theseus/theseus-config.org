@@ -41,6 +41,7 @@ Finally, we're importing all the modules we created that are necessary for These
       system-desktop
       ghil
       ghil-hm
+      ghil-keys
       fonts
       gaming
       locale
