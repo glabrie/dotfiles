@@ -35,6 +35,8 @@ flake.modules.nixos.zeno =
   nix.settings.trusted-users = [ "root" "ghil" ];
 
   services.tailscale.enable = true;
+  services.openssh.openFirewall = false;
+  networking.firewall.interfaces.tailscale0.allowedTCPPorts = [ 22 ];
 
 disko.devices.disk.main = {
       device = "/dev/sda";
