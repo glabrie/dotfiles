@@ -11,6 +11,7 @@
     };
 
 flake.modules.nixos.zeno =
+{ modulesPath, ... }:
 {
   networking.hostName = "zeno";
   nixpkgs.hostPlatform = "x86_64-linux";
@@ -20,12 +21,20 @@ flake.modules.nixos.zeno =
     system-server
     ghil
     ghil-keys
+    "${modulesPath}/profiles/qemu-guest.nix"
   ];
 
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.grub = {
+    enable = true;
+    efiSupport = true;
+    efiInstallAsRemovable = true;
+  };
 
   security.sudo.wheelNeedsPassword = false;
+
+  nix.settings.trusted-users = [ "root" "ghil" ];
+
+  services.tailscale.enable = true;
 
 disko.devices.disk.main = {
       device = "/dev/sda";
@@ -33,8 +42,12 @@ disko.devices.disk.main = {
       content = {
         type = "gpt";
         partitions = {
-          ESP = {
-            size = "512M";
+          bios = {
+            size = "1M";
+            type = "EF02";
+          };
+          esp = {
+            size = "500M";
             type = "EF00";
             content = {
               type = "filesystem";

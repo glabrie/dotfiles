@@ -17,6 +17,13 @@
     flake-parts.url = "github:hercules-ci/flake-parts";
     import-tree.url = "github:vic/import-tree";
 
+    # Agenix, the secrets manager
+    agenix = {
+      url = "github:ryantm/agenix";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.darwin.follows = "";
+    };
+
     # Program specific flakes
     oxicord.url = "github:linuxmobile/oxicord";
     spicetify-nix.url = "github:Gerg-L/spicetify-nix";

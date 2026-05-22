@@ -4,7 +4,10 @@
   flake.modules.nixos.system-base =
   { pkgs, ... }:
   {
-    imports = with inputs.self.modules.nixos; [ cli-tools ];
+    imports = [
+      inputs.self.modules.nixos.cli-tools
+      inputs.agenix.nixosModules.default
+    ];
 
     # I know Stallman wouldn't approve. I don't care.
     nixpkgs.config.allowUnfree = true;
