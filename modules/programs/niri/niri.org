@@ -293,11 +293,6 @@ Here I'm asking for it to open on a particular workspace, then setting the overa
 window-rule {
     match app-id="steam"
     open-on-workspace "gaming"
-    opacity 0.8
-    background-effect {
-        blur true
-        saturation 1
-    }
 }
 #+end_src
 
@@ -342,45 +337,12 @@ window-rule {
 }
 #+end_src
 
-*** Emacs
-
-#+begin_src kdl
-window-rule {
-    match app-id="emacs"
-    open-on-workspace "emacs"
-    draw-border-with-background false
-    background-effect {
-        blur true
-        saturation 1
-    }
-}
-#+end_src
-
 *** Geforce now
 
 #+begin_src kdl
 window-rule {
     match app-id="GeForceNOW"
     open-on-workspace "gaming"
-    opacity 0.8
-    background-effect {
-        blur true
-        saturation 1
-    }
-}
-#+end_src
-
-*** Spotify
-
-#+begin_src kdl
-window-rule {
-    match app-id="spotify"
-    open-on-workspace "media"
-    opacity 0.8
-    background-effect {
-        blur true
-        saturation 1
-    }
 }
 #+end_src
 
@@ -388,7 +350,7 @@ window-rule {
 
 I don't know if it's Noctalia or Niri, but blur is activated automatically on Noctalia's bar, so I'm just reverting it because I'm using an all transparent setup.
 
-#+begin_src kdl
+#+begin_src kdl :tangle no
 layer-rule {
   match namespace="^noctalia-.*$"
   background-effect {

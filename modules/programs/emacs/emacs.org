@@ -321,7 +321,7 @@ Those options come packaged as part of Doom Emacs. In vanilla emacs, most of the
        word-wrap                   ; soft wrapping with language-aware indent
 
        :emacs
-       dired                       ; making dired pretty [functional]
+       (dired +dirvish)            ; making dired pretty [functional]
        electric                    ; smarter, keyword-based electric-indent
        tramp                       ; remote files at your arthritic fingertips
        undo                        ; persistent, smarter undo for your inevitable mistakes
@@ -409,7 +409,7 @@ I have this weird thing where since I've switched to emacs as a daemon, it doesn
 
 #+begin_src emacs-lisp
 (setq browse-url-browser-function 'browse-url-generic
-      browse-url-generic-program "zen")
+      browse-url-generic-program "helium")
 #+end_src
 
 **** Optimizations
@@ -841,22 +841,6 @@ This first blocks sets up
 #+end_src
 
 **** Additional features and modes
-***** Workspaces
-
-Auto-create the four standard workspaces on startup and launch their apps.
-
-#+begin_src emacs-lisp
-(after! persp-mode
-  (setq persp-auto-save-opt 1
-        persp-auto-resume-time -1)
-  (add-hook! 'doom-after-init-hook
-    (defun my/setup-workspaces ()
-      (persp-switch "email")   (mu4e)
-      (persp-switch "ement")   (ement-connect)
-      (persp-switch "eww")     (eww "about:blank")
-      (persp-switch "dotfiles") (find-file "~/.dotfiles"))))
-#+end_src
-
 ***** Email
 
 Simple email setting using [[https://github.com/emacsmirror/mu4e][mu4e]].
@@ -925,6 +909,5 @@ Simple email setting using [[https://github.com/emacsmirror/mu4e][mu4e]].
   :recipe (:host github :repo "sympodius/org-novelist" :branch "development" :files ("*.el")))
 (package! majutsu :recipe (:host github :repo "0WD0/majutsu"))
 (package! org-super-agenda)
-(package! dirvish)
 (package! ement)
 #+end_src
