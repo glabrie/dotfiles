@@ -3,4 +3,5 @@ let
   zeno = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDPnChXG1gKphCvbsKbNEMDlVo8XtAaICHrUcFD4+CnV";
 in
 {
+  "namecheap-acme.age".publicKeys = [ ghil zeno ];
 }

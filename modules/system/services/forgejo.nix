@@ -9,7 +9,7 @@
       settings = {
         server = {
           HTTP_PORT = 3000;
-          ROOT_URL = "http://git.ghil.dev/";
+          ROOT_URL = "https://git.ghil.dev/";
           DOMAIN = "git.ghil.dev";
         };
         service = {

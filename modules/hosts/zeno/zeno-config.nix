@@ -23,6 +23,7 @@ flake.modules.nixos.zeno =
     ghil-keys
     forgejo
     nginx
+    acme
     "${modulesPath}/profiles/qemu-guest.nix"
   ];
 

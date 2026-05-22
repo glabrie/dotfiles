@@ -17,7 +17,7 @@ Services running on NixOS hosts.
       settings = {
         server = {
           HTTP_PORT = 3000;
-          ROOT_URL = "http://git.ghil.dev/";
+          ROOT_URL = "https://git.ghil.dev/";
           DOMAIN = "git.ghil.dev";
         };
         service = {
@@ -40,10 +40,38 @@ Services running on NixOS hosts.
     services.nginx = {
       enable = true;
       virtualHosts."git.ghil.dev" = {
+        enableACME = true;
+        forceSSL = true;
         locations."/" = {
           proxyPass = "http://localhost:3000";
           proxyWebsockets = true;
         };
+      };
+    };
+  };
+}
+#+end_src
+
+* ACME
+
+#+begin_src nix :tangle acme.nix
+{ config, ... }:
+{
+  flake.modules.nixos.acme =
+  { config, ... }:
+  {
+    age.secrets.namecheap-acme = {
+      file = ../../../secrets/namecheap-acme.age;
+      owner = "acme";
+      group = "acme";
+    };
+
+    security.acme = {
+      acceptTerms = true;
+      defaults = {
+        email = "glabrie85@gmail.com";
+        dnsProvider = "namecheap";
+        environmentFile = config.age.secrets.namecheap-acme.path;
       };
     };
   };
