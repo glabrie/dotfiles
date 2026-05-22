@@ -21,6 +21,8 @@ flake.modules.nixos.zeno =
     system-server
     ghil
     ghil-keys
+    forgejo
+    nginx
     "${modulesPath}/profiles/qemu-guest.nix"
   ];
 
@@ -36,7 +38,7 @@ flake.modules.nixos.zeno =
 
   services.tailscale.enable = true;
   services.openssh.openFirewall = false;
-  networking.firewall.interfaces.tailscale0.allowedTCPPorts = [ 22 ];
+  networking.firewall.interfaces.tailscale0.allowedTCPPorts = [ 22 80 443 ];
 
 disko.devices.disk.main = {
       device = "/dev/sda";

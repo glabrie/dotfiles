@@ -31,6 +31,8 @@
       system-server
       ghil
       ghil-keys
+      forgejo
+      nginx
       "${modulesPath}/profiles/qemu-guest.nix"
     ];
 
@@ -46,7 +48,7 @@
 
     services.tailscale.enable = true;
     services.openssh.openFirewall = false;
-    networking.firewall.interfaces.tailscale0.allowedTCPPorts = [ 22 ];
+    networking.firewall.interfaces.tailscale0.allowedTCPPorts = [ 22 80 443 ];
 
 #+end_src
 

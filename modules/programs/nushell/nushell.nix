@@ -18,13 +18,14 @@
         $env.config.completions.external.max_results = 100
 
         def ll [path?: string = "."] { ls $path | sort-by type name }
+
+        source ~/.dotfiles/rebuild.nu
       '';
 
       shellAliases = {
         dots = "cd ~/.dotfiles/";
         flup = "nix flake update";
         jjs = "jj status";
-        rebuild = "nu /home/ghil/.dotfiles/rebuild.nu";
         v = "emacsclient -t";
       };
 

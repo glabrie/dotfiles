@@ -6,9 +6,7 @@ Self-note: This file will not auto-tangle, and needs to be tangled manually usin
 
 This script now uses Jujutsu, so if you want to yank it, you at least need it!
 
-We'll start by getting into my dotfiles if I'm not already there and defining a timer variable. I'll use this to generate a list of each section's time at the end of the script.
-
-I'm also defining a bit of flair with a nice button
+* Helpers
 
 #+begin_src nushell
 #!/usr/bin/env nu
@@ -17,70 +15,79 @@ def step [label: string] {
     print $"\n(ansi cyan_bold)▶(ansi reset) (ansi white_bold)($label)(ansi reset)"
 }
 
-mut timer = []
+def tangle-all [] {
+    glob ~/.dotfiles/**/*.org
+    | where ($it | path basename) != "README.org"
+    | each { |f|
+        let eval_str = '(org-babel-tangle-file "' + ($f | str trim) + '")'
+        emacs --batch -l org --eval $eval_str
+    }
+}
 
-cd ~/.dotfiles
+def get-commit-msg [default: string] {
+    let user_msg = (input $"(ansi green_bold)Commit message(ansi reset) [($default)]: ")
+    if ($user_msg | str trim | is-empty) { $default } else { $"($user_msg)\n($default)" }
+}
 #+end_src
 
-Note the ~$timer~ variable in use. I'm using nushell's ~timeit~ command to time each section, and It'll build a nice list at the end of how long the process took.
+* Deploy Theseus
 
-We then need to tangle the org files. Since I'm converting to a literate config, every file in the config starts life as an org file. Org-mode is a markdown like language native to emacs that has several nifty features for documentation and plain organizing your life around. You can learn more about it [[https://orgmode.org/][here]].
-Tangling is org-mode's way of taking every code block in a file and putting them together in a separate config file of your choosing. Here for example, this document's code block will be "tangled" into ~rebuild.nu~, a useable nushell script in the same directory.
-This means that the org file becomes the sole source of truth, both in documentation and in code.
+Theseus is my main laptop. It needs to tangle all org files first, then we rebuild and push to git while timing it all, with a nice summary at the end.
 
 #+begin_src nushell
-step "Tangling org files"
-$timer ++= [{step: "tangle org files", time: (timeit {
-       glob **/*.org | where ($it | path basename) != "README.org" | each { |f| let eval_str = '(org-babel-tangle-file "' + ($f | str trim) + '")'
-       emacs --batch -l org --eval $eval_str
-       }
-})}]
+def "deploy theseus" [] {
+    cd ~/.dotfiles
+    mut timer = []
+
+    step "Tangling org files"
+    $timer ++= [{step: "tangle org files", time: (timeit { tangle-all })}]
+
+    step "Working copy changes"
+    jj diff --stat
+
+    let commit_msg = get-commit-msg $"NixOS (date now | format date '%Y-%m-%dT%H:%M:%S%z') Build (hostname) (readlink /nix/var/nix/profiles/system | path basename | split row '-' | get 1)"
+
+    step "Rebuilding NixOS"
+    $timer ++= [{step: "NixOS rebuild", time: (timeit { sudo nixos-rebuild switch --flake $".#(hostname)" })}]
+
+    step "Committing"
+    $timer ++= [{step: "jj commit", time: (timeit {
+        jj commit -m $commit_msg
+        jj bookmark move main --to @-
+    })}]
+
+    step "Pushing to remote"
+    $timer ++= [{step: "jj push", time: (timeit { jj git push })}]
+
+    step "Summary"
+    print ($timer | update time { |row| ($row.time / 1ms | math round) * 1ms } | table --theme rounded)
+    let total = ($timer | get time | math sum)
+    print $"System rebuilt in: (($total / 1ms | math round) * 1ms)"
+}
 #+end_src
 
-Print the staged diff stat first as a sanity check on what's about to be committed.
+* Deploy Zeno
+
+Zeno is a tailscale internal VPS for services like paperless and a private forgejo instance. We tangle before this block, so we just need to answer the commit message and push to git. Oh and then we push to the VPS. No big deal. Nixos-Everywhere is MAGIC I tell you.
 
 #+begin_src nushell
-step "Working copy changes"
-jj diff --stat
-#+end_src
+def "deploy zeno" [] {
+    cd ~/.dotfiles
 
-Ask for the commit message *before* the rebuild, so the prompt is never adjacent to sudo's password prompt.
+    step "Working copy changes"
+    jj diff --stat
 
-#+begin_src nushell
-let default_msg = $"NixOS (date now | format date '%Y-%m-%dT%H:%M:%S%z') Build (hostname) (readlink /nix/var/nix/profiles/system | path basename | split row '-' | get 1)"
-let user_msg = (input $"(ansi green_bold)Commit message(ansi reset) [($default_msg)]: ")
-let commit_msg = if ($user_msg | str trim | is-empty) { $default_msg } else { $"($user_msg)\n($default_msg)" }
-#+end_src
+    let commit_msg = get-commit-msg $"NixOS (date now | format date '%Y-%m-%dT%H:%M:%S%z') Deploy zeno"
 
-We'll then rebuild the system with the classic ~nixos-rebuild~ command
+    step "Tangling org files"
+    tangle-all
 
-#+begin_src nushell
-step "Rebuilding NixOS"
-$timer ++= [{step: "NixOS rebuild", time: (timeit { sudo nixos-rebuild switch --flake $".#(hostname)" })}]
-#+end_src
-
-Next we commit to jj and add a commit comment
-
-#+begin_src nushell
-step "Committing"
-$timer ++= [{step: "jj commit", time: (timeit {
+    step "Committing"
     jj commit -m $commit_msg
     jj bookmark move main --to @-
-})}]
-#+end_src
+    jj git push
 
-And finally we push it to the remote, in this case +github+ ( I have a deep seated hate for Microsoft whose fiery embers have been forged in the early aughts, and I finally did the switch to codeberg. yay! )
-
-#+begin_src nushell
-step "Pushing to remote"
-$timer ++= [{step: "jj push", time: (timeit { jj git push })}]
-#+end_src
-
-Now that everything is done, It's time for a short summary. We need to round out times to not go into nano and micro seconds.
-
-#+begin_src nushell
-step "Summary"
-print ($timer | update time { |row| ($row.time / 1ms | math round) * 1ms } | table --theme rounded)
-let total = ($timer | get time | math sum)
-print $"System rebuilt in: (($total / 1ms | math round) * 1ms)"
+    step "Deploying to Zeno"
+    nixos-rebuild switch --flake path:/home/ghil/.dotfiles#zeno --target-host ghil@100.106.158.125 --sudo
+}
 #+end_src

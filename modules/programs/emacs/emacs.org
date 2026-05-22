@@ -841,6 +841,22 @@ This first blocks sets up
 #+end_src
 
 **** Additional features and modes
+***** Workspaces
+
+Auto-create the four standard workspaces on startup and launch their apps.
+
+#+begin_src emacs-lisp
+(after! persp-mode
+  (setq persp-auto-save-opt 1
+        persp-auto-resume-time -1)
+  (add-hook! 'doom-after-init-hook
+    (defun my/setup-workspaces ()
+      (persp-switch "email")   (mu4e)
+      (persp-switch "ement")   (ement-connect)
+      (persp-switch "eww")     (eww "about:blank")
+      (persp-switch "dotfiles") (find-file "~/.dotfiles"))))
+#+end_src
+
 ***** Email
 
 Simple email setting using [[https://github.com/emacsmirror/mu4e][mu4e]].
@@ -874,6 +890,17 @@ Simple email setting using [[https://github.com/emacsmirror/mu4e][mu4e]].
   :commands majutsu
   :init
   (map! :leader :desc "Majutsu (jj)" "g j" #'majutsu))
+#+end_src
+
+***** Ement
+
+#+begin_src emacs-lisp
+(use-package! ement
+  :config
+  (setq ement-room-message-format-spec "%S%L%B%r%R%t"
+        ement-notify-notification-predicates
+        '(ement-notify--event-mentions-session-user-p
+          ement-notify--event-mentions-room-p)))
 #+end_src
 
 *** Packages

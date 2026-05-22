@@ -1,0 +1,51 @@
+#+title: System Services
+#+property: header-args:nix :noweb yes :mkdirp yes :tangle no
+
+Services running on NixOS hosts.
+
+* Forgejo
+
+#+begin_src nix :tangle forgejo.nix
+{ ... }:
+{
+  flake.modules.nixos.forgejo =
+  { ... }:
+  {
+    services.forgejo = {
+      enable = true;
+      domain = "git.ghil.dev";
+      settings = {
+        server = {
+          HTTP_PORT = 3000;
+          ROOT_URL = "http://git.ghil.dev/";
+          DOMAIN = "git.ghil.dev";
+        };
+        service = {
+          DISABLE_REGISTRATION = true;
+        };
+      };
+    };
+  };
+}
+#+end_src
+
+* Nginx
+
+#+begin_src nix :tangle nginx.nix
+{ ... }:
+{
+  flake.modules.nixos.nginx =
+  { ... }:
+  {
+    services.nginx = {
+      enable = true;
+      virtualHosts."git.ghil.dev" = {
+        locations."/" = {
+          proxyPass = "http://localhost:3000";
+          proxyWebsockets = true;
+        };
+      };
+    };
+  };
+}
+#+end_src
