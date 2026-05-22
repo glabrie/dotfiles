@@ -439,7 +439,7 @@ You can also set ~doom-big-font~ for the presentation mode, but I don't and you 
 #+begin_src emacs-lisp
 (setq doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 18)
       doom-variable-pitch-font (font-spec :family "Montserrat")
-      doom-symbol-font (font-spec :family "JetBrainsMono Nerd Font" :size 18)
+      doom-symbol-font (font-spec :family "JetBrainsMono Nerd Font" :size 18))
 #+end_src
 
 ***** Theme
@@ -898,4 +898,6 @@ Simple email setting using [[https://github.com/emacsmirror/mu4e][mu4e]].
   :recipe (:host github :repo "sympodius/org-novelist" :branch "development" :files ("*.el")))
 (package! majutsu :recipe (:host github :repo "0WD0/majutsu"))
 (package! org-super-agenda)
+(package! dirvish)
+(package! ement)
 #+end_src

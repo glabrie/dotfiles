@@ -5,7 +5,6 @@
   {
     imports = with inputs.self.modules.homeManager;
       [
-        spotify
       ];
 
     home.packages = with pkgs;
@@ -15,7 +14,6 @@
       monocraft
       nerd-fonts.symbols-only
       claude-code
-      element-desktop
       firefox
       freecad
       gimp
