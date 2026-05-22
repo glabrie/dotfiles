@@ -11,8 +11,8 @@
         Type = "oneshot";
         ExecStart = pkgs.writeShellScript "nightly-update" ''
           set -e
-          ${pkgs.nix}/bin/nix flake update --flake /home/ghil/.dotfiles
-          ${pkgs.nixos-rebuild}/bin/nixos-rebuild switch --flake /home/ghil/.dotfiles#theseus
+          ${pkgs.nix}/bin/nix flake update --flake path:/home/ghil/.dotfiles
+          ${pkgs.nixos-rebuild}/bin/nixos-rebuild switch --flake path:/home/ghil/.dotfiles#theseus
           ${pkgs.systemd}/bin/systemctl suspend
         '';
       };
