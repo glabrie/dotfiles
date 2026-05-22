@@ -41,5 +41,17 @@
       url = "github:YaLTeR/niri";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # Needed for a VPS setup
+
+    disko = {
+        url = "github:nix-community/disko";
+        inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    nixos-anywhere = {
+        url = "github:nix-community/nixos-anywhere";
+        inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 }

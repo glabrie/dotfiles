@@ -1,30 +1,26 @@
 # Definition of a minimal system upon which we can build of. Currently supports only nixOS.
 { inputs, ... }:
 {
-  flake.modules.nixos.system-base = 
+  flake.modules.nixos.system-base =
   { pkgs, ... }:
   {
-    imports =
-      with inputs.self.modules.nixos;
-      [
-        cli-tools
-        firmware
-        home-manager
-      ];
-    
+    imports = with inputs.self.modules.nixos; [ cli-tools ];
+
     # I know Stallman wouldn't approve. I don't care.
     nixpkgs.config.allowUnfree = true;
 
     # For the love of all that is holy do not touch. Yes, even if you update to a new version. I know.
     system.stateVersion = "25.11";
 
+    services.openssh = {
+      enable = true;
+      settings.PasswordAuthentication = false;
+    };
+
     nix.settings = {
-      
       # enable the flake "experimental" feature, needed for the config to work.
-      experimental-features = [
-        "nix-command"
-        "flakes"
-      ];
+      experimental-features = [ "nix-command" "flakes" ];
+      download-buffer-size = 524288000;
     };
 
     # Because I hate useless warnings. I know, I'll commit it after I know it works.
@@ -32,11 +28,6 @@
       warn-dirty = false
       keep-outputs = true
     '';
-    
-    # Fix the buffer size, reducing rebuild time by allowing a bigger download throughput, 
-    # at the tradeoff of more RAM usage. 
-    # In this economy?!?
-    nix.settings.download-buffer-size = 524288000;
 
     nix.channel.enable = false;
   };
@@ -44,16 +35,8 @@
   flake.modules.homeManager.system-base =
   { config, ... }:
   {
-    imports = with inputs.self.modules.homeManager;
-    [
-      mpd
-      starship
-    ];
-
     home.homeDirectory = "/home/${config.home.username}";
     home.stateVersion = "25.11";
-    home.sessionVariables = {
-      EDITOR = "emacsclient -t";
-      };
+    home.sessionVariables.EDITOR = "emacsclient -t";
   };
 }

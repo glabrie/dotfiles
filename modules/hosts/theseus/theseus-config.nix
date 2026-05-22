@@ -16,6 +16,7 @@ imports = with inputs.self.modules.nixos;
     [
       system-desktop
       ghil
+      ghil-hm
       fonts
       gaming
       locale

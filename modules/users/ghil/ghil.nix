@@ -13,7 +13,11 @@ in
       extraGroups = [ "networkmanager" "wheel" "libvirtd" ];
       shell = pkgs.nushell;
     };
+  };
 
+  flake.modules.nixos."${username}-hm" =
+  { ... }:
+  {
     home-manager.users."${username}" = {
       imports = [
         inputs.self.modules.homeManager."${username}"

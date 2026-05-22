@@ -8,7 +8,8 @@
     imports = with inputs.self.modules.nixos;
       [
         system-base
-
+        firmware
+        home-manager
         audio
         bluetooth
         flatpak
@@ -25,7 +26,8 @@
     imports = with inputs.self.modules.homeManager;
       [
         system-base
-
+        mpd
+        starship
         bluetooth
         emacs
         gtk
