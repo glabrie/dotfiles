@@ -5,6 +5,7 @@
   {
     imports = with inputs.self.modules.homeManager;
       [
+        spotify
       ];
 
     home.packages = with pkgs;
