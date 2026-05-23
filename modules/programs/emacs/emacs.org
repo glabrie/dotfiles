@@ -447,7 +447,7 @@ You can also set ~doom-big-font~ for the presentation mode, but I don't and you 
 I'm using Tokyo Night everywhere else in the system, so this gets applied here as well.
 
 #+begin_src emacs-lisp
-(setq doom-theme 'doom-nord)
+(setq doom-theme 'doom-ayu-light)
 #+end_src
 
 ***** Doom dashboard
@@ -468,9 +468,9 @@ Since Emacs v29, it finally supports true background transparency, which we're s
 It causes some problems with ~Org-modern~ but I get around it by simply disabling indent in prose.
 Note: I'm currently disabling it, to get a better experience with a variety of bugs.
 
-#+begin_src emacs-lisp :tangle no
-(add-to-list 'default-frame-alist '(alpha-background . 40))
-(modify-all-frames-parameters '((alpha-background . 40)))
+#+begin_src emacs-lisp
+(add-to-list 'default-frame-alist '(alpha-background . 90))
+(modify-all-frames-parameters '((alpha-background . 90)))
 #+end_src
 
 ***** Frames

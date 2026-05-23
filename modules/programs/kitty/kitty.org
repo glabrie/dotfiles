@@ -16,7 +16,7 @@ That's it. There's things out there like [[https://ghostty.org/][Ghostty]] that 
   {
     programs.kitty = {
       enable = true;
-      themeFile = "Nord";
+      themeFile = "ayu_light";
       font = {
         name = "JetBrainsMono Nerd Font";
         size = 12;
