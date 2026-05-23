@@ -359,6 +359,17 @@ layer-rule {
 }
 #+end_src
 
+*** Emacs
+
+#+begin_src kdl
+window-rule {
+    match app-id="emacs"
+    background-effect {
+        blur true
+    }
+}
+#+end_src
+
 This makes my amazing org-mode capture everywhere float, which is very cool
 
 #+begin_src kdl

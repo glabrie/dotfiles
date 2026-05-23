@@ -42,7 +42,6 @@ Small definition module adding cli utilities that are needed on every system.
       rmpc
       ripgrep
       shotwell
-      yazi
       yt-dlp
 
       inputs.concord.packages.${pkgs.stdenv.hostPlatform.system}.default

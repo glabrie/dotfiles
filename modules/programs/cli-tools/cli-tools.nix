@@ -34,7 +34,6 @@
       rmpc
       ripgrep
       shotwell
-      yazi
       yt-dlp
 
       inputs.concord.packages.${pkgs.stdenv.hostPlatform.system}.default
