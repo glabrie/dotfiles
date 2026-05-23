@@ -57,7 +57,7 @@ workspace "gaming"
 workspace "media"
 
 layout {
-    gaps 16
+    gaps 1
 
 always-center-single-column
 preset-column-widths {
