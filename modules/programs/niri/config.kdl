@@ -67,9 +67,9 @@ preset-column-widths {
 default-column-width { proportion 0.5; }
 
 border {
-    width 2
-    active-color "#ff6900"
-    inactive-color "#d1d0ce"
+    width 3
+    active-color "#cba6f7"
+    inactive-color "#45475a"
 }
 focus-ring {
     off
@@ -87,7 +87,7 @@ background-color "transparent"
 }
 
 window-rule {
-  geometry-corner-radius 20
+  geometry-corner-radius 0
   clip-to-geometry true
 }
 

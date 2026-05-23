@@ -211,9 +211,9 @@ Borders and focus-ring setting. Border will draw borders around every windows, w
 
 #+begin_src kdl
     border {
-        width 2
-        active-color "#ff6900"
-        inactive-color "#d1d0ce"
+        width 3
+        active-color "#cba6f7"
+        inactive-color "#45475a"
     }
     focus-ring {
         off
@@ -239,11 +239,11 @@ Last layout rule makes the background transparent so the overview works correctl
 }
 #+end_src
 
-Need those modern/retro/trendy rounded corners? There you go!
+Need those modern/retro/trendy rounded corners? Just change the number! I'm going full square.
 
 #+begin_src kdl
 window-rule {
-  geometry-corner-radius 20
+  geometry-corner-radius 0
   clip-to-geometry true
 }
 #+end_src

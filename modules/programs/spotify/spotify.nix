@@ -15,8 +15,8 @@
         hidePodcasts
         shuffle
       ];
-      theme = spicePkgs.themes.text;
-      colorScheme = "Nord";
+      theme = spicePkgs.themes.catppuccin;
+      colorScheme = "mocha";
     };
   };
 }
