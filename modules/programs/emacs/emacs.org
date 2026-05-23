@@ -468,7 +468,7 @@ Since Emacs v29, it finally supports true background transparency, which we're s
 It causes some problems with ~Org-modern~ but I get around it by simply disabling indent in prose.
 Note: I'm currently disabling it, to get a better experience with a variety of bugs.
 
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle no
 (add-to-list 'default-frame-alist '(alpha-background . 90))
 (modify-all-frames-parameters '((alpha-background . 90)))
 #+end_src
@@ -910,4 +910,5 @@ Simple email setting using [[https://github.com/emacsmirror/mu4e][mu4e]].
 (package! majutsu :recipe (:host github :repo "0WD0/majutsu"))
 (package! org-super-agenda)
 (package! ement)
+(package! nov)
 #+end_src
