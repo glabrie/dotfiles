@@ -569,6 +569,16 @@ Here we're setting up a lot of options for Org-mode
 
 ***** Tags
 
+#+begin_src emacs-lisp
+(after! org
+  (add-to-list 'font-lock-extra-managed-props 'display)
+  (font-lock-add-keywords 'org-mode
+                          `(("^.*?\\( \\)\\(:[[:alnum:]_@#%:]+:\\)$"
+                             (1 `(face nil
+                                       display (space :align-to (- right ,(org-string-width (match-string 2)) 3)))
+                                prepend))) t))
+#+end_src
+
 ***** Fonts
 
 #+begin_src emacs-lisp
@@ -859,10 +869,10 @@ Olivetti is a nice little package that does only one thing: If your window (the 
 [[id:WEEKLY-REVIEW-NODE-ID][Weekly Review]]
 
 ,** Review checklist
-,- [ ] Review each daily note
-,- [ ] Fleeting notes -> Permanent notes
-,- [ ] Refile to archive DONE and DROP todos
-,- [ ] Physical inbox -> Paperless
+, [ ] Review each daily note
+, [ ] Fleeting notes -> Permanent notes
+, [ ] Refile to archive DONE and DROP todos
+, [ ] Physical inbox -> Paperless
 
 ,** Summary of the week
 %?
@@ -878,6 +888,23 @@ Olivetti is a nice little package that does only one thing: If your window (the 
            :target (file+head "%<%Y-%m-%d>.org"
                               "#+title: %<%Y-%m-%d>\n"))))
 #+end_src
+
+#+RESULTS:
+| d | default | entry | * %? | :target | (file+head %<%Y-%m-%d>.org #+title: %<%Y-%m-%d> |
+) |
+| w | weekly review | entry | * %<%Y-W%V> Weekly review                                  :weekly: |
+[[id:WEEKLY-REVIEW-NODE-ID][Weekly Review]]
+* Summary of the week
+%?
+* Wins
+
+* Misses
+
+* What to keep in mind moving forward
+
+* Planning the next: What needs doing?
+| :target | (file+head %<%Y-%m-%d>.org #+title: %<%Y-%m-%d> |
+) |
 
 ****** Daily setup
 
@@ -897,19 +924,19 @@ A single command to start the day: opens today's org-roam daily note (creating i
                       "* Added to the agenda today\n\n"
                       "* Habits\n"
                       "** Morning routine\n"
-                      "- [ ] Drink a glass of water\n"
-                      "- [ ] Take meds\n"
-                      "- [ ] Healthy breakfast\n"
-                      "- [ ] Beeline the sun, 15 minutes walk\n"
-                      "- [ ] Morning exercises and stretching\n"
-                      "- [ ] Cold shower\n"
-                      "- [ ] Read 20 mins\n"
-                      "- [ ] Journal and prepare the day\n\n"
+                      "*** [ ] Drink a glass of water\n"
+                      "*** [ ] Take meds\n"
+                      "*** [ ] Healthy breakfast\n"
+                      "*** [ ] Beeline the sun, 15 minutes walk\n"
+                      "*** [ ] Morning exercises and stretching\n"
+                      "*** [ ] Cold shower\n"
+                      "*** [ ] Read 20 mins\n"
+                      "*** [ ] Journal and prepare the day\n\n"
                       "** Evening routine\n"
-                      "- [ ] 30-min walk\n"
-                      "- [ ] Before bed, 3 2 1. 3 hours before no food, 2 no water and 1 no screens\n"
-                      "- [ ] Review of the day, journal, prepare the next\n"
-                      "- [ ] Read some more\n\n"
+                      "*** [ ] 30-min walk\n"
+                      "*** [ ] Before bed, 3 2 1. 3 hours before no food, 2 no water and 1 no screens\n"
+                      "*** [ ] Review of the day, journal, prepare the next\n"
+                      "*** [ ] Read some more\n\n"
                       "* Evening review\n\n"
                       "* Fleeting Notes\n")))))
 #+end_src

@@ -41,6 +41,11 @@
         nix-direnv.enable = true;
       };
 
+      zoxide = {
+        enable = true;
+        enableNushellIntegration = true;
+      };
+
     };
   };
 }

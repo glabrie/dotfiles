@@ -62,6 +62,11 @@ Here is my very basic nushell config, with some aliases I use everyday.
         nix-direnv.enable = true;
       };
 
+      zoxide = {
+        enable = true;
+        enableNushellIntegration = true;
+      };
+
     };
   };
 }
