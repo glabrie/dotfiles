@@ -57,7 +57,7 @@ workspace ""
 //workspace "media"
 
 layout {
-    gaps 12
+    gaps 20
 
 always-center-single-column
 preset-column-widths {

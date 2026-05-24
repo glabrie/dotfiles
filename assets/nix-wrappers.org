@@ -1,0 +1,168 @@
+#+title: NixOS Wrappers: Research Notes
+#+date: 2026-05-23
+
+* The Core Concept
+
+A wrapper in Nix is a shell script or binary that replaces the original program's entry point, injects environment variables or flags, and then calls the real binary. Because the Nix store is read-only, config files placed there are immutable -- your program reads them but can never write to them. That's the foundation of the pure home idea.
+
+* The Two Main Tools
+
+=makeWrapper= is the low-level tool. =wrapProgram= is the convenience version. Both live in =pkgs.makeWrapper= and are always put in =nativeBuildInputs= (build-time, not runtime).
+
+=wrapProgram= works in place -- it renames the real binary to =.prog-wrapped= and puts a shell script at the original path that sets up the environment and calls through.
+
+=makeBinaryWrapper= does the same thing but generates a compiled C binary instead of a shell script. Slightly faster, no shell overhead, immune to injection issues -- but it can't do runtime variable expansion (things like =${WAYLAND_DISPLAY:+--ozone-platform=wayland}=). For config file paths baked at build time, either works fine.
+
+* The Pattern You'll Use Most
+
+=symlinkJoin= + =makeWrapper= is the canonical pattern for wrapping a program already in nixpkgs without rebuilding from source:
+
+#+begin_src nix
+pkgs.symlinkJoin {
+  name = "kitty-wrapped";
+  paths = [ pkgs.kitty ];
+  nativeBuildInputs = [ pkgs.makeWrapper ];
+  postBuild = ''
+    wrapProgram $out/bin/kitty \
+      --set KITTY_CONFIG_DIRECTORY "${configDir}"
+  '';
+  meta = pkgs.kitty.meta;
+}
+#+end_src
+
+=symlinkJoin= creates a new derivation that mirrors everything from the original (man pages, desktop files, completions) via symlinks, then =postBuild= replaces the binary symlink with your wrapper script. Always carry =meta= forward -- otherwise =nix run= and =man= stop working.
+
+* Getting Config into the Store
+
+** Plain text file
+
+#+begin_src nix
+pkgs.writeText "kitty.conf" ''
+  font_size 12.0
+  background_opacity 0.95
+''
+#+end_src
+
+String-interpolating this derivation gives you the absolute store path.
+
+** Directory (for XDG_CONFIG_HOME)
+
+#+begin_src nix
+pkgs.writeTextDir "kitty/kitty.conf" ''
+  font_size 12.0
+''
+# Produces /nix/store/HASH/kitty/kitty.conf
+# Set XDG_CONFIG_HOME to /nix/store/HASH and the program finds its config
+#+end_src
+
+** From Nix attrs with pkgs.formats
+
+#+begin_src nix
+let toml = pkgs.formats.toml {};
+in toml.generate "starship.toml" {
+  add_newline = false;
+  character.success_symbol = "[›](bold green)";
+}
+#+end_src
+
+=pkgs.formats= supports =toml=, =json=, =yaml=, =ini=, and more. This is the cleanest approach -- your config lives as Nix data, serialized at build time.
+
+** Local files in your repo
+
+#+begin_src nix
+--add-flags "--config ${./kitty.conf}"
+#+end_src
+
+Path literals copy the file into the store automatically.
+
+** Multi-file assembly with runCommandLocal
+
+#+begin_src nix
+pkgs.runCommandLocal "myapp-config" {} ''
+  mkdir -p $out/myapp
+  cp ${./config.toml} $out/myapp/config.toml
+  ln -s ${themeFile} $out/myapp/theme.toml
+''
+#+end_src
+
+Use =runCommandLocal= (not =runCommand=) for fast config assembly -- it skips the binary cache and builds locally.
+
+* wrapProgram Flag Reference
+
+| Flag                  | Use                                        |
+|-----------------------+--------------------------------------------|
+| =--set VAR VAL=       | Set env var unconditionally                |
+| =--set-default VAR VAL= | Set only if not already in environment   |
+| =--add-flags ARGS=    | Prepend flags before user args             |
+| =--prefix ENV : VAL=  | Prepend to a list var like PATH            |
+| =--run COMMAND=       | Run something before exec                  |
+
+=--set= is what you want for config paths. =--prefix PATH : ${lib.makeBinPath [...]}= is how you bundle runtime dependencies.
+
+* How to Point Programs at Their Config
+
+| Program  | Method                                                              |
+|----------+---------------------------------------------------------------------|
+| starship | =--set STARSHIP_CONFIG "${configFile}"=                             |
+| kitty    | =--set KITTY_CONFIG_DIRECTORY "${configDir}"=                       |
+| nushell  | =--add-flags "--config ${cfgFile} --env-config ${envFile}"=         |
+| zsh      | =--set ZDOTDIR "${zdotdir}"=                                        |
+| tmux     | =--add-flags "-f ${configFile}"=                                    |
+| neovim   | =--add-flags '-u' --add-flags '${./init.lua}'=                      |
+| git      | =--set GIT_CONFIG_GLOBAL "${./gitconfig}"= (Git 2.32+)              |
+| anything | =--set XDG_CONFIG_HOME "${configDir}"=                              |
+
+=XDG_CONFIG_HOME= is the fallback for anything that respects the XDG spec. Set it *per-program via the wrapper*, never globally -- a global store path will crash any program that tries to write state back to =$XDG_CONFIG_HOME=.
+
+* Pattern for a Feature Module
+
+#+begin_src nix
+{ pkgs, ... }:
+let
+  config = pkgs.formats.toml {}.generate "starship.toml" { /* ... */ };
+  starship = pkgs.symlinkJoin {
+    name = "starship-wrapped";
+    paths = [ pkgs.starship ];
+    nativeBuildInputs = [ pkgs.makeWrapper ];
+    postBuild = ''
+      wrapProgram $out/bin/starship --set STARSHIP_CONFIG "${config}"
+    '';
+    meta = pkgs.starship.meta;
+  };
+in {
+  flake.modules.nixos.starship = { ... }: {
+    users.users.ghil.packages = [ starship ];
+  };
+}
+#+end_src
+
+No =~/.config/starship.toml=, no HM, fully self-contained. Someone can lift the whole block straight out.
+
+* Decision Tree
+
+When wrapping a new program, ask in order:
+
+1. Does it have a dedicated env var (=STARSHIP_CONFIG=, =KITTY_CONFIG_DIRECTORY=, etc.)? → =--set=
+2. Does it have a =--config= flag? → =--add-flags=
+3. Does it respect =XDG_CONFIG_HOME=? → =--set XDG_CONFIG_HOME= pointing at a =writeTextDir= derivation
+4. Does it hardcode =~/.config/appname= with no override? → You're in trouble (see below)
+
+* What Won't Cooperate
+
+Programs that will fight you:
+
+- *Electron apps* (Discord, VS Code, Slack) -- Chromium's path logic ignores =XDG_CONFIG_HOME= entirely and hardcodes =~/.config/AppName=. Needs bubblewrap filesystem namespace tricks.
+- *Steam* -- writes to =~/.steam= and =~/.local/share/Steam=, no XDG support.
+- *Wine* -- hardcodes =~/.wine=.
+- *Programs that write state to their config dir* -- htop saves sort settings back to =htoprc=, for example. If =HTOPRC= points at the store, it boots fine but silently fails to save. These need their state directories handled separately via impermanence.
+
+The practical rule: if a program clearly separates config (read at startup) from state (written at runtime), you can wrap it cleanly. If it conflates the two in the same directory, you need impermanence to manage the writable half.
+
+* Third-Party Helpers
+
+For =.file= you probably don't need any of these yet -- raw =symlinkJoin= + =makeWrapper= is readable and has zero extra dependencies. Abstracting later is always an option.
+
+- [[https://github.com/viperml/wrapper-manager][wrapper-manager]] (viperml) -- module-system DSL over symlinkJoin/makeWrapper
+- [[https://discourse.nixos.org/t/wrapper-manager-fds-a-reimagined-wrapper-manager-environment/56355][wrapper-manager-fds]] -- redesigned fork, adds XDG desktop entry support and NixOS module integration
+- [[https://github.com/BirdeeHub/nix-wrapper-modules][nix-wrapper-modules]] (BirdeeHub) -- most ambitious, preserves full module system per-wrapped-package
+- [[https://github.com/Lassulus/wrappers][Lassulus/wrappers]] -- pre-built wrapper modules for common packages

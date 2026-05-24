@@ -193,7 +193,7 @@ The first rule sets up gaps in between windows for ✨ /aesthetics/ ✨. There w
 
 #+begin_src kdl
 layout {
-    gaps 12
+    gaps 20
 #+end_src
 
 Column settings. Here I'm setting that a single app on a column should spawn centered, and then the other two are setting the preset column width of apps and the default width of an app when spawning.
