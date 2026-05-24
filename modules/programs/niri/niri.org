@@ -175,16 +175,16 @@ Lastly, I'm setting it so that the mouse cursor warps to the center of the activ
 I like having workspaces that are ordered a certain way, I'm weird like that.
 
 #+begin_src kdl
-// workspace ""
-// workspace ""
-// workspace ""
-// workspace ""
-// workspace ""
-workspace "emacs"
-workspace "comms"
-workspace "web"
-workspace "gaming"
-workspace "media"
+workspace ""
+workspace ""
+workspace ""
+workspace ""
+workspace ""
+//workspace "emacs"
+//workspace "comms"
+//workspace "web"
+//workspace "gaming"
+//workspace "media"
 #+end_src
 ** Aesthetics
 
@@ -193,7 +193,7 @@ The first rule sets up gaps in between windows for ✨ /aesthetics/ ✨. There w
 
 #+begin_src kdl
 layout {
-    gaps 1
+    gaps 12
 #+end_src
 
 Column settings. Here I'm setting that a single app on a column should spawn centered, and then the other two are setting the preset column width of apps and the default width of an app when spawning.

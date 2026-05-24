@@ -45,19 +45,19 @@ touchpad {
 warp-mouse-to-focus
 }
 
-// workspace ""
-// workspace ""
-// workspace ""
-// workspace ""
-// workspace ""
-workspace "emacs"
-workspace "comms"
-workspace "web"
-workspace "gaming"
-workspace "media"
+workspace ""
+workspace ""
+workspace ""
+workspace ""
+workspace ""
+//workspace "emacs"
+//workspace "comms"
+//workspace "web"
+//workspace "gaming"
+//workspace "media"
 
 layout {
-    gaps 1
+    gaps 12
 
 always-center-single-column
 preset-column-widths {
