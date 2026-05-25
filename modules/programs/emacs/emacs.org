@@ -1034,7 +1034,9 @@ Simple email setting using [[https://github.com/emacsmirror/mu4e][mu4e]].
 
 #+begin_src emacs-lisp
 (package! ghostel :built-in t)
-(package! evil-ghostel :recipe (:host github :repo "dakra/ghostel" :files ("extensions/evil-ghostel/evil-ghostel.el")))
+(package! evil-ghostel
+  :recipe (:host github :repo "dakra/ghostel" :files ("extensions/evil-ghostel/evil-ghostel.el"))
+  :pin "cd32af7bd6b9c827701a62ed8f0c3bc705800f13")
 (package! mu4e :built-in t)
 (package! kdl-mode)
 (package! org-modern)
