@@ -221,7 +221,7 @@ With it I pull along vterm, the terminal emulator that lives inside Emacs. Then 
     programs.emacs = {
       enable = true;
       package = pkgs.emacs-pgtk.pkgs.withPackages (e: [
-        e.vterm
+        e.ghostel
         e.mu4e
         e.treesit-grammars.with-all-grammars
       ]);
@@ -711,9 +711,10 @@ Olivetti is a nice little package that does only one thing: If your window (the 
 
 #+begin_src emacs-lisp
 (use-package! olivetti
-  :hook (org-mode . olivetti-mode)
-  :config
-  (setq olivetti-body-width 140))
+  :hook (org-mode . olivetti-mode))
+
+(after! olivetti
+  (setq-default olivetti-body-width 225))
 #+end_src
 
 ***** Org LaTeX Preview
@@ -1012,13 +1013,28 @@ Simple email setting using [[https://github.com/emacsmirror/mu4e][mu4e]].
           ement-notify--event-mentions-room-p)))
 #+end_src
 
+***** Ghostel
+
+#+begin_src emacs-lisp
+(use-package! ghostel
+  :config
+  (setq ghostel-shell (executable-find "bash")
+        ghostel-shell-integration nil)
+  (map! :leader :desc "Terminal" "o t" #'ghostel))
+
+(use-package! evil-ghostel
+  :after (ghostel evil)
+  :hook (ghostel-mode . evil-ghostel-mode))
+#+end_src
+
 *** Packages
 :PROPERTIES:
 :header-args:emacs-lisp: :tangle ~/.config/doom/packages.el
 :END:
 
 #+begin_src emacs-lisp
-(package! vterm :built-in t)
+(package! ghostel :built-in t)
+(package! evil-ghostel :recipe (:host github :repo "dakra/ghostel" :files ("extensions/evil-ghostel/evil-ghostel.el")))
 (package! mu4e :built-in t)
 (package! kdl-mode)
 (package! org-modern)

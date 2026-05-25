@@ -4,7 +4,7 @@
     programs.emacs = {
       enable = true;
       package = pkgs.emacs-pgtk.pkgs.withPackages (e: [
-        e.vterm
+        e.ghostel
         e.mu4e
         e.treesit-grammars.with-all-grammars
       ]);

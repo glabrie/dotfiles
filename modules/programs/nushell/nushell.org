@@ -40,6 +40,24 @@ Here is my very basic nushell config, with some aliases I use everyday.
 
         def ll [path?: string = "."] { ls $path | sort-by type name }
 
+        def nix-gen-diff [] {
+            let gens = (ls /nix/var/nix/profiles/
+                | where name =~ 'system-\d+-link'
+                | insert n { |r| $r.name | path basename | parse "system-{n}-link" | get n.0 | into int }
+                | sort-by n
+                | last 2)
+
+            let prev = ($gens | first | get name)
+            let curr = ($gens | last | get name)
+            let prev_n = ($gens | first | get n)
+            let curr_n = ($gens | last | get n)
+            let ts = ($gens | last | get modified | format date "%Y-%m-%d %H:%M")
+
+            print $"gen ($prev_n) -> ($curr_n)  \(($ts)\)"
+            print ""
+            nix store diff-closures $prev $curr
+        }
+
         source ~/.dotfiles/rebuild.nu
       '';
 
