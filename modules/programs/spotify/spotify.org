@@ -21,8 +21,7 @@ small module using [[https://spicetify.app/][Spicetify]] to pretty up Spotify.
         hidePodcasts
         shuffle
       ];
-      theme = spicePkgs.themes.catppuccin;
-      colorScheme = "mocha";
+      theme = spicePkgs.themes.tokyoNight;
     };
   };
 }

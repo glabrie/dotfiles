@@ -212,8 +212,8 @@ Borders and focus-ring setting. Border will draw borders around every windows, w
 #+begin_src kdl
     border {
         width 3
-        active-color "#cba6f7"
-        inactive-color "#45475a"
+        active-color "#7E9CD8"
+        inactive-color "#363646"
     }
     focus-ring {
         off

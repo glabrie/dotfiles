@@ -403,6 +403,7 @@ Let's make Emacs shut up while I'm using ~git-auto-commit-mode~ in my ~~/org~ di
 
 #+begin_src emacs-lisp
 (add-to-list 'safe-local-eval-forms '(git-auto-commit-mode 1))
+(add-to-list 'safe-local-variable-values '(gac-automatically-push-p . t))
 #+end_src
 
 I have this weird thing where since I've switched to emacs as a daemon, it doesn't want to open links anymore. This is a quick fix for that. I should investigate more. I have seen on the net that it might be because of the environment and selecting a display too soon. More on this some other time.
@@ -426,6 +427,7 @@ This one skips font-lock (Highlighting in Emacs) when you're typing, giving you 
 #+begin_src emacs-lisp
 (setq redisplay-skip-fontification-on-input t)
 #+end_src
+
 
 **** Aesthetics
 ***** Fonts
@@ -1016,15 +1018,15 @@ Simple email setting using [[https://github.com/emacsmirror/mu4e][mu4e]].
 ***** Ghostel
 
 #+begin_src emacs-lisp
-(use-package! ghostel
-  :config
-  (setq ghostel-shell (executable-find "bash")
-        ghostel-shell-integration nil)
-  (map! :leader :desc "Terminal" "o t" #'ghostel))
+;; (use-package! ghostel
+;;   :config
+;;   (setq ghostel-shell (executable-find "bash")
+;;         ghostel-shell-integration nil)
+;;   (map! :leader :desc "Terminal" "o t" #'ghostel))
 
-(use-package! evil-ghostel
-  :after (ghostel evil)
-  :hook (ghostel-mode . evil-ghostel-mode))
+;; (use-package! evil-ghostel
+;;   :after (ghostel evil)
+;;   :hook (ghostel-mode . evil-ghostel-mode))
 #+end_src
 
 *** Packages
@@ -1033,10 +1035,10 @@ Simple email setting using [[https://github.com/emacsmirror/mu4e][mu4e]].
 :END:
 
 #+begin_src emacs-lisp
-(package! ghostel :built-in t)
-(package! evil-ghostel
-  :recipe (:host github :repo "dakra/ghostel" :files ("extensions/evil-ghostel/evil-ghostel.el"))
-  :pin "cd32af7bd6b9c827701a62ed8f0c3bc705800f13")
+;; (package! ghostel :built-in t)
+;; (package! evil-ghostel
+;;   :recipe (:host github :repo "dakra/ghostel" :files ("extensions/evil-ghostel/evil-ghostel.el"))
+;;   :pin "cd32af7bd6b9c827701a62ed8f0c3bc705800f13")
 (package! mu4e :built-in t)
 (package! kdl-mode)
 (package! org-modern)
