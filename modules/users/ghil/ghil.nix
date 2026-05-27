@@ -10,7 +10,7 @@ in
       name = "${username}";
       isNormalUser = true;
       description = "Guillaume Labrie";
-      extraGroups = [ "networkmanager" "wheel" "libvirtd" ];
+      extraGroups = [ "networkmanager" "wheel" "libvirtd" "input" "uinput" ];
       shell = pkgs.nushell;
     };
   };

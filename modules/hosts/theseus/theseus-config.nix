@@ -27,6 +27,7 @@ imports = with inputs.self.modules.nixos;
       touchpad
       nix-ld
       nightly-update
+      kanata
     ];
   };
 }

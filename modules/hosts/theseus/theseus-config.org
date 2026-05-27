@@ -51,6 +51,7 @@ Finally, we're importing all the modules we created that are necessary for These
       touchpad
       nix-ld
       nightly-update
+      kanata
     ];
   };
 }
