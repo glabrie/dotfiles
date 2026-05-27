@@ -428,7 +428,6 @@ This one skips font-lock (Highlighting in Emacs) when you're typing, giving you 
 (setq redisplay-skip-fontification-on-input t)
 #+end_src
 
-
 **** Aesthetics
 ***** Fonts
 
@@ -439,18 +438,17 @@ It makes for a nice separation that make prose look like documentation, while th
 
 You can also set ~doom-big-font~ for the presentation mode, but I don't and you can find out why [[*doom-big-font][here]].
 #+begin_src emacs-lisp
-(setq doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 18)
+(setq doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 16)
       doom-variable-pitch-font (font-spec :family "Montserrat")
-      doom-symbol-font (font-spec :family "JetBrainsMono Nerd Font" :size 18))
+      doom-symbol-font (font-spec :family "JetBrainsMono Nerd Font" :size 16))
 #+end_src
 
 ***** Theme
 
-I'm using Tokyo Night everywhere else in the system, so this gets applied here as well.
+I'm using Kanagawa everywhere else in the system, so this gets applied here as well.
 
 #+begin_src emacs-lisp
-(setq doom-theme 'catppuccin)
-(setq catppuccin-flavor 'mocha)
+(load-theme 'kanagawa-wave t)
 #+end_src
 
 ***** Doom dashboard
@@ -1058,4 +1056,5 @@ Simple email setting using [[https://github.com/emacsmirror/mu4e][mu4e]].
 (package! ement)
 (package! nov)
 (package! catppuccin-theme)
+(package! kanagawa-themes)
 #+end_src

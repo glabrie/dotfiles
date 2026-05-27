@@ -4,7 +4,10 @@
 
   flake.nixosConfigurations.theseus =
     inputs.nixpkgs.lib.nixosSystem {
-      modules = [ inputs.self.modules.nixos.theseus ];
+      modules = [
+        inputs.self.modules.nixos.theseus
+        inputs.agenix.nixosModules.default
+      ];
   };
 
 flake.modules.nixos.theseus =
@@ -27,6 +30,7 @@ imports = with inputs.self.modules.nixos;
       touchpad
       nix-ld
       nightly-update
+      vpn
       # kanata
     ];
   };

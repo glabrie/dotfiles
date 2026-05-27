@@ -20,7 +20,10 @@ We'll start by defining the system itself as a ~nixosConfigurations~ module.
 
   flake.nixosConfigurations.theseus =
     inputs.nixpkgs.lib.nixosSystem {
-      modules = [ inputs.self.modules.nixos.theseus ];
+      modules = [
+        inputs.self.modules.nixos.theseus
+        inputs.agenix.nixosModules.default
+      ];
   };
 #+end_src
 
@@ -51,6 +54,7 @@ Finally, we're importing all the modules we created that are necessary for These
       touchpad
       nix-ld
       nightly-update
+      vpn
       # kanata
     ];
   };
