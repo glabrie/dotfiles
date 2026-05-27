@@ -530,7 +530,7 @@ Only triggers when the machine is suspended -- not on full shutdown.
 
 * Kanata
 
-#+begin_src nix :tangle kanata.nix
+#+begin_src nix :tangle no
 { ... }:
 {
   flake.modules.nixos.kanata =
