@@ -18,6 +18,7 @@
       firefox
       freecad
       gimp
+      guile
       obsidian
       obs-studio
       protonmail-bridge

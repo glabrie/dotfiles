@@ -360,6 +360,7 @@ Those options come packaged as part of Doom Emacs. In vanilla emacs, most of the
        graphviz                    ; diagrams for confusing yourself even more
        python                      ; beautiful is better than ugly
        (rust +lsp)                 ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
+       (scheme +guile)             ; structural editing for guile/guix
        sh                          ; she sells {ba,z,fi}sh shells on the C xor
        yaml                        ; JSON, but readable
        zig                         ; C, but simpler
@@ -1013,6 +1014,20 @@ Simple email setting using [[https://github.com/emacsmirror/mu4e][mu4e]].
           ement-notify--event-mentions-room-p)))
 #+end_src
 
+***** Lisp editing
+
+#+begin_src emacs-lisp
+(add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
+
+(after! lispy
+  (add-hook 'scheme-mode-hook #'lispy-mode)
+  (add-hook 'emacs-lisp-mode-hook #'lispy-mode))
+
+(after! lispyville
+  (add-hook 'lispy-mode-hook #'lispyville-mode)
+  (lispyville-set-key-theme '(operators c-w additional)))
+#+end_src
+
 ***** Ghostel
 
 #+begin_src emacs-lisp
@@ -1057,4 +1072,7 @@ Simple email setting using [[https://github.com/emacsmirror/mu4e][mu4e]].
 (package! nov)
 (package! catppuccin-theme)
 (package! kanagawa-themes)
+(package! rainbow-delimiters)
+(package! lispy)
+(package! lispyville)
 #+end_src

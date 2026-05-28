@@ -27,6 +27,7 @@ Very simple module defining the programs that should live only on Theseus, scope
       firefox
       freecad
       gimp
+      guile
       obsidian
       obs-studio
       protonmail-bridge
