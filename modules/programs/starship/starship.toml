@@ -1,42 +1,149 @@
+# Kanagawa v0.1.0
+
 "$schema" = 'https://starship.rs/config-schema.json'
 
 format = """
-[](red)\
+[░▒▓](color_wave_blue)\
 $os\
+[](bg:color_purple fg:color_wave_blue)\
 $username\
-[](bg:peach fg:red)\
+[](bg:color_blue fg:color_purple)\
 $directory\
-[](bg:yellow fg:peach)\
+[](bg:color_wave_blue fg:color_blue)\
+[ ](color_wave_blue)\
+"""
+
+right_format = """
+[](bg:color_wave_blue fg:color_bg1)\
+[█](color_wave_blue)\
+$cmd_duration\
 $git_branch\
 $git_status\
-[](fg:yellow bg:green)\
-$c\
-$rust\
-$golang\
+$docker_context\
 $nodejs\
-$bun\
 $php\
-$java\
-$kotlin\
-$haskell\
-$python\
-[](fg:green bg:sapphire)\
-$conda\
-[](fg:sapphire bg:lavender)\
+$rust\
 $time\
-[ ](fg:lavender)\
-$cmd_duration\
-$line_break\
-$character"""
+[▓▒░](color_wave_blue)\
+"""
 
-palette = 'catppuccin_mocha'
+# Set the theme palette
+palette = 'kanagawa_wave' # Options: kanagawa_wave, kanagawa_dragon, kanagawa_lotus
 
+# Palette colors
+[palettes.kanagawa_wave]
+# Main colors for the theme
+color_fg0 = '#DCD7BA'      # fujiWhite - main text
+color_fg1 = '#C8C093'      # oldWhite - secondary text
+color_bg0 = '#16161D'      # sumiInk0 - darkest background
+color_bg1 = '#1F1F28'      # sumiInk3 - main background
+color_bg2 = '#2A2A37'      # sumiInk4 - medium background
+color_bg3 = '#54546D'      # sumiInk6 - light background/borders
+
+# Highlight colors
+color_red = '#C34043'      # autumnRed
+color_green = '#76946A'    # autumnGreen
+color_yellow = '#C0A36E'   # boatYellow2
+color_blue = '#7E9CD8'     # crystalBlue
+color_purple = '#957FB8'   # oniViolet
+color_cyan = '#6A9589'     # waveAqua1
+color_orange = '#FFA066'   # surimiOrange
+
+# Bright/alternative colors
+color_bright_red = '#E82424'     # samuraiRed
+color_bright_green = '#98BB6C'   # springGreen
+color_bright_yellow = '#E6C384'  # carpYellow
+color_bright_blue = '#7FB4CA'    # springBlue
+color_bright_purple = '#938AA9'  # springViolet1
+color_bright_cyan = '#7AA89F'    # waveAqua2
+
+# Git/Diff specific colors
+color_git_add = '#76946A'        # autumnGreen
+color_git_change = '#DCA561'     # autumnYellow
+color_git_delete = '#C34043'     # autumnRed
+
+# Comments and details colors
+color_comment = '#727169'        # fujiGray
+color_wave_blue = '#2D4F67'      # waveBlue2 - for popups/floats
+
+[palettes.kanagawa_dragon]
+# Main colors for the theme
+color_fg0 = '#c5c9c5'      # dragonWhite - main text
+color_fg1 = '#a6a69c'      # dragonGray - secondary text
+color_bg0 = '#0d0c0c'      # dragonBlack0 - darkest background
+color_bg1 = '#181616'      # dragonBlack3 - main background
+color_bg2 = '#282727'      # dragonBlack4 - medium background
+color_bg3 = '#625e5a'      # dragonBlack6 - light background/borders
+
+# Highlight colors
+color_red = '#c4746e'      # dragonRed
+color_green = '#8a9a7b'    # dragonGreen2
+color_yellow = '#c4b28a'   # dragonYellow
+color_blue = '#8ba4b0'     # dragonBlue2
+color_purple = '#a292a3'   # dragonPink
+color_cyan = '#8ea4a2'     # dragonAqua
+color_orange = '#b6927b'   # dragonOrange
+
+# Bright/alternative colors
+color_bright_red = '#E46876'     # waveRed
+color_bright_green = '#87a987'   # dragonGreen
+color_bright_yellow = '#E6C384'  # carpYellow
+color_bright_blue = '#7FB4CA'    # springBlue
+color_bright_purple = '#938AA9'  # springViolet1
+color_bright_cyan = '#7AA89F'    # waveAqua2
+
+# Git/Diff specific colors
+color_git_add = '#87a987'        # dragonGreen
+color_git_change = '#c4b28a'     # dragonYellow
+color_git_delete = '#c4746e'     # dragonRed
+
+# Comments and details colors
+color_comment = '#737c73'        # dragonAsh
+color_wave_blue = '#949fb5'      # dragonTeal
+
+[palettes.kanagawa_lotus]
+# Main colors for the theme
+color_fg0 = '#545464'      # lotusInk1 - main text
+color_fg1 = '#43436c'      # lotusInk2 - secondary text
+color_bg0 = '#f2ecbc'      # lotusWhite3 - lightest background
+color_bg1 = '#e5ddb0'      # lotusWhite2 - main background
+color_bg2 = '#dcd5ac'      # lotusWhite1 - medium background
+color_bg3 = '#c9cbd1'      # lotusViolet3 - darker background/borders
+
+# Highlight colors
+color_red = '#c84053'      # lotusRed
+color_green = '#6f894e'    # lotusGreen
+color_yellow = '#77713f'   # lotusYellow
+color_blue = '#4d699b'     # lotusBlue4
+color_purple = '#b35b79'   # lotusPink
+color_cyan = '#597b75'     # lotusAqua
+color_orange = '#e98a00'   # lotusOrange2
+
+# Bright/alternative colors
+color_bright_red = '#d7474b'     # lotusRed2
+color_bright_green = '#6e915f'   # lotusGreen2
+color_bright_yellow = '#836f4a'  # lotusYellow2
+color_bright_blue = '#6693bf'    # lotusTeal2
+color_bright_purple = '#624c83'  # lotusViolet4
+color_bright_cyan = '#5e857a'    # lotusAqua2
+
+# Git/Diff specific colors
+color_git_add = '#6f894e'        # lotusGreen
+color_git_change = '#77713f'     # lotusYellow
+color_git_delete = '#c84053'     # lotusRed
+
+# Comments and details colors
+color_comment = '#8a8980'        # lotusGray3
+color_wave_blue = '#c7d7e0'      # lotusBlue1
+
+# Items to show in the prompt
 [os]
 disabled = false
-style = "bg:red fg:crust"
+format = '[ $symbol ]($style)'
+style = 'bg:color_wave_blue fg:color_fg0'
 
 [os.symbols]
-Windows = ""
+Windows = "󰍲"
 Ubuntu = "󰕈"
 SUSE = ""
 Raspbian = "󰐿"
@@ -49,237 +156,63 @@ Fedora = "󰣛"
 Alpine = ""
 Amazon = ""
 Android = ""
-AOSC = ""
 Arch = "󰣇"
 Artix = "󰣇"
+EndeavourOS = ""
 CentOS = ""
 Debian = "󰣚"
 Redhat = "󱄛"
 RedHatEnterprise = "󱄛"
+Pop = ""
 
 [username]
 show_always = true
-style_user = "bg:red fg:crust"
-style_root = "bg:red fg:crust"
-format = '[ $user]($style)'
+format = '[ $user ]($style)'
+style_user = 'bg:color_purple fg:color_fg0'
+style_root = 'bg:color_cyan fg:color_fg0 bold'
 
 [directory]
-style = "bg:peach fg:crust"
-format = "[ $path ]($style)"
-truncation_length = 3
-truncation_symbol = "…/"
-
-[directory.substitutions]
-"Documents" = "󰈙 "
-"Downloads" = " "
-"Music" = "󰝚 "
-"Pictures" = " "
-"Developer" = "󰲋 "
-
-[git_branch]
-symbol = ""
-style = "bg:yellow"
-format = '[[ $symbol $branch ](fg:crust bg:yellow)]($style)'
-
-[git_status]
-style = "bg:yellow"
-format = '[[($all_status$ahead_behind )](fg:crust bg:yellow)]($style)'
-
-[nodejs]
-symbol = ""
-style = "bg:green"
-format = '[[ $symbol( $version) ](fg:crust bg:green)]($style)'
-
-[bun]
-symbol = ""
-style = "bg:green"
-format = '[[ $symbol( $version) ](fg:crust bg:green)]($style)'
-
-[c]
-symbol = " "
-style = "bg:green"
-format = '[[ $symbol( $version) ](fg:crust bg:green)]($style)'
-
-[rust]
-symbol = ""
-style = "bg:green"
-format = '[[ $symbol( $version) ](fg:crust bg:green)]($style)'
-
-[golang]
-symbol = ""
-style = "bg:green"
-format = '[[ $symbol( $version) ](fg:crust bg:green)]($style)'
-
-[php]
-symbol = ""
-style = "bg:green"
-format = '[[ $symbol( $version) ](fg:crust bg:green)]($style)'
-
-[java]
-symbol = " "
-style = "bg:green"
-format = '[[ $symbol( $version) ](fg:crust bg:green)]($style)'
-
-[kotlin]
-symbol = ""
-style = "bg:green"
-format = '[[ $symbol( $version) ](fg:crust bg:green)]($style)'
-
-[haskell]
-symbol = ""
-style = "bg:green"
-format = '[[ $symbol( $version) ](fg:crust bg:green)]($style)'
-
-[python]
-symbol = ""
-style = "bg:green"
-format = '[[ $symbol( $version)(\(#$virtualenv\)) ](fg:crust bg:green)]($style)'
-
-[docker_context]
-symbol = ""
-style = "bg:sapphire"
-format = '[[ $symbol( $context) ](fg:crust bg:sapphire)]($style)'
-
-[conda]
-symbol = "  "
-style = "fg:crust bg:sapphire"
-format = '[$symbol$environment ]($style)'
-ignore_base = false
+format = '[ $path ]($style)[$read_only]($read_only_style)'
+style = 'bg:color_blue fg:color_fg0'
+read_only = '󰌾 '
+read_only_style = 'bg:color_blue fg:color_bright_red dimmed'
 
 [time]
 disabled = false
-time_format = "%R"
-style = "bg:lavender"
-format = '[[  $time ](fg:crust bg:lavender)]($style)'
-
-[line_break]
-disabled = true
-
-[character]
-disabled = false
-success_symbol = '[❯](bold fg:green)'
-error_symbol = '[❯](bold fg:red)'
-vimcmd_symbol = '[❮](bold fg:green)'
-vimcmd_replace_one_symbol = '[❮](bold fg:lavender)'
-vimcmd_replace_symbol = '[❮](bold fg:lavender)'
-vimcmd_visual_symbol = '[❮](bold fg:yellow)'
+format = '[ $time ]($style)'
+time_format = '%R'
+style = 'bg:color_wave_blue fg:color_fg0'
 
 [cmd_duration]
-show_milliseconds = true
-format = " in $duration "
-style = "bg:lavender"
-disabled = false
-show_notifications = true
-min_time_to_notify = 45000
+format = '[  $duration ]($style)'
+style = 'bg:color_bg3 fg:color_fg0'
 
-[palettes.catppuccin_mocha]
-rosewater = "#f5e0dc"
-flamingo = "#f2cdcd"
-pink = "#f5c2e7"
-mauve = "#cba6f7"
-red = "#f38ba8"
-maroon = "#eba0ac"
-peach = "#fab387"
-yellow = "#f9e2af"
-green = "#a6e3a1"
-teal = "#94e2d5"
-sky = "#89dceb"
-sapphire = "#74c7ec"
-blue = "#89b4fa"
-lavender = "#b4befe"
-text = "#cdd6f4"
-subtext1 = "#bac2de"
-subtext0 = "#a6adc8"
-overlay2 = "#9399b2"
-overlay1 = "#7f849c"
-overlay0 = "#6c7086"
-surface2 = "#585b70"
-surface1 = "#45475a"
-surface0 = "#313244"
-base = "#1e1e2e"
-mantle = "#181825"
-crust = "#11111b"
+[git_branch]
+format = '[ $symbol$branch(:$remote_branch)]($style)'
+style = 'bg:color_yellow fg:color_bg0'
+symbol = '󰘬 '
+truncation_length = 12
 
-[palettes.catppuccin_frappe]
-rosewater = "#f2d5cf"
-flamingo = "#eebebe"
-pink = "#f4b8e4"
-mauve = "#ca9ee6"
-red = "#e78284"
-maroon = "#ea999c"
-peach = "#ef9f76"
-yellow = "#e5c890"
-green = "#a6d189"
-teal = "#81c8be"
-sky = "#99d1db"
-sapphire = "#85c1dc"
-blue = "#8caaee"
-lavender = "#babbf1"
-text = "#c6d0f5"
-subtext1 = "#b5bfe2"
-subtext0 = "#a5adce"
-overlay2 = "#949cbb"
-overlay1 = "#838ba7"
-overlay0 = "#737994"
-surface2 = "#626880"
-surface1 = "#51576d"
-surface0 = "#414559"
-base = "#303446"
-mantle = "#292c3c"
-crust = "#232634"
+[git_status]
+format = '[ $all_status$ahead_behind ]($style)'
+style = 'bg:color_yellow fg:color_bg0'
 
-[palettes.catppuccin_latte]
-rosewater = "#dc8a78"
-flamingo = "#dd7878"
-pink = "#ea76cb"
-mauve = "#8839ef"
-red = "#d20f39"
-maroon = "#e64553"
-peach = "#fe640b"
-yellow = "#df8e1d"
-green = "#40a02b"
-teal = "#179299"
-sky = "#04a5e5"
-sapphire = "#209fb5"
-blue = "#1e66f5"
-lavender = "#7287fd"
-text = "#4c4f69"
-subtext1 = "#5c5f77"
-subtext0 = "#6c6f85"
-overlay2 = "#7c7f93"
-overlay1 = "#8c8fa1"
-overlay0 = "#9ca0b0"
-surface2 = "#acb0be"
-surface1 = "#bcc0cc"
-surface0 = "#ccd0da"
-base = "#eff1f5"
-mantle = "#e6e9ef"
-crust = "#dce0e8"
+[nodejs]
+format = '[ $symbol($version) ]($style)'
+style = 'bg:color_green fg:color_fg0'
+not_capable_style = 'bg:color_red fg:color_fg0'
 
-[palettes.catppuccin_macchiato]
-rosewater = "#f4dbd6"
-flamingo = "#f0c6c6"
-pink = "#f5bde6"
-mauve = "#c6a0f6"
-red = "#ed8796"
-maroon = "#ee99a0"
-peach = "#f5a97f"
-yellow = "#eed49f"
-green = "#a6da95"
-teal = "#8bd5ca"
-sky = "#91d7e3"
-sapphire = "#7dc4e4"
-blue = "#8aadf4"
-lavender = "#b7bdf8"
-text = "#cad3f5"
-subtext1 = "#b8c0e0"
-subtext0 = "#a5adcb"
-overlay2 = "#939ab7"
-overlay1 = "#8087a2"
-overlay0 = "#6e738d"
-surface2 = "#5b6078"
-surface1 = "#494d64"
-surface0 = "#363a4f"
-base = "#24273a"
-mantle = "#1e2030"
-crust = "#181926"
+[php]
+format = '[ $symbol ($version) ]($style)'
+style = 'bg:color_purple fg:color_fg0'
+symbol = ''
+
+[rust]
+format = '[ $symbol ($version) ]($style)'
+style = 'bg:color_orange fg:color_bg0'
+symbol = '󱘗'
+
+[docker_context]
+format = '[ $symbol $context ]($style)'
+style = 'bg:color_cyan fg:color_fg0'
+symbol = '󰡨'
