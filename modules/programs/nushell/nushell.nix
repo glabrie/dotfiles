@@ -47,6 +47,7 @@
         v = "emacsclient -t";
         vpn-on = "sudo systemctl start wg-quick-protonvpn";
         vpn-off = "sudo systemctl stop wg-quick-protonvpn";
+        guix = "sudo bootctl set-oneshot guix.conf; sudo reboot";
       };
 
     };
