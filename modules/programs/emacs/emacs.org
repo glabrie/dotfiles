@@ -23,7 +23,7 @@ If you truly want to run this config, here are a map of the dependencies require
 ** External requirements
 * Emacs got me with cookies.
 
-[[../../../assets/kermit.jpg]]
+[[../../../assets/org/kermit.jpg]]
 
 I'm mainly a hobbyist. I like diving into new things and learning.
  [[https://www.gnu.org/software/emacs/][Emacs ]]is a program released in 1985, 41 years ago. It's a bit older than me, by some months. Being from another time but still actively developed and maintained to this day, Emacs evolved into its own beast, the product of a divergent evolution with its very own ethos. Growing in isolation from UI/UX trends and standards over these four decades, Emacs forged its own path. A very different architecture creates a nomenclature so alien it sometimes feels obscure, almost occult in a way. There is definitely something magical in there.
@@ -184,7 +184,7 @@ Normally, headers are denoted with stars. The depth is denoted by the number of 
 Org-mode will normally attempt to hide the stars by using the ~Org-hide~ [[*Faces][face]], and then use ~org-indent-mode~ to indent them visually.
 Concretely, when ~org-hide-leading-stars~ is set to ~t~, a font-lock keyword is installed that will apply ~org-hide~ to the stars. That face has a ~:foreground~ color property that ~Org~ will set to match the frame's ~:background~ color property, making them appear invisible. This would normally be fine, except when transparency is turned on. Now that background is not static, and your background has an opacity value, the hidden stars shine through at 100% opacity, leaving faint black marks behind the bullet that you want shown, like here:
 
-[[../../../assets/issue-opacity-1.png]]
+[[../../../assets/org/issue-opacity-1.png]]
 
 *** Attempted fixes and knowledge gained.
 
@@ -458,7 +458,7 @@ Doom has a dashboard loading when you boot up Emacs. It's actually faster than o
 
 #+begin_src emacs-lisp
 (setq fancy-splash-image (expand-file-name
-                          "~/.dotfiles/assets/emacs-e-template.svg")
+                          "~/.dotfiles/assets/logos/emacs-e-template.svg")
       +dashboard-functions '(+dashboard-widget-banner
                              +dashboard-widget-footer
                              +dashboard-widget-loaded))

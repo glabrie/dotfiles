@@ -9,7 +9,7 @@
   #+HTML: <p align="center"><i>You've taken a wrong turn somewhere, and now you're here.</i></p>
 
   #+HTML: <p align="center">
-  #+HTML:   <img src="assets/desktop.png" width="800px" />
+  #+HTML:   <img src="assets/org/desktop.png" width="800px" />
   #+HTML: </p>
 
   #+HTML: <p align="center">Screenshot last updated <b>2026-04-29</b></p>
