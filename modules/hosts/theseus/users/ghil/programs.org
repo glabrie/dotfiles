@@ -26,6 +26,7 @@ Very simple module defining the programs that should live only on Theseus, scope
       claude-code
       firefox
       freecad
+      gajim
       gimp
       guile
       obsidian

@@ -17,6 +17,7 @@
       claude-code
       firefox
       freecad
+      gajim
       gimp
       guile
       obsidian

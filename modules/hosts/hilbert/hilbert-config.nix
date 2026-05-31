@@ -1,0 +1,124 @@
+{ inputs, ... }:
+{
+  systems = [ "x86_64-linux" ];
+
+  flake.nixosConfigurations.hilbert =
+    inputs.nixpkgs.lib.nixosSystem {
+      modules = [
+        inputs.self.modules.nixos.hilbert
+        inputs.disko.nixosModules.disko
+      ];
+    };
+
+flake.modules.nixos.hilbert =
+{ modulesPath, config, ... }:
+{
+  networking.hostName = "hilbert";
+  nixpkgs.hostPlatform = "x86_64-linux";
+
+  imports = with inputs.self.modules.nixos;
+  [
+    system-server
+    ghil
+    ghil-keys
+    "${modulesPath}/profiles/qemu-guest.nix"
+  ];
+
+  boot.loader.grub = {
+    enable = true;
+    efiSupport = true;
+    efiInstallAsRemovable = true;
+  };
+
+  security.sudo.wheelNeedsPassword = false;
+
+  nix.settings.trusted-users = [ "root" "ghil" ];
+
+  services.openssh.openFirewall = true;
+  networking.firewall.allowedTCPPorts = [ 80 443 5222 5269 5281 ];
+
+age.secrets.namecheap-acme = {
+  file = ../../../secrets/namecheap-acme.age;
+  owner = "acme";
+  group = "acme";
+};
+
+security.acme = {
+  acceptTerms = true;
+  defaults.email = "glabrie85@gmail.com";
+  certs."ghil.dev" = {
+    dnsProvider = "namecheap";
+    webroot = null;
+    environmentFile = config.age.secrets.namecheap-acme.path;
+    group = "prosody";
+    reloadServices = [ "prosody" ];
+  };
+  certs."xmpp.ghil.dev" = {
+    dnsProvider = "namecheap";
+    webroot = null;
+    environmentFile = config.age.secrets.namecheap-acme.path;
+    group = "prosody";
+    reloadServices = [ "prosody" ];
+  };
+};
+
+services.prosody = {
+  enable = true;
+  admins = [ "ghil@ghil.dev" ];
+
+  ssl = {
+    cert = "/var/lib/acme/xmpp.ghil.dev/cert.pem";
+    key = "/var/lib/acme/xmpp.ghil.dev/key.pem";
+  };
+
+  virtualHosts."ghil.dev" = {
+    domain = "ghil.dev";
+    enabled = true;
+    ssl = {
+      cert = "/var/lib/acme/ghil.dev/cert.pem";
+      key = "/var/lib/acme/ghil.dev/key.pem";
+    };
+  };
+
+  muc = [{
+    domain = "conference.ghil.dev";
+  }];
+
+  httpFileShare = {
+    domain = "xmpp.ghil.dev";
+    http_host = "xmpp.ghil.dev";
+  };
+};
+
+disko.devices.disk.main = {
+      device = "/dev/sda";
+      type = "disk";
+      content = {
+        type = "gpt";
+        partitions = {
+          bios = {
+            size = "1M";
+            type = "EF02";
+          };
+          esp = {
+            size = "500M";
+            type = "EF00";
+            content = {
+              type = "filesystem";
+              format = "vfat";
+              mountpoint = "/boot";
+            };
+          };
+          root = {
+            size = "100%";
+            content = {
+              type = "filesystem";
+              format = "ext4";
+              mountpoint = "/";
+            };
+          };
+        };
+      };
+    };
+  };
+}
