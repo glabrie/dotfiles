@@ -31,6 +31,7 @@
       ncdu
       neovim
       nmap
+      profanity
       rmpc
       ripgrep
       shotwell

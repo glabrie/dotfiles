@@ -39,6 +39,7 @@ Small definition module adding cli utilities that are needed on every system.
       ncdu
       neovim
       nmap
+      profanity
       rmpc
       ripgrep
       shotwell
