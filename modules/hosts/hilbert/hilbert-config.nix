@@ -11,7 +11,7 @@
     };
 
 flake.modules.nixos.hilbert =
-{ modulesPath, config, ... }:
+{ modulesPath, config, lib, ... }:
 {
   networking.hostName = "hilbert";
   nixpkgs.hostPlatform = "x86_64-linux";
@@ -88,7 +88,39 @@ services.prosody = {
     domain = "xmpp.ghil.dev";
     http_host = "xmpp.ghil.dev";
   };
+
+  modules.register = false;
 };
+
+services.biboumi = {
+  enable = true;
+  settings = {
+    hostname = "irc.ghil.dev";
+    admin = [ "ghil@ghil.dev" ];
+    password = "CviotwR2sz9A4qLyt7WWfJqiuTmuhINe";
+    identd_port = 0;
+    log_level = 0;
+    persistent_by_default = true;
+  };
+};
+
+users.users.biboumi = {
+  isSystemUser = true;
+  group = "biboumi";
+};
+users.groups.biboumi = {};
+
+systemd.services.biboumi.serviceConfig = {
+  DynamicUser = lib.mkForce false;
+  User = lib.mkForce "biboumi";
+  Group = lib.mkForce "biboumi";
+  RootDirectory = lib.mkForce "";
+};
+
+services.prosody.extraConfig = ''
+  Component "irc.ghil.dev"
+    component_secret = "CviotwR2sz9A4qLyt7WWfJqiuTmuhINe"
+'';
 
 disko.devices.disk.main = {
       device = "/dev/sda";

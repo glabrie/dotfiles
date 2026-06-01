@@ -47,6 +47,7 @@
         v = "emacsclient -t";
         vpn-on = "sudo systemctl start wg-quick-protonvpn";
         vpn-off = "sudo systemctl stop wg-quick-protonvpn";
+        deploy-hilbert = "nixos-rebuild switch --flake path:/home/ghil/.dotfiles#hilbert --target-host ghil@178.156.220.220 --use-remote-sudo";
       };
 
     };
